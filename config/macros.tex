@@ -1,0 +1,26 @@
+\theoremstyle{definition}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}[theorem]{Corollario}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposizione}
+\newtheorem*{Claim}{Claim}
+\newtheorem{conjecture}{Congettura}
+\newtheorem{definition}[theorem]{Definizione}
+\newtheorem{example}[theorem]{Esempio} 
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Osservazione}
+
+\numberwithin{equation}{section}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\val}{\mathtt{val}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\B}{\operatorname{B}}
+
+\renewcommand{\implies}{\Rightarrow}
+
+\newcommand{\lorenzo}[1]{\textcolor{teal}{(LF\ifstrempty{#1}{}{: #1})}}
+\newcommand{\todo}[1]{\textcolor{red}{(TODO\ifstrempty{#1}{}{: #1})}}

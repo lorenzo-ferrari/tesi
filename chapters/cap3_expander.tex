@@ -1,0 +1,67 @@
+\chapter{Grafi expander} \label{chap:expander}
+
+% mi piacerebbe mettere una citazione all'inizio di ogni capitolo
+
+\section{Grafi e camminate aleatorie} 
+
+\section{Cos'è un expander}
+
+\section{Proprietà}
+
+\begin{restatable}{lemma}{expanderwalkendpoints} \label{thm:expander-walk-endpoints}
+	Sia $G = (V, E)$ un $(n, d)$-expander e $S \subseteq V$ un sottoinsieme dei
+	vertici di cardinalità al più $|V|/2$. Vale
+	\[
+		\Pr_{(u, v) \in E}[u \in S, v \in S] \le
+		\frac{|S|}{|V|} \left( \frac12 + \frac{\lambda(G)}{2} \right).
+	\]
+\end{restatable}
+
+\begin{proof}[Dimostrazione del Lemma \ref{thm:expander-walk-endpoints}]
+	\todo{}.
+\end{proof}
+
+\begin{lemma} \label{thm:Din06Prop2.5}
+	% serve without self-loops?
+	Sia $G = (V, E)$ un $(d, \lambda)$-expander e $F \subseteq E$ un sottoinsieme degli
+	archi senza cappi. Sia $K$ la distribuzione di probabilità sui vertici indotta
+	dalla scelta di un estremo di un arco in $F$ scelto uniformemente a caso.
+	La probabilità $p$ che una camminata aleatoria che comincia con
+	distribuzione $K$ faccia l'$i+1$-esimo passo in $F$ è maggiorata da
+	$\frac{|F|}{|E|} + \lambda^i$.
+\end{lemma}
+
+\begin{proof}[Dimostrazione del Lemma \ref{thm:Din06Prop2.5}]
+	Sia $x$ il vettore distribuzione di $K$, cioè
+	$x_v = \frac{\deg_F(v)}{2 |F|}$.
+	Sia $y_v$ la probabilità che un passo da $v$ sia in $F$, cioè
+	$y = \frac{2 |F|}{d} x$.
+
+	Scomponiamo $x = x^\parallel + x^\perp$ con
+	$x^\parallel := \frac1n \mathbf{1}$. Vale
+	\[
+		p = \sum_{v \in V}{ y_v (A^i x)_v }
+		  = \left\langle y, A^i x \right\rangle.
+	\]
+
+	Osserviamo $\lVert x \rVert ^2 \le \left(\sum_v{\lvert x_v \rvert} \right)
+	\max_v{\lvert x_v \rvert} = \max_v{\lvert x_v \rvert}
+	\le \frac{d}{2 | F |}$. Applicando Cauchy-Schwarz otteniamo
+	\[
+		\left\langle y, A^i x^\perp \right\rangle
+		\le \lVert y \rVert \cdot \lVert A^i x^\perp \rVert
+		= \frac{2 |F|}{d} \lVert x \rVert \lambda^i \lVert x \rVert
+		\le \lambda^i.
+	\]
+
+	In conclusione,
+	\[
+		\left\langle y, A^i x \right\rangle
+		= \left\langle y, A^i x^\parallel \right\rangle
+		+ \left\langle y, A^i x^\perp \right\rangle
+		\le \frac{2 |F|}{d n} + \lambda^i.
+	\]
+\end{proof}
+
+\section{Esistenza di expander}
+
