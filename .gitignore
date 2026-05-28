@@ -1,9 +1,18 @@
+# LaTeX
 *.pdf
 *.aux
 *.log
-*.nav
-*.out
-*.snm
 *.toc
-*.vrb
-
+*.out
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.thm
+*.lof
+*.lot
+*.run.xml
+*.bcf
+*.xdv
+*.dvi
