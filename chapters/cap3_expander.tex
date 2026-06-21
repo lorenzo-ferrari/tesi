@@ -8,37 +8,37 @@
 
 \section{Proprietà}
 
+\iftrue
 \begin{restatable}{lemma}{expanderwalkendpoints} \label{thm:expander-walk-endpoints}
-	Sia $G = (V, E)$ un $(n, d)$-expander e $S \subseteq V$ un sottoinsieme dei
+	Sia $G = (V, E)$ un $(n, d, \lambda)$-expander e $S \subseteq V$ un sottoinsieme dei
 	vertici di cardinalità al più $|V|/2$. Vale
 	\[
 		\Pr_{(u, v) \in E}[u \in S, v \in S] \le
-		\frac{|S|}{|V|} \left( \frac12 + \frac{\lambda(G)}{2} \right).
+		\frac{|S|}{|V|} \left( \frac12 + \frac{\lambda}{2} \right).
 	\]
 \end{restatable}
 
 \begin{proof}[Dimostrazione del Lemma \ref{thm:expander-walk-endpoints}]
 	\todo{}.
 \end{proof}
+\fi
 
-\begin{lemma} \label{thm:Din06Prop2.5}
-	% serve without self-loops?
-	Sia $G = (V, E)$ un $(d, \lambda)$-expander e $F \subseteq E$ un sottoinsieme degli
-	archi senza cappi. Sia $K$ la distribuzione di probabilità sui vertici indotta
+\begin{restatable}{lemma}{expanderFwalk} \label{thm:Din06Prop2.5}
+	% serve without self-loops? No, purché un cappio abbia contributo 2 al grado
+	Sia $G = (V, E)$ un $(d, \lambda)$-expander e $F \subseteq E$ un sottoinsieme
+	degli archi. Sia $K$ la distribuzione di probabilità sui vertici indotta
 	dalla scelta di un estremo di un arco in $F$ scelto uniformemente a caso.
 	La probabilità $p$ che una camminata aleatoria che comincia con
-	distribuzione $K$ faccia l'$i+1$-esimo passo in $F$ è maggiorata da
+	distribuzione $K$ faccia l'$(i+1)$-esimo passo in $F$ è maggiorata da
 	$\frac{|F|}{|E|} + \lambda^i$.
-\end{lemma}
+\end{restatable}
 
 \begin{proof}[Dimostrazione del Lemma \ref{thm:Din06Prop2.5}]
-	Sia $x$ il vettore distribuzione di $K$, cioè
-	$x_v = \frac{\deg_F(v)}{2 |F|}$.
-	Sia $y_v$ la probabilità che un passo da $v$ sia in $F$, cioè
+	Siano $x$ il vettore distribuzione di $K$, cioè	$x_v = \frac{\deg_F(v)}
+	{2 |F|}$, e $y_v$ la probabilità che un arco incidente a $v$ sia in $F$, cioè
 	$y = \frac{2 |F|}{d} x$.
-
 	Scomponiamo $x = x^\parallel + x^\perp$ con
-	$x^\parallel := \frac1n \mathbf{1}$. Vale
+	$x^\parallel := \frac1n \mathbf{1}$. Vale per definizione
 	\[
 		p = \sum_{v \in V}{ y_v (A^i x)_v }
 		  = \left\langle y, A^i x \right\rangle.
@@ -46,11 +46,12 @@
 
 	Osserviamo $\lVert x \rVert ^2 \le \left(\sum_v{\lvert x_v \rvert} \right)
 	\max_v{\lvert x_v \rvert} = \max_v{\lvert x_v \rvert}
-	\le \frac{d}{2 | F |}$. Applicando Cauchy-Schwarz otteniamo
+	\le \frac{d}{2 | F |}$ da cui, applicando la disuguaglianza di Cauchy-Schwarz
+	e la definizione variazionale di $\lambda$, otteniamo
 	\[
 		\left\langle y, A^i x^\perp \right\rangle
 		\le \lVert y \rVert \cdot \lVert A^i x^\perp \rVert
-		= \frac{2 |F|}{d} \lVert x \rVert \lambda^i \lVert x \rVert
+		\le \frac{2 |F|}{d} \lVert x \rVert \cdot \lambda^i \lVert x \rVert
 		\le \lambda^i.
 	\]
 
@@ -59,9 +60,59 @@
 		\left\langle y, A^i x \right\rangle
 		= \left\langle y, A^i x^\parallel \right\rangle
 		+ \left\langle y, A^i x^\perp \right\rangle
-		\le \frac{2 |F|}{d n} + \lambda^i.
+		\le \frac{2 |F|}{n d} + \lambda^i.
 	\]
 \end{proof}
+
+\begin{lemma}[Expander mixing lemma] \label{thm:mixing-lemma}
+	Sia $G = (V, E)$ un grafo $(d, \lambda)$-expander e siano $S, T \subseteq V$
+	due sotttoinsiemi disgiunti di nodi. Allora, detto $E(S, T)$ il numero di
+	archi tra $S$ e $T$, vale
+	\[
+		\left| E(S, T) - \frac{d}{n} |S||T| \right| \le \lambda \sqrt{|S| |T|}.
+	\]
+\end{lemma}
+\begin{proof}
+	Dettta $A$ la matrice di adiacenza rinormalizzata di $G$, considera $B = A - \frac{d}{n}J$, con $J$ la matrice uno in ogni entrata.
+	\todo{vedi quaderno.}
+\end{proof}
+
+A volte è utile specializzare il mixing lemma per stimare il numero di archi
+tra un insieme e il suo complementare, come segue.
+\begin{lemma} \label{thm:ESbarS}
+	Sia $G = (V, E)$ un $(n, d, \lambda)$-expander e $S \subseteq V$ un
+	sottoinsieme dei vertici. Allora
+	\[
+		E(S, \bar{S}) \ge (1 - \lambda)\frac{d}{n}|S||\bar{S}|.
+	\]
+\end{lemma}
+\begin{proof}
+	Esprimiamo $E(S, \bar S)$ come un opportuno prodotto scalare e analizziamo
+	separatamente componente parallela e perpendicolare al vettore costante.
+	Detta $A$ la matrice di adiacenza rinormalizzata, siano $\mathbf{1}_S$ e
+	$\mathbf{1}_{\bar{S}}$ i vettori indicatori di $S$ e del suo complementare.
+	Siano anche $\mathbf{1}_S^\parallel = \frac{|S|}{n} \mathbf{1}$ e
+	$\mathbf{1}_S^\perp = \mathbf{1}_S - \mathbf{1}_S^\parallel$ le componenti
+	di $\mathbf{1}_S$ parallela e perpendicolare a $\mathbf{1}$.
+	Vale
+	\begin{align*}
+		\frac{1}{d} E(S, \bar{S}) &= \langle \mathbf{1}_S, A \mathbf{1}_{\bar S} \rangle \\
+		&= \langle \mathbf{1}_S, A (\mathbf{1} - \mathbf{1}_{\bar S}) \rangle \\
+		&= \langle \mathbf{1}_S, \mathbf{1} \rangle
+			- \langle \mathbf{1}_S, A \mathbf{1}_S \rangle \\
+		&= |S| - \langle \mathbf{1}_S^\parallel + \mathbf{1}_S^\perp,
+			A (\mathbf{1}_S^\parallel + \mathbf{1}_S^\perp ) \rangle \\
+		&= |S| - \langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\parallel \rangle
+			- \langle \mathbf{1}_S^\perp, A \mathbf{1}_S^\perp \rangle
+			- 2 \langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\perp \rangle \\
+		&\ge |S| - \langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\parallel \rangle
+			- \lambda \langle \mathbf{1}_S^\perp, \mathbf{1}_S^\perp \rangle \\
+		&= |S| - \frac{|S|^2}{n} - \lambda\left(|S| - \frac{|S|^2}{n}\right) \\
+		&= (1 - \lambda)\frac{|S|}{n}(n - |S|) = (1 - \lambda) \frac1{n} |S| |\bar S|. \\
+	\end{align*}
+\end{proof}
+
+Significato dell'expander mixing lemma, quello è proprio il valore atteso di archi in un grafo random.
 
 \section{Esistenza di expander}
 
