@@ -7,7 +7,7 @@ dimostrazione di Dinur \cite{Din06}, per cui il ruolo degli expander è cruciale
 
 \begin{lemma}[Lemma chiave del \textbf{PCP}] \label{thm:pcp-key-lemma}
 	Esistono costanti $q_0 \ge 3$, $\varepsilon_0 > 0$ e una CL-trasformazione $f$
-	tra istanze di $q_0\mathtt{CSP}_2$ tale che per ogni istanza $\varphi$, detta
+	tra istanze di $q_0\CSP_2$ tale che per ogni istanza $\varphi$, detta
 	$\psi = f(\varphi)$, vale
 	\[
 		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - 2 \varepsilon
@@ -21,8 +21,8 @@ di due trasformazioni la cui esistenza è garantita dai seguenti lemmi.
 \begin{lemma}[Amplificazione del gap \cite{Din06}] \label{thm:gap-amplification}
 	Per ogni scelta di $\ell, q \in \N$, esistono costanti $W \in \N$,
 	$\varepsilon_0 > 0$ e una CL-trasformazione $g_{\ell, q}$ da istanze $\varphi$
-	di $q\mathtt{CSP}_2$ a istanze $\psi = g_{\ell, q}(\varphi)$ di
-	$2\mathtt{CSP}_W$ che soddisfa
+	di $q\CSP_2$ a istanze $\psi = g_{\ell, q}(\varphi)$ di
+	$2\CSP_W$ che soddisfa
 	\[
 		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \ell \varepsilon
 	\]
@@ -31,86 +31,72 @@ di due trasformazioni la cui esistenza è garantita dai seguenti lemmi.
 
 \begin{lemma}[Riduzione dell'alfabeto] \label{thm:alphabet-reduction}
 	Esiste una costante $q_0$ a una CL-trasformazione $h$ da istanze $\varphi$ di
-	$2\mathtt{CSP}$ su un qualunque alfabeto a istanze $\psi = h(\varphi)$ di
-	$q_0 \mathtt{CSP}_2$ che soddisfa
+	$2\CSP$ su un qualunque alfabeto a istanze $\psi = h(\varphi)$ di
+	$q_0 \CSP_2$ che soddisfa
 	\[
-		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \ell / 3.
+		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon / 3.
 	\]
 \end{lemma}
 
 \section{Amplificazione del gap}
 
 Per dimostrare il Lemma \ref{thm:gap-amplification} esibiamo una trasformazione
-$g$ che mappi istanze di $q\mathtt{CSP}_2$ a istanze di $2\mathtt{CSP}_W$ con
-$W$ sufficientemente grande in modo che aumenti la minima frazione di vincoli
+$g$ che mappi istanze di $q\CSP_2$ a istanze di $2\CSP_W$ con
+$W$ sufficientemente grande e tale che aumenti la minima frazione di vincoli
 violati.
 
 Notiamo che se fossero permessi
 (a) un aumento polinomiale nella taglia dell'istanza e
 (b) arietà maggiore di $2$, basterebbe, per un qualche intero $k$, trasformare
-$\varphi$ in un'istanza di $k q \mathtt{CSP}_2$ con le stesse variabili, ma con
-un vincolo per ogni $k$-upla di vincoli in $\varphi$. In questo modo, la minima
-frazione di vincoli violata salirebbe a
+$\varphi$ in un'istanza di $k q \CSP_2$ con le stesse variabili e un
+vincolo per ogni $k$-upla di vincoli in $\varphi$. In questo modo, la minima
+frazione di vincoli violata sale a
 $1 - (1 - \varepsilon)^k \ge (k - 1)\varepsilon$ per tutti gli $\varepsilon$
 sufficientemente piccoli.
-Un'impiego astuto degli expander permette di evitare (a), ma per evitare anche
-(b) è necessario un approccio più sofisticato.
+L'impiego degli expander permetterebbe un aumento solo lineare in taglia, ma
+per ottenere arietà $2$ è necessario un approccio più sofisticato.
 
 \subsection{Amplificazione del gap di Dinur}
 
-Sarà cruciale il Lemma $\ref{thm:expander-walk-endpoints}$, dimostrato nel capitolo \ref{chap:expander}, che riportiamo qui per comodità.
+Sarà cruciale il Lemma $\ref{thm:Din06Prop2.5}$, dimostrato nel capitolo \ref{chap:expander}, che riportiamo qui per comodità.
 
-\expanderwalkendpoints*
+\expanderFwalk*
 
-Applicando il Lemma \ref{thm:expander-walk-endpoints} alla potenza $\ell$-esima
-di $G$ si ottiene una maggiorazione sulla probabilità che entrambi gli estremi
-di una camminata aleatoria di lunghezza $(\ell - 1)$ siano in $S$, nello specifico
-	\[
-		\Pr_{(u, v) \in E(G^\ell)}[u \in S, v \in S] \le
-		\frac{|S|}{|V|} \left( \frac12 + \frac{\lambda(G)^\ell}{2} \right).
-	\]
-
-Diciamo che un'istanza $\varphi$ di $q \mathtt{CSP}_W$ è \emph{livornese} se
-soddisfa le seguenti tre proprietà:
+Diciamo che un'istanza $\varphi$ di $q \CSP_W$ è \emph{amplificabile} se
+soddisfa le seguenti tre proprietà. Detto $G_\varphi$ il grafo soggiacente a
+$\varphi$:
 \begin{enumerate}[label=(\roman*)]
 	\item l'arietà di $\varphi$ è $2$, cioè $q = 2$;
-	\item detto $G_\varphi$ il grafo soggiacente a $\varphi$, questo è
-		$d$-regolare per una costante $d$ e metà degli archi uscenti da ogni
-		nodo sono cappi;
-	\item il grafo $G_\varphi$ è un buon expander, cioè vale
-		$\lambda(G_\varphi) \le 0.9$.
+	\item il grafo $G_\varphi$ è un	$(d, \lambda)$-expander per una costante $d$
+		e $\lambda = 0.9$;
+	\item metà degli archi uscenti da ogni nodo di $G_\varphi$ sono cappi.
 \end{enumerate}
 
 A meno di una perdita di gap per la quale è facile compensare, potremo supporre
-la nostra istanza $\varphi$ sia livornese. Vale nello specifico il seguente
-
-\begin{lemma}
-	Esiste una CL-trasformazione da istanze di $q\mathtt{CSP}$ a istanze livornesi.
+la nostra istanza $\varphi$ sia amplificabile. Nello specifico, esiste una
+CL-trasformazione da istanze di $q\CSP$ a istanze amplificabili. Rimandiamo
+alla Sezione \ref{subsec:istanze-amplificabili} per la dimostrazione.
 \end{lemma}
 
-\begin{proof}
-	\todo{Perdi un po' di gap, ma poco male.}
-\end{proof}
-
-Il resto della dimostrazione si occupa di amplificare il gap di istanze livornesi.
+Il resto della dimostrazione si occupa di amplificare il gap di istanze amplificabili.
 
 \begin{lemma}[Potenza di un'istanza] \label{thm:powering}
-	Esiste un algoritmo efficiente che, data un'istanza livornese $\varphi$ e un
-	intero $t$ produce un'istanza $\varphi^t$ is $2\mathtt{CSP}$ tale che:
+	Esiste un algoritmo efficiente che, data un'istanza amplificabile $\varphi$ e un
+	intero $t$ produce un'istanza $\varphi^t$ di $2\CSP$ tale che:
 	\begin{enumerate}
-		\item l'istanza $\varphi^t$ è un'istanza di $2\mathtt{CSP}_{W'}$ con alfabeto
+		\item l'istanza $\varphi^t$ è un'istanza di $2\CSP_{W'}$ con alfabeto
 			di cardinalità $W' < W^{d^{3 t}}$, dove $d$ è il grado del grafo
 			soggiacente a $\varphi$ e $W$ l'alfabeto di $\varphi$;
 		\item se $\varphi$ è soddisfacibile, anche $\varphi^t$ lo è;
-		\item per ogni $\varepsilon < \frac1{d \sqrt{t}}$,
+		\item per ogni $\varepsilon < \frac1{\sqrt{t}}$,
 			se $\val(\varphi) < 1 - \varepsilon$, allora
 			$\val(\varphi^t) \le 1 - \varepsilon'$, con
-			$\varepsilon' = \frac{\sqrt{t}}{10^5 d W^4} \varepsilon$.
+			$\varepsilon' = \frac{\sqrt{t}}{10^4 W^5} \varepsilon$.
 	\end{enumerate}
 \end{lemma}
 
 \begin{proof}[Dimostrazione del Lemma~\ref{thm:powering}]
-	Per $t$ piccolo, cioè $t \le 10^5  d W^4$, la tesi è banale. Supponiamo
+	Per $t$ piccolo, cioè $\sqrt{t} \le 10^4 W^5$, la tesi è banale. Supponiamo
 	dunque $t$ sufficientemente grande.
 
 	La formula $\varphi^t$ avrà lo stesso numero di variabili di $\varphi$.
@@ -154,14 +140,14 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 	\subsubsection{Estrarre un assegnamento per $\varphi$}
 	Per dimostrare la proprietà 3, trasformiamo ogni assegnamento di $\mathbf{y}$
 	per $\varphi^t$ in un assegnamento di $\mathbf{x}$ per $\varphi$. Mostreremo
-	che se l'assegnamento alle vecchie variabili viola anche solo ``pochi''
-	(una frazione $\varepsilon$ dei) vincoli, l'assegnamento alle nuove variabili
+	che se l'assegnamento delle vecchie variabili viola anche solo ``pochi''
+	(una frazione $\varepsilon$ dei) vincoli, l'assegnamento delle nuove variabili
 	ne viola necessariamente ``tanti'' (una frazione $\Omega(\sqrt{t}\varepsilon)$).
 
 	Per ogni variabile $x_i$ di $\varphi$, definiamo la variabile aleatoria
 	$Z_i \in [W]$ come il risultato del seguente processo.
-	partendo dal nodo $x_i$, fai una camminata aleatoria di $t$ passi in
-	$G_\varphi$, raggiungi un certo nodo $x_k$ e restituisci l'opinione di $y_k$
+	partendo dal nodo $x_i$, si fa una camminata aleatoria di $t$ passi in
+	$G_\varphi$, questa raggiunge un certo nodo $x_k$ e restituisce l'opinione di $y_k$
 	sulla variabile $x_i$. Detta $z_i$ la moda di $Z_i$, chiamiamo
 	\emph{assegnamento di maggioranza} quello corrispondente a $z_1, \ldots, z_n$.
 	Informalmente, $z_i$ corrisponde all'opinione sul valore di $x_i$ più
@@ -172,9 +158,9 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 
 	Poiché $\val(\varphi) \le 1 - \varepsilon$, un qualunque assegnamento alle
 	variabili di $\varphi$ viola almeno una frazione $\varepsilon$ dei vincoli.
-	Sia allora $F \subseteq E(G_\varphi)$ un sottoinsieme di $\varepsilon m =
-	\varepsilon n d / 2$ vincoli violati dall'assegnamento di maggioranza.
-	\todo{Dire una parola sul perché possiamo fregarcene degli arrotondamenti.}
+	Sia allora $F \subseteq E(G_\varphi)$ un sottoinsieme di $\varepsilon m$
+	vincoli violati dall'assegnamento di maggioranza.
+	% \todo{Dire una parola sul perché possiamo fregarcene degli arrotondamenti.}
 	Useremo quest'insieme per mostrare che l'assegnamento ad $\mathbf{y}$ viola
 	almeno una frazione	$\Omega(\sqrt{t} \varepsilon)$ dei vincoli di $\varphi^t$.
 
@@ -196,13 +182,12 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 	$d$-regolare, vale per ogni arco $e$ di $G_\varphi$ e ogni
 	$j \in \{ 1, \ldots, 2t + 1 \}$
 		\[
-			\Pr[e \text{ è il $j$-esimo arco sul percorso}] = \frac{1}{|E|} =
-			\frac{2}{n d}.
+			\Pr[e \text{ è il $j$-esimo arco sul percorso}] = \frac{1}{|E|}.
 		\]
 
 	\begin{lemma} \label{thm:mid-archi-consistenti}
-		Sia $\delta < \frac{1}{100 W}$ tale che $\delta \sqrt{t}$ sia intero.
-		Per ogni arco $e$ di $G_\varphi$ e
+		Sia $\delta < \frac{1}{100 W}$ con $\delta \sqrt{t}$ intero.
+		Per ogni arco $e$ di $G_\varphi$ e indice
 		$j \in \{ t - \delta \sqrt{t}, \ldots, t + \delta \sqrt{t} \}$ vale
 		\[
 			\Pr[\text{il $j$-esimo arco sul cammino è consistente} \mid
@@ -212,12 +197,12 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 
 	\begin{proof}[Dimostrazione del Lemma \ref{thm:mid-archi-consistenti}]
 		L'intuizione dietro al lemma è che poiché metà degli archi di $G_\varphi$
-		sono cappi, una passeggiata aleatoria di lunghezza in
-		$[t - \delta \sqrt{t}, t + \delta \sqrt{t}]$ è statisticamente molto simile
+		sono cappi, una passeggiata aleatoria di lunghezza compresa tra
+		$t - \delta \sqrt{t}$ e  $t + \delta \sqrt{t}$ è statisticamente molto simile
 		a una passeggiata aleatoria di lunghezza $t$.
 
-		Formalmente, il lemma è dimostrato invertendo il punto di vista sul modo in
-		cui il percorso è generato. Un percorso di lunghezza $2t + 1$ che contiene
+		Formalmente, il lemma è dimostrato cambiando punto di vista sul modo in
+		cui la passeggiata è generato. Un cammino di lunghezza $2t + 1$ che contiene
 		$e = (i_j, i_{j + 1})$ come $j$-esimo arco si può generare concatenando una
 		passeggiata aleatoria di lunghezza $j$ da $i_j$, l'arco $e$ e una 
 		passeggiata di lunghezza $2t - j$ da $i_{j + 1}$ indipendente dalla prima.
@@ -243,8 +228,9 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 
 		Vale inoltre il seguente
 		\begin{Claim}
-			Per ogni $t$ e $t'$ con $|t - t'| \le \delta \sqrt{t}$, vale che $S_t$ e
-			$S_{t'}$ sono a distanza statistica al più $10 \delta$. In altre parole,
+			Per ogni $t$ e $t'$ con $|t - t'| \le \delta \sqrt{t}$, le variabili
+			aleatorie $S_t$ e $S_{t'}$ sono a distanza statistica al più $10 \delta$.
+			In altre parole,
 			\[
 				\frac12 \sum_{m}{ \left| \Pr[S_t = m] - \Pr[S_{t'} = m]	\right| }
 				\le 10 \delta.
@@ -253,10 +239,6 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 		\begin{proof}[Dimostrazione del claim]
 			\todo{}.
 		\end{proof}
-
-		% Chiamiamo $\ell$-passeggiata una passeggiata aleatoria di lunghezza $\ell$
-		% in $G_\varphi$ e $\ell$-corsa una passeggiata aleatoria di lunghezza $\ell$
-		% in $G_\varphi$ privato dei cappi.
 
 		Dunque la distribuzione dell'estremo di una passeggiata aleatoria di lunghezza
 		entro $t \pm \delta \sqrt{t}$ è statisticamente vicina a quella per una
@@ -303,11 +285,10 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 	\begin{Claim}
 		Sia $V$ come sopra. Allora
 		\[
-			\E[V^2] \le 30 \varepsilon \delta \sqrt{t} d.
+			\E[V^2] \le 100 \varepsilon \delta \sqrt{t}.
 		\]
 	\end{Claim}
 	\begin{proof}
-		\todo{}
 		Sia $V'$ il numero di archi nell'intervallo centrale e in $F$.
 		Poiché $V$ conta il numero di archi in $F$ \emph{e}	consistenti,
 		vale $V \le V'$.
@@ -318,33 +299,53 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 
 		Nello specifico, per $j \in \{ t - \delta \sqrt{t}, \ldots, t + \delta
 		\sqrt{t} \}$ sia $I_j$ l'indicatrice dell'evento ``il $j$-esimo arco è in
-		$F$''. Sia $S \subseteq V$ l'insieme degli estremi degli archi in $F$, da cui
-		$|S| \le 2 |F| \le 2 \varepsilon \frac{n d}{2} = n d \varepsilon$. Allora
+		$F$''.
+
+		\begin{lemma} \label{thm:Din06Prop6.5}
+			Siano $i < j$ due indici e $F \subseteq E$ un sottoinsieme degli archi.
+			Allora, con la notazione sopra,
+			\[
+				\E[I_i I_j] \le \frac{|F|}{|E|} \left( \frac{|F|}{|E|} +
+					\lambda^{j - i - 1} \right).
+			\]
+		\end{lemma}
+		\begin{proof}
+			Osserviamo innanzitutto	$\Pr[Z_i = 1] = \frac{|F|}{|E|}$. Allora,
+			\[
+				\E[I_i I_j] = \Pr[I_i I_j = 1] = \Pr[I_i = 1]\Pr[I_j = 1 \mid I_i = 1]
+				= \frac{|F|}{|E|} \cdot \Pr[I_j = 1 \mid I_i = 1].
+			\]
+			Se $i = 1$, allora per il Lemma \ref{thm:Din06Prop2.5},
+			\[
+				\Pr_\mathbf{e}[I_j = 1 \mid I_1 = 1]
+				\le \frac{|F|}{|E|} + \lambda(G_\varphi)^{j - 2},
+			\]
+			Poiché la distribuzione di $v_1$ condizionata a $I_1 = 1$ è proprio la
+			distribuzione $K$, definita nel Lemma \ref{thm:Din06Prop2.5}.
+			Ricordando che la distribuzione dell'ultimo arco percorso è in ogni
+			istante uniforme, lo stesso vale per la distribuzione di $v_i$ condizionata
+			a $I_i = 1$, da cui si ottiene la tesi.
+		\end{proof}
 
 		\begin{align*}
-			\E[V'^2] &= \E[ \sum_{j,j'} I_j I_{j'} ] \\
-			&= \E[ \sum_{j} I_j^2 ] + \E[ \sum_{j \neq j'} I_j I_{j'} ] \\
-			&= \varepsilon\delta\sqrt{t} + \E[ \sum_{j \neq j'} I_j I_{j'} ] \\ 
-			&= \varepsilon\delta\sqrt{t} + 2 \sum_{j < j'}
-				\Pr[(\text{il $j$-esimo arco sta in } F) \wedge
-				(\text{il $j'$-esimo arco sta in } F)] \\
-			&\leq \varepsilon\delta\sqrt{t} + 2 \sum_{j < j'}
-				\Pr[(\text{il $j$-esimo vertice sta in } S) \wedge
-				(\text{il $j'$-esimo vertice sta in } S)] \\
-			&\leq \varepsilon\delta\sqrt{t} + 2 \sum_{j < j'} \varepsilon d
-				\left( \frac12 + (\lambda(G))^{j'-j} \right) \\
-			&\leq \varepsilon\delta\sqrt{t} +
-				2 \varepsilon d (2 \delta^2 t + \delta \sqrt{t}) +
-				2 (2 \delta\sqrt{t} + 1) \varepsilon d
-					\sum_{k \geq 1} \lambda(G_\varphi)^k \\
-			&\leq \varepsilon\delta\sqrt{t} +
-				6 \delta^2 t \varepsilon d +
-				6 \delta\sqrt{t} \varepsilon d \sum_{k \geq 1} \lambda(G_\varphi)^k \\
-			&\leq \varepsilon\delta\sqrt{t} +
-				6 \delta^2 t \varepsilon d +
-				48 \delta\sqrt{t} \varepsilon d
-				\quad (\text{da $\lambda(G_\varphi) \le 0.9$})\\
-			&= \Omega(t)	\quad \text{\todo{PROBLEMI!!! vd. combpcp.pdf}}
+			\E[V'^2] &= \E[ \sum_{i, j} I_i I_{j'} ] \\
+			&= \E[ \sum_{i} I_i^2 ] + \E[ \sum_{i \neq j} I_i I_i ] \\
+			&= \varepsilon \delta \sqrt{t} + \sum_{i \neq j} \E[ I_i I_j ] \\ 
+			&\le \varepsilon \delta \sqrt{t} + 2 \sum_{i < j}
+				\frac{|F|}{|E|} \left( \frac{|F|}{|E|} + \lambda^{j - i - 1} \right) \\
+			&\le \varepsilon \delta \sqrt{t} +
+				2 \varepsilon^2 (2 \delta^2 t + \delta \sqrt{t}) +
+				2 \varepsilon (2 \delta \sqrt{t} + 1) \sum_{k \geq 0} \lambda^k \\
+			&\le \varepsilon \delta \sqrt{t} +
+				6 \varepsilon^2 \delta^2 t +
+				6 \varepsilon \delta \sqrt{t} \sum_{k \geq 0} \lambda^k \\
+			&\le \varepsilon\delta \sqrt{t} +
+				6 \varepsilon^2 \delta^2 t +
+				60 \varepsilon \delta \sqrt{t} \quad (\text{da } \lambda \le 0.9) \\
+			&\le \varepsilon \delta \sqrt{t} + 6 \varepsilon \delta \sqrt{t} +
+				60 \varepsilon \delta \sqrt{t} \quad \left(\text{da }
+				\varepsilon < \frac1{\sqrt{t}} \text{ e } \delta < 1\right) \\
+			&\le 100 \delta \sqrt{t} \varepsilon.
 	\end{align*}
 	\end{proof}
 
@@ -357,9 +358,128 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 	\end{proof}
 
 	Nel nostro caso, la stima del Lemma $\ref{thm:cs-estimate}$ diventa
-	$\Pr[V > 0] \ge \frac{\sqrt{t}}{10^5 d W^4}\varepsilon = \varepsilon'$ e il
-	Lemma \ref{thm:gap-amplification} è dimostrato.
+	\[
+		\Pr[V > 0] \ge \left( \frac{\delta \sqrt{t} \varepsilon}{W^2} \right)^2 \cdot
+		\frac1{100 \delta \sqrt{t} \varepsilon}
+		= \frac{\delta \sqrt{t}}{100 W^5} \varepsilon
+		= \frac{\sqrt{t}}{10^4 W^5} \varepsilon.
+	\]
+	e il Lemma \ref{thm:gap-amplification} è dimostrato.
+	\todo{momento, $W^4$?}
+\end{proof}
 
+\subsection{Ottenere istanze amplificabili} \label{subsec:istanze-amplificabili}
+
+Anche in questo caso, la chiave è comporre trasformazioni. Ogni trasformazione perde un po' di gap, ma produce istanze con le quali è più facile lavorare, fino a ottenere istanze amplificabili. La prima trasformazione produce istanze di $2\CSP_W$ per un opportuno $W$, cosicché si possa parlare di grafo soggiacente e non solo di ipergrafo soggiacente. La seconda trasformazione rende questo grafo regolare: stimare la perdita di gap in questo caso è la parte più delicata. Infinte, dato un grafo regolare non è difficile renderlo un expander i con abbastanza cappi a ogni nodo.
+
+\begin{lemma}
+	Esiste una CL-trasformazione da istanze $\varphi$ di $q\CSP$ a istanze $\psi$ di $2\CSP_{2^q}$ che soddisfa
+	\[
+		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon / q.
+	\]
+\end{lemma}
+\begin{proof}
+	Siano $\{ \varphi_i \}_{i \in [m]}$ i vincoli di $\varphi$. Le variabili di $\psi$ sono le variabili di $\varphi$ con l'aggiunta di una variabile $y_i$ per ogni vincolo $\varphi_i$ di $\varphi$. Il valore di $y_i$ rappresenta il valore delle $q$ variabili di cui il vincolo si interessa. I vincoli di $\psi$ sono nella forma $\{\psi_{i, j}\}_{i \in [m]}^{j \in [q]}$. Se $\varphi_i$ dipende esclusivamente dalle variabili $u_1, \dots, u_q$, il vincolo $\psi_{i,j}$ dice $u_j \in \{0, 1\}$, è consistente con $y_i$ e l'assegnamento indicato da $y_i$ soddisfa $\varphi_i$. Analogo se un vincolo dipende da altre $q$ variabili.
+	\todo{Scriverlo a modo.}
+\end{proof}
+
+
+\begin{lemma}
+	Esistono una costante $d$ e una CL-trasformazione da istanze $\varphi$ di $2\CSP_W$ a istanze $\psi$ di $2\CSP_W$ tali che il grafo soggiacente a $\psi$ sia $d$-regolare e valga
+	\[
+		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon / (100 W d).
+	\]
+\end{lemma}
+\begin{proof}
+\iffalse
+	Descriviamo innanzitutto la trasformazione dei relativi grafi soggiacenti, cioè
+	come ottenere $G_\psi$ a partire da $G_\varphi$.
+	Fissiamo $\{G_n\}_{n \in \mathbb{N}}$ una famiglia esplicita di expander
+	$d$-regolari.
+	Ad ogni nodo $v \in V(G_\varphi)$ corrisponde una ``nube'' di
+	$\deg_{G_\varphi}(v)$ corrispondenti nodi in $G_\psi$. Ad ogni nodo nella nube
+	si assegna in maniera biunivoca un arco incidente a $v$ in $G_\varphi$. Ogni
+	arco di $G_\varphi$ connette i nodi a lui assegnati in $G_\psi$.
+	Sui nodi appartenenti a una stessa nube si pone un expander della famiglia
+	fissata. Il grafo $G_\psi$ così costruito è dunque regolare di grado $d + 1$.
+\fi
+
+	Fissiamo una famiglia esplicita $\{G_n\}_{n \in \mathbb{N}}$ di expander
+	$d$-regolari.
+	A ogni variabile $u_i$ di $\varphi$	che appare in esattamente $k$ vincoli
+	corrispondono $k$ variabili	$y_i^1, \dots, y_i^k$ in $\psi$.
+	Le occorrenze di $u_i$ nei vincoli che lo coinvolgono si sostituiscono con
+	opportuni $y_i^j$, in modo tale che ogni $y_i^j$ appaia in esattamente uno
+	dei vincoli. Poniamo infine vincoli di uguaglianza tra le variabili
+	$y_i^j$ e $y_i^{j'}$ per ogni arco $(j, j')$ in $G_k$.
+
+	\todo{Illustrazione.}
+
+	Il grafo soggiacente a $\psi$ è per costruzione $(d + 1)$-regolare.
+	Chiaramente, se $\varphi$ è soddisfacibile, anche $\psi$ lo è.
+	Resta da maggiorare la perdita di gap.
+	Se $\varphi$ ha $m$ vincoli, allora $\psi$ ne ha per costruzione $m(d + 1)$.
+	Supponiamo valga $\val(\varphi) \le 1 - \varepsilon$ e mostriamo che un
+	qualunque assegnamento $\mathbf{y}$ delle variabili di $\psi$ viola almeno
+	$\frac{\varepsilon}{100 W d} m (d + 1) \le \frac{\varepsilon}{50 W} m$ vincoli
+	di $\psi$. A partire da $\mathbf{y}$, estraiamo un assegnamento
+	$\mathbf{u}$ per le variabili di $\varphi$ assegnando a $u_i$ il valore di
+	maggioranza tra $y_i^1, \dots, y_i^k$.
+	L'assegnamento $\mathbf{u}$, così come ogni altro assegnamento per $\varphi$,
+	viola almeno $\varepsilon m$ vincoli.
+	Intuitivamente, se l'opinione di maggioranza è poco popolare, allora tanti
+	vincoli di uguaglianza sono violati da $\mathbf{y}$. Se invece l'opinione di
+	maggioranza è molto popolare, abbastanza degli $\varespilon m$ vincoli
+	violati da $\mathbf{u}$ sono violati anche da $\mathbf{y}$.
+	Sia allora $t_i$ il numero di variabili $y_i^j$ in \emph{disaccordo} con
+	l'assegnamento di maggioranza. Vale	$0 \le t_i \le k(1 - \frac1{W})$.
+	
+	Se $\sum_{i=1}^n t_i \ge \frac{\varepsilon}{2} m$, allora abbastanza vincoli
+	di uguaglianza sono violati per le proprietà di mescolamento degli expander.
+	Posti infatti $S_i$ l'insieme degli $y_i^j$ che concordano con
+	$\mathbf{u}$ e $\bar{S}_i$ il suo complementare, per il Lemma \ref{thm:ESbarS}
+	vale $E(S_i, \bar{S}_i) \ge (1 - \lambda) \frac{d}{k} |S_i| |\bar{S}_i|
+	\ge (1 - \lambda)\frac{d}{k} \frac{k}{W} t_i \ge \frac{d}{10 W}t_i
+	\ge \frac{t_i}{10 W}$. Dunque, almeno $\frac1{10 W} \sum_{i = 1}^n t_i
+	\ge \frac{\varepsilon}{20 W} m$ vincoli di uguaglianza sono violati.
+
+	Se invece $\sum_{i=1}^n t_i < \frac{\varepsilon}{2} m$, allora almeno
+	$\frac{\varepsilon}{2} m$ degli $\varepsilon m$ vincoli violati da
+	$\mathbf{u}$ sono violati anche da $\mathbf{y}$.
+\end{proof}
+
+% commento sul perché adesso è facile?
+
+\begin{lemma}
+	Esistono una costante $d$ arbitrariamente grande e una CL-trasformazione da
+	istanze $\varphi$ di $2\CSP_W$ con grafo soggiacente $d'$-regolare per un
+	qualche $d' \le d$ a istanze $\psi$ di $2\CSP_W$ il cui grafo soggiacente
+	è un expander $4d$-regolare e tale che almeno metà degli archi uscenti da
+	ogni nodo che sono cappi. Vale inoltre
+	\[
+		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon / (10 d).
+	\]
+\end{lemma}
+\begin{proof}
+	Per il Teorema \ref{thm:expander-construction} esiste una costante $d$ e
+	una famiglia $\{G_n\}_{n \in \mathbb{N}}$ esplicita di $(0.1, d)$-expander.
+
+	Sia allora $\varphi$ un'istanza di $2\CSP_W$ come da ipotesi e sia $n$ il
+	suo numero di variabili. A meno di	aggiungere cappi banali, cioè
+	sempre soddisfatti, al grafo soggiacente a $\varphi$, possiamo assumere
+	$G_\varphi$ sia $d$-regolare.
+	Questa operazione riduce il gap al più di un fattore $d$.
+	Per ogni arco in $G_n$ poniamo un vincolo banale tra le corrispondenti
+	variabili di $\varphi$. Infine aggiungiamo a ogni variabile altri $2d$ cappi
+	banali. Il grafo risultante è dunque $4d$ regolare. L'aggiunta dei vincoli
+	banali riduce ulteriormente il gap di al più un fattore quattro.
+
+	Ricordiamo che per ogni grafo regolare $H$, vale $\lambda(H) \le 1$.
+	Dunque, dalla subadditività del modulo del secondo autovalore, segue
+	\[
+		\lambda(G_\psi) \le \frac34 + \frac14 \lambda(G_n) \le 0.9,
+	\]
+	nello specifico $G_\psi$ è un expander.
 \end{proof}
 
 \section{Riduzione dell'alfabeto}

@@ -8,7 +8,7 @@
 
 \section{Proprietà}
 
-\iftrue
+\iffalse
 \begin{restatable}{lemma}{expanderwalkendpoints} \label{thm:expander-walk-endpoints}
 	Sia $G = (V, E)$ un $(n, d, \lambda)$-expander e $S \subseteq V$ un sottoinsieme dei
 	vertici di cardinalità al più $|V|/2$. Vale
@@ -41,7 +41,7 @@
 	$x^\parallel := \frac1n \mathbf{1}$. Vale per definizione
 	\[
 		p = \sum_{v \in V}{ y_v (A^i x)_v }
-		  = \left\langle y, A^i x \right\rangle.
+		  = \langle y, A^i x \rangle.
 	\]
 
 	Osserviamo $\lVert x \rVert ^2 \le \left(\sum_v{\lvert x_v \rvert} \right)
@@ -49,7 +49,7 @@
 	\le \frac{d}{2 | F |}$ da cui, applicando la disuguaglianza di Cauchy-Schwarz
 	e la definizione variazionale di $\lambda$, otteniamo
 	\[
-		\left\langle y, A^i x^\perp \right\rangle
+		\big\langle y, A^i x^\perp \big\rangle
 		\le \lVert y \rVert \cdot \lVert A^i x^\perp \rVert
 		\le \frac{2 |F|}{d} \lVert x \rVert \cdot \lambda^i \lVert x \rVert
 		\le \lambda^i.
@@ -57,9 +57,9 @@
 
 	In conclusione,
 	\[
-		\left\langle y, A^i x \right\rangle
-		= \left\langle y, A^i x^\parallel \right\rangle
-		+ \left\langle y, A^i x^\perp \right\rangle
+		\langle y, A^i x \rangle
+		= \big\langle y, A^i x^\parallel \big\rangle
+		+ \big\langle y, A^i x^\perp \big\rangle
 		\le \frac{2 |F|}{n d} + \lambda^i.
 	\]
 \end{proof}
@@ -69,7 +69,7 @@
 	due sotttoinsiemi disgiunti di nodi. Allora, detto $E(S, T)$ il numero di
 	archi tra $S$ e $T$, vale
 	\[
-		\left| E(S, T) - \frac{d}{n} |S||T| \right| \le \lambda \sqrt{|S| |T|}.
+		\Big| E(S, T) - \frac{d}{n} |S||T| \Big| \le \lambda \sqrt{|S| |T|}.
 	\]
 \end{lemma}
 \begin{proof}
@@ -100,14 +100,14 @@ tra un insieme e il suo complementare, come segue.
 		&= \langle \mathbf{1}_S, A (\mathbf{1} - \mathbf{1}_{\bar S}) \rangle \\
 		&= \langle \mathbf{1}_S, \mathbf{1} \rangle
 			- \langle \mathbf{1}_S, A \mathbf{1}_S \rangle \\
-		&= |S| - \langle \mathbf{1}_S^\parallel + \mathbf{1}_S^\perp,
-			A (\mathbf{1}_S^\parallel + \mathbf{1}_S^\perp ) \rangle \\
-		&= |S| - \langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\parallel \rangle
-			- \langle \mathbf{1}_S^\perp, A \mathbf{1}_S^\perp \rangle
-			- 2 \langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\perp \rangle \\
-		&\ge |S| - \langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\parallel \rangle
-			- \lambda \langle \mathbf{1}_S^\perp, \mathbf{1}_S^\perp \rangle \\
-		&= |S| - \frac{|S|^2}{n} - \lambda\left(|S| - \frac{|S|^2}{n}\right) \\
+		&= |S| - \big\langle \mathbf{1}_S^\parallel + \mathbf{1}_S^\perp,
+			A (\mathbf{1}_S^\parallel + \mathbf{1}_S^\perp ) \big\rangle \\
+		&= |S| - \big\langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\parallel \big\rangle
+			- \big\langle \mathbf{1}_S^\perp, A \mathbf{1}_S^\perp \big\rangle
+			- 2 \big\langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\perp \big\rangle \\
+		&\ge |S| - \big\langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\parallel \big\rangle
+			- \lambda \big\langle \mathbf{1}_S^\perp, \mathbf{1}_S^\perp \big\rangle \\
+		&= |S| - \frac{|S|^2}{n} - \lambda\bigg(|S| - \frac{|S|^2}{n}\bigg) \\
 		&= (1 - \lambda)\frac{|S|}{n}(n - |S|) = (1 - \lambda) \frac1{n} |S| |\bar S|. \\
 	\end{align*}
 \end{proof}
@@ -115,4 +115,18 @@ tra un insieme e il suo complementare, come segue.
 Significato dell'expander mixing lemma, quello è proprio il valore atteso di archi in un grafo random.
 
 \section{Esistenza di expander}
+
+\section{Prodotto zig-zag}
+
+\begin{theorem} \label{thm:expander-construction}
+	Esiste una famiglia fortemente esplicita di $(\lambda, d)$-expander per
+	qualche $d \in \mathbb{N}$ e $\lambda < 1$.
+\end{theorem}
+\begin{proof}
+	TBD.
+\end{proof}
+
+Notiamo che grazie all'elevamento a potenza di grafi il Teorema
+\ref{thm:expander-construction} fornisce famiglie fortemente esplicite di
+$\lambda$-expander per ogni $\lambda > 0$ al prezzo di un aumento in $d$.
 
