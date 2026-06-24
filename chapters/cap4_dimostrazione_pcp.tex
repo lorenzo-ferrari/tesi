@@ -7,8 +7,8 @@ dimostrazione di Dinur \cite{Din06}, per cui il ruolo degli expander è cruciale
 
 \begin{lemma}[Lemma chiave del \textbf{PCP}] \label{thm:pcp-key-lemma}
 	Esistono costanti $q_0 \ge 3$, $\varepsilon_0 > 0$ e una CL-trasformazione $f$
-	tra istanze di $q_0\CSP_2$ tale che per ogni istanza $\varphi$, detta
-	$\psi = f(\varphi)$, vale
+	da istanze $\varphi$ di $q_0\CSP_2$ ad altre istanze $\psi = f(\varphi)$ di
+	$q_0\CSP_2$ che soddisfa
 	\[
 		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - 2 \varepsilon
 	\]
@@ -82,10 +82,10 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 
 \begin{lemma}[Potenza di un'istanza] \label{thm:powering}
 	Esiste un algoritmo efficiente che, data un'istanza amplificabile $\varphi$ e un
-	intero $t$ produce un'istanza $\varphi^t$ di $2\CSP$ tale che:
+	intero $t$, produce un'istanza $\varphi^t$ di $2\CSP$ tale che:
 	\begin{enumerate}
 		\item l'istanza $\varphi^t$ è un'istanza di $2\CSP_{W'}$ con alfabeto
-			di cardinalità $W' < W^{d^{3 t}}$, dove $d$ è il grado del grafo
+			di cardinalità $W' \le  W^{d^{3 t}}$, dove $d$ è il grado del grafo
 			soggiacente a $\varphi$ e $W$ l'alfabeto di $\varphi$;
 		\item se $\varphi$ è soddisfacibile, anche $\varphi^t$ lo è;
 		\item per ogni $\varepsilon < \frac1{\sqrt{t}}$,
@@ -106,7 +106,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 
 	Pensiamo al valore di $y_i$ come a un'opinione riguardo i valori delle variabili
 	originali a distanza al più $t + \sqrt{t} + 1$ da $x_i$ in $G_\varphi$.
-	Poiché il grafo è $d$-regolare, ci sono al più $d^{t + \sqrt{t} + 1} < d^{3 t}$
+	Poiché il grafo è $d$-regolare, ci sono al più $d^{t + \sqrt{t} + 1} \le d^{3 t}$
 	siffatti nodi, quindi le opinioni possono essere codificate con alfabeto
 	di taglia $W'$.
 	Osserviamo che non è detto le opinioni siano consistenti.
@@ -235,10 +235,77 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 				\frac12 \sum_{m}{ \left| \Pr[S_t = m] - \Pr[S_{t'} = m]	\right| }
 				\le 10 \delta.
 			\]
+			% {metterci i big/Big/...}
 		\end{Claim}
 		\begin{proof}[Dimostrazione del claim]
-			\todo{}.
+			\todo{Rivedere e sistemare le stime. Mettiamone una tight.}
+			Indichiamo con $d(X, Y)$ la distanza statistica di generiche variabili
+			aleatorie $X$ e $Y$. Mostriamo la stima per $t' = t + \delta \sqrt{t}$.
+			
+			% \begin{equation} \label{eq:sdtriangleineq}
+			% d(S_t, S_{t'}) \le d(S_t, S_{t + 1}) + \dots +
+			% d(S_{t + \delta \sqrt{t} - 1}, S_{t + \delta \sqrt{t}}).
+			% \end{equation}
+			Stimiamo innanzitutto la distanza statistica tra $S_n$ e $S_{n + 1}$.
+			Otterremo $d(S_n, S_{n + 1}) \le \frac1{\sqrt{n}}$, dopodiché sarà
+			sufficiente applicare la disuagaglianza triangolare.
+
+			Poiché le variabili in questione sono binomiali di parametro $1/2$, vale
+			$\Pr[S_{n + 1} = m] = \frac12 \Pr[S_n = m] + \frac12 \Pr[S_n = m - 1]$.
+			La distanza statistica tra $S_n$ e $S_{n + 1}$ si scrive come
+			\begin{equation} \label{eq:sdist}
+			\begin{align*}
+				d(S_n, S_{n + 1}) &= \frac12 \sum_{m = 0}^{n + 1}
+					| \Pr[S_n = m] - \Pr[S_{n + 1} = m] | \\
+				&= \frac12 \sum_{m = 0}^{n + 1}
+					\frac12 | \Pr[S_n = m] - \Pr[S_n = m - 1] |.
+			\end{align*}
+			\end{equation}
+			Detta $M = \lfloor \frac{n}{2} \rfloor$ la moda di $S_n$, la probabilità
+			$\Pr[S_n = m]$ è crescente in $m$ per $m \le M$ e decrescente
+			per $m > M$.
+
+			La distanza statistica quindi si la \ref{eq:sdist} scrive
+			\[
+				d(S_n, S_{n + 1}) =
+				\frac14 \sum_{m = 0}^{M}\big(\Pr[S_n = m] - \Pr[S_n = m - 1]\big) +
+				\frac14 \sum_{m = M + 1}^{n + 1}\big(\Pr[S_n = m - 1] - \Pr[S_n = m]\big).
+			\]
+			Entrambe le sommatorie sono telescopiche e valgono $\Pr[S_n = M]$. La
+			distanza statistica vale dunque $d(S_n, S_{n + 1}) = \frac12 \Pr[S_n = M]$.
+
+			Per concludere ci basta il seguente
+			\begin{lemma} \label{thm:centro-binomiale}
+				Per ogni intero positivo $n$, vale
+				$\Pr[S_n = \lfloor \frac{n}{2} \rfloor] \le \frac1{\sqrt{n}}$.
+			\end{lemma}
+			\begin{proof}[Dimostrazione del Lemma \ref{thm:centro-binomiale}]
+				La probabilità in questione vale
+				${n \choose \lfloor \frac{n}{2} \rfloor} 2^{-n}$.
+				Nel caso in cui $n$ è pari, cioè quando $n = 2c$, per sole
+				semplificazioni si ottiene
+				\[
+					\frac{(2c)!}{c!^2 2^{2c}} = \frac{1 \cdot 3 \cdots
+					(2c - 1)}{2 \cdot 4 \cdots 2c}.
+				\]
+				Chiamiamo $A$ il membro di destra. Sia allora $B = \frac{2 \cdot 4
+				\cdots 2c}{3 \cdot 5 \cdots (2c + 1)}$. Valgono $A < B$ e
+				$A B = \frac1{2c + 1}$, da cui
+				$A < \frac1{\sqrt{2c + 1}} < \frac1{\sqrt n}$.
+
+				Se invece $n = 2c + 1$, allora
+				$\frac{(2c+1)!}{c! (c+1)! 2^{2c + 1}} = A \frac{2c + 1}{2c + 2}$.
+				Laa tesi segue da $A \frac{2c + 1}{2c + 2} <
+				\frac{\sqrt{2c + 1}}{2c + 2} < \frac1{\sqrt{2c + 1}} = \frac1{\sqrt{n}}$.
+			\end{proof}
+
+			Dato il Lemma \ref{thm:centro-binomiale}, applichiamo la disuaglianza
+			triangolare, nello specifico \todo{}.
+			% \[
+			% 	d(S_t, S_t') \le \sum_{n = t}^{t'} \frac1{2 \sqrt n} \le\frac{\delta}{2}.
+			% \]
 		\end{proof}
+		% {in appendice? Forse sì. Credo una dimostrazione alternativa, ma a cui ``credo meno'' si possa fare con Berry-Esseen.}
 
 		Dunque la distribuzione dell'estremo di una passeggiata aleatoria di lunghezza
 		entro $t \pm \delta \sqrt{t}$ è statisticamente vicina a quella per una
@@ -343,8 +410,8 @@ Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 				6 \varepsilon^2 \delta^2 t +
 				60 \varepsilon \delta \sqrt{t} \quad (\text{da } \lambda \le 0.9) \\
 			&\le \varepsilon \delta \sqrt{t} + 6 \varepsilon \delta \sqrt{t} +
-				60 \varepsilon \delta \sqrt{t} \quad \left(\text{da }
-				\varepsilon < \frac1{\sqrt{t}} \text{ e } \delta < 1\right) \\
+				60 \varepsilon \delta \sqrt{t} \quad \big(\text{da }
+				\varepsilon < \frac1{\sqrt{t}} \text{ e } \delta < 1\big) \\
 			&\le 100 \delta \sqrt{t} \varepsilon.
 	\end{align*}
 	\end{proof}
