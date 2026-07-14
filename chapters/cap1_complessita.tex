@@ -4,9 +4,44 @@
 
 \section{Le classi P ed NP}
 
-\section{Protocolli PCP}
+\begin{theorem}[Cook `71; Levin `73]
+	\[
+		\mathtt{SAT} \in \textbf{NPC}.
+	\]
+\end{theorem}
 
-\section{Il Teorema PCP}
+\begin{theorem}[Karp `72; Lovász `73]
+	\[
+		\mathtt{3COL} \in \textbf{NPC}.
+	\]
+\end{theorem}
+
+Introduciamo una classe di problemi che generalizza naturalmente \texttt{3-SAT} e
+i problemi di colorazioni di grafi: i \emph{Constraint Satisfaction Problem}.
+Fissata un'arietà $k$ e alfabeto $\Sigma$ definiamo $k\CSP_\Sigma$ il
+seguente problema computazionale. Data una collezione $((C_j, R_j))_{j \in [m]}$
+di $k$-uple $C_j$ di variabili associate a relazioni $R_j \subseteq \Sigma^k$,
+determinare se esiste in $\Sigma^n$ un assegnamento delle variabili che soddisfa
+\emph{tutti} i vincoli, cioè tale che per ogni $k$-upla $C_j$ di variabili,
+il corrispondente assegnamento appartiene a $R_j$.
+Indicheremo con $k\CSP_W$ il problema $k\CSP_{[W]}$.
+Secondo la notazione appena introdotta $\mathtt{3}$-$\mathtt{COLORABILITY}$
+corrisponde a $2\CSP_3$ i cui vincoli sono espressi da
+$R_{\text{3col}} = \{(1, 2), (1, 3), (2, 3)\}$.
+Ogni variabile corrisponde a un nodo e assume un valore in $\{1, 2, 3\}$; per
+ogni coppia di nodi adiacenti si impone la relazione binaria ``$a \neq b$'' tra
+le corrispondenti variabili.
+
+Vale il seguente sorprendente risultato di dicotomia congetturato da Feder e
+Vardi e dimostrato di recente.
+
+% link agli articoli, come nel libro di Wigderson
+
+\begin{theorem}[Bulatov 2017; Zhuk 2017]
+	Ogni $\mathtt{CSP}$ è in \textbf{P} o \textbf{NP}-completo.
+\end{theorem}
+
+\section{Verifica probabilistica e Teorema PCP}
 
 \begin{theorem}[Arora, Safra `92; Arora, Lund, Motwani, Sudan, Szegedy `92] \label{thm:pcp}
 	\[
