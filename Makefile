@@ -8,6 +8,7 @@ SOURCES = $(MAIN).tex \
           $(wildcard chapters/*.tex) \
           $(wildcard config/*.tex) \
           $(wildcard frontmatter/*.tex) \
+		  $(wildcard graphics/*.tex) \
           biblio.bib
 
 all: $(MAIN).pdf
