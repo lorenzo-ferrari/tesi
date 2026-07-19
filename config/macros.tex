@@ -11,6 +11,16 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Osservazione}
 
+% Fix hyperref anchors for environments sharing the theorem counter
+\def\theHtheorem{\theHsection.\arabic{theorem}}
+\def\theHcorollary{\theHtheorem}
+\def\theHlemma{\theHtheorem}
+\def\theHproposition{\theHtheorem}
+\def\theHdefinition{\theHtheorem}
+\def\theHexample{\theHtheorem}
+\def\theHremark{\theHtheorem}
+
+
 \numberwithin{equation}{section}
 
 \newcommand{\N}{\mathbb{N}}
