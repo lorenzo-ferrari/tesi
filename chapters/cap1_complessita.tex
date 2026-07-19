@@ -16,9 +16,9 @@
 	\]
 \end{theorem}
 
-Introduciamo una classe di problemi che generalizza naturalmente \texttt{3-SAT} e
-i problemi di colorazioni di grafi: i \emph{Constraint Satisfaction Problem}.
-Fissata un'arietà $k$ e alfabeto $\Sigma$ definiamo $k\CSP_\Sigma$ il
+Introduciamo i \emph{Constraint Satisfaction Problem}, cioè una classe di
+problemi che generalizza naturalmente \texttt{3-SAT} e i problemi di colorazioni di
+grafi. Fissata arietà $k$ e alfabeto $\Sigma$ definiamo $k\CSP_\Sigma$ il
 seguente problema computazionale. Data una collezione $((C_j, R_j))_{j \in [m]}$
 di $k$-uple $C_j$ di variabili associate a relazioni $R_j \subseteq \Sigma^k$,
 determinare se esiste in $\Sigma^n$ un assegnamento delle variabili che soddisfa
@@ -32,19 +32,45 @@ Ogni variabile corrisponde a un nodo e assume un valore in $\{1, 2, 3\}$; per
 ogni coppia di nodi adiacenti si impone la relazione binaria ``$a \neq b$'' tra
 le corrispondenti variabili.
 
-Vale il seguente sorprendente risultato di dicotomia congetturato da Feder e
-Vardi e dimostrato di recente.
+Vale il seguente risultato di dicotomia congetturato da Feder e Vardi
+\cite{FV98} e dimostrato di recente da Bulatov e Zhuk.
 
 % link agli articoli, come nel libro di Wigderson
 
-\begin{theorem}[Bulatov 2017; Zhuk 2017]
+\begin{theorem}[Teorema di dicotomia \cite{Bul17, Zhuk20}]
 	Ogni $\mathtt{CSP}$ è in \textbf{P} o \textbf{NP}-completo.
 \end{theorem}
 
 \section{Verifica probabilistica e Teorema PCP}
 
-\begin{theorem}[Arora, Safra `92; Arora, Lund, Motwani, Sudan, Szegedy `92] \label{thm:pcp}
+Definire CL-trasformazioni tra $\CSP$. Notare che la classe delle
+CL-trasformazioni è stabile per composizione.
+
+Definire il grafo soggiacente a un'istanza di $2\CSP$ e in generale
+l'ipergrafo soggiacente a un'istanza di $k\CSP$.
+
+\begin{theorem}[Teorema PCP \cite{ALMSS98}] \label{thm:pcp}
 	\[
 		\textbf{NP} = \textrm{PCP}(O(\log n), O(1)).
 	\]
 \end{theorem}
+
+\begin{proof}[Dimostrazione]
+	TBD.
+
+	È sufficiente dimostrare la tesi per un problema \textbf{NP}-completo.
+	Sia allora $q_0 \ge 3$ la costante data dal Lemma \ref{thm:pcp-key-lemma} e
+	mostriamo che $q_0\CSP_2 \in \textrm{PCP}(O(\log n), O(1))$.
+	
+	Data un'istanza $\varphi$ di $q_0\CSP_2$ con $m$ vincoli, applichiamo $\log m$
+	volte la trasformazione data dal Lemma \ref{thm:pcp-key-lemma}. Sia $\psi$
+	l'istanza così ottenuta. Se $\varphi \in q_0\CSP_2$, allora anche
+	$\psi \in q_0\CSP_2$.
+	Se invece $\varphi \notin q_0\CSP_2$, allora necessariamente
+	$\val(\varphi) \le 1 - \frac1{m}$, da cui $\val(\psi) \le 1 - \varepsilon_0$.
+	Dimostrazioni di ``$\varphi \in q_0\CSP_2$'' corrispondono a dimostrazioni di
+	``$\psi \in q_0\CSP_2$''. Poiché, se $\psi$ non è soddisfacibile, ogni
+	assegnamento delle variabili di $\psi$ viola almeno una frazione costante
+	dei vincoli, funziona la verifica probabilistica naïve.
+	Dunque $q_0\CSP_2 \in \textrm{PCP}(O(\log n), O(1))$.
+\end{proof}

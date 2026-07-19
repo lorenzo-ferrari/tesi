@@ -1,27 +1,44 @@
 \chapter{Grafi expander} \label{chap:expander}
 
 % mi piacerebbe mettere una citazione all'inizio di ogni capitolo
+% "the hay in the haystack"?
 
 \section{Grafi e camminate aleatorie} 
 
+Il minimo indispensabile.
+
 \section{Cos'è un expander}
+
+Un grafo che condivide molte proprietà statistiche con un grafo random.
+Definizione algebrica e combinatoria.
+Disuguaglianza di Cheeger. (Dimostrata? Forse no, metto delle referenze.)
+Cos'è una famiglia di expander esplicita e fortemente esplicita.
+
+\section{Esistenza di expander}
+
+Un grafo generato tramite un opportuno processo random è un expander con
+buona probabilità.
 
 \section{Proprietà}
 
-\iffalse
-\begin{restatable}{lemma}{expanderwalkendpoints} \label{thm:expander-walk-endpoints}
-	Sia $G = (V, E)$ un $(n, d, \lambda)$-expander e $S \subseteq V$ un sottoinsieme dei
-	vertici di cardinalità al più $|V|/2$. Vale
+\begin{theorem} \label{thm:expander-walk}
+	Sia $G$ un $(n, d, \lambda)$-expander e sia $B \subseteq V$ un sottoinsieme
+	dei vertici che soddisfi $|B| \le \beta n$ per $\beta \in (0, 1)$.
+	Detti $X_1, \dots, X_k$ i nodi di una camminata aleatoria su $G$ con $X_1$
+	scelto uniformemente in $V$, vale
 	\[
-		\Pr_{(u, v) \in E}[u \in S, v \in S] \le
-		\frac{|S|}{|V|} \left( \frac12 + \frac{\lambda}{2} \right).
+		\Pr[\forall 1 \le i \le k \ X_i \in B]
+		\le ((1 - \lambda)\sqrt{\beta} + \lambda)^{k - 1}.
 	\]
-\end{restatable}
-
-\begin{proof}[Dimostrazione del Lemma \ref{thm:expander-walk-endpoints}]
-	\todo{}.
+\end{theorem}
+\begin{proof}
+	TBD.
 \end{proof}
-\fi
+
+Il Teorema \ref{thm:expander-walk} sarà di fondamentale importanza per
+``riciclare bit random'', come nella dimostrazione del Corollario
+\ref{thm:maxclique-inapprox-nc}.
+
 
 \begin{restatable}{lemma}{expanderFwalk} \label{thm:Din06Prop2.5}
 	% serve without self-loops? No, purché un cappio abbia contributo 2 al grado
@@ -33,7 +50,7 @@
 	$\frac{|F|}{|E|} + \lambda^i$.
 \end{restatable}
 
-\begin{proof}[Dimostrazione del Lemma \ref{thm:Din06Prop2.5}]
+\begin{proof} % [Dimostrazione del Lemma \ref{thm:Din06Prop2.5}]
 	Siano $x$ il vettore distribuzione di $K$, cioè	$x_v = \frac{\deg_F(v)}
 	{2 |F|}$, e $y_v$ la probabilità che un arco incidente a $v$ sia in $F$, cioè
 	$y = \frac{2 |F|}{d} x$.
@@ -44,7 +61,7 @@
 		  = \langle y, A^i x \rangle.
 	\]
 
-	Osserviamo $\lVert x \rVert ^2 \le \left(\sum_v{\lvert x_v \rvert} \right)
+	Osserviamo $\lVert x \rVert ^2 \le \big(\sum_v{\lvert x_v \rvert} \big)
 	\max_v{\lvert x_v \rvert} = \max_v{\lvert x_v \rvert}
 	\le \frac{d}{2 | F |}$ da cui, applicando la disuguaglianza di Cauchy-Schwarz
 	e la definizione variazionale di $\lambda$, otteniamo
@@ -73,8 +90,9 @@
 	\]
 \end{lemma}
 \begin{proof}
-	Dettta $A$ la matrice di adiacenza rinormalizzata di $G$, considera $B = A - \frac{d}{n}J$, con $J$ la matrice uno in ogni entrata.
-	\todo{vedi quaderno.}
+	% Dettta $A$ la matrice di adiacenza rinormalizzata di $G$, considera $B = A - \frac{d}{n}J$, con $J$ la matrice uno in ogni entrata.
+
+	TBD.
 \end{proof}
 
 A volte è utile specializzare il mixing lemma per stimare il numero di archi
@@ -112,9 +130,7 @@ tra un insieme e il suo complementare, come segue.
 	\end{align*}
 \end{proof}
 
-Significato dell'expander mixing lemma, quello è proprio il valore atteso di archi in un grafo random.
-
-\section{Esistenza di expander}
+% Significato dell'expander mixing lemma, quello è proprio il valore atteso di archi in un grafo random.
 
 \section{Prodotto zig-zag}
 
@@ -128,5 +144,18 @@ Significato dell'expander mixing lemma, quello è proprio il valore atteso di ar
 
 Notiamo che grazie all'elevamento a potenza di grafi il Teorema
 \ref{thm:expander-construction} fornisce famiglie fortemente esplicite di
-$\lambda$-expander per ogni $\lambda > 0$ al prezzo di un aumento in $d$.
+$\lambda$-expander per ogni $\lambda > 0$ al prezzo di un aumento del grado $d$.
 
+\begin{corollary} \label{thm:maxclique-inapprox-nc}
+	Esiste una costante $c > 0$ tale che non esiste una
+	$\frac1{n^c}$-approssimazione polinomiale di \texttt{MAX-CLIQUE}, a meno
+	che $\textbf{P} = \textbf{NP}$.
+\end{corollary}
+
+\begin{proof}
+	TBD.
+
+	In sostanza la dimostrazione è identica alla dimostrazione
+	dell'inapprossimabilità di \texttt{MAX-CLIQUE} a meno di costante,
+	però ripeto la verifica $O(\log n)$ volte riciclando i bit random.
+\end{proof}
