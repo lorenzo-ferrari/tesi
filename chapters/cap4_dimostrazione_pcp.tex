@@ -120,8 +120,6 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 	$i_2$, posto che questi siano sufficientemente vicini.
 	Osserviamo che non è detto le opinioni siano consistenti.
 
-	\todo{$i_j$? $x_j$? Che si fa?}
-
 	L'istanza $\varphi^t$ avrà i seguenti vincoli.
 	A ogni percorso $p = \langle i_1, \ldots, i_{2t + 2} \rangle$ di lunghezza
 	$(2 t + 1)$ in $G_\varphi$,	corrisponde un vincolo $C_p$ di $\varphi^t$,
@@ -241,39 +239,31 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 			aleatorie $S_t$ e $S_{t'}$ sono a distanza statistica al più $\delta$.
 			In altre parole,
 			\[
-				\frac12 \sum_{m}{ \left| \Pr[S_t = m] - \Pr[S_{t'} = m]	\right| }
+				\frac12 \sum_{m}{ \big| \Pr[S_t = m] - \Pr[S_{t'} = m]	\big| }
 				\le \delta.
 			\]
-			% {metterci i big/Big/...}
 		\end{Claim}
 		\begin{proof}[Dimostrazione del claim]
-			\todo{Meglio in appendice?}
 			Indichiamo con $d(X, Y)$ la distanza statistica di generiche variabili
 			aleatorie $X$ e $Y$.
 			
-			% \begin{equation} \label{eq:sdtriangleineq}
-			% d(S_t, S_{t'}) \le d(S_t, S_{t + 1}) + \dots +
-			% d(S_{t + \delta \sqrt{t} - 1}, S_{t + \delta \sqrt{t}}).
-			% \end{equation}
 			Stimiamo innanzitutto la distanza statistica tra $S_n$ e $S_{n + 1}$, poi
 			concludiamo per disuagaglianza triangolare.
-
 			Poiché le variabili in questione sono binomiali di parametro $1/2$, vale
 			$\Pr[S_{n + 1} = m] = \frac12 \Pr[S_n = m] + \frac12 \Pr[S_n = m - 1]$.
 			La distanza statistica tra $S_n$ e $S_{n + 1}$ si scrive quindi come
 			\begin{equation} \label{eq:sdist}
 			\begin{aligned}
 				d(S_n, S_{n + 1}) &= \frac12 \sum_{m = 0}^{n + 1}
-					| \Pr[S_n = m] - \Pr[S_{n + 1} = m] | \\
+					\big| \Pr[S_n = m] - \Pr[S_{n + 1} = m] \big| \\
 				&= \frac12 \sum_{m = 0}^{n + 1}
-					\frac12 | \Pr[S_n = m] - \Pr[S_n = m - 1] |.
+					\frac12 \big| \Pr[S_n = m] - \Pr[S_n = m - 1] \big|.
 			\end{aligned}
 			\end{equation}
 			Detta $M = \lfloor \frac{n}{2} \rfloor$ la moda di $S_n$, la probabilità
 			$\Pr[S_n = m]$ è crescente in $m$ per $m \le M$ e decrescente
 			per $m > M$.
-
-			Dunque possiamo riscrivere la \ref{eq:sdist} eliminando i valori assoluti:
+			Possiamo riscrivere la \ref{eq:sdist} eliminando i valori assoluti:
 			\[
 				d(S_n, S_{n + 1}) =
 				\frac14 \sum_{m = 0}^{M}\big(\Pr[S_n = m] - \Pr[S_n = m - 1]\big) +
@@ -303,19 +293,24 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 
 				Se invece $n = 2c + 1$, allora
 				$\frac{(2c+1)!}{c! (c+1)! 2^{2c + 1}} = A \frac{2c + 1}{2c + 2}$,
-				Nel cui caso la tesi segue da $A \frac{2c + 1}{2c + 2} <
+				nel cui caso la tesi segue da $A \frac{2c + 1}{2c + 2} <
 				\frac{\sqrt{2c + 1}}{2c + 2} < \frac1{\sqrt{2c + 1}} = \frac1{\sqrt{n}}$.
 			\end{proof}
 
 			Dato il Lemma \ref{thm:centro-binomiale}, concludiamo per disuaglianza
 			triangolare. Per esempio
 			\[
-				d(S_t, S_{t + \delta\sqrt{t}}) \le \frac12 \Big(\frac1{\sqrt{t}} + \dots + \frac1{\sqrt{t + \delta \sqrt{t} - 1}} \Big) \le \frac12 \frac{\delta \sqrt{t}}{\sqrt{t}} = \frac{\delta}{2}.
+				d(S_t, S_{t + \delta\sqrt{t}})
+				\le \frac12 \Big(\frac1{\sqrt{t}} + \dots +
+					\frac1{\sqrt{t + \delta \sqrt{t} - 1}} \Big)
+				\le \frac12 \frac{\delta \sqrt{t}}{\sqrt{t}}
+				= \frac{\delta}{2}.
 			\]
 			La distanza tra $S_t$ e $S_{t - \delta \sqrt{t}}$ sarà maggiore, ma
 			non si perde più di un fattore due.
 		\end{proof}
-		% {in appendice? Forse sì. Credo una dimostrazione alternativa, ma a cui ``credo meno'' si possa fare con Berry-Esseen.}
+		\todo{Chiedersi se quest'ultima pagina di dimostrazione più o meno
+		scorrelata dal resto sta meglio in appendice.}
 
 		Dunque la distribuzione dell'estremo di una passeggiata aleatoria di lunghezza
 		entro $t \pm \delta \sqrt{t}$ è statisticamente vicina a quella per una
@@ -324,7 +319,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 		Data una passeggiata aleatoria di lunghezza $\ell$, chiamiamo
 		\emph{$\ell$-estremo}, o \emph{vero $S_\ell$-estremo} il nodo di arrivo.
 		Diciamo che l'estremo \emph{concorda} (con la distribuzione di maggioranza)
-		quando questo assegna al punto di partenza il colore di maggioranza.
+		se questo assegna al punto di partenza il colore di maggioranza.
 		Sappiamo allora
 
 		\begin{align*}
@@ -494,7 +489,8 @@ un expander con abbastanza cappi a ogni nodo.
 \begin{lemma}
 	Esistono una costante $d$ e una CL-trasformazione da istanze $\varphi$ di $2\CSP_W$ a istanze $\psi$ di $2\CSP_W$ tali che il grafo soggiacente a $\psi$ sia $d$-regolare e valga
 	\[
-		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon / (100 W d).
+		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi)
+			\le 1 - \varepsilon / (100 W d).
 	\]
 \end{lemma}
 \begin{proof}
@@ -514,7 +510,7 @@ un expander con abbastanza cappi a ogni nodo.
 	Fissiamo una famiglia esplicita $\{G_k\}_{k \in \mathbb{N}}$ di expander
 	$d$-regolari.
 	A ogni variabile $u_i$ di $\varphi$	che appare in esattamente $k$ vincoli
-	corrispondono $k$ variabili	$y_i^1, \dots, y_i^k$ in $\psi$.
+	corrisponde una nuvola di $k$ variabili	$y_i^1, \dots, y_i^k$ in $\psi$.
 	Le occorrenze di $u_i$ nei vincoli che lo coinvolgono si sostituiscono con
 	opportuni $y_i^j$, in modo tale che ogni $y_i^j$ appaia in esattamente uno
 	dei vincoli. Poniamo infine vincoli di uguaglianza tra le variabili
@@ -523,7 +519,7 @@ un expander con abbastanza cappi a ogni nodo.
 	\begin{figure}[htbp]
 		\centering
 		\input{graphics/d-regular_instance}
-		\caption{Sostituzione di ciascun nodo di grado $d_v$ con una nube di $d_v$ nodi.}
+		\caption{Dal grafo soggiacente a $\varphi$ al grafo soggiacente a $\psi$.}
 		\label{fig:d-regular-instance}
 	\end{figure}
 
@@ -532,25 +528,25 @@ un expander con abbastanza cappi a ogni nodo.
 	Chiaramente, se $\varphi$ è soddisfacibile, anche $\psi$ lo è.
 	Resta da maggiorare la perdita di gap.
 	Se $\varphi$ ha $m$ vincoli, allora $\psi$ ne ha per costruzione $m(d + 1)$.
-	Supponiamo valga $\val(\varphi) \le 1 - \varepsilon$ e mostriamo che un
-	qualunque assegnamento $\mathbf{y}$ delle variabili di $\psi$ viola almeno
+	Supponiamo valga $\val(\varphi) \le 1 - \varepsilon$ e mostriamo che ogni
+	assegnamento $\mathbf{y}$ delle variabili di $\psi$ viola almeno
 	$\frac{\varepsilon}{100 W d} m (d + 1) \le \frac{\varepsilon}{50 W} m$ vincoli
 	di $\psi$. A partire da $\mathbf{y}$, estraiamo un assegnamento
-	$\mathbf{u}$ per le variabili di $\varphi$ assegnando a $u_i$ il valore di
+	$\mathbf{x}$ per le variabili di $\varphi$ assegnando a $x_i$ il valore di
 	maggioranza tra $y_i^1, \dots, y_i^k$.
-	L'assegnamento $\mathbf{u}$, così come ogni altro assegnamento per $\varphi$,
+	L'assegnamento $\mathbf{x}$, così come ogni altro assegnamento per $\varphi$,
 	viola almeno $\varepsilon m$ vincoli.
 	Intuitivamente, se l'opinione di maggioranza è poco popolare, allora tanti
 	vincoli di uguaglianza sono violati da $\mathbf{y}$. Se invece l'opinione di
 	maggioranza è molto popolare, abbastanza degli $\varepsilon m$ vincoli
-	violati da $\mathbf{u}$ sono violati anche da $\mathbf{y}$.
+	violati da $\mathbf{x}$ sono violati anche da $\mathbf{y}$.
 	Sia allora $t_i$ il numero di variabili $y_i^j$ in \emph{disaccordo} con
 	l'assegnamento di maggioranza. Vale	$0 \le t_i \le k(1 - \frac1{W})$.
 	
 	Se $\sum_{i=1}^n t_i \ge \frac{\varepsilon}{2} m$, allora abbastanza vincoli
 	di uguaglianza sono violati per le proprietà di mescolamento degli expander.
 	Posti infatti $S_i$ l'insieme degli $y_i^j$ che concordano con
-	$\mathbf{u}$ e $\bar{S}_i$ il suo complementare, per il Lemma \ref{thm:ESbarS}
+	$\mathbf{x}$ e $\bar{S}_i$ il suo complementare, per il Lemma \ref{thm:ESbarS}
 	vale $E(S_i, \bar{S}_i) \ge (1 - \lambda) \frac{d}{k} |S_i| |\bar{S}_i|
 	\ge (1 - \lambda)\frac{d}{k} \frac{k}{W} t_i \ge \frac{d}{10 W}t_i
 	\ge \frac{t_i}{10 W}$. Dunque, almeno $\frac1{10 W} \sum_{i = 1}^n t_i
@@ -558,10 +554,8 @@ un expander con abbastanza cappi a ogni nodo.
 
 	Se invece $\sum_{i=1}^n t_i < \frac{\varepsilon}{2} m$, allora almeno
 	$\frac{\varepsilon}{2} m$ degli $\varepsilon m$ vincoli violati da
-	$\mathbf{u}$ sono violati anche da $\mathbf{y}$.
+	$\mathbf{x}$ sono violati anche da $\mathbf{y}$.
 \end{proof}
-
-% commento sul perché adesso è facile?
 
 \begin{lemma}
 	Esistono una costante $d$ arbitrariamente grande e una CL-trasformazione da
@@ -576,25 +570,25 @@ un expander con abbastanza cappi a ogni nodo.
 \end{lemma}
 \begin{proof}
 	Per il Teorema \ref{thm:expander-construction} esiste una costante $d$ e
-	una famiglia $\{G_n\}_{n \in \mathbb{N}}$ esplicita di $(0.1, d)$-expander.
+	una famiglia esplicita di $(0.1, d)$-expander $\{G_n\}_{n \in \mathbb{N}}$.
 
-	Sia allora $\varphi$ un'istanza di $2\CSP_W$ come da ipotesi e sia $n$ il
-	suo numero di variabili. A meno di	aggiungere cappi banali, cioè
-	sempre soddisfatti, al grafo soggiacente a $\varphi$, possiamo assumere
-	$G_\varphi$ sia $d$-regolare.
+	Sia allora $\varphi$ un'istanza di $2\CSP_W$ come da ipotesi e $n$ il
+	numero di variabili. A meno di aggiungere cappi banalmente soddisfatti  al
+	grafo soggiacente a $\varphi$, possiamo supporre questo sia $d$-regolare.
 	Questa operazione riduce il gap al più di un fattore $d$.
 	Per ogni arco in $G_n$ poniamo un vincolo banale tra le corrispondenti
 	variabili di $\varphi$. Infine aggiungiamo a ogni variabile altri $2d$ cappi
-	banali. Il grafo risultante è dunque $4d$ regolare. L'aggiunta dei vincoli
-	banali riduce ulteriormente il gap di al più un fattore quattro.
+	banali. Il grafo risultante è dunque $4d$ regolare e l'aggiunta dei vincoli
+	banali riduce ulteriormente il gap al più di un fattore quattro.
 
 	Ricordiamo che per ogni grafo regolare $H$, vale $\lambda(H) \le 1$.
 	Dunque, dalla subadditività del modulo del secondo autovalore, segue
 	\[
 		\lambda(G_\psi) \le \frac34 + \frac14 \lambda(G_n) \le 0.9,
 	\]
-	nello specifico $G_\psi$ è un expander.
+	nello specifico $G_\psi$ è un expander e l'istanza $\psi$ è amplificabile.
 \end{proof}
 
 \section{Riduzione dell'alfabeto}
-\todo{Reduce, reduce, reduce!}
+
+TBD.
