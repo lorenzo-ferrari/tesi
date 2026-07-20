@@ -30,7 +30,7 @@ di due trasformazioni la cui esistenza è garantita dai seguenti lemmi.
 \end{lemma}
 
 \begin{lemma}[Riduzione dell'alfabeto] \label{thm:alphabet-reduction}
-	Esiste una costante $q_0$ a una CL-trasformazione $h$ da istanze $\varphi$ di
+	Esiste una costante $q_0$ e una CL-trasformazione $h$ da istanze $\varphi$ di
 	$2\CSP$ su un qualunque alfabeto a istanze $\psi = h(\varphi)$ di
 	$q_0 \CSP_2$ che soddisfa
 	\[
@@ -53,12 +53,11 @@ vincolo per ogni $k$-upla di vincoli in $\varphi$. In questo modo, la minima
 frazione di vincoli violata sale a
 $1 - (1 - \varepsilon)^k \ge (k - 1)\varepsilon$ per tutti gli $\varepsilon$
 sufficientemente piccoli.
-L'impiego diretto degli expander
-\footnote{Anziché enumerare le $n^k$ $k$-uple di vincoli, si scelgono solo
-quelle corrispondenti a una passeggiata aleatoria di lunghezza $k$ su un
-expander fissato sull'insieme dei vincoli. Queste sono solo $n d^{k - 1}$ e
-in virtù del Teorema \ref{thm:expander-walk}, espandendo al primo ordine,
-l'amplificazione è comunque dell'ordine di $k$.}
+L'impiego diretto degli expander\footnote{Anziché enumerare le $n^k$ $k$-uple
+di vincoli, si scelgono solo quelle corrispondenti a una passeggiata aleatoria
+di lunghezza $k$ su un expander fissato sull'insieme dei vincoli. Queste sono
+solo $n d^{k - 1}$ e in virtù del Teorema \ref{thm:expander-walk}, espandendo
+al primo ordine, l'amplificazione è comunque dell'ordine di $k$.}
 permetterebbe un aumento solo lineare in taglia,
 ma per ottenere arietà $2$ è necessario un approccio più sofisticato.
 
@@ -92,7 +91,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 	intero $t$, produce un'istanza $\varphi^t$ di $2\CSP$ tale che:
 	\begin{enumerate}
 		\item l'istanza $\varphi^t$ è un'istanza di $2\CSP_{W'}$ con alfabeto
-			di cardinalità $W' \le  W^{d^{3 t}}$, dove $d$ è il grado del grafo
+			di cardinalità $W' \le W^{d^{3 t}}$, dove $d$ è il grado del grafo
 			soggiacente a $\varphi$ e $W$ l'alfabeto di $\varphi$;
 		\item se $\varphi$ è soddisfacibile, anche $\varphi^t$ lo è;
 		\item per ogni $\varepsilon < \frac1{\sqrt{t}}$,
@@ -149,11 +148,11 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 	che se l'assegnamento delle vecchie variabili viola anche solo ``pochi'',
 	cioè una frazione $\varepsilon$, dei vincoli, l'assegnamento delle nuove
 	variabili ne viola necessariamente ``tanti'', cioè una frazione
-	$\Omega(\sqrt{t}\varepsilon)$).
+	$\Omega(\sqrt{t}\varepsilon)$.
 
 	Per ogni variabile $x_i$ di $\varphi$, definiamo la variabile aleatoria
 	$Z_i \in [W]$ come il risultato del seguente processo.
-	partendo dal nodo $x_i$, si fa una camminata aleatoria di $t$ passi in
+	Partendo dal nodo $x_i$, si fa una camminata aleatoria di $t$ passi in
 	$G_\varphi$, questa raggiunge un certo nodo $x_k$ e restituisce l'opinione di $y_k$
 	sulla variabile $x_i$. Detta $z_i$ la moda di $Z_i$, chiamiamo
 	\emph{assegnamento di maggioranza} quello corrispondente a $z_1, \ldots, z_n$.
@@ -248,7 +247,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 			aleatorie $X$ e $Y$.
 			
 			Stimiamo innanzitutto la distanza statistica tra $S_n$ e $S_{n + 1}$, poi
-			concludiamo per disuagaglianza triangolare.
+			concludiamo per disuguaglianza triangolare.
 			Poiché le variabili in questione sono binomiali di parametro $1/2$, vale
 			$\Pr[S_{n + 1} = m] = \frac12 \Pr[S_n = m] + \frac12 \Pr[S_n = m - 1]$.
 			La distanza statistica tra $S_n$ e $S_{n + 1}$ si scrive quindi come
@@ -263,7 +262,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 			Detta $M = \lfloor \frac{n}{2} \rfloor$ la moda di $S_n$, la probabilità
 			$\Pr[S_n = m]$ è crescente in $m$ per $m \le M$ e decrescente
 			per $m > M$.
-			Possiamo riscrivere la \ref{eq:sdist} eliminando i valori assoluti:
+			Possiamo riscrivere la \eqref{eq:sdist} eliminando i valori assoluti:
 			\[
 				d(S_n, S_{n + 1}) =
 				\frac14 \sum_{m = 0}^{M}\big(\Pr[S_n = m] - \Pr[S_n = m - 1]\big) +
@@ -309,8 +308,8 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 			La distanza tra $S_t$ e $S_{t - \delta \sqrt{t}}$ sarà maggiore, ma
 			non si perde più di un fattore due.
 		\end{proof}
-		\todo{Chiedersi se quest'ultima pagina di dimostrazione più o meno
-		scorrelata dal resto sta meglio in appendice.}
+		% \todo{Chiedersi se quest'ultima pagina di dimostrazione più o meno
+		% scorrelata dal resto sta meglio in appendice.}
 
 		Dunque la distribuzione dell'estremo di una passeggiata aleatoria di lunghezza
 		entro $t \pm \delta \sqrt{t}$ è statisticamente vicina a quella per una
@@ -437,7 +436,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 		= \frac{\delta \sqrt{t}}{100 W^4} \varepsilon
 		\le \frac{\sqrt{t}}{10^3 W^5} \varepsilon.
 	\]
-	e il Lemma \ref{thm:gap-amplification} è dimostrato.
+	Il Lemma \ref{thm:gap-amplification} è dimostrato.
 \end{proof}
 
 \subsection{Ottenere istanze amplificabili} \label{subsec:istanze-amplificabili}
@@ -476,7 +475,7 @@ un expander con abbastanza cappi a ogni nodo.
 	sulla $j$-esima variabile e che l'assegnamento indicato da $y_i$ soddisfi
 	$\varphi_i$.
 
-	Mostriamo per contronominale che la perdità di gap è al più di un fattore $q$.
+	Mostriamo per contronominale che la perdita di gap è al più di un fattore $q$.
 	Se esiste un assegnamento delle variabili di $\psi$ che	viola meno di
 	$\varepsilon/q \cdot mq = \varepsilon m$ vincoli, esistono più di
 	$m(1 - \varepsilon)$ indici $i$ tali per cui il vincolo $\psi_{i, j}$ è
@@ -578,7 +577,7 @@ un expander con abbastanza cappi a ogni nodo.
 	Questa operazione riduce il gap al più di un fattore $d$.
 	Per ogni arco in $G_n$ poniamo un vincolo banale tra le corrispondenti
 	variabili di $\varphi$. Infine aggiungiamo a ogni variabile altri $2d$ cappi
-	banali. Il grafo risultante è dunque $4d$ regolare e l'aggiunta dei vincoli
+	banali. Il grafo risultante è dunque $4d$-regolare e l'aggiunta dei vincoli
 	banali riduce ulteriormente il gap al più di un fattore quattro.
 
 	Ricordiamo che per ogni grafo regolare $H$, vale $\lambda(H) \le 1$.

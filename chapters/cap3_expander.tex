@@ -83,14 +83,14 @@ Il Teorema \ref{thm:expander-walk} sarà di fondamentale importanza per
 
 \begin{lemma}[Expander mixing lemma] \label{thm:mixing-lemma}
 	Sia $G = (V, E)$ un grafo $(d, \lambda)$-expander e siano $S, T \subseteq V$
-	due sotttoinsiemi disgiunti di nodi. Allora, detto $E(S, T)$ il numero di
+	due sottoinsiemi disgiunti di nodi. Allora, detto $E(S, T)$ il numero di
 	archi tra $S$ e $T$, vale
 	\[
 		\Big| E(S, T) - \frac{d}{n} |S||T| \Big| \le \lambda \sqrt{|S| |T|}.
 	\]
 \end{lemma}
 \begin{proof}
-	% Dettta $A$ la matrice di adiacenza rinormalizzata di $G$, considera $B = A - \frac{d}{n}J$, con $J$ la matrice uno in ogni entrata.
+	% Detta $A$ la matrice di adiacenza rinormalizzata di $G$, considera $B = A - \frac{d}{n}J$, con $J$ la matrice uno in ogni entrata.
 
 	TBD.
 \end{proof}
@@ -126,7 +126,7 @@ tra un insieme e il suo complementare, come segue.
 		&\ge |S| - \big\langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\parallel \big\rangle
 			- \lambda \big\langle \mathbf{1}_S^\perp, \mathbf{1}_S^\perp \big\rangle \\
 		&= |S| - \frac{|S|^2}{n} - \lambda\bigg(|S| - \frac{|S|^2}{n}\bigg) \\
-		&= (1 - \lambda)\frac{|S|}{n}(n - |S|) = (1 - \lambda) \frac1{n} |S| |\bar S|. \\
+		&= (1 - \lambda)\frac{|S|}{n}(n - |S|) = (1 - \lambda) \frac1{n} |S| |\bar S|.
 	\end{align*}
 \end{proof}
 
@@ -155,7 +155,7 @@ $\lambda$-expander per ogni $\lambda > 0$ al prezzo di un aumento del grado $d$.
 \begin{proof}
 	TBD.
 
-	In sostanza la dimostrazione è identica alla dimostrazione
+	In sostanza, la dimostrazione è identica alla dimostrazione
 	dell'inapprossimabilità di \texttt{MAX-CLIQUE} a meno di costante,
 	però ripeto la verifica $O(\log n)$ volte riciclando i bit random.
 \end{proof}
