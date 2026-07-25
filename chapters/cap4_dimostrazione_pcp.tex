@@ -610,14 +610,16 @@ semplicemente implementando in ogni circuito la formula $2k$-CNF che
 rappresenta il vincolo\footnote{Qualche dettaglio in più. TBD.}.
 
 Useremo come ingrediente fondamentale la dimostrazione del Teorema
-\ref{thm:exppcp} e nello specifico il seguente corollario.
+\ref{thm:exppcp}, da cui segue l'esistenza di sistemi PCP in grado di accettare
+con buon probabilità un certificato se e soltanto se questo è \emph{vicino} a
+un certificato valido.
 
 \begin{corollary}[PCP di prossimità] \label{thm:pcpprox}
 	Esiste un verificatore $V$ che dato un qualunque circuito $C$ con $2k$ input
 	e taglia $\ell$, ha le seguenti proprietà:
 	\begin{enumerate}
 		\item date $\mathbf{u_1}, \mathbf{u_2} \in \{0, 1\}^k$ tali che $\mathbf{u_1u_2}$
-			è un input accettato dal circuito, allora esiste una stringa
+			è un input accettato dal circuito, esiste una stringa
 			$\pi_3 \in \{0, 1\}^{\mathrm{poly}(\ell)}$ tale che $V$ accetta
 			certamente il certificato $\WH(\mathbf{u_1}) \WH(\mathbf{u_2}) \pi_3$;
 		\item per ogni triple di stringhe binarie $\pi_1, \pi_2, \pi_3$ con
@@ -632,22 +634,22 @@ Useremo come ingrediente fondamentale la dimostrazione del Teorema
 	\end{enumerate}
 \end{corollary}
 
-Prima della dimostrazione, mostriamo come il corollario è sufficiente per
+Prima della dimostrazione, vediamo come il corollario è sufficiente per
 la riduzione dell'alfabeto.
 
 \begin{proof}[Dimostrazione del Lemma \ref{thm:gap-amplification}]
-	Sostituiamo ogni variabile originale $u_i$ con una sequenza
+	Sostituiamo a ogni variabile originale $u_i$ una sequenza
 	$U_i = (U_{i,1}, \dots, U_{i, W})$ di $2^{\log W} = W$ variabili
-	binarie che, in un assegnamento, rappresentano la codifica di
-	Walsh-Hadamard di $u_i \in \{0, 1\}^{\log W}$.
+	binarie che, in un assegnamento valido, rappresentano la codifica
+	di Walsh-Hadamard di $u_i \in \{0, 1\}^{\log W}$.
 	Per ogni vincolo originale $C_s(u_i, u_j)$, consideriamo il $\CSP$
-	corrispondente al sistema PCP descritto nel Corollario \ref{thm:pcpprox},
+	corrispondente al sistema PCP descritto nel Corollario \ref{thm:pcpprox}
 	applicato al circuito $C_s$ relativo al vincolo. Per ogni vincolo
 	abbiamo un vettore di $2^{\mathrm{poly}(\ell)}$ variabili binarie $\Pi_s$
-	che rappresentano $\pi_3$, mentre $U_i$ e $U_j$ rappresentano $\pi_1$ e $\pi_2$.
-	Indichiamo con $\mathcal{C}_s$ l'insieme dei nuovi vincoli corrispondenti a
-	$C_s$. Sottolineiamo che l'arietà dei nuovi vincoli è una costante $q_0$
-	\emph{indipendente} da $W$.
+	che rappresentano $\pi_3$, mentre $U_i$ e $U_j$ svolgono il ruolo di $\pi_1$
+	e $\pi_2$. Indichiamo con $\mathcal{C}_s$ l'insieme dei nuovi vincoli
+	corrispondenti a $C_s$. Sottolineiamo che l'arietà dei nuovi vincoli è una
+	costante $q_0$ \emph{indipendente} da $W$.
 
 	L'istanza finale $\psi$ è data dall'unione dei vincoli
 	$\cup_{s = 1}^{m} \mathcal{C}_s$.
@@ -656,11 +658,24 @@ la riduzione dell'alfabeto.
 	necessariamente in modo univoco.} a un assegnamento valido per la nuova
 	istanza $\psi$. Dunque se la prima era soddisfacibile, lo è anche la seconda.
 
-	Mostriamo che se esiste un assegnamento che soddisfa più di una frazione
-	$1 - \varepsilon/3$ di vincoli in $\psi$, allora ne esiste uno che soddisfa
-	più di una frazione $1 - \varepsilon$ dei vincoli di $\varphi$.
+	Mostriamo che se esiste un assegnamento che viola meno di una frazione
+	$\varepsilon/3$ di vincoli in $\psi$, allora ne esiste uno che viola
+	meno di una frazione $\varepsilon$ di vincoli in $\varphi$.
 
 	TBD.
+
+	\textcolor{red}{
+		ATTENZIONE!
+		Arora-Barak imposta la perdita di gap nella riduzione dell'alfabeto come
+		\[
+			\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon/3.
+		\]
+		A me sembra regga
+		\[
+			\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon/2.
+		\]
+		Quell'$1/2$ è lo stesso $1/2$ del Corollario \ref{thm:pcpprox}. Ricorda
+		la perdita di $1/2$ che si ha con Walsh-Hadamard.}
 \end{proof}
 
 \begin{proof}[Dimostrazione del Corollario \ref{thm:pcpprox}]
