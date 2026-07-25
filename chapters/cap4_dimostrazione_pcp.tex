@@ -2,6 +2,7 @@
 
 In questo capitolo dimostriamo il Teorema PCP. Presentiamo nello specifico la
 dimostrazione di Dinur \cite{Din06}, per cui il ruolo degli expander è cruciale.
+\todo{Dire che è una rielaborazione della dimostrazione nel libro di Arora e Safra, a sua volta basata sulla dimostrazione di Dinur.}
 
 \section{Struttura di dimostrazione}
 
@@ -37,6 +38,9 @@ di due trasformazioni la cui esistenza è garantita dai seguenti lemmi.
 		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon / 3.
 	\]
 \end{lemma}
+
+\todo{Descrivere esplicitamente come scegliere le costanti per ottenere la
+trasformazione che raddoppia li gap. Vedi pagina 463 di Arora, Barak.}
 
 \section{Amplificazione del gap}
 
@@ -590,4 +594,75 @@ un expander con abbastanza cappi a ogni nodo.
 
 \section{Riduzione dell'alfabeto}
 
-TBD.
+In questa sezione dimostriamo il Lemma \ref{thm:alphabet-reduction}: data
+un'istanza $\varphi$ di $2\CSP_W$ su alfabeto grande a piacere,
+l'obiettivo è trasformarla a un'istanza $\psi$ di $q_0\CSP_2$ per un $q_0$
+fissato e indipendente da $W$, il tutto con perdita di gap al più costante.
+
+A meno di aggiungere simboli inutilizzati, possiamo supporre $W$ sia una
+potenza di due e identificare i simboli in $W$ con le stringhe in
+$\{0, 1\}^{\log W}$. Un qualunque vincolo $C_s$ dipendente dalle variabili
+$u_i$ e $u_j$ si può pensare come un circuito applicato alle stringhe binarie
+che rappresentano $u_i$ e $u_j$: il vincolo è soddisfatto se e soltanto se
+l'output del circuito è $1$. Sia $\ell$ un limite superiore sulla dimensione
+del circuito al variare di tutti i vincoli. Possiamo supporre $\ell \le TBD$,
+semplicemente implementando in ogni circuito la formula $2k$-CNF che
+rappresenta il vincolo\footnote{Qualche dettaglio in più. TBD.}.
+
+Useremo come ingrediente fondamentale la dimostrazione del Teorema
+\ref{thm:exppcp} e nello specifico il seguente corollario.
+
+\begin{corollary}[PCP di prossimità] \label{thm:pcpprox}
+	Esiste un verificatore $V$ che dato un qualunque circuito $C$ con $2k$ input
+	e taglia $\ell$, ha le seguenti proprietà:
+	\begin{enumerate}
+		\item date $\mathbf{u_1}, \mathbf{u_2} \in \{0, 1\}^k$ tali che $\mathbf{u_1u_2}$
+			è un input accettato dal circuito, allora esiste una stringa
+			$\pi_3 \in \{0, 1\}^{\mathrm{poly}(\ell)}$ tale che $V$ accetta
+			certamente il certificato $\WH(\mathbf{u_1}) \WH(\mathbf{u_2}) \pi_3$;
+		\item per ogni triple di stringhe binarie $\pi_1, \pi_2, \pi_3$ con
+			$\pi_1, \pi_2 \in \{0, 1\}^{2^k}$, se $V$ accetta $\pi_1 \pi_2 \pi_3$ con
+			probabilità almeno $1/2$, allora $\pi_1$ e $\pi_2$ sono $0.99$-vicine a
+			$\WH(\mathbf{u_1})$ e $\WH(\mathbf{u_2})$ per due stringhe
+			$\mathbf{u_1}, \mathbf{u_2} \in \{0, 1\}^k$ tali che $\mathbf{u_1u_2}$ è
+			un input accettato dal circuito;
+		\item il verificatore $V$ impiega tempo $\mathrm{poly}(\ell)$, usa
+			$\mathrm{poly}(\ell)$ bit random e legge solo $O(1)$ bit del certificato
+			fornito.
+	\end{enumerate}
+\end{corollary}
+
+Prima della dimostrazione, mostriamo come il corollario è sufficiente per
+la riduzione dell'alfabeto.
+
+\begin{proof}[Dimostrazione del Lemma \ref{thm:gap-amplification}]
+	Sostituiamo ogni variabile originale $u_i$ con una sequenza
+	$U_i = (U_{i,1}, \dots, U_{i, W})$ di $2^{\log W} = W$ variabili
+	binarie che, in un assegnamento, rappresentano la codifica di
+	Walsh-Hadamard di $u_i \in \{0, 1\}^{\log W}$.
+	Per ogni vincolo originale $C_s(u_i, u_j)$, consideriamo il $\CSP$
+	corrispondente al sistema PCP descritto nel Corollario \ref{thm:pcpprox},
+	applicato al circuito $C_s$ relativo al vincolo. Per ogni vincolo
+	abbiamo un vettore di $2^{\mathrm{poly}(\ell)}$ variabili binarie $\Pi_s$
+	che rappresentano $\pi_3$, mentre $U_i$ e $U_j$ rappresentano $\pi_1$ e $\pi_2$.
+	Indichiamo con $\mathcal{C}_s$ l'insieme dei nuovi vincoli corrispondenti a
+	$C_s$. Sottolineiamo che l'arietà dei nuovi vincoli è una costante $q_0$
+	\emph{indipendente} da $W$.
+
+	L'istanza finale $\psi$ è data dall'unione dei vincoli
+	$\cup_{s = 1}^{m} \mathcal{C}_s$.
+	In virtù del punto 1. del Corollario \ref{thm:pcpprox}, ogni assegnamento
+	valido per l'istanza originale $\varphi$ si solleva\footnote{Non
+	necessariamente in modo univoco.} a un assegnamento valido per la nuova
+	istanza $\psi$. Dunque se la prima era soddisfacibile, lo è anche la seconda.
+
+	Mostriamo che se esiste un assegnamento che soddisfa più di una frazione
+	$1 - \varepsilon/3$ di vincoli in $\psi$, allora ne esiste uno che soddisfa
+	più di una frazione $1 - \varepsilon$ dei vincoli di $\varphi$.
+
+	TBD.
+\end{proof}
+
+\begin{proof}[Dimostrazione del Corollario \ref{thm:pcpprox}]
+	TBD.
+\end{proof}
