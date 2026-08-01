@@ -1,4 +1,4 @@
-\chapter{Dimostrazione del Teorema PCP}
+\chapter{Dimostrazione del Teorema PCP} \label{chap:pcpproof}
 
 In questo capitolo dimostriamo il Teorema PCP. Presentiamo nello specifico la
 dimostrazione di Dinur \cite{Din06}, per cui il ruolo degli expander è cruciale.
@@ -156,7 +156,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 
 	Per ogni variabile $x_i$ di $\varphi$, definiamo la variabile aleatoria
 	$Z_i \in [W]$ come il risultato del seguente processo.
-	Partendo dal nodo $x_i$, si fa una camminata aleatoria di $t$ passi in
+	Partendo dal nodo $x_i$, si fa una passeggiata aleatoria di $t$ passi in
 	$G_\varphi$, questa raggiunge un certo nodo $x_k$ e restituisce l'opinione di $y_k$
 	sulla variabile $x_i$. Detta $z_i$ la moda di $Z_i$, chiamiamo
 	\emph{assegnamento di maggioranza} quello corrispondente a $z_1, \ldots, z_n$.
@@ -227,7 +227,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 		$\frac1{W} \cdot \frac1{W} = \frac1{W^2}$.
 
 		Tuttavia $j$ varia in $\{t - \delta \sqrt{t}, \ldots, t + \delta \sqrt{t}\}$,
-		dunque le due camminate hanno lunghezza compresa tra $t - \delta \sqrt{t}$ e
+		dunque le due passeggiate hanno lunghezza compresa tra $t - \delta \sqrt{t}$ e
 		$t + \delta \sqrt{t}$. Mostriamo tuttavia che i singoli fattori non
 		differiscono troppo da $\frac1W$.
 
@@ -354,7 +354,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 	\]
 
 	Dunque $\E[V]$ è elevato, ma ciò non basta, poiché $V$ potrebbe
-	comunque essere $0$ per quasi tutte le camminate aleatorie.
+	comunque essere $0$ per quasi tutte le passeggiate aleatorie.
 	Per escludere questa possibilità, maggioriamo il momento secondo $\E[V^2]$.
 
 	\begin{Claim}
@@ -675,7 +675,8 @@ la riduzione dell'alfabeto.
 			\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon/2.
 		\]
 		Quell'$1/2$ è lo stesso $1/2$ del Corollario \ref{thm:pcpprox}. Ricorda
-		la perdita di $1/2$ che si ha con Walsh-Hadamard.}
+		la perdita di $1/2$ che si ha con Walsh-Hadamard. Capire se, invece,
+		$\varepsilon/3$ è giusto per qualche sottigliezza con $<$ vs. $\le$.}
 \end{proof}
 
 \begin{proof}[Dimostrazione del Corollario \ref{thm:pcpprox}]

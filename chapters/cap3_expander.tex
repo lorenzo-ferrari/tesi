@@ -3,7 +3,7 @@
 % mi piacerebbe mettere una citazione all'inizio di ogni capitolo
 % "the hay in the haystack"?
 
-\section{Grafi e camminate aleatorie} 
+\section{Grafi e passeggiate aleatorie} 
 
 Il minimo indispensabile.
 
@@ -24,7 +24,7 @@ buona probabilità.
 \begin{theorem} \label{thm:expander-walk}
 	Sia $G$ un $(n, d, \lambda)$-expander e sia $B \subseteq V$ un sottoinsieme
 	dei vertici che soddisfi $|B| \le \beta n$ per $\beta \in (0, 1)$.
-	Detti $X_1, \dots, X_k$ i nodi di una camminata aleatoria su $G$ con $X_1$
+	Detti $X_1, \dots, X_k$ i nodi di una passeggiata aleatoria su $G$ con $X_1$
 	scelto uniformemente in $V$, vale
 	\[
 		\Pr[\forall 1 \le i \le k \ X_i \in B]
@@ -45,7 +45,7 @@ Il Teorema \ref{thm:expander-walk} sarà di fondamentale importanza per
 	Sia $G = (V, E)$ un $(d, \lambda)$-expander e $F \subseteq E$ un sottoinsieme
 	degli archi. Sia $K$ la distribuzione di probabilità sui vertici indotta
 	dalla scelta di un estremo di un arco in $F$ scelto uniformemente a caso.
-	La probabilità $p$ che una camminata aleatoria che comincia con
+	La probabilità $p$ che una passeggiata aleatoria che comincia con
 	distribuzione $K$ faccia l'$(i+1)$-esimo passo in $F$ è maggiorata da
 	$\frac{|F|}{|E|} + \lambda^i$.
 \end{restatable}
@@ -81,6 +81,7 @@ Il Teorema \ref{thm:expander-walk} sarà di fondamentale importanza per
 	\]
 \end{proof}
 
+\iffalse
 \begin{lemma}[Expander mixing lemma] \label{thm:mixing-lemma}
 	Sia $G = (V, E)$ un grafo $(d, \lambda)$-expander e siano $S, T \subseteq V$
 	due sottoinsiemi disgiunti di nodi. Allora, detto $E(S, T)$ il numero di
@@ -97,6 +98,8 @@ Il Teorema \ref{thm:expander-walk} sarà di fondamentale importanza per
 
 A volte è utile specializzare il mixing lemma per stimare il numero di archi
 tra un insieme e il suo complementare, come segue.
+\fi
+
 \begin{lemma} \label{thm:ESbarS}
 	Sia $G = (V, E)$ un $(n, d, \lambda)$-expander e $S \subseteq V$ un
 	sottoinsieme dei vertici. Allora

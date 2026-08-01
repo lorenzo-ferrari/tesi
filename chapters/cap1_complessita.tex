@@ -1,8 +1,16 @@
 \chapter{Dimostrazioni e classi di complessità}
 
-% mi piacerebbe mettere una citazione all'inizio di ogni capitolo
+In questo capitolo introduciamo le classi di problemi \P ed \NP, protagoniste
+di un problema del millenio.
+All'interno della classe \NP, definiamo i \emph{Constraint Satisfaction Problem},
+che torneranno utili nel Capitolo \ref{chap:pcpproof}.
+In seguito ci interessiamo a una procedura probabilistica, sbrigativa, per
+verificare dimostrazioni e formalizziamo questa procedura con le classi \PCP.
+Enunciamo infine il Teorema PCP, vale a dire il teorema principale di questa
+tesi, risultato sorprendente e ormai fondamentale in informatica teorica;
+in questo capitolo ne dimostriamo una versione più debole.
 
-\section{Le classi P ed NP}
+\section{Le classi \P ed \NP}
 
 \begin{theorem}[\cite{Cook71, Levin73}]
 	\[
@@ -26,7 +34,7 @@ quadratico ha soluzione in $\mathbb{F}_2$.
 \end{theorem}
 
 
-Introduciamo i \emph{Constraint Satisfaction Problems}, cioè una classe di
+Introduciamo i \emph{Constraint Satisfaction Problem}, cioè una classe di
 problemi che generalizza naturalmente \texttt{3-SAT} e i problemi di colorazione di
 grafi. Fissata un'arietà $k$ e un alfabeto $\Sigma$ definiamo $k\CSP_\Sigma$ il
 seguente problema computazionale. Data una collezione $((C_j, R_j))_{j \in [m]}$
@@ -102,6 +110,8 @@ TBD.
 \begin{proof}
 	TBD.
 
+	% da spostare al Capitolo 4
+
 	È sufficiente dimostrare la tesi per un problema \textbf{NP}-completo.
 	Sia allora $q_0 \ge 3$ la costante data dal Lemma \ref{thm:pcp-key-lemma} e
 	mostriamo che $q_0\CSP_2 \in \PCP(\log n, 1)$.
@@ -119,6 +129,8 @@ TBD.
 	probabilisticamente in maniera naïve e con buone garanzie di correttezza.
 	Dunque $q_0\CSP_2 \in \PCP(\log n, 1)$.
 \end{proof}
+
+\section{Un Teorema PCP più debole}
 
 \begin{theorem}[PCP esponenziale per \textbf{NP} \cite{ALMSS98}] \label{thm:exppcp}
 	\[
