@@ -1,105 +1,226 @@
-\chapter{Dimostrazioni e classi di complessità}
+\chapter{Dimostrazioni e classi di complessità} \label{chap:complessita}
 
 In questo capitolo introduciamo le classi di problemi \P ed \NP, protagoniste
 di un problema del millenio.
-All'interno della classe \NP, definiamo i \emph{Constraint Satisfaction Problem},
-che torneranno utili nel Capitolo \ref{chap:pcpproof}.
-In seguito ci interessiamo a una procedura probabilistica, sbrigativa, per
-verificare dimostrazioni e formalizziamo questa procedura con le classi \PCP.
-Enunciamo infine il Teorema PCP, vale a dire il teorema principale di questa
-tesi, risultato sorprendente e ormai fondamentale in informatica teorica;
+All'interno della classe \NP, definiamo i \emph{Constraint Satisfaction Problem}
+e notazioni che torneranno utili nel Capitolo \ref{chap:pcpproof}.
+In seguito ci interessiamo alla verifica probabilistica di dimostrazioni
+e formalizziamo questa processo tramite le classi \PCP.
+Enunciamo infine il Teorema PCP, risultato sorprendente e ormai fondamentale in
+informatica teorica, nonché principe di questa tesi;
 in questo capitolo ne dimostriamo una versione più debole.
 
-\section{Le classi \P ed \NP}
+\section{Classi \P ed \NP}
 
-\begin{theorem}[\cite{Cook71, Levin73}]
+La teoria della complessità si interessa di quanto difficili sono i problemi.
+Una misura di difficoltà è data dal minimo tempo necessario a un calcolatore
+per risolvere istanze del dato problema. In questo lavoro ci concentriamo
+principalmente su problemi di decisione, cioè problemi la cui risposta è
+``sì'' o ``no'', VERO o FALSO, $1$ o $0$.
+Tipicamente le istanze di un dato problema si codificano come stringhe binarie,
+dunque si identifica il problema di decisione con il linguaggio
+$L \subseteq \{0, 1\}^*$ delle istanze la cui risposta è ``sì''.
+Risolvere il problema equivale\footnote{Posto che la codifica sia naturale,
+cioè ragionevole e non artificialmente patologica.} dunque a decidere
+l'appartenenza ad $L$.
+
+Definiamo la classe dei problemi che è possibile risolvere efficientemente,
+cioè in tempo polinomiale rispetto alla dimensione\footnote{La
+lunghezza di una fissata codifica.} dell'istanza in input.
+
+\begin{definition}[Classe \P]
+	Un linguaggio $L \subseteq \{0, 1\}^*$ appartiene alla classe \P se è deciso
+	da un algoritmo che, per ogni $n$ e $x \in \{0, 1\}^n$, termina in al più
+	$A n^c$ passi per costanti positive $A$ e $c$.
+\end{definition}
+
+La scelta del tempo polinomiale come espressione di efficienza può sembrare
+arbitraria, tuttavia ci sono buone giustificazioni. Oltre a rappresentare
+funzioni che crescono ``lentamente'', i polinomi sono chiusi per addizione,
+moltiplicazione e composizione, dunque l'efficienza è preservata da naturali
+pratiche di programmazione, come concatenare due algoritmi o usarne uno
+all'interno di un'altro. Un altro vantaggio è la possibilità di non
+definire precisamente la codifica delle istanze di un problema, poiché
+si può efficientemente tradurre tra due codifiché naturali di uno stesso
+input: si pensi alla rappresentazione di un grafo come lista di archi, lista
+di adiacenza o matrice di adiacenza.
+
+Un esempio di problema in \P è \texttt{2COL}, cioè il problema di decidere se
+è possibile colorare con due colori i nodi di un grafo in modo tale che ogni
+arco connetta nodi di colori distinti. Grafi con questa proprietà si dicono
+\emph{2-colorabili} e in modo analogo si definisce la \emph{$k$-colorabilità}.
+
+% INSERIRE GRAFICA
+% a destra: grafo 2-colorabile e 2-colorato
+% a sinistra: grafo non 2-colorabile con un ciclo dispari evidenziato
+\vspace{1em}
+INSERIRE GRAFICA.
+\vspace{1em}
+
+La 2-colorabilità di grafi si può decidere in tempo lineare nella dimensione
+del grafo, dunque $\texttt{2COL} \in \P$.
+
+Estendiamo leggermente il problema e chiediamoci ora se un grafo è
+3-colorabile: chiamiamo questo problema \texttt{3COL}.
+La situazione cambia drasticamente: in questo caso non conosciamo algoritmi
+efficienti e si congettura che non ne esistano.
+Tuttavia, data una $3$-colorazione, cioè una dimostrazione di
+3-colorabilità, è facile verificare\footnote{Leggasi
+``si verifica efficientemente''.} se questa è valida oppure no.
+Lo stesso vale per migliaia di altri problemi: definiamo dunque la classe \NP.
+
+\begin{definition}[Classe \NP]
+	Un linguaggio $L \subseteq \{0,1\}^*$ appartiene alla classe \NP se
+	esistono costanti positive $A$ e $c$ e un algoritmo polinomiale $V$,
+	detto \emph{verificatore}, tale che per ogni $n$ e ogni $x \in \{0,1\}^n$
+	vale
 	\[
-		\mathtt{SAT} \in \NPC.
+		x \in L \iff \exists y \in \{0,1\}^{A n^c} \ \text{tale che } V(x, y) = 1.
 	\]
-\end{theorem}
+La stringa $y$ si chiama \emph{certificato} per $x$ e corrisponde a una
+dimostrazione di ``$x \in L$''.
+\end{definition}
 
-\begin{theorem}[\cite{Karp72, Stockmeyer73}]
-	\[
-		\mathtt{3COL} \in \NPC.
-	\]
-\end{theorem}
+Dalle definizioni segue $\P \subseteq \NP$: per ogni problema in \P il
+verificatore $V$ può ignorare il certificato. Il problema del millenio
+``\P contro \NP'' chiede se questo contenimento è stretto. Secondo l'opinione
+di gran lunga più condivisa \P è diverso da \NP: verificare una dimostrazione
+è facile, trovarla è un altro paio di maniche. Il problema è tuttavia aperto.
 
-Definizione di \texttt{QUADEQ}, cioè il problema di determinare se un sistema
-quadratico ha soluzione in $\mathbb{F}_2$.
+Per confrontare la difficoltà relativa di problemi in \NP si utilizza la
+nozione di riduzione polinomiale secondo Karp.
+%\footnote{Non è l'unica nozione
+%possibile: a volte, per esempio, si parla di riduzioni polinomiali secondo
+%Cook}.
+Formalmente, un linguaggio $L$ si riduce a $L'$ se esiste
+una funzione $f: \{0, 1\}^* \to \{0, 1\}^*$ calcolabile in tempo polinomiale tale
+che $x \in L \iff f(x) \in L'$. Un problema $L$ è detto \NP-\emph{completo}
+se $L \in \NP$ e ogni altro linguaggio in \NP si riduce a $L$ in tempo
+polinomiale.
 
-\begin{theorem}
-	\[
-		\texttt{QUADEQ} \in \NPC.
-	\]
-\end{theorem}
+Sorprendentemente, esiste un problema \NP-completo e una volta che ce n'è uno
+se ne trovano altri riducendo problemi \NP-completi ad altri problemi in \NP.
 
-
-Introduciamo i \emph{Constraint Satisfaction Problem}, cioè una classe di
-problemi che generalizza naturalmente \texttt{3-SAT} e i problemi di colorazione di
-grafi. Fissata un'arietà $k$ e un alfabeto $\Sigma$ definiamo $k\CSP_\Sigma$ il
-seguente problema computazionale. Data una collezione $((C_j, R_j))_{j \in [m]}$
-di $k$-uple $C_j$ di variabili associate a relazioni $R_j \subseteq \Sigma^k$,
-determinare se esiste in $\Sigma^n$ un assegnamento delle variabili che soddisfa
-\emph{tutti} i vincoli, cioè tale che per ogni $k$-upla $C_j$ di variabili,
-il corrispondente assegnamento appartiene a $R_j$.
-Indicheremo con $k\CSP_W$ il problema $k\CSP_{[W]}$.
-Secondo la notazione appena introdotta \texttt{3COL}
-corrisponde alla restrizione di $2\CSP_3$ alle istanze i cui vincoli sono
-espressi da $R_{\text{3col}} = \{(1, 2), (1, 3), (2, 3)\}$.
-Ogni variabile corrisponde a un nodo e assume un valore in $\{1, 2, 3\}$; per
-ogni coppia di nodi adiacenti si impone la relazione binaria ``$a \neq b$'' tra
-le corrispondenti variabili.
-
-\iffalse
-Più in generale, fissato un insieme di relazioni $\Gamma \subseteq
-\mathcal{P}(\Sigma^k)$, il problema computazionale $\CSP(\Gamma)$ è la
-restrizione di $k\CSP_\Sigma$ alle istanze i cui vincoli appartengono a $\Gamma$,
-cosicché $\texttt{3COL} = \CSP(\{R_\text{3col}\})$.
-Vale il seguente risultato di dicotomia congetturato da Feder e Vardi
-\cite{FV98} e dimostrato di recente da Bulatov e Zhuk.
-
-\begin{theorem}[Teorema di dicotomia \cite{Bul17, Zhuk20}]
-	Ogni $\mathtt{CSP}(\Gamma)$ è in \textbf{P} o \textbf{NP}-completo.
-\end{theorem}
-\fi
-
-Data un'istanza $\varphi$ di $\CSP$, definiamo il suo \emph{valore}
-$\val(\varphi)$ come la massima frazione di vincoli soddisfacibili da un
-assegnamento delle variabili di $\varphi$. Dunque $\val(\varphi) = 1$ se
-$\varphi$ è soddisfacibile e $\val(\varphi) < 1$ altrimenti. Data un'istanza
-$\varphi$, definiamo il suo \emph{gap} come $1 - \val(\varphi)$.
-
-Ci interesseremo di trasformazioni tra istanze di $\CSP$. Fissati due $\CSP$
-$A$ e $B$, diremo che $f$ è una \emph{CL-trasformazione}\footnote{Per
-\emph{complete linear-blowup}.} da istanze di $A$ a istanze di $B$ se è
-computabile in tempo polinomiale e per ogni istanza $\varphi$ di $A$, vale che
-(a) l'istanza $f(\varphi)$ è soddisfacibile se e solo se lo è $\varphi$ e
-(b) l'istanza $f(\varphi)$ ha taglia lineare nella taglia di $\varphi$, cioè un
-numero di vincoli lineare nel numero di vincoli di $\varphi$.
-
-Saranno particolarmente utili le CL-trasformazioni che permettono di
-controllare il gap dell'istanza trasformata, nello specifico quelle per cui
-esistono costanti positive $\alpha$ e $\varepsilon_0$ tali che valga
-l'implicazione
+Il primo problema dimostrato \NP-completo è $\mathtt{SAT}$: il
+problema della soddisfacibilià booleana. Data un'espressione booleana
+formata da operatori AND, OR, NOT e parentesi applicati a variabili e insiemi
+di variabili, $\mathtt{SAT}$ chiede se esiste un assegnamento di valori VERO e
+FALSO per cui l'espressione è vera.
+Quasi sempre con $\mathtt{SAT}$ si indica la restrizione di $\mathtt{SAT}$ alle
+formule in forma normale congiuntiva, vale a dire nella forma
 \[
-	\val(\varphi) \le \varepsilon \implies \val(f(\varphi)) \le \alpha \varepsilon
+	(u_1 \lor u_2 \lor u_3) \land (\bar u_1 \lor \bar u_2) \land
+	\ldots \land (u_4 \lor \bar u_8 \lor u_{16} \lor \bar u_{32}).
 \]
-per ogni $\varepsilon < \varepsilon_0$.
+Vale il seguente
 
-Notiamo che le classi delle CL-trasformazioni e delle CL-trasformazioni che
-controllano il gap sono entrambe chiuse per composizione.
+\begin{theorem}[\cite{Cook71, Levin73}] \label{thm:cook-levin}
+	$\mathtt{SAT}$ è \NP-completo.
+\end{theorem}
 
-Teniamo a mente l'esempio di \texttt{3COL}. Data un'istanza $\varphi$ di
-$2\CSP_\Sigma$ con $n$ variabili $x_1, \dots, x_n$, definiamo il suo \emph{grafo
-soggiacente} $G_\varphi$ come il grafo con vertici $[n]$ e un arco $(i, j)$ per
-ogni vincolo che dipende da $x_i$ e $x_j$. In modo analogo, definiamo
-l'ipergrafo soggiacente a un'istanza di $k\CSP$.
+Se inoltre ogni clausola è la disgiunzione di al più tre letterali, cioè al
+più tre tra variabili e variabili negate, si parla di $\mathtt{3SAT}$.
+Non è difficile ridurre $\mathtt{SAT}$ a $\mathtt{3SAT}$ e con un po' più
+di lavoro si riduce $\mathtt{3SAT}$ a $\mathtt{3COL}$. Dunque anche il problema
+della 3-colorabilità di grafi è \NP-completo \cite{Karp72, Stockmeyer73}.
 
+% Data un'istanza di $\mathtt{SAT}$ in forma normale congiuntiva è possibile
+% ottenere un'istanza di $\mathtt{3SAT}$ applicando iterativamente una
+% trasformazione del tipo
+% \[
+% 	(u_1 \lor u_2 \lor u_3 \lor u_4) \mapsto
+% 	(u_1 \lor u_2 \lor y) \land (\bar y \lor u_3 \lor u_4).
+% \]
+
+
+Un problema di natura algebrica che tornerà particolarmente utile a fine
+capitolo è il seguente.
+Dato un sistema di $m$ equazioni polinomiali quadratiche nelle variabili
+$u_1, \ldots, u_n$ su $\mathbb{F}_2$, determinare se questo ha soluzione.
+Chiamiamo questo problema $\mathtt{QUADEQ}$.
+
+\begin{example}
+	La seguente è un'istanza di $\mathtt{QUADEQ}$ in cinque variabili:
+	\begin{align*}
+		u_1 u_2 + u_3 u_4 + u_5^2 &= 1\\
+		u_1 u_3 + u_2 u_5 &= 0 \\
+		u_2 u_4 + u_3 u_5 + u_1 u_5 &= 1 \\
+	\end{align*}
+	Se ogni variabile vale $1$ tutte le equazioni sono soddisfatte,
+	dunque il sistema è soddisfacibile.
+\end{example}
+
+Gli operatori logici si possono esprimere con equazioni di grado al più due,
+dunque non è difficile ridurre $\mathtt{SAT}$ a $\mathtt{QUADEQ}$ e mostrare
+che $\mathtt{QUADEQ}$ è \NP-completo.
+Notiamo inoltre che in $\mathbb{F}_2$ vale l'identità ${u_i}^2 = u_i$, quindi
+possiamo assumere le equazioni non contengano termini lineari e
+rappresentare un'istanza come una matrice di coefficienti
+$A \in \mathbb{F}_2^{m \times n^2}$ e un vettore di termini noti
+$b \in \mathbb{F}^m$. Fissata una bigezione $[n^2] \to [n] \times [n]$ e
+definendo $(x \otimes y)_{ij}$ come $x_i y_j$, un assegnamento $\mathbf{u}$
+risolve il sistema se e soltanto se $A (\mathbf{u} \otimes \mathbf{u}) = b$.
+In questo caso, un valido assegnamento $\mathbf{u}$ è una dimostrazione di
+soddisfacibilità del sistema.
 
 \section{Verifica probabilistica e Teorema PCP}
 
-Definizione classe \PCP[r(n), b(n)]. Differenza con \PCP(r(n), b(n))\footnote{che mi ero perso.}.
-TBD.
+Immagina ci vengano fornite mille pagine di dimostrazione per un teorema
+molto compliato. Non abbiamo il tempo di leggere l'intera dimostrazione,
+dunque improvvisiamo la seguente procedura di verifica molto sbrigativa.
+Scelte cento righe a caso, accettiamo la dimostrazione come valida se e soltanto
+se queste non contengono errori. Questa protocollo ha degli evidenti problemi:
+le dimostrazioni valide vengono correttamente riconosciute come tali, tuttavia
+non c'è quasi nessuna garanzia di correttezza nel caso di dimostrazioni
+fallaci. Sepolto a pagina 444 potrebbe nascondersi un ``$\le$'' che fino a poco
+prima era un ``$<$'' e questo singolo errore invalida l'intero argomento.
+È estremamente improbabile accorgersi dell'errore controllando solo una
+piccolissima frazione della dimostrazione, dunque il formato standard di
+dimostrazione non funziona.
+Il Teorema PCP dice che c'è un modo di scrivere dimostrazioni per cui la
+verifica descritta ha successo con alta probabilità.
+
+Formalizziamo questo processo di verifica per poterneparlare in modo preciso.
+
+\begin{definition}[Verificatore PCP]
+	Siano $r, b: \N \to \N$ due funzioni. Un \emph{verificatore $(r(n), b(n))$-limitato}
+	$V$ per un linguaggio $L \subseteq \{0,1\}^*$ è un algoritmo probabilistico
+	efficiente che ha accesso a un oracolo di dimostrazione $\pi \in \{0, 1\}^*$.
+	Data un'istanza in input $x \in \{0,1\}^n$:
+	\begin{enumerate}
+		\item il verificatore $V$ legge una stringa casuale $R \in \{0,1\}^{r(n)}$ di $r(n)$ bit;
+		\item sulla base di $x$ e di $R$, il verificatore determina le posizioni di $b(n)$ bit della dimostrazione $\pi$ da leggere;
+		\item il verificatore legge i $b(n)$ bit da $\pi$ e decide se accettare o rifiutare.
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Classi \PCP]
+	Siano $r, b: \N \to \N$ due funzioni. Un linguaggio $L \subseteq \{0,1\}^*$
+	appartiene alla classe $\PCP[r(n), b(n)]$ se esiste un verificatore
+	$(r(n), b(n))$-limitato $V$ tale che, per ogni $x \in \{0,1\}^n$:
+	\begin{itemize}
+		\item \textbf{completezza}: se $x \in L$, esiste una
+			dimostrazione $\pi$ tale che
+		\[
+			\Pr[V \text{ accetta}] = 1;
+		\]
+		\item \textbf{robustezza}: se $x \notin L$, per \emph{ogni}
+			tentativo di dimostrazione $\pi$ vale
+		\[
+			\Pr[V \text{ accetta}] \le \frac12.
+		\]
+	\end{itemize}
+	Indichiamo con $\PCP(r(n), b(n))$ la classe	$\PCP[O(r(n)), O(b(n))]$, i cui
+	limiti sulle risorse sono intesi a meno di fattori costanti. Questa
+	definizione è indipendente dalla costante di robustezza $\frac12$. Se
+	infatti avessimo definito le classi \PCP con costante di robustezza
+	$c \in (0, 1)$, sarebbe bastato ripetere il processo di verifica $k$ volte
+	indipendenti per ottenere probabilità di errore limitata da $c^k$, piccolo a
+	piacere; il fattore $k$ nelle risorse viene assorbito dagli O grande e
+	la classe $\PCP(r(n), b(n))$ rimane invariata.
+\end{definition}
+
+Siamo pronti per enunciare il Teorema PCP.
 
 \begin{theorem}[Teorema PCP \cite{ALMSS98}] \label{thm:pcp}
 	\[
@@ -107,27 +228,32 @@ TBD.
 	\]
 \end{theorem}
 
-\begin{proof}
-	TBD.
+Dunque è possibile verificare dimostrazioni con alta probabilità di
+successo leggendone solo una piccolissima parte. Qui dimostriamo il
+contenimento facile dei due. Rimandiamo la pare principale della dimostrazione
+al Capitolo \ref{chap:pcpproof}.
 
-	% da spostare al Capitolo 4
+% Dimostrazione al lettore??
+\lorenzo{Non è una dimostrazione difficile o particolarmente significativa, da
+valutare se lasciarla al lettore per arrivare prima al punto.}
+\begin{proof}[Dimostrazione di $\PCP(\log n, 1) \subseteq \NP$]
+	Sia $L \in \PCP(\log n, 1)$. Per definizione, esistono due costanti $c, q > 0$
+	e un verificatore $V$ che, su input $x \in \{0,1\}^n$, legge al fino a
+	$c \log n$ bit casuali e $q$ bit del certificato.
 
-	È sufficiente dimostrare la tesi per un problema \textbf{NP}-completo.
-	Sia allora $q_0 \ge 3$ la costante data dal Lemma \ref{thm:pcp-key-lemma} e
-	mostriamo che $q_0\CSP_2 \in \PCP(\log n, 1)$.
-	
-	Data un'istanza $\varphi$ di $q_0\CSP_2$ con $m$ vincoli, applichiamo $\log m$
-	volte la trasformazione del Lemma \ref{thm:pcp-key-lemma}. Sia $\psi$
-	l'istanza così ottenuta. Se $\varphi \in q_0\CSP_2$, allora anche
-	$\psi \in q_0\CSP_2$.
-	Se invece $\varphi \notin q_0\CSP_2$, allora necessariamente
-	$\val(\varphi) \le 1 - \frac1{m}$, da cui $\val(\psi) \le 1 - \varepsilon_0$.
-	Dimostrazioni di ``$\varphi \in q_0\CSP_2$'' corrispondono a dimostrazioni di
-	``$\psi \in q_0\CSP_2$''. Poiché, se $\psi$ non è soddisfacibile, ogni
-	assegnamento delle variabili di $\psi$ viola almeno una frazione costante
-	dei vincoli, dimostrazioni di $\psi \in q_0\CSP_2$ si possono verificare
-	probabilisticamente in maniera naïve e con buone garanzie di correttezza.
-	Dunque $q_0\CSP_2 \in \PCP(\log n, 1)$.
+	Fissati $x$ e $\pi$, esistono al più $2^{c \log n} = n^c$ possibili scenari,
+	ognuno indicizzato dalla corrispondente stringa casuale. Poiché in ogni
+	scenario il verificatore legge $q$ bit casuali, esistono non più di
+	$q n^c$ posizioni del certificato che il verificatore può potenzialmente
+	leggere. Ai fini della verifica, quindi, soltanto una porzione di lunghezza
+	polinomiale di $\pi$ è rilevante.
+
+	Sia $\tilde{\pi}$ la stringa binaria data dalla restrizione di $\pi$ alle
+	posizioni rilevanti. Allora $\tilde{\pi}$ è un valido certificato per un
+	verificatore deterministico polinomiale $V_\NP$ per $L$. Il verificatore in
+	questione simula $V$ su tutte le $n^c$ possibili stringhe random, legge le
+	corrispondenti posizioni di $\tilde{\pi}$ ed accetta se e solo se $V$ accetta
+	sempre, indipendentemente dalla stringa random. Dunque $L \in \NP$.
 \end{proof}
 
 \section{Un Teorema PCP più debole}

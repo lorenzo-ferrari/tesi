@@ -1,5 +1,74 @@
 \chapter{Inapprossimabilità}
 
+TBD. Parlare delle versioni di ottimizzazione di problemi \NP-completi.
+Enfatizzare il fatto che la sola \NP-completezza non garantisce che non esista
+un algoritmo che soddisfa tutti fuori che una clausola. Anzi, per le istanze
+di SAT che si ottengono dalla dimostrazione del Teorema di Cook-Levin è molto
+facile soddisfare tutte le clauseole meno una.
+Dire in due parole cosa s'intende per inapprossimabilità
+
+\vspace{1em}
+
+Introduciamo i \emph{Constraint Satisfaction Problem}, cioè una classe di
+problemi che generalizza naturalmente \texttt{3-SAT} e i problemi di colorazione di
+grafi. Fissata un'arietà $k$ e un alfabeto $\Sigma$ definiamo $k\CSP_\Sigma$ il
+seguente problema computazionale. Data una collezione $((C_j, R_j))_{j \in [m]}$
+di $k$-uple $C_j$ di variabili associate a relazioni $R_j \subseteq \Sigma^k$,
+determinare se esiste in $\Sigma^n$ un assegnamento delle variabili che soddisfa
+\emph{tutti} i vincoli, cioè tale che per ogni $k$-upla $C_j$ di variabili,
+il corrispondente assegnamento appartiene a $R_j$.
+Indicheremo con $k\CSP_W$ il problema $k\CSP_{[W]}$.
+Secondo la notazione appena introdotta \texttt{3COL}
+corrisponde alla restrizione di $2\CSP_3$ alle istanze i cui vincoli sono
+espressi da $R_{\text{3col}} = \{(1, 2), (1, 3), (2, 3)\}$.
+Ogni variabile corrisponde a un nodo e assume un valore in $\{1, 2, 3\}$; per
+ogni coppia di nodi adiacenti si impone la relazione binaria ``$a \neq b$'' tra
+le corrispondenti variabili.
+
+% Più in generale, fissato un insieme di relazioni $\Gamma \subseteq
+% \mathcal{P}(\Sigma^k)$, il problema computazionale $\CSP(\Gamma)$ è la
+% restrizione di $k\CSP_\Sigma$ alle istanze i cui vincoli appartengono a $\Gamma$,
+% cosicché $\texttt{3COL} = \CSP(\{R_\text{3col}\})$.
+% Vale il seguente risultato di dicotomia congetturato da Feder e Vardi
+% \cite{FV98} e dimostrato di recente da Bulatov e Zhuk.
+% 
+% \begin{theorem}[Teorema di dicotomia \cite{Bul17, Zhuk20}]
+% 	Ogni $\mathtt{CSP}(\Gamma)$ è in \textbf{P} o \textbf{NP}-completo.
+% \end{theorem}
+
+Data un'istanza $\varphi$ di $\CSP$, definiamo il suo \emph{valore}
+$\val(\varphi)$ come la massima frazione di vincoli soddisfacibili da un
+assegnamento delle variabili di $\varphi$. Dunque $\val(\varphi) = 1$ se
+$\varphi$ è soddisfacibile e $\val(\varphi) < 1$ altrimenti. Data un'istanza
+$\varphi$, definiamo il suo \emph{gap} come $1 - \val(\varphi)$.
+
+Ci interesseremo di trasformazioni tra istanze di $\CSP$. Fissati due $\CSP$
+$A$ e $B$, diremo che $f$ è una \emph{CL-trasformazione}\footnote{Per
+\emph{complete linear-blowup}.} da istanze di $A$ a istanze di $B$ se è
+computabile in tempo polinomiale e per ogni istanza $\varphi$ di $A$, vale che
+(a) l'istanza $f(\varphi)$ è soddisfacibile se e solo se lo è $\varphi$ e
+(b) l'istanza $f(\varphi)$ ha taglia lineare nella taglia di $\varphi$, cioè un
+numero di vincoli lineare nel numero di vincoli di $\varphi$.
+
+Saranno particolarmente utili le CL-trasformazioni che permettono di
+controllare il gap dell'istanza trasformata, nello specifico quelle per cui
+esistono costanti positive $\alpha$ e $\varepsilon_0$ tali che valga
+l'implicazione
+\[
+	\val(\varphi) \le \varepsilon \implies \val(f(\varphi)) \le \alpha \varepsilon
+\]
+per ogni $\varepsilon < \varepsilon_0$.
+
+Notiamo che le classi delle CL-trasformazioni e delle CL-trasformazioni che
+controllano il gap sono entrambe chiuse per composizione.
+
+Teniamo a mente l'esempio di \texttt{3COL}. Data un'istanza $\varphi$ di
+$2\CSP_\Sigma$ con $n$ variabili $x_1, \dots, x_n$, definiamo il suo \emph{grafo
+soggiacente} $G_\varphi$ come il grafo con vertici $[n]$ e un arco $(i, j)$ per
+ogni vincolo che dipende da $x_i$ e $x_j$. In modo analogo, definiamo
+l'ipergrafo soggiacente a un'istanza di $k\CSP$.
+
+
 % \section{Inapprossimabilità di Max-Clique}
 
 \begin{theorem}[\cite{FGLSS96}] \label{thm:max-clique}

@@ -4,6 +4,23 @@ In questo capitolo dimostriamo il Teorema PCP. Presentiamo nello specifico la
 dimostrazione di Dinur \cite{Din06}, per cui il ruolo degli expander è cruciale.
 \todo{Dire che è una rielaborazione della dimostrazione nel libro di Arora e Safra, a sua volta basata sulla dimostrazione di Dinur.}
 
+È sufficiente dimostrare la tesi per un problema \textbf{NP}-completo.
+Sia allora $q_0 \ge 3$ la costante data dal Lemma \ref{thm:pcp-key-lemma} e
+mostriamo che $q_0\CSP_2 \in \PCP(\log n, 1)$.
+
+Data un'istanza $\varphi$ di $q_0\CSP_2$ con $m$ vincoli, applichiamo $\log m$
+volte la trasformazione del Lemma \ref{thm:pcp-key-lemma}. Sia $\psi$
+l'istanza così ottenuta. Se $\varphi \in q_0\CSP_2$, allora anche
+$\psi \in q_0\CSP_2$.
+Se invece $\varphi \notin q_0\CSP_2$, allora necessariamente
+$\val(\varphi) \le 1 - \frac1{m}$, da cui $\val(\psi) \le 1 - \varepsilon_0$.
+Dimostrazioni di ``$\varphi \in q_0\CSP_2$'' corrispondono a dimostrazioni di
+``$\psi \in q_0\CSP_2$''. Poiché, se $\psi$ non è soddisfacibile, ogni
+assegnamento delle variabili di $\psi$ viola almeno una frazione costante
+dei vincoli, dimostrazioni di $\psi \in q_0\CSP_2$ si possono verificare
+probabilisticamente in maniera naïve e con buone garanzie di correttezza.
+Dunque $q_0\CSP_2 \in \PCP(\log n, 1)$.
+
 \section{Struttura di dimostrazione}
 
 \begin{lemma}[Lemma chiave del PCP] \label{thm:pcp-key-lemma}
@@ -44,10 +61,10 @@ trasformazione che raddoppia li gap. Vedi pagina 463 di Arora, Barak.}
 
 \section{Amplificazione del gap}
 
-Per dimostrare il Lemma \ref{thm:gap-amplification} esibiamo una trasformazione
-$g$ che mappi istanze di $q\CSP_2$ a istanze di $2\CSP_W$ con
-$W$ sufficientemente grande e tale che aumenti la minima frazione di vincoli
-violati.
+Per dimostrare il Lemma \ref{thm:gap-amplification} di amplificazione del gap
+esibiamo una trasformazione $g$ che mappi istanze di $q\CSP_2$ a istanze di
+$2\CSP_W$ con $W$ sufficientemente grande e tale che aumenti la minima frazione
+di vincoli violati.
 
 Notiamo che se fossero permessi
 (a) un aumento polinomiale nella taglia dell'istanza e
@@ -57,13 +74,14 @@ vincolo per ogni $k$-upla di vincoli in $\varphi$. In questo modo, la minima
 frazione di vincoli violata sale a
 $1 - (1 - \varepsilon)^k \ge (k - 1)\varepsilon$ per tutti gli $\varepsilon$
 sufficientemente piccoli.
-L'impiego diretto degli expander\footnote{Anziché enumerare le $n^k$ $k$-uple
-di vincoli, si scelgono solo quelle corrispondenti a una passeggiata aleatoria
-di lunghezza $k$ su un expander fissato sull'insieme dei vincoli. Queste sono
-solo $n d^{k - 1}$ e in virtù del Teorema \ref{thm:expander-walk}, espandendo
-al primo ordine, l'amplificazione è comunque dell'ordine di $k$.}
-permetterebbe un aumento solo lineare in taglia,
-ma per ottenere arietà $2$ è necessario un approccio più sofisticato.
+L'impiego diretto degli expander\footnote{Anziché enumerare tutte le $m^k$
+$k$-uple di vincoli, si selezionano solo quelle corrispondenti a una passeggiata
+aleatoria di lunghezza $k$ su un expander fissato sull'insieme dei vincoli.
+Queste sono solo $m d^{k - 1}$ e in virtù del Teorema \ref{thm:expander-walk}
+(Passeggiate aleatorie su expander), espandendo al primo ordine,
+l'amplificazione è comunque dell'ordine di $k$.} permetterebbe un aumento solo
+lineare in taglia, ma per ottenere arietà $2$ è necessario un approccio
+più sofisticato.
 
 \subsection{Amplificazione del gap di Dinur}
 
@@ -440,7 +458,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 		= \frac{\delta \sqrt{t}}{100 W^4} \varepsilon
 		\le \frac{\sqrt{t}}{10^3 W^5} \varepsilon.
 	\]
-	Il Lemma \ref{thm:gap-amplification} è dimostrato.
+	Il Lemma \ref{thm:gap-amplification} di amplificazione del gap è dimostrato.
 \end{proof}
 
 \subsection{Ottenere istanze amplificabili} \label{subsec:istanze-amplificabili}
@@ -594,7 +612,8 @@ un expander con abbastanza cappi a ogni nodo.
 
 \section{Riduzione dell'alfabeto}
 
-In questa sezione dimostriamo il Lemma \ref{thm:alphabet-reduction}: data
+In questa sezione dimostriamo il Lemma \ref{thm:alphabet-reduction} di
+riduzione dell'alfabeto: data
 un'istanza $\varphi$ di $2\CSP_W$ su alfabeto grande a piacere,
 l'obiettivo è trasformarla a un'istanza $\psi$ di $q_0\CSP_2$ per un $q_0$
 fissato e indipendente da $W$, il tutto con perdita di gap al più costante.
@@ -637,7 +656,7 @@ un certificato valido.
 Prima della dimostrazione, vediamo come il corollario è sufficiente per
 la riduzione dell'alfabeto.
 
-\begin{proof}[Dimostrazione del Lemma \ref{thm:gap-amplification}]
+\begin{proof}[Dimostrazione del Lemma \ref{thm:alphabet-reduction} di riduzione dell'alfabeto]
 	Sostituiamo a ogni variabile originale $u_i$ una sequenza
 	$U_i = (U_{i,1}, \dots, U_{i, W})$ di $2^{\log W} = W$ variabili
 	binarie che, in un assegnamento valido, rappresentano la codifica
