@@ -1,7 +1,15 @@
 \chapter{Inapprossimabilità}
 
-TBD. Parlare delle versioni di ottimizzazione di problemi \NP-completi.
-Enfatizzare il fatto che la sola \NP-completezza non garantisce che non esista
+Il Teorema PCP è intrinsecamente legato all'(in)approssimabilità di problemi
+di ottimizzazione combinatoria.
+Definiamo i \emph{Constraint Satisfaction Problem} ($\CSP$) e introduciamo
+notazioni che torneranno utili nel Capitolo \ref{chap:pcpproof}.
+Diamo una formulazione equivalente del Teorema PCP in termini di $\CSP$.
+Infine, dimostriamo alcuni risultati di inapprossimabilità.
+
+\vspace{.5em}
+TBD. Parlare delle versioni di ottimizzazione di problemi $\NP$-completi.
+Enfatizzare il fatto che la sola $\NP$-completezza non garantisce che non esista
 un algoritmo che soddisfa tutti fuori che una clausola. Anzi, per le istanze
 di SAT che si ottengono dalla dimostrazione del Teorema di Cook-Levin è molto
 facile soddisfare tutte le clauseole meno una.
@@ -24,17 +32,6 @@ espressi da $R_{\text{3col}} = \{(1, 2), (1, 3), (2, 3)\}$.
 Ogni variabile corrisponde a un nodo e assume un valore in $\{1, 2, 3\}$; per
 ogni coppia di nodi adiacenti si impone la relazione binaria ``$a \neq b$'' tra
 le corrispondenti variabili.
-
-% Più in generale, fissato un insieme di relazioni $\Gamma \subseteq
-% \mathcal{P}(\Sigma^k)$, il problema computazionale $\CSP(\Gamma)$ è la
-% restrizione di $k\CSP_\Sigma$ alle istanze i cui vincoli appartengono a $\Gamma$,
-% cosicché $\texttt{3COL} = \CSP(\{R_\text{3col}\})$.
-% Vale il seguente risultato di dicotomia congetturato da Feder e Vardi
-% \cite{FV98} e dimostrato di recente da Bulatov e Zhuk.
-% 
-% \begin{theorem}[Teorema di dicotomia \cite{Bul17, Zhuk20}]
-% 	Ogni $\mathtt{CSP}(\Gamma)$ è in \textbf{P} o \textbf{NP}-completo.
-% \end{theorem}
 
 Data un'istanza $\varphi$ di $\CSP$, definiamo il suo \emph{valore}
 $\val(\varphi)$ come la massima frazione di vincoli soddisfacibili da un
@@ -73,7 +70,7 @@ l'ipergrafo soggiacente a un'istanza di $k\CSP$.
 
 \begin{theorem}[\cite{FGLSS96}] \label{thm:max-clique}
 	Per ogni $\varepsilon > 0$, non esiste una $\varepsilon$-approssimazione
-	polinomiale di \texttt{MAX-CLIQUE}, a meno che $\textbf{P} = \textbf{NP}$.
+	polinomiale di \texttt{MAX-CLIQUE}, a meno che $\P = \NP$.
 \end{theorem}
 
 \begin{proof}
@@ -83,7 +80,7 @@ l'ipergrafo soggiacente a un'istanza di $k\CSP$.
 \begin{theorem}
 	Esiste una costante $c > 0$ tale che non esista una
 	$\frac1{n^c}$-approssimazione polinomiale di \texttt{MAX-CLIQUE}, a meno
-	che $\textbf{P} = \textbf{NP}$.
+	che $\P = \NP$.
 \end{theorem}
 
 \begin{proof}
@@ -93,7 +90,7 @@ l'ipergrafo soggiacente a un'istanza di $k\CSP$.
 \begin{theorem}
 	Esiste un $\varepsilon_1 > 0$ tale che non esiste una
 	$\varepsilon_1$-approssimazione polinomiale di \texttt{MAX-3SAT}, a meno che
-	$\textbf{P} = \textbf{NP}$.
+	$\P = \NP$.
 \end{theorem}
 
 \begin{proof}
