@@ -91,7 +91,7 @@ nozione di riduzione polinomiale secondo Karp.
 %possibile: a volte, per esempio, si parla di riduzioni polinomiali secondo
 %Cook}.
 Formalmente, un linguaggio $L$ si riduce a $L'$ se esiste
-una funzione $f: \{0, 1\}^* \to \{0, 1\}^*$ calcolabile in tempo polinomiale tale
+una funzione $f\colon \{0, 1\}^* \to \{0, 1\}^*$ calcolabile in tempo polinomiale tale
 che $x \in L \iff f(x) \in L'$. Un problema $L$ è detto $\NP$-\emph{completo}
 se $L \in \NP$ e ogni altro linguaggio in $\NP$ si riduce a $L$ in tempo
 polinomiale.
@@ -285,7 +285,7 @@ Fissata una base, lo spazio vettoriale $\F_2^n = \{0, 1\}^n$ è isomorfo al suo 
 tramite la mappa $v \mapsto [w \mapsto \langle v, w \rangle]$, dunque ogni
 funzionale su $\F_2^n$ si rappresenta come prodotto scalare per un
 unico vettore. Definiamo il \emph{codice di Walsh-Hadamard} come la mappa
-$\WH: \{0, 1\}^n \to \{0, 1\}^{2^n}$ che associa a un vettore la
+$\WH\colon \{0, 1\}^n \to \{0, 1\}^{2^n}$ che associa a un vettore la
 tabella dei $2^n$ valori del relativo funzionale. La mappa di
 Walsh-Hadamard si estende su tutto $\{0, 1\}^*$ nel modo naturale.
 
@@ -299,25 +299,26 @@ delle posizioni.
 
 I certificati validi per il Teorema \ref{thm:exppcp} saranno forniti sotto
 forma di codifiche di Walsh-Hadamard, dunque come funzioni lineari. Per
-riconoscere certificati non validi quindi sarebbe bene essere in grado di
-determinare con alta probabilità se una funzione $f: \F_2^n \to \F_2$ è lineare
-chiedendo i valori della funzione su solamente $O(1)$ input. Questo obiettivo
-è troppo ambizioso, infatti è estremamente improbabile distinguere una
-funzione lineare da una funzione che coincide con una funzione lineare su tutti
+riconoscere certificati non validi sarebbe bene essere in grado di
+determinare con alta probabilità se una funzione $f\colon \F_2^n \to \F_2$ è lineare
+chiedendo solamente $O(1)$ valori della funzione, tuttavia questo
+obiettivo è troppo ambizioso, infatti è estremamente improbabile distinguere una
+funzione lineare da una che coincide con una funzione lineare su tutti
 i vettori meno che uno, dunque ci accontentiamo di un test che accetta funzioni
 lineari e che rifiuta con alta probabilità funzioni \textit{lontane} da
 ogni funzione lineare. In questo caso è sufficiente verificare $O(1)$ volte
-che la linearità valga per due vettori scelti a caso.
+che la linearità valga per una coppia di vettori scelti a caso.
 
 \begin{definition}
 	Sia $\rho \in [0, 1]$ una costante. Diciamo che le funzioni
-	$f, g: \F_2^n \to \F_2$ sono $\rho$-vicine se queste coincidono su almeno una
-	frazione $\rho$ degli input.
+	$f, g\colon \F_2^n \to \F_2$ sono $\rho$-vicine se queste coincidono su almeno una
+	frazione $\rho$ degli input, cioè se vale
+	$\Pr_\xx [f(x) = g(x)] \ge \rho$.
 \end{definition}
 
 % TBD. Capire chi citare. BLR90 mi sembra illeggibile.
-\begin{theorem}[Test di linearità]
-	Sia $f: \F_2^n \to \F_2$ una funzione tale che
+\begin{theorem}[Test di linearità] \label{thm:lintest}
+	Sia $f\colon \F_2^n \to \F_2$ una funzione tale che
 	\[
 		\Pr_{\xx, \yy}
 		[f(\xx + \yy) = f(\xx) + f(\yy)] \ge \rho
@@ -325,11 +326,17 @@ che la linearità valga per due vettori scelti a caso.
 	per $\rho > \frac12$. Allora $f$ è $\rho$-vicina a una funzione lineare.
 \end{theorem}
 
-\begin{proof}
-	È necessario richiamare qualche nozione di analisi di Fourier discreta su
+Il Teorema \ref{thm:lintest} garantisce che ripetere $O(1)$ volte il test di
+linearità è sufficiente per rifiutare con alta probabilità qualunque funzione
+(per esempio) non $0.99$-vicina a una funzione lineare. Se infatti $f$ non
+è $0.99$-vicina a una funzione lineare e il test viene ripetuto cento volte,
+questo ha succcesso con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
+
+\begin{proof}[Dimostrazione del Teorema \ref{thm:lintest}]
+	Richiamiamo qualche nozione di analisi di Fourier discreta su
 	$(\Z/2\Z)^n$.
 	Identifichiamo $\F_2^n$ con l'ipercubo $\{\pm 1\}^n$. Definiamo per
-	$\alpha \subseteq [n]$ la funzione $\chi_\alpha : \{\pm 1\}^n \to \{\pm 1\}$
+	$\alpha \subseteq [n]$ la funzione $\chi_\alpha\colon \{\pm 1\}^n \to \{\pm 1\}$
 	come $\chi_\alpha(\xx) := \prod_{i \in \alpha}{x_i}$.
 	La somma $\xx + \yy$ su $\F_2^n$ si legge come il prodotto
 	puntuale $\xx \odot \yy$ sull'ipercubo e poiché vale
@@ -353,10 +360,10 @@ che la linearità valga per due vettori scelti a caso.
 	$\E[f(\xx \odot \yy)f(\xx)f(\yy)] =
 	% \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)] -
 	% (1 - \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)])$
-	1 - 2 \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)])$.
+	1 - 2 \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)]$.
 	Sia allora $\rho = \frac12 + \varepsilon$, l'ipotesi diventa
 	$\E[f(\xx \odot \yy)f(\xx)f(\yy)] \ge 2 \varepsilon$.
-	Mostreremo che allora esiste un coefficiente di Fourier	sufficientemente
+	Mostreremo che esiste un coefficiente di Fourier sufficientemente
 	grande e $f$ coincide con il corrispondente carattere su almeno una frazione
 	$\frac12 + \varepsilon$ degli input.
 
@@ -391,6 +398,26 @@ che la linearità valga per due vettori scelti a caso.
 	$\E_\xx[f(\xx) \chi_\alpha (\xx)] \ge 2 \varepsilon$, da cui
 	$\Pr_\xx[f(\xx) = \chi_\alpha (\xx)] \ge \frac12 + \varepsilon = \rho$.
 \end{proof}
+
+Introduciamo l'ultimo strumento necessario per la dimostrazione del Teorema PCP
+debole. Supponiamo una funzione $f\colon \F_2^n \to \F_2$ sia
+$(1 - \delta)$-vicina a una funzione lineare $\tilde{f}$ per $\delta < \frac14$.
+Vorremmo ottenere il valore di $\tilde{f}(\xx)$ per dati $\xx \in \F_2^n$ avendo
+accesso solamente ad $f$. Se per nostra sfortuna $\xx$ è proprio uno dei pochi
+input su cui $f$ differisce da $\tilde{f}$, non è sufficiente restituire
+semplicemente $f(\xx)$. Tuttavia possiamo ottenere il valore di
+$\tilde{f}(\xx)$ con probabilità maggiore di $\frac12$ semplicemente
+chiedendo due valori di $f$, dopodiché sarà sufficiente ripetere $O(1)$ volte
+indipendenti ed effettuare un voto di maggioranza.
+Scelto $\xx' \in \F_2^n$ uniformemente a caso, il tentativo per il
+valore di $\tilde{f}(\xx)$ è $f(\xx') + f(\xx - \xx')$. Poiché sia $\xx'$ che
+$\xx - \xx'$ sono distribuiti uniformemente, gli eventi
+``$f(\xx') = \tilde{f}(\xx')$'' e ``$f(\xx - \xx') = \tilde{f}(\xx - \xx')$''
+accadono entrambi con probabilità almeno $1 - \delta$. Per union bound e
+linearità di $\tilde{f}$, restituiamo il valore corretto per $\tilde{f}(\xx)$
+con probabilità almeno $1 - 2 \delta$.
+% citare Chernoff Bound da Pancones-Dubhashi
+% TBD.
 
 \subsection{Dimostrazione del Teorema PCP debole}
 Da capo a coda, con i codici di Walsh-Hadamard.
