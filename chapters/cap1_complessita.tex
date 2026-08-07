@@ -391,7 +391,7 @@ questo ha succcesso con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 	\le (\max_\alpha \hat{f_\alpha}) \sum_{\alpha} \hat{f_\alpha}^2 =
 	\max_\alpha \hat{f_\alpha}$ poiché $\langle f, f \rangle = 1$ e la
 	base di Fourier è ortonormale\footnote{L'identità
-	$\langle f, f \rangle = \sum_\alpha \hat{f_\alpha}$ si chiama identità di
+	$\langle f, f \rangle = \sum_\alpha \hat{f_\alpha}^2$ si chiama identità di
 	Parseval.}.
 
 	Se $\hat{f_\alpha} \ge 2 \varepsilon$, allora
@@ -402,9 +402,9 @@ questo ha succcesso con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 Introduciamo l'ultimo strumento necessario per la dimostrazione del Teorema PCP
 debole. Supponiamo una funzione $f\colon \F_2^n \to \F_2$ sia
 $(1 - \delta)$-vicina a una funzione lineare $\tilde{f}$ per $\delta < \frac14$.
-Vorremmo ottenere il valore di $\tilde{f}(\xx)$ per dati $\xx \in \F_2^n$ avendo
-accesso solamente ad $f$. Se per nostra sfortuna $\xx$ è proprio uno dei pochi
-input su cui $f$ differisce da $\tilde{f}$, non è sufficiente restituire
+Vorremmo ottenere il valore di $\tilde{f}(\xx)$ per un dato $\xx \in \F_2^n$
+leggendo solo $O(1)$ valori $f$. Se per nostra sfortuna $\xx$ è proprio uno dei
+pochi input su cui $f$ differisce da $\tilde{f}$, non è sufficiente restituire
 semplicemente $f(\xx)$. Tuttavia possiamo ottenere il valore di
 $\tilde{f}(\xx)$ con probabilità maggiore di $\frac12$ semplicemente
 chiedendo due valori di $f$, dopodiché sarà sufficiente ripetere $O(1)$ volte
