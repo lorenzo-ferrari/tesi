@@ -134,7 +134,7 @@ della 3-colorabilità di grafi è $\NP$-completo \cite{Karp72, Stockmeyer73}.
 Un problema di natura algebrica che tornerà particolarmente utile a fine
 capitolo è il seguente.
 Dato un sistema di $m$ equazioni polinomiali quadratiche nelle variabili
-$u_1, \ldots, u_n$ su $\mathbb{F}_2$, determinare se questo ha soluzione.
+$u_1, \ldots, u_n$ su $\F_2$, determinare se questo ha soluzione.
 Chiamiamo questo problema $\mathtt{QUADEQ}$.
 
 \begin{example}
@@ -151,14 +151,14 @@ Chiamiamo questo problema $\mathtt{QUADEQ}$.
 Gli operatori logici si possono esprimere con equazioni di grado al più due,
 dunque non è difficile ridurre $\mathtt{SAT}$ a $\mathtt{QUADEQ}$ e mostrare
 che $\mathtt{QUADEQ}$ è $\NP$-completo.
-Notiamo inoltre che in $\mathbb{F}_2$ vale l'identità ${u_i}^2 = u_i$, quindi
+Notiamo inoltre che in $\F_2$ vale l'identità ${u_i}^2 = u_i$, quindi
 possiamo assumere le equazioni non contengano termini lineari e
 rappresentare un'istanza come una matrice di coefficienti
-$A \in \mathbb{F}_2^{m \times n^2}$ e un vettore di termini noti
-$\mathbf{b} \in \mathbb{F}^m$. Fissata una bigezione $[n^2] \to [n] \times [n]$
+$A \in \F_2^{m \times n^2}$ e un vettore di termini noti
+$\bb \in \F_2^m$. Fissata una bigezione $[n^2] \to [n] \times [n]$
 e definendo $(\xx \otimes \yy)_{ij}$ come $x_i y_j$, un
 assegnamento $\uu$ risolve il sistema se e soltanto se
-$A (\uu \otimes \uu) = \mathbf{b}$.
+$A (\uu \otimes \uu) = \bb$.
 In questo caso, un valido assegnamento $\uu$ è una dimostrazione di
 soddisfacibilità del sistema.
 
@@ -272,7 +272,10 @@ dell'input e il verificatore utilizza $\mathrm{poly}(n)$ bit casuali.
 Il Teorema \ref{thm:exppcp} sarà un ingrediente fondamentale nella dimostrazione
 del Teorema \ref{thm:pcp}}. Per dimostrare il Teorema \ref{thm:exppcp} è
 sufficiente dimostrare che un singolo problema $\NP$-completo, nel nostro caso
-$\mathtt{QUADEQ}$, appartiene a $\PCP(\mathrm{poly}(n), 1)$. 
+$\mathtt{QUADEQ}$, appartiene a $\PCP(\mathrm{poly}(n), 1)$: un generico
+problema in $\NP$ prima si riduce a $\mathtt{QUADEQ}$, poi si verifica
+probabilisticamente la dimostrazione per la relativa istanza di
+$\mathtt{QUADEQ}$.
 Prima della dimostrazione, introduciamo la strumentazione necessaria, cioè il
 test di linearità e il codice di Walsh-Hadamard. Anticipiamo che il certificato
 sarà dato sotto forma di codice di Walsh-Hadamard.
@@ -290,9 +293,10 @@ tabella dei $2^n$ valori del relativo funzionale. La mappa di
 Walsh-Hadamard si estende su tutto $\{0, 1\}^*$ nel modo naturale.
 
 Notiamo che il codice di Walsh-Hadamard codifica stringhe di $n$ bit con
-stringhe di $2^n$ bit ed è quindi estremamente inefficiente.
-Tuttavia, sotto altri punti di vista, è conveniente lavorare con funzioni
-lineari. Per esempio, in seguito useremo ripetutamente il fatto che due distinti
+stringhe di $2^n$ bit ed è quindi estremamente inefficiente. Vedremo che
+questo prezzo sarà ben giustificato dalla possibilità di lavorare con
+funzioni lineari.
+Per esempio, in seguito useremo ripetutamente il fatto che due distinti
 funzionali su $\F_2^n$ differiscono su metà degli input, o equivalentemente
 che le codifiche di Walsh-Hadamard di due distinti vettori differiscono in metà
 delle posizioni.
@@ -302,9 +306,10 @@ forma di codifiche di Walsh-Hadamard, dunque come funzioni lineari. Per
 riconoscere certificati non validi sarebbe bene essere in grado di
 determinare con alta probabilità se una funzione $f\colon \F_2^n \to \F_2$ è lineare
 chiedendo solamente $O(1)$ valori della funzione, tuttavia questo
-obiettivo è troppo ambizioso, infatti è estremamente improbabile distinguere una
-funzione lineare da una che coincide con una funzione lineare su tutti
-i vettori meno che uno, dunque ci accontentiamo di un test che accetta funzioni
+obiettivo è troppo ambizioso. Così facendo, infatti, sarebbe estremamente
+improbabile distinguere una funzione lineare da una che coincide con una
+funzione lineare su tutti i vettori meno che uno.
+Ci accontentiamo dunque di un test che accetta funzioni
 lineari e che rifiuta con alta probabilità funzioni \textit{lontane} da
 ogni funzione lineare. In questo caso è sufficiente verificare $O(1)$ volte
 che la linearità valga per una coppia di vettori scelti a caso.
@@ -340,12 +345,12 @@ questo ha succcesso con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 	come $\chi_\alpha(\xx) := \prod_{i \in \alpha}{x_i}$.
 	La somma $\xx + \yy$ su $\F_2^n$ si legge come il prodotto
 	puntuale $\xx \odot \yy$ sull'ipercubo e poiché vale
-	$\chi_\alpha(\mathbf{x \odot y}) = \chi_\alpha(\xx) \chi_\alpha(\yy)$, i
+	$\chi_\alpha(\xx \odot \yy) = \chi_\alpha(\xx) \chi_\alpha(\yy)$, i
 	$\chi_\alpha$ corrispondono esattamente ai funzionali su $\F_2^n$.
 
 	Lo spazio vettoriale delle funzioni reali sull'ipercubo è dotato di un
 	naturale prodotto scalare definito da $\langle g, h\rangle =
-	\mathbb{E}_{\xx}[g(\xx) h(\xx)]$.
+	\E_{\xx}[g(\xx) h(\xx)]$.
 	L'insieme $\{\chi_\alpha\}_{\alpha \subseteq [n]}$ forma in particolare una
 	base ortonormale detta base di Fourier. Ogni $f$ come in ipotesi si scompone
 	quindi come
@@ -402,25 +407,104 @@ questo ha succcesso con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 Introduciamo l'ultimo strumento necessario per la dimostrazione del Teorema PCP
 debole. Supponiamo una funzione $f\colon \F_2^n \to \F_2$ sia
 $(1 - \delta)$-vicina a una funzione lineare $\tilde{f}$ per $\delta < \frac14$.
-Vorremmo ottenere il valore di $\tilde{f}(\xx)$ per un dato $\xx \in \F_2^n$
-leggendo solo $O(1)$ valori $f$. Se per nostra sfortuna $\xx$ è proprio uno dei
-pochi input su cui $f$ differisce da $\tilde{f}$, non è sufficiente restituire
-semplicemente $f(\xx)$. Tuttavia possiamo ottenere il valore di
+Dato un qualunque $\xx \in \F_2^n$, orremmo ottenere con alta probabilità il
+valore di $\tilde{f}(\xx)$.
+Notiamo che se $\xx$ è uno dei pochi input su cui $f$ differisce da
+$\tilde{f}$, non è sufficiente restituire semplicemente $f(\xx)$.
+Tuttavia possiamo ottenere il valore di
 $\tilde{f}(\xx)$ con probabilità maggiore di $\frac12$ semplicemente
 chiedendo due valori di $f$, dopodiché sarà sufficiente ripetere $O(1)$ volte
 indipendenti ed effettuare un voto di maggioranza.
+
 Scelto $\xx' \in \F_2^n$ uniformemente a caso, il tentativo per il
 valore di $\tilde{f}(\xx)$ è $f(\xx') + f(\xx - \xx')$. Poiché sia $\xx'$ che
 $\xx - \xx'$ sono distribuiti uniformemente, gli eventi
 ``$f(\xx') = \tilde{f}(\xx')$'' e ``$f(\xx - \xx') = \tilde{f}(\xx - \xx')$''
 accadono entrambi con probabilità almeno $1 - \delta$. Per union bound e
 linearità di $\tilde{f}$, restituiamo il valore corretto per $\tilde{f}(\xx)$
-con probabilità almeno $1 - 2 \delta$.
-% citare Chernoff Bound da Pancones-Dubhashi
-% TBD.
+con probabilità almeno $1 - 2 \delta > \frac12$.
+Chiamiamo questo metodo per ottenere $\tilde{f}(\xx)$ ``decodifica locale''
+di codici di Walsh-Hadamard.
 
 \subsection{Dimostrazione del Teorema PCP debole}
-Da capo a coda, con i codici di Walsh-Hadamard.
-Mostriamo un valido PCP per \texttt{QUADEQ}.
-È necessaria un po' di analisi di Fourier discreta per
-dimostrare che il test di linearità funziona.
+
+Descriviamo innanzitutto il sistema di verifica per $\mathtt{QUADEQ}$.
+Sia $A, \bb$ un'istanza di $\mathtt{QUADEQ}$ e supponiamo questa sia
+soddisfacibile da un assegnamento $\uu \in \{0, 1\}^n$. Il verificatore
+ha accesso ha una dimostrazione $\pi \in \{0, 1\}^{2^n + 2^{n^2}}$ che
+interpreta come una coppia di funzioni $f\colon \{0, 1\}^n \to \{0, 1\}$
+e $g\colon \{0, 1\}^{n^2} \to \{0, 1\}$. In una dimostrazione corretta $f$
+è la codifica di Walsh-Hadamard di $\uu$ e $g$ è la codifica di
+Walsh-Hadamard di $\uu \otimes \uu$.
+La verifica si compone dei seguenti passi:
+\begin{enumerate}
+	\item verifica che $f$ e $g$ siano funzioni lineari (o molto vicine a funzioni
+		lineari);
+	\item detto $\uu$ il vettore codificato da $f$, verifica che $g$ codifichi
+		$\uu \otimes \uu$;
+	\item verifica che $g$ codifichi un assegnamento che soddisfa il sistema.
+\end{enumerate}
+
+La verifica ha sempre successo nel caso di dimostrazioni valide.
+Se, in uno qualunque dei tre passi, il verificatore riscontra un errore, la
+dimostrazione è immediatamente rifiutata.
+
+\emph{Passo 1.}
+Il verificatore esegue un test di linearità per assicurarsi che $f$ e $g$ siano
+$0.999$-vicine a funzioni lineari: le chiameremo $\tilde{f}$ e $\tilde{g}$.
+Per alleggerire la notazione, assumiamo $f = \tilde{f}$ e $g = \tilde{g}$:
+d'ora in poi, quando parliamo del valore di $f(\xx)$, intendiamo sempre il
+valore di $\tilde{f}(\xx)$ ottenuto tramite codifica locale di $f$.
+Il Passo 1 permette di assumere nei passi successivi che il certificato non
+già rifiutato codifichi davvero due funzioni lineari.
+
+\emph{Passo 2.}
+Il verificatore esegue (diciamo) dieci volte indipendenti il seguente test:
+``scegli due vettori $\rr, \rr' \in \F_2^n$ uniformemente a caso. Se
+$f(\rr)f(\rr') \neq g(\rr \otimes \rr')$, rifiuta il certificato''.
+Verifichiamo innanzitutto che un valido certificato passa sempre il test. La
+condizione è equivalente a chiedersi se per tutte le coppie di
+vettori $\rr, \rr' \in \F_2^n$ vale
+$\langle \uu, \rr \rangle \langle \uu, \rr' \rangle =
+\langle \uu \otimes \uu, \rr \otimes \rr' \rangle$, che si verifica per
+passaggi algebrici:
+\[
+\Big( \sum_i u_i r_i \Big) \Big( \sum_j u_j {r'}_j \Big)
+= \sum_{i, j} u_i r_i u_j {r'}_j
+= \sum_{i, j} (\uu \otimes \uu)_{i j} (\rr \otimes \rr')_{i j}.
+\]
+In generale, sia $\ww \in \F_2^{n^2}$ il vettore codificato da $g$.
+Consideriamo le matrici $U = (U_{i j}) = (u_i u_j)$ e $W = (W_{i j}) = (\ww_{i j})$.
+Possiamo riscrivere $f(\rr)f(\rr')$ e $g(\rr \otimes \rr')$ come
+$\rr^\top U \rr'$ e $\rr^\top W \rr'$.
+Se $g$ non codifica $\uu \otimes \uu$, cioè se $U \neq W$, allora con
+probabilità almeno $\frac12$ si ha $U \rr' \neq W \rr'$. In questo caso, con
+probabilità $\frac12$ si ha anche $\rr^\top U \rr' \neq \rr^\top W \rr'$.
+Quindi, se $U \neq W$, il test ha successo con probabilità almeno $1/4$.
+Ripetere il test dieci volte assicura che questo abbia successo con
+probabilità almeno $1 - (\frac34)^{10} \approx 94\%$.
+
+\emph{Passo 3.}
+La $k$-esima equazione del sistema in input è soddisfatta se e soltanto se
+$\sum_{i, j}{A_{k (i j)} u_i u_j} = b_k$. Fissato $k$, sia
+$\zz^{(k)} \in \F_2^{n^2}$ il vettore dato da $\zz^{(k)}_{i j} = A_{k (i j)}$.
+Se il certificato ha passato i primi due test, il lato sinistro della $k$-esima
+equazione è semplicemente $g(\zz)$.
+Tuttavia, vorremmo verificare $A(\uu \otimes \uu) = \bb$ leggendo solamente
+$O(1)$ valori di $g$. Anche in questo caso sfruttiamo il fatto che, con
+probabilità $\frac12$, si possono distinguere due vettori distinti semplicemente
+confrontandone il prodotto scalare con un terzo vettore scelto a caso.
+Per linearità, il test si può effettuare leggendo un solo valore di $g$.
+Nello specifico, sia $\ss \in \F_2^m$ uniformemente random e $S \subseteq [m]$
+il sottoinsieme dei $k$ tali per cui la $k$-esima coordinata di $\ss$ è $1$.
+Possiamo calcolare $\langle A(\uu \otimes \uu), \ss \rangle$ come un singolo
+valore di $g$ dato da
+$\sum_{k \in S}{g(\zz^{k})} = g\big(\sum_{k \in S}{\zz^{k}}\big)$.
+Confrontiamo questo valore con $\langle \bb, \ss \rangle$: se $\uu$ non risolve
+il sistema in input, il certificato è rifiutato con probabilità almeno
+$\frac12$.
+
+Anche tenendo conto degli improbabili errori legati alle decodifiche locali,
+il test accetta certificati non validi con probabilità minore di $0.6$.
+È sufficiente ripetere il test $O(1)$ volte per ottenere probabilità di
+successo alta a piacere e il Teorema $\ref{thm:exppcp}$ è dimostrato.
