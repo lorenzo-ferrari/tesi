@@ -1,11 +1,11 @@
 \chapter{Dimostrazioni e classi di complessità} \label{chap:complessita}
 
 In questo capitolo introduciamo le classi di problemi $\P$ ed $\NP$,
-protagoniste di un problema del millenio.
+protagoniste di un problema del millennio.
 In seguito ci interessiamo alla verifica probabilistica di dimostrazioni
-e formalizziamo questa processo tramite le classi $\PCP$.
+e formalizziamo questo processo tramite le classi $\PCP$.
 Enunciamo infine il Teorema PCP, risultato sorprendente e ormai fondamentale in
-informatica teorica, nonché principe di questa tesi;
+informatica teorica, nonché centro di questa tesi;
 in questo capitolo ne dimostriamo una versione più debole.
 
 \section{Classi $\P$ ed $\NP$}
@@ -16,7 +16,7 @@ per risolvere istanze del dato problema. In questo lavoro ci concentriamo
 principalmente su problemi di decisione, cioè problemi la cui risposta è
 ``sì'' o ``no'', VERO o FALSO, $1$ o $0$.
 Tipicamente le istanze di un dato problema si codificano come stringhe binarie,
-dunque si identifica il problema di decisione con il linguaggio
+il che permette di identificare il problema di decisione con il linguaggio
 $L \subseteq \{0, 1\}^*$ delle istanze la cui risposta è ``sì''.
 Risolvere il problema equivale\footnote{Posto che la codifica sia naturale,
 cioè ragionevole e non artificialmente patologica.} dunque a decidere
@@ -35,11 +35,11 @@ lunghezza di una fissata codifica.} dell'istanza in input.
 La scelta del tempo polinomiale come espressione di efficienza può sembrare
 arbitraria, tuttavia ci sono buone giustificazioni. Oltre a rappresentare
 funzioni che crescono ``lentamente'', i polinomi sono chiusi per addizione,
-moltiplicazione e composizione, dunque l'efficienza è preservata da naturali
+moltiplicazione e composizione, dunque l'efficienza è preservata da consuete
 pratiche di programmazione, come concatenare due algoritmi o usarne uno
-all'interno di un'altro. Un altro vantaggio è la possibilità di non
+all'interno di un altro. Un altro vantaggio è la possibilità di non
 definire precisamente la codifica delle istanze di un problema, poiché
-si può efficientemente tradurre tra due codifiché naturali di uno stesso
+si può efficientemente tradurre tra due codifiche naturali di uno stesso
 input: si pensi alla rappresentazione di un grafo come lista di archi, lista
 di adiacenza o matrice di adiacenza.
 
@@ -48,14 +48,13 @@ Un esempio di problema in $\P$ è \texttt{2COL}, cioè il problema di decidere s
 arco connetta nodi di colori distinti. Grafi con questa proprietà si dicono
 \emph{2-colorabili} e in modo analogo si definisce la \emph{$k$-colorabilità}.
 
-% INSERIRE GRAFICA
-% a destra: grafo 2-colorabile e 2-colorato
-% a sinistra: grafo non 2-colorabile con un ciclo dispari evidenziato
-\vspace{1em}
-INSERIRE GRAFICA.
-\vspace{1em}
+	\begin{figure}[htbp]
+		\centering
+		\input{graphics/2colorability}
+		\label{fig:2colorability}
+	\end{figure}
 
-La 2-colorabilità di grafi si può decidere in tempo lineare nella dimensione
+La $2$-colorabilità di grafi si può decidere in tempo lineare nella dimensione
 del grafo, dunque $\texttt{2COL} \in \P$.
 
 Estendiamo leggermente il problema e chiediamoci ora se un grafo è
@@ -80,7 +79,7 @@ dimostrazione di ``$x \in L$''.
 \end{definition}
 
 Dalle definizioni segue $\P \subseteq \NP$: per ogni problema in $\P$ il
-verificatore $V$ può ignorare il certificato. Il problema del millenio
+verificatore $V$ può ignorare il certificato. Il problema del millennio
 ``$\P$ contro $\NP$'' chiede se questo contenimento è stretto. Secondo l'opinione
 di gran lunga più condivisa $\P$ è diverso da $\NP$: verificare una dimostrazione
 è facile, trovarla è un altro paio di maniche. Il problema è tuttavia aperto.
@@ -100,7 +99,7 @@ Sorprendentemente, esiste un problema $\NP$-completo e una volta che ce n'è uno
 se ne trovano altri riducendo problemi $\NP$-completi ad altri problemi in $\NP$.
 
 Il primo problema dimostrato $\NP$-completo è $\mathtt{SAT}$: il
-problema della soddisfacibilià booleana. Data un'espressione booleana
+problema della soddisfacibilità booleana. Data un'espressione booleana
 formata da operatori AND, OR, NOT e parentesi applicati a variabili e insiemi
 di variabili, $\mathtt{SAT}$ chiede se esiste un assegnamento di valori VERO e
 FALSO per cui l'espressione è vera.
@@ -165,10 +164,10 @@ soddisfacibilità del sistema.
 \section{Verifica probabilistica e Teorema PCP}
 
 Immagina ci vengano fornite mille pagine di dimostrazione per un teorema
-molto compliato. Non abbiamo il tempo di leggere l'intera dimostrazione,
+molto complicato. Non abbiamo il tempo di leggere l'intera dimostrazione,
 dunque improvvisiamo la seguente procedura di verifica molto sbrigativa.
 Scelte cento righe a caso, accettiamo la dimostrazione come valida se e soltanto
-se queste non contengono errori. Questa protocollo ha degli evidenti problemi:
+se queste non contengono errori. Questo protocollo ha degli evidenti problemi:
 le dimostrazioni valide vengono correttamente riconosciute come tali, tuttavia
 non c'è quasi nessuna garanzia di correttezza nel caso di dimostrazioni
 fallaci. Sepolto a pagina 444 potrebbe nascondersi un ``$\le$'' che fino a poco
@@ -179,7 +178,7 @@ dimostrazione non funziona.
 Il Teorema PCP dice che c'è un modo di scrivere dimostrazioni per cui la
 verifica descritta ha successo con alta probabilità.
 
-Formalizziamo questo processo di verifica per poterneparlare in modo preciso.
+Formalizziamo questo processo di verifica per poterne parlare in modo preciso.
 
 \begin{definition}[Verificatore PCP]
 	Siano $r, b: \N \to \N$ due funzioni. Un \emph{verificatore $(r(n), b(n))$-limitato}
@@ -229,16 +228,16 @@ Siamo pronti per enunciare il Teorema PCP.
 
 Dunque è possibile verificare dimostrazioni con alta probabilità di
 successo leggendone solo una piccolissima parte. Qui dimostriamo il
-contenimento facile dei due. Rimandiamo la pare principale della dimostrazione
+contenimento facile dei due. Rimandiamo la parte principale della dimostrazione
 al Capitolo \ref{chap:pcpproof}.
 
 % Dimostrazione al lettore??
 \vspace{.5em}
 \lorenzo{Non è una dimostrazione difficile o particolarmente significativa, da
-valutare se lasciarla al lettore per arrivare prima al punto.}
+valutare se lasciarla al lettore per arrivare prima al punto. TBD.}
 \begin{proof}[Dimostrazione di $\PCP(\log n, 1) \subseteq \NP$]
 	Sia $L \in \PCP(\log n, 1)$. Per definizione, esistono due costanti $c, q > 0$
-	e un verificatore $V$ che, su input $x \in \{0,1\}^n$, legge al fino a
+	e un verificatore $V$ che, su input $x \in \{0,1\}^n$, legge fino a
 	$c \log n$ bit casuali e $q$ bit del certificato.
 
 	Fissati $x$ e $\pi$, esistono al più $2^{c \log n} = n^c$ possibili scenari,
@@ -270,7 +269,7 @@ dell'input e il verificatore utilizza $\mathrm{poly}(n)$ bit casuali.
 \end{theorem}
 
 Il Teorema \ref{thm:exppcp} sarà un ingrediente fondamentale nella dimostrazione
-del Teorema \ref{thm:pcp}}. Per dimostrare il Teorema \ref{thm:exppcp} è
+del Teorema \ref{thm:pcp}. Per dimostrare il Teorema \ref{thm:exppcp} è
 sufficiente dimostrare che un singolo problema $\NP$-completo, nel nostro caso
 $\mathtt{QUADEQ}$, appartiene a $\PCP(\mathrm{poly}(n), 1)$: un generico
 problema in $\NP$ prima si riduce a $\mathtt{QUADEQ}$, poi si verifica
@@ -318,7 +317,7 @@ che la linearità valga per una coppia di vettori scelti a caso.
 	Sia $\rho \in [0, 1]$ una costante. Diciamo che le funzioni
 	$f, g\colon \F_2^n \to \F_2$ sono $\rho$-vicine se queste coincidono su almeno una
 	frazione $\rho$ degli input, cioè se vale
-	$\Pr_\xx [f(x) = g(x)] \ge \rho$.
+	$\Pr_\xx [f(\xx) = g(\xx)] \ge \rho$.
 \end{definition}
 
 % TBD. Capire chi citare. BLR90 mi sembra illeggibile.
@@ -335,7 +334,7 @@ Il Teorema \ref{thm:lintest} garantisce che ripetere $O(1)$ volte il test di
 linearità è sufficiente per rifiutare con alta probabilità qualunque funzione
 (per esempio) non $0.99$-vicina a una funzione lineare. Se infatti $f$ non
 è $0.99$-vicina a una funzione lineare e il test viene ripetuto cento volte,
-questo ha succcesso con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
+questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 
 \begin{proof}[Dimostrazione del Teorema \ref{thm:lintest}]
 	Richiamiamo qualche nozione di analisi di Fourier discreta su
@@ -363,9 +362,7 @@ questo ha succcesso con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 	Scriviamo l'ipotesi in termini di valore atteso. Poiché $f$ assume solo
 	i valori $\pm 1$, vale
 	$\E[f(\xx \odot \yy)f(\xx)f(\yy)] =
-	% \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)] -
-	% (1 - \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)])$
-	1 - 2 \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)]$.
+	2 \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)] - 1$.
 	Sia allora $\rho = \frac12 + \varepsilon$, l'ipotesi diventa
 	$\E[f(\xx \odot \yy)f(\xx)f(\yy)] \ge 2 \varepsilon$.
 	Mostreremo che esiste un coefficiente di Fourier sufficientemente
@@ -407,7 +404,7 @@ questo ha succcesso con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 Introduciamo l'ultimo strumento necessario per la dimostrazione del Teorema PCP
 debole. Supponiamo una funzione $f\colon \F_2^n \to \F_2$ sia
 $(1 - \delta)$-vicina a una funzione lineare $\tilde{f}$ per $\delta < \frac14$.
-Dato un qualunque $\xx \in \F_2^n$, orremmo ottenere con alta probabilità il
+Dato un qualunque $\xx \in \F_2^n$, vorremmo ottenere con alta probabilità il
 valore di $\tilde{f}(\xx)$.
 Notiamo che se $\xx$ è uno dei pochi input su cui $f$ differisce da
 $\tilde{f}$, non è sufficiente restituire semplicemente $f(\xx)$.
@@ -431,7 +428,7 @@ di codici di Walsh-Hadamard.
 Descriviamo innanzitutto il sistema di verifica per $\mathtt{QUADEQ}$.
 Sia $A, \bb$ un'istanza di $\mathtt{QUADEQ}$ e supponiamo questa sia
 soddisfacibile da un assegnamento $\uu \in \{0, 1\}^n$. Il verificatore
-ha accesso ha una dimostrazione $\pi \in \{0, 1\}^{2^n + 2^{n^2}}$ che
+ha accesso a una dimostrazione $\pi \in \{0, 1\}^{2^n + 2^{n^2}}$ che
 interpreta come una coppia di funzioni $f\colon \{0, 1\}^n \to \{0, 1\}$
 e $g\colon \{0, 1\}^{n^2} \to \{0, 1\}$. In una dimostrazione corretta $f$
 è la codifica di Walsh-Hadamard di $\uu$ e $g$ è la codifica di
@@ -454,7 +451,7 @@ Il verificatore esegue un test di linearità per assicurarsi che $f$ e $g$ siano
 $0.999$-vicine a funzioni lineari: le chiameremo $\tilde{f}$ e $\tilde{g}$.
 Per alleggerire la notazione, assumiamo $f = \tilde{f}$ e $g = \tilde{g}$:
 d'ora in poi, quando parliamo del valore di $f(\xx)$, intendiamo sempre il
-valore di $\tilde{f}(\xx)$ ottenuto tramite codifica locale di $f$.
+valore di $\tilde{f}(\xx)$ ottenuto tramite decodifica locale di $f$.
 Il Passo 1 permette di assumere nei passi successivi che il certificato non
 già rifiutato codifichi davvero due funzioni lineari.
 
@@ -489,7 +486,7 @@ La $k$-esima equazione del sistema in input è soddisfatta se e soltanto se
 $\sum_{i, j}{A_{k (i j)} u_i u_j} = b_k$. Fissato $k$, sia
 $\zz^{(k)} \in \F_2^{n^2}$ il vettore dato da $\zz^{(k)}_{i j} = A_{k (i j)}$.
 Se il certificato ha passato i primi due test, il lato sinistro della $k$-esima
-equazione è semplicemente $g(\zz)$.
+equazione è semplicemente $g(\zz^{(k)})$.
 Tuttavia, vorremmo verificare $A(\uu \otimes \uu) = \bb$ leggendo solamente
 $O(1)$ valori di $g$. Anche in questo caso sfruttiamo il fatto che, con
 probabilità $\frac12$, si possono distinguere due vettori distinti semplicemente
@@ -499,7 +496,7 @@ Nello specifico, sia $\ss \in \F_2^m$ uniformemente random e $S \subseteq [m]$
 il sottoinsieme dei $k$ tali per cui la $k$-esima coordinata di $\ss$ è $1$.
 Possiamo calcolare $\langle A(\uu \otimes \uu), \ss \rangle$ come un singolo
 valore di $g$ dato da
-$\sum_{k \in S}{g(\zz^{k})} = g\big(\sum_{k \in S}{\zz^{k}}\big)$.
+$\sum_{k \in S}{g(\zz^{(k)})} = g\big(\sum_{k \in S}{\zz^{(k)}}\big)$.
 Confrontiamo questo valore con $\langle \bb, \ss \rangle$: se $\uu$ non risolve
 il sistema in input, il certificato è rifiutato con probabilità almeno
 $\frac12$.
