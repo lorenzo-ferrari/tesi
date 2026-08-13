@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
 \usepackage[italian]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -9,6 +9,8 @@
 \geometry{a4paper, top=1.9cm, bottom=1.9cm, left=2.2cm, right=2.2cm}
 
 \usepackage[colorlinks,allcolors=black]{hyperref}
+
+\linespread{1.2}
 
 % Comandi di comodo
 \newcommand{\N}{\mathbb{N}}
@@ -57,9 +59,10 @@
 \end{center}
 \vspace{0.2em}
 
-Lo scopo di questa tesi è lo studio del Teorema PCP, risultato fondamentale
-in informatica teorica, dimostrato in una prima versione nel 1992 da Arora e
-Safra e completato lo stesso anno da Arora, Lund, Motwani, Sudan e Szegedy.
+Lo scopo di questa tesi è lo studio del Teorema PCP (\emph{Probabilistically
+Checkable Proofs}), risultato fondamentale in informatica teorica, dimostrato
+in una prima versione nel 1992 da Arora e Safra e completato lo stesso anno da
+Arora, Lund, Motwani, Sudan e Szegedy.
 
 Una dimostrazione si legge tipicamente dall'inizio alla fine per assicurarsi
 che tutti i passaggi logici siano validi, poiché un singolo errore potrebbe
@@ -69,7 +72,7 @@ molto complicato, per verificare la quale ci piacerebbe adottare la seguente
 procedura molto sbrigativa: lette cento righe scelte a caso, accettiamo la
 dimostrazione come valida se e soltanto se queste non contengono errori.
 Un tale protocollo di verifica è impensabile per dimostrazioni in
-formati classici nel caso di dimostrazioni fallaci, infatti, non c'è quasi nessuna
+formati classici: nel caso di dimostrazioni fallaci, infatti, non c'è quasi nessuna
 garanzia di correttezza.
 Il Teorema PCP, tuttavia, afferma che esiste un modo di scrivere dimostrazioni
 per cui questa verifica ha successo con alta probabilità.
@@ -89,7 +92,7 @@ enunciamo il Teorema PCP.
 Come primo risultato significativo, dimostriamo una versione debole del
 Teorema PCP, nota come Teorema PCP esponenziale.
 La dimostrazione fa uso del codice di Walsh-Hadamard per rappresentare
-dimostrazioni come funzioni lineari. Sarà utile anche il test di linearità di
+dimostrazioni come funzioni lineari. Sarà utile il test di linearità di
 Blum-Luby-Rubinfeld, analizzato mediante analisi di Fourier discreta
 sull'ipercubo $(\mathbb{Z} / 2\mathbb{Z})^n$.
 
@@ -100,8 +103,8 @@ introducendo i \emph{Constraint Satisfaction Problems} ($\mathtt{CSP}$) e
 mostriamo che il Teorema PCP ammette una formulazione equivalente
 intrinsecamente legata all'inapprossimabilità di $\CSP$.
 Come conseguenza diretta, non esiste un algoritmo efficiente in grado di
-approssimare il valore di soddisfacibilità di istanze $\CSP$ oltre una certa
-soglia costante a meno che $\P = \NP$.
+approssimare il valore di soddisfacibilità di istanze di $\CSP$ oltre una
+certa soglia costante a meno che $\P = \NP$.
 Concludiamo con un risultato di inapprossimabilità per il problema della
 cricca massima: non si può trovare efficientemente neanche una cricca grande
 un miliardesimo della cricca massima, a meno che $\P = \NP$.
@@ -112,16 +115,16 @@ la distribuzione del $k$-esimo nodo di una passeggiata aleatoria che parte da
 $v$ è molto vicina a quella uniforme per $k = O(\log n)$.
 Mostriamo inoltre che, per molte applicazioni, i nodi di una passeggiata
 aleatoria di lunghezza $k$ funzionano bene quasi quanto $k$ nodi scelti a caso.
-Ciò permette il cosiddetto ``riciclo di bit random'', che incluso nella
+Ciò permette il cosiddetto ``riciclo di bit casuali'', che incluso nella
 dimostrazione di inapprossimabilità per il problema della cricca massima
 fornisce un risultato ancora migliore.
 
 Nell'ultimo capitolo percorriamo la dimostrazione combinatoria
-del Teorema PCP proposta da Irit Dinur nel 2006 basandoci sulla trattazione di
+del Teorema PCP proposta da Dinur nel 2006 basandoci sulla trattazione di
 Arora e Barak.
 La dimostrazione si basa sull'\emph{amplificazione del gap}, ottenuta grazie
 all'impiego degli expander e alle loro proprietà pseudo-casuali.
-Tra gli ingredienti per concludere la dimostrazione figura anche il Teorema PCP
+Tra gli ingredienti della dimostrazione figura anche il Teorema PCP
 esponenziale, dimostrato nel primo capitolo.
 
 \end{document}
