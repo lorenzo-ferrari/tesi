@@ -5,7 +5,7 @@ protagoniste di un problema del millennio.
 In seguito ci interessiamo alla verifica probabilistica di dimostrazioni
 e formalizziamo questo processo tramite le classi $\PCP$.
 Enunciamo infine il Teorema PCP, risultato sorprendente e ormai fondamentale in
-informatica teorica, nonché centro di questa tesi;
+informatica teorica, nonché principe di questa tesi;
 in questo capitolo ne dimostriamo una versione più debole.
 
 \section{Classi $\P$ ed $\NP$}
@@ -15,7 +15,7 @@ Una misura di difficoltà è data dal minimo tempo necessario a un calcolatore
 per risolvere istanze del dato problema. In questo lavoro ci concentriamo
 principalmente su problemi di decisione, cioè problemi la cui risposta è
 ``sì'' o ``no'', VERO o FALSO, $1$ o $0$.
-Tipicamente le istanze di un dato problema si codificano come stringhe binarie,
+Tipicamente le istanze di un fissato problema si codificano come stringhe binarie,
 il che permette di identificare il problema di decisione con il linguaggio
 $L \subseteq \{0, 1\}^*$ delle istanze la cui risposta è ``sì''.
 Risolvere il problema equivale\footnote{Posto che la codifica sia naturale,
@@ -60,7 +60,10 @@ del grafo, dunque $\texttt{2COL} \in \P$.
 Estendiamo leggermente il problema e chiediamoci ora se un grafo è
 3-colorabile: chiamiamo questo problema \texttt{3COL}.
 La situazione cambia drasticamente: in questo caso non conosciamo algoritmi
-efficienti e si congettura che non ne esistano.
+efficienti e si congettura che non ne esistano. Se infatti esistesse un
+algoritmo efficiente per \texttt{3COL}, sarebbe possibile \emph{trovare}
+dimostrazioni matematiche efficientemente\footnote{Nella lunghezza
+della dimostrazione.}.
 Tuttavia, data una $3$-colorazione, cioè una dimostrazione di
 3-colorabilità, è facile verificare\footnote{Leggasi
 ``si verifica efficientemente''.} se questa è valida oppure no.
@@ -78,11 +81,13 @@ La stringa $y$ si chiama \emph{certificato} per $x$ e corrisponde a una
 dimostrazione di ``$x \in L$''.
 \end{definition}
 
-Dalle definizioni segue $\P \subseteq \NP$: per ogni problema in $\P$ il
-verificatore $V$ può ignorare il certificato. Il problema del millennio
-``$\P$ contro $\NP$'' chiede se questo contenimento è stretto. Secondo l'opinione
-di gran lunga più condivisa $\P$ è diverso da $\NP$: verificare una dimostrazione
-è facile, trovarla è un altro paio di maniche. Il problema è tuttavia aperto.
+Dalle definizioni segue $\P \subseteq \NP$: per ogni problema in $\P$ esiste
+un verificatore $V$ che semplicemente ignora il certificato.
+Il problema del millennio ``$\P$ contro $\NP$'' chiede se questo contenimento
+è stretto.
+Secondo l'opinione di gran lunga più condivisa $\P$ è diverso da $\NP$:
+verificare una dimostrazione è facile, trovarla è un altro paio di maniche.
+Il problema è tuttavia aperto.
 
 Per confrontare la difficoltà relativa di problemi in $\NP$ si utilizza la
 nozione di riduzione polinomiale secondo Karp.
@@ -144,13 +149,13 @@ Chiamiamo questo problema $\mathtt{QUADEQ}$.
 		u_2 u_4 + u_3 u_5 + u_1 u_5 &= 1 \\
 	\end{align*}
 	Se ogni variabile vale $1$ tutte le equazioni sono soddisfatte,
-	dunque il sistema è soddisfacibile.
+	quindi questo sistema è soddisfacibile.
 \end{example}
 
 Gli operatori logici si possono esprimere con equazioni di grado al più due,
-dunque non è difficile ridurre $\mathtt{SAT}$ a $\mathtt{QUADEQ}$ e mostrare
+per cui non è difficile ridurre $\mathtt{SAT}$ a $\mathtt{QUADEQ}$ e mostrare
 che $\mathtt{QUADEQ}$ è $\NP$-completo.
-Notiamo inoltre che in $\F_2$ vale l'identità ${u_i}^2 = u_i$, quindi
+Inoltre, poiché in $\F_2$ vale l'identità ${u_i}^2 = u_i$,
 possiamo assumere le equazioni non contengano termini lineari e
 rappresentare un'istanza come una matrice di coefficienti
 $A \in \F_2^{m \times n^2}$ e un vettore di termini noti
@@ -163,22 +168,23 @@ soddisfacibilità del sistema.
 
 \section{Verifica probabilistica e Teorema PCP}
 
-Immagina ci vengano fornite mille pagine di dimostrazione per un teorema
-molto complicato. Non abbiamo il tempo di leggere l'intera dimostrazione,
-dunque improvvisiamo la seguente procedura di verifica molto sbrigativa.
+Immaginiamo ci vengano fornite mille pagine di dimostrazione per un teorema
+molto complicato. Ci viene chiesta un'opinione, ma non abbiamo il tempo
+necessario a controllare l'intera dimostrazione.
+Improvvisiamo quindi la seguente procedura di verifica molto sbrigativa.
 Scelte cento righe a caso, accettiamo la dimostrazione come valida se e soltanto
 se queste non contengono errori. Questo protocollo ha degli evidenti problemi:
 le dimostrazioni valide vengono correttamente riconosciute come tali, tuttavia
 non c'è quasi nessuna garanzia di correttezza nel caso di dimostrazioni
 fallaci. Sepolto a pagina 444 potrebbe nascondersi un ``$\le$'' che fino a poco
-prima era un ``$<$'' e questo singolo errore invalida l'intero argomento.
+prima era un ``$<$'' e questo singolo errore, magari, invalida l'intero argomento.
 È estremamente improbabile accorgersi dell'errore controllando solo una
-piccolissima frazione della dimostrazione, dunque il formato standard di
-dimostrazione non funziona.
+piccolissima frazione della dimostrazione, dunque per questa verifica il formato
+standard di dimostrazione non funziona.
 Il Teorema PCP dice che c'è un modo di scrivere dimostrazioni per cui la
 verifica descritta ha successo con alta probabilità.
 
-Formalizziamo questo processo di verifica per poterne parlare in modo preciso.
+Formalizziamo innanzitutto il processo di verifica per poterne parlare in modo preciso.
 
 \begin{definition}[Verificatore PCP]
 	Siano $r, b: \N \to \N$ due funzioni. Un \emph{verificatore $(r(n), b(n))$-limitato}
@@ -226,22 +232,23 @@ Siamo pronti per enunciare il Teorema PCP.
 	\]
 \end{theorem}
 
-Dunque è possibile verificare dimostrazioni con alta probabilità di
-successo leggendone solo una piccolissima parte. Qui dimostriamo il
-contenimento facile dei due. Rimandiamo la parte principale della dimostrazione
-al Capitolo \ref{chap:pcpproof}.
+In altre parole, il Teorema PCP afferma che è possibile verificare
+dimostrazioni con alta probabilità di successo leggendone solo una
+piccolissima parte.
+Qui dimostriamo il contenimento facile dei due. Rimandiamo
+la parte principale della dimostrazione al Capitolo \ref{chap:pcpproof}.
 
-% Dimostrazione al lettore??
 \vspace{.5em}
-\lorenzo{Non è una dimostrazione difficile o particolarmente significativa, da
-valutare se lasciarla al lettore per arrivare prima al punto. TBD.}
+\lorenzo{Quella che segue non è una dimostrazione difficile o particolarmente
+significativa, da valutare se lasciarla al lettore per arrivare prima al punto.
+TBD.}
 \begin{proof}[Dimostrazione di $\PCP(\log n, 1) \subseteq \NP$]
 	Sia $L \in \PCP(\log n, 1)$. Per definizione, esistono due costanti $c, q > 0$
 	e un verificatore $V$ che, su input $x \in \{0,1\}^n$, legge fino a
 	$c \log n$ bit casuali e $q$ bit del certificato.
 
 	Fissati $x$ e $\pi$, esistono al più $2^{c \log n} = n^c$ possibili scenari,
-	ognuno indicizzato dalla corrispondente stringa casuale. Poiché in ogni
+	indicizzati dalle corrispondenti stringhe casuali. Poiché in ogni
 	scenario il verificatore legge $q$ bit casuali, esistono non più di
 	$q n^c$ posizioni del certificato che il verificatore può potenzialmente
 	leggere. Ai fini della verifica, quindi, soltanto una porzione di lunghezza
@@ -259,7 +266,7 @@ valutare se lasciarla al lettore per arrivare prima al punto. TBD.}
 
 Dimostriamo qui una versione debole del Teorema \ref{thm:pcp}. Anche in
 questo caso il verificatore legge un numero costante di bit, tuttavia la
-dimostrazione in questo caso ha dimensione esponenziale nella dimensione
+dimostrazione ha dimensione esponenziale nella dimensione
 dell'input e il verificatore utilizza $\mathrm{poly}(n)$ bit casuali.
 
 \begin{theorem}[PCP esponenziale per \textbf{NP} \cite{ALMSS98}] \label{thm:exppcp}
@@ -276,8 +283,8 @@ problema in $\NP$ prima si riduce a $\mathtt{QUADEQ}$, poi si verifica
 probabilisticamente la dimostrazione per la relativa istanza di
 $\mathtt{QUADEQ}$.
 Prima della dimostrazione, introduciamo la strumentazione necessaria, cioè il
-test di linearità e il codice di Walsh-Hadamard. Anticipiamo che il certificato
-sarà dato sotto forma di codice di Walsh-Hadamard.
+test di linearità e il codice di Walsh-Hadamard. Anticipiamo che i certificati
+validi saranno forniti sotto forma di codifiche di Walsh-Hadamard.
 
 \subsection{Test di linearità e codice di Walsh-Hadamard}
 
@@ -292,10 +299,9 @@ tabella dei $2^n$ valori del relativo funzionale. La mappa di
 Walsh-Hadamard si estende su tutto $\{0, 1\}^*$ nel modo naturale.
 
 Notiamo che il codice di Walsh-Hadamard codifica stringhe di $n$ bit con
-stringhe di $2^n$ bit ed è quindi estremamente inefficiente. Vedremo che
-questo prezzo sarà ben giustificato dalla possibilità di lavorare con
-funzioni lineari.
-Per esempio, in seguito useremo ripetutamente il fatto che due distinti
+stringhe di $2^n$ bit ed è quindi estremamente inefficiente. Questo prezzo,
+però, sarà ben giustificato dalla possibilità di lavorare con funzioni lineari.
+Per esempio useremo ripetutamente il fatto che due distinti
 funzionali su $\F_2^n$ differiscono su metà degli input, o equivalentemente
 che le codifiche di Walsh-Hadamard di due distinti vettori differiscono in metà
 delle posizioni.
@@ -343,7 +349,7 @@ questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 	$\alpha \subseteq [n]$ la funzione $\chi_\alpha\colon \{\pm 1\}^n \to \{\pm 1\}$
 	come $\chi_\alpha(\xx) := \prod_{i \in \alpha}{x_i}$.
 	La somma $\xx + \yy$ su $\F_2^n$ si legge come il prodotto
-	puntuale $\xx \odot \yy$ sull'ipercubo e poiché vale
+	puntuale $\xx \odot \yy$ sull'ipercubo e, poiché vale
 	$\chi_\alpha(\xx \odot \yy) = \chi_\alpha(\xx) \chi_\alpha(\yy)$, i
 	$\chi_\alpha$ corrispondono esattamente ai funzionali su $\F_2^n$.
 
@@ -351,8 +357,8 @@ questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 	naturale prodotto scalare definito da $\langle g, h\rangle =
 	\E_{\xx}[g(\xx) h(\xx)]$.
 	L'insieme $\{\chi_\alpha\}_{\alpha \subseteq [n]}$ forma in particolare una
-	base ortonormale detta base di Fourier. Ogni $f$ come in ipotesi si scompone
-	quindi come
+	base ortonormale detta \emph{base di Fourier}.
+	Ogni $f$ come in ipotesi si scompone quindi come
 	\[
 		f = \sum_{\alpha \subseteq [n]} \hat{f_\alpha} \chi_\alpha.
 	\]
@@ -406,7 +412,7 @@ debole. Supponiamo una funzione $f\colon \F_2^n \to \F_2$ sia
 $(1 - \delta)$-vicina a una funzione lineare $\tilde{f}$ per $\delta < \frac14$.
 Dato un qualunque $\xx \in \F_2^n$, vorremmo ottenere con alta probabilità il
 valore di $\tilde{f}(\xx)$.
-Notiamo che se $\xx$ è uno dei pochi input su cui $f$ differisce da
+Se $\xx$ è uno dei pochi input su cui $f$ differisce da
 $\tilde{f}$, non è sufficiente restituire semplicemente $f(\xx)$.
 Tuttavia possiamo ottenere il valore di
 $\tilde{f}(\xx)$ con probabilità maggiore di $\frac12$ semplicemente
@@ -425,7 +431,8 @@ di codici di Walsh-Hadamard.
 
 \subsection{Dimostrazione del Teorema PCP debole}
 
-Descriviamo innanzitutto il sistema di verifica per $\mathtt{QUADEQ}$.
+Siamo pronti per la dimostrazione principale di questo capitolo.
+Descriviamo quindi il sistema di verifica per $\mathtt{QUADEQ}$.
 Sia $A, \bb$ un'istanza di $\mathtt{QUADEQ}$ e supponiamo questa sia
 soddisfacibile da un assegnamento $\uu \in \{0, 1\}^n$. Il verificatore
 ha accesso a una dimostrazione $\pi \in \{0, 1\}^{2^n + 2^{n^2}}$ che
@@ -443,8 +450,8 @@ La verifica si compone dei seguenti passi:
 \end{enumerate}
 
 La verifica ha sempre successo nel caso di dimostrazioni valide.
-Se, in uno qualunque dei tre passi, il verificatore riscontra un errore, la
-dimostrazione è immediatamente rifiutata.
+Se invece, in uno qualunque dei tre passi, il verificatore riscontra un errore,
+la dimostrazione è immediatamente rifiutata.
 
 \emph{Passo 1.}
 Il verificatore esegue un test di linearità per assicurarsi che $f$ e $g$ siano
@@ -459,8 +466,8 @@ già rifiutato codifichi davvero due funzioni lineari.
 Il verificatore esegue (diciamo) dieci volte indipendenti il seguente test:
 ``scegli due vettori $\rr, \rr' \in \F_2^n$ uniformemente a caso. Se
 $f(\rr)f(\rr') \neq g(\rr \otimes \rr')$, rifiuta il certificato''.
-Verifichiamo innanzitutto che un valido certificato passa sempre il test. La
-condizione è equivalente a chiedersi se per tutte le coppie di
+Verifichiamo innanzitutto che un valido certificato passa sempre il test.
+Questo equivale ad assicurarsi che per tutte le coppie di
 vettori $\rr, \rr' \in \F_2^n$ vale
 $\langle \uu, \rr \rangle \langle \uu, \rr' \rangle =
 \langle \uu \otimes \uu, \rr \otimes \rr' \rangle$, che si verifica per
@@ -475,7 +482,7 @@ Consideriamo le matrici $U = (U_{i j}) = (u_i u_j)$ e $W = (W_{i j}) = (\ww_{i j
 Possiamo riscrivere $f(\rr)f(\rr')$ e $g(\rr \otimes \rr')$ come
 $\rr^\top U \rr'$ e $\rr^\top W \rr'$.
 Se $g$ non codifica $\uu \otimes \uu$, cioè se $U \neq W$, allora con
-probabilità almeno $\frac12$ si ha $U \rr' \neq W \rr'$. In questo caso, con
+probabilità almeno $\frac12$ si ha $U \rr' \neq W \rr'$, nel cui caso con
 probabilità $\frac12$ si ha anche $\rr^\top U \rr' \neq \rr^\top W \rr'$.
 Quindi, se $U \neq W$, il test ha successo con probabilità almeno $1/4$.
 Ripetere il test dieci volte assicura che questo abbia successo con
@@ -488,12 +495,12 @@ $\zz^{(k)} \in \F_2^{n^2}$ il vettore dato da $\zz^{(k)}_{i j} = A_{k (i j)}$.
 Se il certificato ha passato i primi due test, il lato sinistro della $k$-esima
 equazione è semplicemente $g(\zz^{(k)})$.
 Tuttavia, vorremmo verificare $A(\uu \otimes \uu) = \bb$ leggendo solamente
-$O(1)$ valori di $g$. Anche in questo caso sfruttiamo il fatto che, con
+$O(1)$ valori di $g$. Ancora una volta sfruttiamo il fatto che, con
 probabilità $\frac12$, si possono distinguere due vettori distinti semplicemente
 confrontandone il prodotto scalare con un terzo vettore scelto a caso.
 Per linearità, il test si può effettuare leggendo un solo valore di $g$.
 Nello specifico, sia $\ss \in \F_2^m$ uniformemente random e $S \subseteq [m]$
-il sottoinsieme dei $k$ tali per cui la $k$-esima coordinata di $\ss$ è $1$.
+il sottoinsieme dei $k$ per cui la $k$-esima coordinata di $\ss$ è $1$.
 Possiamo calcolare $\langle A(\uu \otimes \uu), \ss \rangle$ come un singolo
 valore di $g$ dato da
 $\sum_{k \in S}{g(\zz^{(k)})} = g\big(\sum_{k \in S}{\zz^{(k)}}\big)$.
@@ -504,4 +511,4 @@ $\frac12$.
 Anche tenendo conto degli improbabili errori legati alle decodifiche locali,
 il test accetta certificati non validi con probabilità minore di $0.6$.
 È sufficiente ripetere il test $O(1)$ volte per ottenere probabilità di
-successo alta a piacere e il Teorema $\ref{thm:exppcp}$ è dimostrato.
+successo alta a piacere e il Teorema $\ref{thm:exppcp}$ è dimostrato. \hfill $\qed$
