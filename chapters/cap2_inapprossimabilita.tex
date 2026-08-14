@@ -1,24 +1,78 @@
 \chapter{Inapprossimabilità}
 
-Il Teorema PCP è intrinsecamente legato all'(in)approssimabilità di problemi
-di ottimizzazione combinatoria.
-Definiamo i \emph{Constraint Satisfaction Problem} ($\CSP$) e introduciamo
-notazioni che torneranno utili nel Capitolo \ref{chap:pcpproof}.
-Diamo una formulazione equivalente del Teorema PCP in termini di $\CSP$.
-Infine, dimostriamo alcuni risultati di inapprossimabilità.
+In questo capitolo presentiamo il legame tra Teorema PCP e
+(in)approssimabilità di problemi di ottimizzazione combinatoria.
+Cominciamo definendo cos'è un algoritmo di approssimazione
+e cosa s'intende per inapprossimabilità.
+Introduciamo poi i \emph{Constraint Satisfaction Problem} ($\CSP$) e le
+relative notazioni che torneranno utili nel Capitolo \ref{chap:pcpproof},
+dopodiché diamo una formulazione equivalente del Teorema PCP instrinsecamente
+legata all'inapprossimabilità di $\CSP$.
+Infine, a partire dal Teorema PCP, dimostriamo risultati di
+inapprossimabilità per \texttt{MAX-CLIQUE} e \texttt{MAX-3SAT}.
 
-\vspace{.5em}
-TBD. Parlare delle versioni di ottimizzazione di problemi $\NP$-completi.
-Enfatizzare il fatto che la sola $\NP$-completezza non garantisce che non esista
-un algoritmo che soddisfa tutti fuori che una clausola. Anzi, per le istanze
-di SAT che si ottengono dalla dimostrazione del Teorema di Cook-Levin è molto
-facile soddisfare tutte le clauseole meno una.
-Dire in due parole cosa s'intende per inapprossimabilità
+\section{Approssimare problemi di ottimizzazione}
 
+Un problema di ottimizzazione combinatoria chiede di trovare la soluzione
+migliore possibile tra tutte le soluzioni ammissibili, ovvero quella che
+massimizza (o minimizza) una determinata funzione obiettivo.
+Ad ogni problema di ottimizzazione è naturalmente associata una versione
+decisionale del tipo: ``esiste una soluzione di valore almeno $k$?''.
+Se il problema di decisione associato associato a un problema di ottimizzazione
+è $\NP$-completo\footnote{O in generale, non si può risolvere
+efficientemente a meno che $\P = \NP$. In questo caso si dice che il problema
+è $\NP$-hard (secondo Cook).}, allora calcolare la soluzione ottima in tempo
+polinomiale è impossibile, a meno che $\P = \NP$.
+È naturale chiedersi se esistono algoritmi efficienti in grado di
+trovare una soluzione abbastanza buona, entro un certo fattore dell'ottimo.
+
+\begin{definition}
+	Fissato un problema di ottimizzazione, un algoritmo che restituisce	sempre
+	una soluzione entro un fattore $\alpha$ dall'ottimo si dice
+	\emph{$\alpha$-approssimazione}.
+	Il fattore di approssimazione $\alpha$ può essere funzione dell'input.
+\end{definition}
+
+Consideriamo per esempio \texttt{MAX-SAT}, cioè la versione di ottimizzazione
+di \texttt{SAT} in cui l'obiettivo è massimizzare il numero di clausole
+soddisfatte.
+Consideriamo un assegnamento casuale delle variabili: gni clausola è
+soddisfatta con probabilità almeno $\frac12$, quindi per linearità del
+valore atteso ci aspettiamo che almeno metà delle clausole siano soddisfatte.
+Sorvoliamo un momento sul fatto che l'algoritmo ``scegli un assegnamento
+casuale'' è probabilistico\footnote{È infatti molto facile derandomizzarlo.}.
+Un assegnamento che soddisfa sempre metà delle clausole soddisfa a maggior
+ragione metà delle clausole soddisfatte da una soluzione ottima, quindi
+\texttt{MAX-SAT} si può $\frac12$-approssimare efficientemente.
+
+% BEST approximation ratio for MAX-SAT?
+
+Si parla di \emph{inapprossimabilità} quando, per un dato problema di
+ottimizzazione, esiste un limite intrinseco al fattore di approssimazione che
+un algoritmo efficiente può garantire, tipicamente a meno che $\P = \NP$.
+
+È bene osservare che la sola $\NP$-completezza non esclude la possibilità di
+approssimare molto, magari arbitrariamente, bene la soluzione ottima.
+Quasi tutte le dimostrazioni di $\NP$-completezza infatti passano per il
+Teorema di Cook-Levin e allo stesso tempo è molto facile trovare assegnamenti
+che soddisfano tutte le clausole meno una per le istanze di \texttt{SAT}
+prodotte dalla dimostrazione di Cook-Levin\footnote{Il Teorema di Cook-Levin
+si dimostra codificando la domanda ``esiste una computazione corrispondente alla
+verifica di un certificato accettato?'' in un'istanza di \texttt{SAT}.
+La parte ``accettato'' è espressa da una sola clausola, dunque una soluzione
+che soddisfa tutte le clausole meno una è data dalla computazione
+corrispondente alla verifica di un qualunque certificato, anche non valido.}.
+Ciò suggerisce che per dimostrare forti risultati di inapprossimabilità,
+sono necessari strumenti diversi. In questo senso il Teorema PCP è stato
+fondamentale.
+
+\todo{Citare Trevisan, FGLSS?}
 \vspace{1em}
 
+\section{Teorema PCP e Constraint Satisfaction Problems}
+
 Introduciamo i \emph{Constraint Satisfaction Problem}, cioè una classe di
-problemi che generalizza naturalmente \texttt{3-SAT} e i problemi di colorazione di
+problemi che generalizza naturalmente \texttt{3SAT} e i problemi di colorazione di
 grafi. Fissata un'arietà $k$ e un alfabeto $\Sigma$ definiamo $k\CSP_\Sigma$ il
 seguente problema computazionale. Data una collezione $((C_j, R_j))_{j \in [m]}$
 di $k$-uple $C_j$ di variabili associate a relazioni $R_j \subseteq \Sigma^k$,
@@ -39,10 +93,10 @@ assegnamento delle variabili di $\varphi$. Dunque $\val(\varphi) = 1$ se
 $\varphi$ è soddisfacibile e $\val(\varphi) < 1$ altrimenti. Data un'istanza
 $\varphi$, definiamo il suo \emph{gap} come $1 - \val(\varphi)$.
 
-Ci interesseremo di trasformazioni tra istanze di $\CSP$. Fissati due $\CSP$
+Ci interesseremo a trasformazioni tra istanze di $\CSP$. Fissati due $\CSP$
 $A$ e $B$, diremo che $f$ è una \emph{CL-trasformazione}\footnote{Per
-\emph{complete linear-blowup}.} da istanze di $A$ a istanze di $B$ se è
-computabile in tempo polinomiale e per ogni istanza $\varphi$ di $A$, vale che
+\emph{Complete Linear-blowup}.} da istanze di $A$ a istanze di $B$ se è
+computabile in tempo polinomiale e per ogni istanza $\varphi$ di $A$, valgono
 (a) l'istanza $f(\varphi)$ è soddisfacibile se e solo se lo è $\varphi$ e
 (b) l'istanza $f(\varphi)$ ha taglia lineare nella taglia di $\varphi$, cioè un
 numero di vincoli lineare nel numero di vincoli di $\varphi$.
@@ -65,31 +119,40 @@ soggiacente} $G_\varphi$ come il grafo con vertici $[n]$ e un arco $(i, j)$ per
 ogni vincolo che dipende da $x_i$ e $x_j$. In modo analogo, definiamo
 l'ipergrafo soggiacente a un'istanza di $k\CSP$.
 
+\begin{theorem}
+	Esiste una costante $q$ tale che, per ogni $L \in \NP$, esiste una funzione $f$
+	calcolabile efficientemente che mappa istanze di $L$ in istanze di $q\CSP_2$
+	tali che:
+	\begin{itemize}
+		\item \textbf{completezza}: se $x \in L$, allora $\val(f(x)) = 1$;
+		\item \textbf{robustezza}: se $x \notin L$, allora $\val(f(x)) \le \frac12$.
+	\end{itemize}
+	In particolare, per ogni $\varepsilon > \frac12$, non esiste una
+	$\varepsilon$-approssimazione di $q\CSP_2$ a meno che $\P = \NP$.
+\end{theorem}
 
-% \section{Inapprossimabilità di Max-Clique}
+\section{Risultati di inapprossimabilità}
+
+\subsection{Inapprossimabilità di \texttt{MAX-CLIQUE}}
 
 \begin{theorem}[\cite{FGLSS96}] \label{thm:max-clique}
 	Per ogni $\varepsilon > 0$, non esiste una $\varepsilon$-approssimazione
-	polinomiale di \texttt{MAX-CLIQUE}, a meno che $\P = \NP$.
+	di \texttt{MAX-CLIQUE}, a meno che $\P = \NP$.
 \end{theorem}
 
 \begin{proof}
 	TBD.
 \end{proof}
 
-\begin{theorem}
-	Esiste una costante $c > 0$ tale che non esista una
-	$\frac1{n^c}$-approssimazione polinomiale di \texttt{MAX-CLIQUE}, a meno
-	che $\P = \NP$.
-\end{theorem}
+\subsection{Inapprossimabilità di \texttt{MAX-3SAT}}
 
-\begin{proof}
-	TBD.
-\end{proof}
+\todo{Citare Papadimitrou e Yannakis: se MAX-3SAT non ha un PTAS, allora molti
+altri problemi non ce l'hanno. "Optimization, approximation, and complexity
+classes".}
 
 \begin{theorem}
 	Esiste un $\varepsilon_1 > 0$ tale che non esiste una
-	$\varepsilon_1$-approssimazione polinomiale di \texttt{MAX-3SAT}, a meno che
+	$\varepsilon_1$-approssimazione di \texttt{MAX-3SAT}, a meno che
 	$\P = \NP$.
 \end{theorem}
 

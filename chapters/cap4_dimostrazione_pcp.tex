@@ -2,7 +2,12 @@
 
 In questo capitolo dimostriamo il Teorema PCP. Presentiamo nello specifico la
 dimostrazione di Dinur \cite{Din06}, per cui il ruolo degli expander è cruciale.
-\todo{Dire che è una rielaborazione della dimostrazione nel libro di Arora e Safra, a sua volta basata sulla dimostrazione di Dinur.}
+La nostra è una rielaborazione della dimostrazione contenuta nel libro di
+Arora e Barak \cite{ABbook}.
+
+\vspace{.5em}
+TBD: richiamare cosa stiamo dimostrando e cosa sappiamo fino a questo punto.
+\vspace{.5em}
 
 È sufficiente dimostrare la tesi per un problema \textbf{NP}-completo.
 Sia allora $q_0 \ge 3$ la costante data dal Lemma \ref{thm:pcp-key-lemma} e
@@ -56,8 +61,9 @@ di due trasformazioni la cui esistenza è garantita dai seguenti lemmi.
 	\]
 \end{lemma}
 
-\todo{Descrivere esplicitamente come scegliere le costanti per ottenere la
-trasformazione che raddoppia li gap. Vedi pagina 463 di Arora, Barak.}
+% \todo{Descrivere esplicitamente come scegliere le costanti per ottenere la
+trasformazione che raddoppia li gap.}
+% Vedi pagina 463 di Arora, Barak.}
 
 \section{Amplificazione del gap}
 
@@ -693,9 +699,9 @@ la riduzione dell'alfabeto.
 		\[
 			\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon/2.
 		\]
-		Quell'$1/2$ è lo stesso $1/2$ del Corollario \ref{thm:pcpprox}. Ricorda
-		la perdita di $1/2$ che si ha con Walsh-Hadamard. Capire se, invece,
-		$\varepsilon/3$ è giusto per qualche sottigliezza con $<$ vs. $\le$.}
+		Quell'$1/2$ è lo stesso $1/2$ del Corollario \ref{thm:pcpprox} e corrisponde
+		alla perdita di $1/2$ che si ha con Walsh-Hadamard. Capire se, invece,
+		$\varepsilon/3$ è giusto per qualche sottigliezza con $<$ vs. $\le$ o altro.}
 \end{proof}
 
 \begin{proof}[Dimostrazione del Corollario \ref{thm:pcpprox}]
