@@ -20,9 +20,8 @@ Ad ogni problema di ottimizzazione è naturalmente associata una versione
 decisionale del tipo: ``esiste una soluzione di valore almeno $k$?''.
 Se il problema di decisione associato associato a un problema di ottimizzazione
 è $\NP$-completo\footnote{O in generale, non si può risolvere
-efficientemente a meno che $\P = \NP$. In questo caso si dice che il problema
-è $\NP$-hard (secondo Cook).}, allora calcolare la soluzione ottima in tempo
-polinomiale è impossibile, a meno che $\P = \NP$.
+efficientemente a meno che $\P = \NP$.}, allora calcolare la soluzione ottima
+in tempo polinomiale è impossibile, a meno che $\P = \NP$.
 È naturale chiedersi se esistono algoritmi efficienti in grado di
 trovare una soluzione abbastanza buona, entro un certo fattore dell'ottimo.
 
@@ -36,11 +35,12 @@ trovare una soluzione abbastanza buona, entro un certo fattore dell'ottimo.
 Consideriamo per esempio \texttt{MAX-SAT}, cioè la versione di ottimizzazione
 di \texttt{SAT} in cui l'obiettivo è massimizzare il numero di clausole
 soddisfatte.
-Consideriamo un assegnamento casuale delle variabili: gni clausola è
+Consideriamo un assegnamento casuale delle variabili: ogni clausola è
 soddisfatta con probabilità almeno $\frac12$, quindi per linearità del
 valore atteso ci aspettiamo che almeno metà delle clausole siano soddisfatte.
 Sorvoliamo un momento sul fatto che l'algoritmo ``scegli un assegnamento
-casuale'' è probabilistico\footnote{È infatti molto facile derandomizzarlo.}.
+casuale'' è probabilistico\footnote{È infatti molto facile derandomizzarlo,
+cioè ottenerne una controparte deterministtica.}.
 Un assegnamento che soddisfa sempre metà delle clausole soddisfa a maggior
 ragione metà delle clausole soddisfatte da una soluzione ottima, quindi
 \texttt{MAX-SAT} si può $\frac12$-approssimare efficientemente.
@@ -64,10 +64,7 @@ che soddisfa tutte le clausole meno una è data dalla computazione
 corrispondente alla verifica di un qualunque certificato, anche non valido.}.
 Ciò suggerisce che per dimostrare forti risultati di inapprossimabilità,
 sono necessari strumenti diversi. In questo senso il Teorema PCP è stato
-fondamentale.
-
-\todo{Citare Trevisan, FGLSS?}
-\vspace{1em}
+fondamentale \cite{Tre04, FGLSS96}.
 
 \section{Teorema PCP e Constraint Satisfaction Problems}
 
