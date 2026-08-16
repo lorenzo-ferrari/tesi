@@ -168,49 +168,92 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 
 \subsection{Inapprossimabilità di \texttt{MAX-CLIQUE}}
 
-%%% BEGIN HERE
+Il risultato che dimostriamo in questa sezione è stato il primo a mostrare il
+legame tra approssimazione e verifiche probabilistiche e segna l'inizio della
+moderna teoria dell'inapprossimabilità.
 
-% define max-clique
+Definiamo dunque il problema della cricca massima e mostriamo, grazie al
+Teorema PCP, che non è possibile approssimare efficientemente la soluzione
+ottima per nessun fattore costante, a meno che $\P = \NP$.
+
+\begin{definition}
+	Una \emph{cricca}\footnote{In inglese, \emph{clique}.} in un grafo
+	$G = (V, E)$ è un sottografo completo di $G$, cioè un sottoinsieme di
+	vertici $S \subseteq V$ a due a due adiacenti.
+\end{definition}
+
+\begin{definition}
+	Il problema \texttt{MAX-CLIQUE} chiede di trovare la cricca di cardinalità
+	massima in un dato grafo $G$. Indicheremo con $\omega(G)$ tale cardinalità.
+\end{definition}
 
 \begin{theorem}[\cite{FGLSS96}] \label{thm:max-clique}
 	Per ogni $\varepsilon > 0$, non esiste una $\varepsilon$-approssimazione
-	di \texttt{MAX-CLIQUE}, a meno che $\P = \NP$.
+	efficiente di \texttt{MAX-CLIQUE}, a meno che $\P = \NP$.
 \end{theorem}
 
 \begin{proof}
-\iffalse
-{\color{magenta}%
-Dimostriamo il teorema tramite la costruzione del grafo di Feige, Goldwasser, Lovász, Safra e Szegedy \cite{FGLSS96} (grafo FGLSS), riducendo il problema di decidere la soddisfacibilità di un'istanza di $q\CSP_2$ a \texttt{MAX-CLIQUE}.
+	Mostriamo come utilizzare un'ipotetica $\bar\varepsilon$-approssimazione di
+	\texttt{MAX-CLIQUE} per decidere l'appartenenza a qualunque linguaggio in
+	$\NP$.
 
-Sia $L \in \NP$. Per il Teorema \ref{thm:pcpapprox}, esiste un'istanza $\varphi$ di $q\CSP_2$ formata da $m$ vincoli $C_1, \dots, C_m$ sulle variabili $x_1, \dots, x_n \in \{0, 1\}$ tale che $\val(\varphi) = 1$ se $x \in L$ e $\val(\varphi) \le \frac12$ se $x \notin L$.
+	Sia dunque $L \in \NP$ e, dal Teorema \ref{thm:pcp}, fissiamo un
+	verificatore $V$ per $L$ che sbaglia al più una frazione
+	$\delta < \bar\varepsilon$ delle volte.
 
-Costruiamo un grafo non orientato $G = (V, E)$ nel seguente modo:
-\begin{itemize}
-	\item \textbf{Vertici}: l'insieme $V$ è formato da tutte le coppie $(j, \alpha)$ dove $j \in [m]$ indica l'indice di un vincolo $C_j$ di $\varphi$, e $\alpha \in \{0, 1\}^q$ è un assegnamento locale alle $q$ variabili da cui dipende $C_j$ che soddisfa il vincolo $C_j$. Notiamo che $|V| \le m 2^q = O(m)$.
-	\item \textbf{Archi}: due vertici distinti $(j, \alpha)$ e $(j', \alpha')$ sono collegati da un arco in $E$ se e solo se $j \neq j'$ e gli assegnamenti locali $\alpha$ e $\alpha'$ sono \emph{compatibili}, ossia assegnano lo stesso valore a ciascuna variabile condivisa dai vincoli $C_j$ e $C_{j'}$.
-\end{itemize}
+	Il nostro obiettivo sarà trasformare istanze di $L$ in grafi in modo tale
+	che istanze positive vengano mappate in grafi in cui la cricca massima è
+	abbastanza grande e istanze negativa vengano mappate in grafi in cui tutte
+	le cricche sono piccolissime. Il fattore di approssimazione $\bar\varepsilon$,
+	allora, sarà sufficiente a distinguere i due scenari.
 
-Mostriamo che la dimensione della massima cricca di $G$, indicata con $\omega(G)$, soddisfa la relazione
-\[
-	\omega(G) = m \cdot \val(\varphi).
-\]
-\begin{itemize}
-	\item Se $\val(\varphi) \ge \gamma$, allora esiste un assegnamento globale $\sigma \in \{0, 1\}^n$ alle variabili di $\varphi$ che soddisfa almeno $\gamma m$ vincoli, diciamo $C_{j_1}, \dots, C_{j_k}$ con $k \ge \gamma m$. Per ogni vincolo soddisfatto $C_{j_i}$, la restrizione di $\sigma$ alle sue variabili definisce un assegnamento locale soddisfacente $\alpha_i$. I vertici $(j_1, \alpha_1), \dots, (j_k, \alpha_k)$ provengono tutti dal medesimo assegnamento globale $\sigma$, quindi sono a due a due compatibili e appartengono a vincoli distinti. Di conseguenza, costituiscono una cricca di dimensione $k \ge \gamma m$ in $G$, da cui $\omega(G) \ge m \cdot \val(\varphi)$.
-	\item Viceversa, sia $S = \{(j_1, \alpha_1), \dots, (j_k, \alpha_k)\}$ una cricca in $G$ di dimensione $k$. Poiché non vi sono archi tra vertici associati allo stesso vincolo, gli indici $j_1, \dots, j_k$ sono tutti distinti. Inoltre, poiché i vertici di $S$ sono mutualmente compatibili, gli assegnamenti locali $\alpha_1, \dots, \alpha_k$ non discordano su alcuna variabile comune e possono essere estesi a un assegnamento globale $\sigma \in \{0, 1\}^n$ che soddisfa contemporaneamente i $k$ vincoli $C_{j_1}, \dots, C_{j_k}$. Ne deriva che $k \le m \cdot \val(\varphi)$, e dunque $\omega(G) \le m \cdot \val(\varphi)$.
-\end{itemize}
+	Dato input $x \in \{0, 1\}^n$, il verificatore legge una stringa casuale
+	$r \in \{0, 1\}^{c \log n}$ e $q$ posizioni della dimostrazione $\pi$.
+	Fissato l'input, il verificatore accetta o rifiuta esclusivamente sulla
+	base della stringa casuale e dei pezzi di dimostrazione che legge.
+	Ciò giustifica la seguente
 
-Dalla relazione $\omega(G) = m \cdot \val(\varphi)$ segue che:
-\begin{itemize}
-	\item se $x \in L$, allora $\val(\varphi) = 1$ e di conseguenza $\omega(G) = m$;
-	\item se $x \notin L$, allora $\val(\varphi) \le \frac12$ e di conseguenza $\omega(G) \le \frac{m}{2}$.
-\end{itemize}
+	\begin{definition}
+		Chiamiamo l'informazione $\langle r; \pi(i_1) \ldots \pi(i_q) \rangle$
+		uno \emph{scenario accettante} se:
+		\begin{itemize}
+			\item con stringa casuale $r$, il verificatore legge i bit in
+				posizioni $i_1, \ldots, i_q$ e
+			\item se il verificatore vi legge i valori $\pi(i_1) \ldots \pi(i_q)$,
+				allora accetta.
+		\end{itemize}
+	\end{definition}
 
-Per estendere il risultato da un fattore di inapprossimabilità $\frac12$ a un generico $\varepsilon > 0$, consideriamo il prodotto di grafi (ovvero l'esecuzione di $k$ verifiche indipendenti). Per ogni intero costante $k \ge 1$, costruiamo il grafo $G^k$, i cui vertici sono le $k$-uple di vertici di $G$ e dove due $k$-uple sono adiacenti se e solo se le loro componenti sono uguali o adiacenti in $G$. La dimensione della massima cricca in $G^k$ è $\omega(G^k) = (\omega(G))^k$.
-Pertanto, se $x \in L$ si ha $\omega(G^k) = m^k$, mentre se $x \notin L$ si ha $\omega(G^k) \le (m/2)^k = m^k / 2^k$.
+\hline
 
-Scegliendo l'intero costante $k = \lceil \log_2(1/\varepsilon) \rceil$, la frazione tra il valore nel caso $x \notin L$ e nel caso $x \in L$ diventa $\le 2^{-k} \le \varepsilon$. Poiché $k$ è costante, il grafo $G^k$ ha dimensione $|V|^k = \mathrm{poly}(n)$ e può essere costruito in tempo polinomiale. Se esistesse un algoritmo di $\varepsilon$-approssimazione per \texttt{MAX-CLIQUE}, esso permetterebbe di distinguere il caso $\omega(G^k) = m^k$ dal caso $\omega(G^k) \le \varepsilon m^k$, decidendo l'appartenenza di $x$ a $L$ in tempo polinomiale, il che implicherebbe $\P = \NP$.
-}
-\fi
+	Sia $M = 2^{c \log n} = n^c$ il numero totale di possibili stringhe casuali.
+	Costruiamo il grafo $G' = (V', E')$ nel modo seguente:
+	\begin{itemize}
+		\item \textbf{Vertici}: $V'$ è l'insieme di tutte le \emph{trascrizioni accettanti}, ossia le coppie $\langle R, \alpha \rangle$ con $R \in \{0, 1\}^{c \log n}$ e $\alpha \in \{0, 1\}^q$ tali che $V$, con stringa casuale $R$, interroga $q$ posizioni della dimostrazione e accetta quando i bit letti sono $\alpha$. Poiché vi sono $n^c$ stringhe casuali e per ciascuna al più $2^q$ risposte $\alpha$, il numero di vertici soddisfa $|V'| \le n^c \cdot 2^q = O(n^c)$. Il grafo $G'$ ha dunque dimensione polinomiale ed è costruibile in tempo polinomiale.
+		\item \textbf{Archi}: due trascrizioni accettanti distinte $u = \langle R_1, \alpha \rangle$ e $v = \langle R_2, \beta \rangle$ sono collegate da un arco in $E'$ se e solo se sono \emph{compatibili}, ossia $R_1 \neq R_2$ e non discordano su alcuna posizione della dimostrazione comune (cioè, se $V$ su $R_1$ e su $R_2$ interroga la stessa posizione, $\alpha$ e $\beta$ vi assegnano lo stesso valore di bit).
+	\end{itemize}
+
+	Mostriamo che la dimensione della massima cricca in $G'$ soddisfa:
+	\[
+		\omega(G') = \max_{\pi} \bigl|\{ R \in \{0, 1\}^{c \log n} : V \text{ accetta } \pi \text{ su stringa casuale } R \}\bigr|.
+	\]
+	\begin{itemize}
+		\item ($\ge$) Data una qualunque dimostrazione $\pi$, l'insieme delle trascrizioni $\{\langle R, \pi|_R \rangle : V \text{ accetta } \pi \text{ su } R\}$ (dove $\pi|_R$ denota la restrizione di $\pi$ ai $q$ bit interrogati sotto $R$) forma una cricca in $G'$, in quanto tutte le trascrizioni provengono dalla medesima dimostrazione $\pi$ (quindi sono mutualmente compatibili) e hanno stringhe casuali distinte. La cardinalità di questa cricca è pari al numero di stringhe casuali su cui $V$ accetta $\pi$.
+		\item ($\le$) Viceversa, sia $K \subseteq V'$ una cricca in $G'$. I vertici di $K$ hanno stringhe casuali a due a due distinte e sono a due a due compatibili; definiscono pertanto un'unica dimostrazione parziale $\tilde{\pi}_K$. Estendendo arbitrariamente $\tilde{\pi}_K$ a una dimostrazione completa $\pi$, il verificatore $V$ accetta $\pi$ su tutte le $|K|$ stringhe casuali associate ai vertici di $K$. Ne deriva che $|K| \le \max_\pi |\{R : V \text{ accetta } \pi \text{ su } R\}|$.
+	\end{itemize}
+
+	Dalla caratterizzazione di $\omega(G')$ segue che:
+	\begin{itemize}
+		\item se $x \in L$, per completezza esiste una dimostrazione $\pi$ accettata su tutte le $M = n^c$ stringhe casuali, per cui $\omega(G') = n^c$;
+		\item se $x \notin L$, per robustezza ogni dimostrazione $\pi$ è accettata su al più $\delta n^c < \varepsilon n^c$ stringhe casuali, per cui $\omega(G') < \varepsilon n^c$.
+	\end{itemize}
+
+	Se esistesse un algoritmo di $\varepsilon$-approssimazione efficiente per \texttt{MAX-CLIQUE}, esso restituirebbe su input $G'$ una cricca $K$ tale che:
+	\begin{itemize}
+		\item se $x \in L$, $|K| \ge \varepsilon \cdot \omega(G') = \varepsilon n^c$;
+		\item se $x \notin L$, $|K| \le \omega(G') < \varepsilon n^c$.
+	\end{itemize}
+	Controllando se $|K| \ge \varepsilon n^c$, potremmo quindi decidere in tempo polinomiale se $x \in L$, il che implicherebbe $\P = \NP$.
 \end{proof}
 
 %%% END HERE
