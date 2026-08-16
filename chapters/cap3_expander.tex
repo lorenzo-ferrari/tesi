@@ -3,18 +3,33 @@
 % mi piacerebbe mettere una citazione all'inizio di ogni capitolo
 % "the hay in the haystack"?
 
-TBD: introduzione al capitolo.
-
-\section{Grafi e passeggiate aleatorie} 
-
-Il minimo indispensabile.
+In questo capitolo introduciamo i grafi expander e le loro proprietà
+pseudo-casuali. Ci occuperemo, di grafi non diretti e regolari, cosicché la
+matrice di transizione delle passeggiata aleatoria sul grafo sia simmetrica.
+Per il teorema spettrale, è possibile dare una caratterizzazione
+I grafi expander saranno un ingrediente fondamentale nel
+capitolo \ref{chap:pcpproof}.
 
 \section{Cos'è un expander}
 
-Un grafo che condivide molte proprietà statistiche con un grafo random.
-Definizione algebrica e combinatoria.
-Disuguaglianza di Cheeger. (Dimostrata? Forse no, metto delle referenze.)
-Cos'è una famiglia di expander esplicita e fortemente esplicita.
+Un grafo si dice regolare di grado $d$, o $d$-regolare, se ogni nodo ha
+esattamente $d$ vicini. Sia dunque $G$ un grafo $d$-regolare e $A$ la sua
+matrice di adiacenza rinormalizzata, cioè la matrice di transizione delle
+passeggiate aleatorie su $G$.
+La matrice $A$ è simmetrica, dunque per il teorema spettrale esiste una
+base ortogonale di autovettori.
+Definiamo il parametro
+
+\begin{definition}[Grafi expander]
+	Fissato $\lambda < 1$, chiamiamo \emph{$(n, d, \lambda)$-expander} un grafo
+	di $n$ nodi, regolare di grado $d$ e con $\lambda(G) \le \lambda$.
+\end{definition}
+
+\begin{definition}[Famiglie di expander]
+	Una famiglia di grafi $\{G_n\}_{n \in \NN}$ si dice \emph{famiglia di
+	$(n, d)$-expander} se esistono costanti $d \in \NN$ e $\lambda < 1$ tali
+	che per ogni $n$ il grafo $G_n$ è un $(n, d, \lambda)$-expander.
+\end{definition}
 
 \section{Esistenza di expander}
 

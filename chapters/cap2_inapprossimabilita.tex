@@ -116,7 +116,10 @@ soggiacente} $G_\varphi$ come il grafo con vertici $[n]$ e un arco $(i, j)$ per
 ogni vincolo che dipende da $x_i$ e $x_j$. In modo analogo, definiamo
 l'ipergrafo soggiacente a un'istanza di $k\CSP$.
 
-\begin{theorem}
+Siamo ora pronti per enunciare la versione di inapprossimabilità del
+Teorema PCP.
+
+\begin{theorem}[Teorema PCP -- versione di inapprossimabilità] \label{thm:pcpapprox}
 	Esiste una costante $q$ tale che, per ogni $L \in \NP$, esiste una funzione $f$
 	calcolabile efficientemente che mappa istanze di $L$ in istanze di $q\CSP_2$
 	tali che:
@@ -124,9 +127,24 @@ l'ipergrafo soggiacente a un'istanza di $k\CSP$.
 		\item \textbf{completezza}: se $x \in L$, allora $\val(f(x)) = 1$;
 		\item \textbf{robustezza}: se $x \notin L$, allora $\val(f(x)) \le \frac12$.
 	\end{itemize}
-	In particolare, per ogni $\varepsilon > \frac12$, non esiste una
-	$\varepsilon$-approssimazione di $q\CSP_2$ a meno che $\P = \NP$.
 \end{theorem}
+
+Come immediata conseguenza, per ogni $\varepsilon > \frac12$ non esiste una
+$\varepsilon$-approssimazione di $q\CSP_2$ a meno che $\P = \NP$.
+
+% Supponiamo infatti un tale algoritmo di approssimazione esista.
+% Questo potrebbe essere utilizzato per distinguere lo scenario ``$x \in L$'',
+% nel cui caso il valore della soluzione approssimata è almeno $\varepsilon$,
+% e lo scenario ``$x \notin L$'', quando invece il valore della soluzione
+% approssimata è al più $\frac12$.
+
+Dimostriamo innanzitutto che il Teorema \ref{thm:pcp} è equivalente al
+Teorema \ref{thm:pcpapprox}. Nel Capitolo \ref{chap:pcpproof} useremo
+quest'ultima formulazione per dimostrare il Teorema PCP.
+
+\begin{proof}[Dimostrazione di equivalenza]
+	% TODO
+\end{proof}
 
 \section{Risultati di inapprossimabilità}
 
@@ -138,7 +156,7 @@ l'ipergrafo soggiacente a un'istanza di $k\CSP$.
 \end{theorem}
 
 \begin{proof}
-	TBD.
+	TBD. Vedi colloquio.
 \end{proof}
 
 \subsection{Inapprossimabilità di \texttt{MAX-3SAT}}
