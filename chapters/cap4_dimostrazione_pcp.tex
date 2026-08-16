@@ -9,6 +9,36 @@ Arora e Barak \cite{ABbook}.
 TBD: richiamare cosa stiamo dimostrando e cosa sappiamo fino a questo punto.
 \vspace{.5em}
 
+\hline
+
+Ci interesseremo a trasformazioni tra istanze di $\CSP$. Fissati due $\CSP$
+$A$ e $B$, diremo che $f$ è una \emph{CL-trasformazione}\footnote{Per
+\emph{Complete Linear-blowup}.} da istanze di $A$ a istanze di $B$ se è
+computabile in tempo polinomiale e per ogni istanza $\varphi$ di $A$, valgono
+(a) l'istanza $f(\varphi)$ è soddisfacibile se e solo se lo è $\varphi$ e
+(b) l'istanza $f(\varphi)$ ha taglia lineare nella taglia di $\varphi$, cioè un
+numero di vincoli lineare nel numero di vincoli di $\varphi$.
+
+Saranno particolarmente utili le CL-trasformazioni che permettono di
+controllare il gap dell'istanza trasformata, nello specifico quelle per cui
+esistono costanti positive $\alpha$ e $\varepsilon_0$ tali che valga
+l'implicazione
+\[
+	\val(\varphi) \le \varepsilon \implies \val(f(\varphi)) \le \alpha \varepsilon
+\]
+per ogni $\varepsilon < \varepsilon_0$.
+
+Notiamo che le classi delle CL-trasformazioni e delle CL-trasformazioni che
+controllano il gap sono entrambe chiuse per composizione.
+
+Teniamo a mente l'esempio di \texttt{3COL}. Data un'istanza $\varphi$ di
+$2\CSP_\Sigma$ con $n$ variabili $x_1, \dots, x_n$, definiamo il suo \emph{grafo
+soggiacente} $G_\varphi$ come il grafo con vertici $[n]$ e un arco $(i, j)$ per
+ogni vincolo che dipende da $x_i$ e $x_j$. In modo analogo, definiamo
+l'ipergrafo soggiacente a un'istanza di $k\CSP$.
+
+\hline
+
 È sufficiente dimostrare la tesi per un problema \textbf{NP}-completo.
 Sia allora $q_0 \ge 3$ la costante data dal Lemma \ref{thm:pcp-key-lemma} e
 mostriamo che $q_0\CSP_2 \in \PCP(\log n, 1)$.
@@ -25,6 +55,8 @@ assegnamento delle variabili di $\psi$ viola almeno una frazione costante
 dei vincoli, dimostrazioni di $\psi \in q_0\CSP_2$ si possono verificare
 probabilisticamente in maniera naïve e con buone garanzie di correttezza.
 Dunque $q_0\CSP_2 \in \PCP(\log n, 1)$.
+
+\hline
 
 \section{Struttura di dimostrazione}
 

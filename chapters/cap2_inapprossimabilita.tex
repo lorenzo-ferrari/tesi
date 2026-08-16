@@ -16,9 +16,9 @@ inapprossimabilità per \texttt{MAX-CLIQUE} e \texttt{MAX-3SAT}.
 Un problema di ottimizzazione combinatoria chiede di trovare la soluzione
 migliore possibile tra tutte le soluzioni ammissibili, ovvero quella che
 massimizza (o minimizza) una determinata funzione obiettivo.
-Ad ogni problema di ottimizzazione è naturalmente associata una versione
+Ad ogni problema di ottimizzazione è naturally associata una versione
 decisionale del tipo: ``esiste una soluzione di valore almeno $k$?''.
-Se il problema di decisione associato associato a un problema di ottimizzazione
+Se il problema di decisione associato a un problema di ottimizzazione
 è $\NP$-completo\footnote{O in generale, non si può risolvere
 efficientemente a meno che $\P = \NP$.}, allora calcolare la soluzione ottima
 in tempo polinomiale è impossibile, a meno che $\P = \NP$.
@@ -26,7 +26,7 @@ in tempo polinomiale è impossibile, a meno che $\P = \NP$.
 trovare una soluzione abbastanza buona, entro un certo fattore dell'ottimo.
 
 \begin{definition}
-	Fissato un problema di ottimizzazione, un algoritmo che restituisce	sempre
+	Fissato un problema di ottimizzazione, un algoritmo che restituisce sempre
 	una soluzione entro un fattore $\alpha$ dall'ottimo si dice
 	\emph{$\alpha$-approssimazione}.
 	Il fattore di approssimazione $\alpha$ può essere funzione dell'input.
@@ -40,12 +40,12 @@ soddisfatta con probabilità almeno $\frac12$, quindi per linearità del
 valore atteso ci aspettiamo che almeno metà delle clausole siano soddisfatte.
 Sorvoliamo un momento sul fatto che l'algoritmo ``scegli un assegnamento
 casuale'' è probabilistico\footnote{È infatti molto facile derandomizzarlo,
-cioè ottenerne una controparte deterministtica.}.
+cioè ottenerne una controparte deterministica.}.
 Un assegnamento che soddisfa sempre metà delle clausole soddisfa a maggior
 ragione metà delle clausole soddisfatte da una soluzione ottima, quindi
 \texttt{MAX-SAT} si può $\frac12$-approssimare efficientemente.
 
-% BEST approximation ratio for MAX-SAT?
+% TBD. Decidere se citare 7/8 di Hastad
 
 Si parla di \emph{inapprossimabilità} quando, per un dato problema di
 ottimizzazione, esiste un limite intrinseco al fattore di approssimazione che
@@ -87,68 +87,90 @@ le corrispondenti variabili.
 Data un'istanza $\varphi$ di $\CSP$, definiamo il suo \emph{valore}
 $\val(\varphi)$ come la massima frazione di vincoli soddisfacibili da un
 assegnamento delle variabili di $\varphi$. Dunque $\val(\varphi) = 1$ se
-$\varphi$ è soddisfacibile e $\val(\varphi) < 1$ altrimenti. Data un'istanza
-$\varphi$, definiamo il suo \emph{gap} come $1 - \val(\varphi)$.
-
-Ci interesseremo a trasformazioni tra istanze di $\CSP$. Fissati due $\CSP$
-$A$ e $B$, diremo che $f$ è una \emph{CL-trasformazione}\footnote{Per
-\emph{Complete Linear-blowup}.} da istanze di $A$ a istanze di $B$ se è
-computabile in tempo polinomiale e per ogni istanza $\varphi$ di $A$, valgono
-(a) l'istanza $f(\varphi)$ è soddisfacibile se e solo se lo è $\varphi$ e
-(b) l'istanza $f(\varphi)$ ha taglia lineare nella taglia di $\varphi$, cioè un
-numero di vincoli lineare nel numero di vincoli di $\varphi$.
-
-Saranno particolarmente utili le CL-trasformazioni che permettono di
-controllare il gap dell'istanza trasformata, nello specifico quelle per cui
-esistono costanti positive $\alpha$ e $\varepsilon_0$ tali che valga
-l'implicazione
-\[
-	\val(\varphi) \le \varepsilon \implies \val(f(\varphi)) \le \alpha \varepsilon
-\]
-per ogni $\varepsilon < \varepsilon_0$.
-
-Notiamo che le classi delle CL-trasformazioni e delle CL-trasformazioni che
-controllano il gap sono entrambe chiuse per composizione.
-
-Teniamo a mente l'esempio di \texttt{3COL}. Data un'istanza $\varphi$ di
-$2\CSP_\Sigma$ con $n$ variabili $x_1, \dots, x_n$, definiamo il suo \emph{grafo
-soggiacente} $G_\varphi$ come il grafo con vertici $[n]$ e un arco $(i, j)$ per
-ogni vincolo che dipende da $x_i$ e $x_j$. In modo analogo, definiamo
-l'ipergrafo soggiacente a un'istanza di $k\CSP$.
+$\varphi$ è soddisfacibile e $\val(\varphi) < 1$ altrimenti. Definiamo invece
+il \emph{gap} di $\varphi$ come $1 - \val(\varphi)$.
 
 Siamo ora pronti per enunciare la versione di inapprossimabilità del
 Teorema PCP.
 
 \begin{theorem}[Teorema PCP -- versione di inapprossimabilità] \label{thm:pcpapprox}
-	Esiste una costante $q$ tale che, per ogni $L \in \NP$, esiste una funzione $f$
-	calcolabile efficientemente che mappa istanze di $L$ in istanze di $q\CSP_2$
-	tali che:
+	Esistono costanti $q \in \N$ e $\rho \in (0, 1)$ tali che, per ogni
+	$L \in \NP$, esiste una funzione $f$ calcolabile efficientemente che mappa
+	istanze di $L$ in istanze di $q\CSP_2$ che soddisfano le seguenti proprietà:
 	\begin{itemize}
 		\item \textbf{completezza}: se $x \in L$, allora $\val(f(x)) = 1$;
-		\item \textbf{robustezza}: se $x \notin L$, allora $\val(f(x)) \le \frac12$.
+		\item \textbf{robustezza}: se $x \notin L$, allora $\val(f(x)) \le \rho$.
 	\end{itemize}
 \end{theorem}
 
-Come immediata conseguenza, per ogni $\varepsilon > \frac12$ non esiste una
-$\varepsilon$-approssimazione di $q\CSP_2$ a meno che $\P = \NP$.
+Come immediata conseguenza, per ogni $\varepsilon > \rho$ non esiste una
+$\varepsilon$-approssimazione efficiente di $\texttt{MAX-}q\CSP_2$
+a meno che $\P = \NP$.
+Un tale algoritmo, infatti, potrebbe essere utilizzato per decidere
+efficientemente l'appartenenza a qualunque linguaggio $L \in \NP$ nel
+seguente modo.
+Data un'istanza $x$, si esegue l'algoritmo di approssimazione su $f(x)$.
+Se $x \in L$, allora $\val(f(x)) = 1$, dunque l'approssimazione restituisce una
+soluzione di valore almeno $\varepsilon \val(f(x)) = \varepsilon > \rho$.
+Se invece $x \notin L$, allora ogni assegnamento ha valore al più $\rho$.
+Di conseguenza, sulla base del valore della soluzione restituita dall'ipotetico
+algoritmo di approssimazione, si potrebbe decidere efficientemente
+l'appartenenza ad $L$, da cui $\P = \NP$.
 
-% Supponiamo infatti un tale algoritmo di approssimazione esista.
-% Questo potrebbe essere utilizzato per distinguere lo scenario ``$x \in L$'',
-% nel cui caso il valore della soluzione approssimata è almeno $\varepsilon$,
-% e lo scenario ``$x \notin L$'', quando invece il valore della soluzione
-% approssimata è al più $\frac12$.
-
-Dimostriamo innanzitutto che il Teorema \ref{thm:pcp} è equivalente al
+Dimostriamo quindi l'equivalenza tra il Teorema \ref{thm:pcp} e il
 Teorema \ref{thm:pcpapprox}. Nel Capitolo \ref{chap:pcpproof} useremo
 quest'ultima formulazione per dimostrare il Teorema PCP.
 
 \begin{proof}[Dimostrazione di equivalenza]
-	% TODO
+	$(\implies)$
+	Come già fatto durante la dimostrazione del Teorema \ref{thm:exppcp},
+	è sufficiente mostrare che la conclusione del Teorema \ref{thm:pcpapprox}
+	vale per un fissato linguaggio $\NP$-completo $L$.
+
+	Supponiamo dunque che valga il Teorema \ref{thm:pcp}, cioè che
+	$\NP = \PCP(\log n, 1)$. Allora esistono costanti $c, q > 0$ e un
+	verificatore probabilistico $V$ che, data un'istanza $x \in \{0, 1\}^n$ di
+	$L$, utilizza al più $c \log n$ bit casuali e legge al più $q$ bit
+	di una dimostrazione $\pi$.
+	Costruiamo l'istanza $\varphi = f(x)$ di $q\CSP_2$ nel modo seguente.
+	Le variabili di $\varphi$ corrispondono alle posizioni della dimostrazione
+	$\pi$.
+	Per ogni stringa casuale $r \in \{0, 1\}^{c \log n}$, si pone un vincolo
+	$V_{x,r}$ soddisfatto se e soltanto se $V$ accetta $\pi$ con input $x$ e
+	stringa casuale $r$. Poiché $V_{x, r}$ dipende da al più $q$ variabili,
+	restringiamo $\varphi$ alle sole variabili che appaiono in uno dei vincoli
+	per ottenere un'istanza di taglia polinomiale e computabile con un numero
+	polinomiale di simulazioni di verifica.
+
+	Assegnamenti delle variabili di $\varphi$ corrispondono a certificati
+	$\pi$, quindi il valore di $\varphi$ corrisponde esattamente alla massima
+	probabilità che un certificato sia accettato.
+	Le proprietà di completezza e robustezza del Teorema \ref{thm:pcp} si
+	traducono allora nelle proprietà di robustezza e completezza per il Teorema
+	\ref{thm:pcpapprox} con $\rho = \frac12$.
+
+	$(\impliedby)$
+	Viceversa, mostriamo come costruire un valido verificatore $\PCP$ a partire
+	dalla trasformazione del Teorema \ref{thm:pcpapprox}.
+	Dato input $x$ per un problema $L$, il verificatore lo trasforma nell'istanza
+	$f(x)$ di $q\CSP_2$. Dimostrazioni di ``$x \in L$'' corrispondono a validi
+	assegnamenti per $f(x)$. Per verificare una dimostrazione, il verificatore
+	sceglie un vincolo uniformemente a caso impiegando $O(\log n)$ bit random,
+	dopodiché legge le $q$ variabili da cui dipende il vincolo e accetta se e
+	soltanto se questo è soddisfatto.
+	In virtù del Teorema \ref{thm:pcpapprox}, questo sistema di verifica
+	soddisfa la proprietà di completezza e ha robustezza $\rho$.
+	È sufficiente ripetere la verifica $O(1)$ volte per ottenere robustezza
+	$\frac12$ e dimostrare quindi il Teorema \ref{thm:pcp}.
 \end{proof}
 
 \section{Risultati di inapprossimabilità}
 
 \subsection{Inapprossimabilità di \texttt{MAX-CLIQUE}}
+
+%%% BEGIN HERE
+
+% define max-clique
 
 \begin{theorem}[\cite{FGLSS96}] \label{thm:max-clique}
 	Per ogni $\varepsilon > 0$, non esiste una $\varepsilon$-approssimazione
@@ -156,14 +178,46 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 \end{theorem}
 
 \begin{proof}
-	TBD. Vedi colloquio.
+\iffalse
+{\color{magenta}%
+Dimostriamo il teorema tramite la costruzione del grafo di Feige, Goldwasser, Lovász, Safra e Szegedy \cite{FGLSS96} (grafo FGLSS), riducendo il problema di decidere la soddisfacibilità di un'istanza di $q\CSP_2$ a \texttt{MAX-CLIQUE}.
+
+Sia $L \in \NP$. Per il Teorema \ref{thm:pcpapprox}, esiste un'istanza $\varphi$ di $q\CSP_2$ formata da $m$ vincoli $C_1, \dots, C_m$ sulle variabili $x_1, \dots, x_n \in \{0, 1\}$ tale che $\val(\varphi) = 1$ se $x \in L$ e $\val(\varphi) \le \frac12$ se $x \notin L$.
+
+Costruiamo un grafo non orientato $G = (V, E)$ nel seguente modo:
+\begin{itemize}
+	\item \textbf{Vertici}: l'insieme $V$ è formato da tutte le coppie $(j, \alpha)$ dove $j \in [m]$ indica l'indice di un vincolo $C_j$ di $\varphi$, e $\alpha \in \{0, 1\}^q$ è un assegnamento locale alle $q$ variabili da cui dipende $C_j$ che soddisfa il vincolo $C_j$. Notiamo che $|V| \le m 2^q = O(m)$.
+	\item \textbf{Archi}: due vertici distinti $(j, \alpha)$ e $(j', \alpha')$ sono collegati da un arco in $E$ se e solo se $j \neq j'$ e gli assegnamenti locali $\alpha$ e $\alpha'$ sono \emph{compatibili}, ossia assegnano lo stesso valore a ciascuna variabile condivisa dai vincoli $C_j$ e $C_{j'}$.
+\end{itemize}
+
+Mostriamo che la dimensione della massima cricca di $G$, indicata con $\omega(G)$, soddisfa la relazione
+\[
+	\omega(G) = m \cdot \val(\varphi).
+\]
+\begin{itemize}
+	\item Se $\val(\varphi) \ge \gamma$, allora esiste un assegnamento globale $\sigma \in \{0, 1\}^n$ alle variabili di $\varphi$ che soddisfa almeno $\gamma m$ vincoli, diciamo $C_{j_1}, \dots, C_{j_k}$ con $k \ge \gamma m$. Per ogni vincolo soddisfatto $C_{j_i}$, la restrizione di $\sigma$ alle sue variabili definisce un assegnamento locale soddisfacente $\alpha_i$. I vertici $(j_1, \alpha_1), \dots, (j_k, \alpha_k)$ provengono tutti dal medesimo assegnamento globale $\sigma$, quindi sono a due a due compatibili e appartengono a vincoli distinti. Di conseguenza, costituiscono una cricca di dimensione $k \ge \gamma m$ in $G$, da cui $\omega(G) \ge m \cdot \val(\varphi)$.
+	\item Viceversa, sia $S = \{(j_1, \alpha_1), \dots, (j_k, \alpha_k)\}$ una cricca in $G$ di dimensione $k$. Poiché non vi sono archi tra vertici associati allo stesso vincolo, gli indici $j_1, \dots, j_k$ sono tutti distinti. Inoltre, poiché i vertici di $S$ sono mutualmente compatibili, gli assegnamenti locali $\alpha_1, \dots, \alpha_k$ non discordano su alcuna variabile comune e possono essere estesi a un assegnamento globale $\sigma \in \{0, 1\}^n$ che soddisfa contemporaneamente i $k$ vincoli $C_{j_1}, \dots, C_{j_k}$. Ne deriva che $k \le m \cdot \val(\varphi)$, e dunque $\omega(G) \le m \cdot \val(\varphi)$.
+\end{itemize}
+
+Dalla relazione $\omega(G) = m \cdot \val(\varphi)$ segue che:
+\begin{itemize}
+	\item se $x \in L$, allora $\val(\varphi) = 1$ e di conseguenza $\omega(G) = m$;
+	\item se $x \notin L$, allora $\val(\varphi) \le \frac12$ e di conseguenza $\omega(G) \le \frac{m}{2}$.
+\end{itemize}
+
+Per estendere il risultato da un fattore di inapprossimabilità $\frac12$ a un generico $\varepsilon > 0$, consideriamo il prodotto di grafi (ovvero l'esecuzione di $k$ verifiche indipendenti). Per ogni intero costante $k \ge 1$, costruiamo il grafo $G^k$, i cui vertici sono le $k$-uple di vertici di $G$ e dove due $k$-uple sono adiacenti se e solo se le loro componenti sono uguali o adiacenti in $G$. La dimensione della massima cricca in $G^k$ è $\omega(G^k) = (\omega(G))^k$.
+Pertanto, se $x \in L$ si ha $\omega(G^k) = m^k$, mentre se $x \notin L$ si ha $\omega(G^k) \le (m/2)^k = m^k / 2^k$.
+
+Scegliendo l'intero costante $k = \lceil \log_2(1/\varepsilon) \rceil$, la frazione tra il valore nel caso $x \notin L$ e nel caso $x \in L$ diventa $\le 2^{-k} \le \varepsilon$. Poiché $k$ è costante, il grafo $G^k$ ha dimensione $|V|^k = \mathrm{poly}(n)$ e può essere costruito in tempo polinomiale. Se esistesse un algoritmo di $\varepsilon$-approssimazione per \texttt{MAX-CLIQUE}, esso permetterebbe di distinguere il caso $\omega(G^k) = m^k$ dal caso $\omega(G^k) \le \varepsilon m^k$, decidendo l'appartenenza di $x$ a $L$ in tempo polinomiale, il che implicherebbe $\P = \NP$.
+}
+\fi
 \end{proof}
+
+%%% END HERE
 
 \subsection{Inapprossimabilità di \texttt{MAX-3SAT}}
 
-\todo{Citare Papadimitrou e Yannakis: se MAX-3SAT non ha un PTAS, allora molti
-altri problemi non ce l'hanno. "Optimization, approximation, and complexity
-classes".}
+% citare PY91 e spiegare un po' la situazione.
 
 \begin{theorem}
 	Esiste un $\varepsilon_1 > 0$ tale che non esiste una
@@ -172,5 +226,32 @@ classes".}
 \end{theorem}
 
 \begin{proof}
-	TBD.
+\iffalse
+	{\color{magenta}%
+	Mostriamo una riduzione polinomiale da $q\CSP_2$ a \texttt{MAX-3SAT} che preserva il gap di soddisfacibilità.
+	Sia $\varphi$ un'istanza di $q\CSP_2$ formata da $m$ vincoli $C_1, \dots, C_m$ sulle variabili $x_1, \dots, x_n \in \{0, 1\}$, derivante dal Teorema PCP \ref{thm:pcpapprox}.
+
+	Ogni vincolo $C_j$ dipende da al più $q$ variabili originali. Possiamo esprimere la relazione ammissibile per $C_j$ in forma normale congiuntiva (CNF) con al più $2^q$ clausole su tali $q$ variabili. Successivamente, ogni clausola contenente $k$ letterali (con $k \le q$) viene convertita in un insieme di clausole con esattamente 3 letterali mediante l'introduzione di al più $q$ variabili ausiliarie.
+	In questo modo, ciascun vincolo $C_j$ viene tradotto in un insieme $S_j$ di clausole 3-CNF definite sulle $q$ variabili originali di $C_j$ e su un insieme di variabili ausiliarie $Y_j$. Indichiamo con $c_q$ il numero totale di clausole 3-CNF appartenenti a $S_j$. Poiché $q = O(1)$ è una costante, anche $c_q = O(1)$ è una costante.
+
+	La riduzione garantisce le seguenti proprietà strutturali per ogni vincolo $C_j$:
+	\begin{enumerate}[label=(\roman*)]
+		\item Se un assegnamento alle variabili originali soddisfa $C_j$, allora esiste un'estensione alle variabili ausiliarie $Y_j$ che soddisfa \emph{tutte} le $c_q$ clausole di $S_j$.
+		\item Se un assegnamento alle variabili originali viola $C_j$, allora per \emph{qualunque} scelta delle variabili ausiliarie $Y_j$, al più $c_q - 1$ clausole di $S_j$ risultano soddisfatte (cioè almeno una clausola di $S_j$ viene violata).
+	\end{enumerate}
+
+	Sia $\phi'$ l'istanza di \texttt{MAX-3SAT} formata dalla congiunzione di tutti gli insiemi di clausole $S_1, \dots, S_m$. Il numero totale di clausole di $\phi'$ è $M = m \cdot c_q$.
+
+	Valutiamo il valore $\val(\phi')$ nei due casi:
+	\begin{itemize}
+		\item \textbf{Completezza}: se $\val(\varphi) = 1$, esiste un assegnamento globale alle variabili $x_1, \dots, x_n$ che soddisfa tutti gli $m$ vincoli $C_j$. Estendendo tale assegnamento in modo opportuno sulle variabili ausiliarie $Y_j$ per ciascun $j \in [m]$, tutte le $c_q$ clausole di ogni $S_j$ risultano soddisfatte. Di conseguenza, tutte le $M$ clausole di $\phi'$ sono soddisfatte e $\val(\phi') = 1$.
+		\item \textbf{Robustezza}: se $\val(\varphi) \le \frac12$, allora qualsiasi assegnamento alle variabili $x_1, \dots, x_n$ viola almeno $\frac{m}{2}$ vincoli di $\varphi$. Per ciascun vincolo $C_j$ violato, qualunque assegnamento alle variabili ausiliarie $Y_j$ viola almeno una clausola in $S_j$. Ne consegue che in $\phi'$ risultano violate almeno $\frac{m}{2}$ clausole su $M$, pertanto:
+		\[
+			\val(\phi') \le \frac{M - m/2}{M} = 1 - \frac{m/2}{m c_q} = 1 - \frac{1}{2 c_q}.
+		\]
+	\end{itemize}
+
+	Ponendo $\varepsilon_1 = \frac{1}{2 c_q} > 0$, un algoritmo di $\varepsilon_1$-approssimazione per \texttt{MAX-3SAT} (ovvero in grado di garantire soluzioni di valore entro un fattore $(1 - \varepsilon_1)$ dall'ottimo) permetterebbe di distinguere un'istanza con $\val(\phi') = 1$ da un'istanza con $\val(\phi') \le 1 - \varepsilon_1$, decidendo l'appartenenza a $L$ in tempo polinomiale. Si conclude che \texttt{MAX-3SAT} non ammette una $\varepsilon_1$-approssimazione a meno che $\P = \NP$.
+}
+\fi
 \end{proof}
