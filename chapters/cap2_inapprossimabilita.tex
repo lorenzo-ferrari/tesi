@@ -2,21 +2,22 @@
 
 In questo capitolo presentiamo il legame tra Teorema PCP e
 (in)approssimabilità di problemi di ottimizzazione combinatoria.
-Cominciamo definendo cos'è un algoritmo di approssimazione
-e cosa s'intende per inapprossimabilità.
+Cominciamo motivando gli algoritmi di approssimazione e definendo
+approssimazione e inapprossimabilità.
 Introduciamo poi i \emph{Constraint Satisfaction Problem} ($\CSP$) e le
 relative notazioni che torneranno utili nel Capitolo \ref{chap:pcpproof},
 dopodiché diamo una formulazione equivalente del Teorema PCP instrinsecamente
 legata all'inapprossimabilità di $\CSP$.
 Infine, a partire dal Teorema PCP, dimostriamo risultati di
-inapprossimabilità per \texttt{MAX-CLIQUE} e \texttt{MAX-3SAT}.
+inapprossimabilità storicamente rilevanti per \texttt{MAX-CLIQUE} e
+\texttt{MAX-3SAT}.
 
 \section{Approssimare problemi di ottimizzazione}
 
 Un problema di ottimizzazione combinatoria chiede di trovare la soluzione
 migliore possibile tra tutte le soluzioni ammissibili, ovvero quella che
 massimizza (o minimizza) una determinata funzione obiettivo.
-Ad ogni problema di ottimizzazione è naturally associata una versione
+Ad ogni problema di ottimizzazione è naturalmente associata una versione
 decisionale del tipo: ``esiste una soluzione di valore almeno $k$?''.
 Se il problema di decisione associato a un problema di ottimizzazione
 è $\NP$-completo\footnote{O in generale, non si può risolvere
@@ -27,7 +28,7 @@ trovare una soluzione abbastanza buona, entro un certo fattore dell'ottimo.
 
 \begin{definition}
 	Fissato un problema di ottimizzazione, un algoritmo che restituisce sempre
-	una soluzione entro un fattore $\alpha$ dall'ottimo si dice
+	una soluzione di valore entro un fattore $\alpha$ dall'ottimo si dice
 	\emph{$\alpha$-approssimazione}.
 	Il fattore di approssimazione $\alpha$ può essere funzione dell'input.
 \end{definition}
@@ -35,17 +36,22 @@ trovare una soluzione abbastanza buona, entro un certo fattore dell'ottimo.
 Consideriamo per esempio \texttt{MAX-SAT}, cioè la versione di ottimizzazione
 di \texttt{SAT} in cui l'obiettivo è massimizzare il numero di clausole
 soddisfatte.
-Consideriamo un assegnamento casuale delle variabili: ogni clausola è
-soddisfatta con probabilità almeno $\frac12$, quindi per linearità del
-valore atteso ci aspettiamo che almeno metà delle clausole siano soddisfatte.
-Sorvoliamo un momento sul fatto che l'algoritmo ``scegli un assegnamento
-casuale'' è probabilistico\footnote{È infatti molto facile derandomizzarlo,
+Il seguente è un buon tentativo di algoritmo di approssimazione:
+``data un'istanza di \texttt{MAX-SAT}, restituisci un assegnamento casuale
+delle variabili''. Ogni clausola è soddisfatta con probabilità almeno $\frac12$,
+quindi, per linearità del valore atteso, ci aspettiamo che almeno metà delle
+clausole siano soddisfatte.
+Sorvoliamo un momento sul fatto che l'algoritmo è
+probabilistico\footnote{È infatti molto facile derandomizzarlo,
 cioè ottenerne una controparte deterministica.}.
-Un assegnamento che soddisfa sempre metà delle clausole soddisfa a maggior
-ragione metà delle clausole soddisfatte da una soluzione ottima, quindi
+Un assegnamento che soddisfa metà delle clausole soddisfa, a maggior
+ragione, metà delle clausole soddisfatte da una soluzione ottima, quindi
 \texttt{MAX-SAT} si può $\frac12$-approssimare efficientemente.
-
-% TBD. Decidere se citare 7/8 di Hastad
+Se ci restringiamo a \texttt{MAX-E3SAT}, cioè alle istanze di \texttt{MAX-SAT}
+in cui ogni clausola ha esattamente tre letterali distinti, con lo
+stesso ragionamento si ottiene una $\frac78$-approssimazione.
+È naturale chiedersi se esistono approssimazioni migliori, magari
+arbitrariamente buone, come nel caso di altri problemi.
 
 Si parla di \emph{inapprossimabilità} quando, per un dato problema di
 ottimizzazione, esiste un limite intrinseco al fattore di approssimazione che
@@ -53,7 +59,7 @@ un algoritmo efficiente può garantire, tipicamente a meno che $\P = \NP$.
 
 È bene osservare che la sola $\NP$-completezza non esclude la possibilità di
 approssimare molto, magari arbitrariamente, bene la soluzione ottima.
-Quasi tutte le dimostrazioni di $\NP$-completezza infatti passano per il
+Quasi tutte le dimostrazioni di $\NP$-completezza, infatti, passano per il
 Teorema di Cook-Levin e allo stesso tempo è molto facile trovare assegnamenti
 che soddisfano tutte le clausole meno una per le istanze di \texttt{SAT}
 prodotte dalla dimostrazione di Cook-Levin\footnote{Il Teorema di Cook-Levin
@@ -62,25 +68,32 @@ verifica di un certificato accettato?'' in un'istanza di \texttt{SAT}.
 La parte ``accettato'' è espressa da una sola clausola, dunque una soluzione
 che soddisfa tutte le clausole meno una è data dalla computazione
 corrispondente alla verifica di un qualunque certificato, anche non valido.}.
-Ciò suggerisce che per dimostrare forti risultati di inapprossimabilità,
-sono necessari strumenti diversi. In questo senso il Teorema PCP è stato
-fondamentale \cite{Tre04, FGLSS96}.
+Ciò suggerisce la necessità di strumenti diversi per dimostrare forti
+risultati di inapprossimabilità. In questo senso il Teorema PCP e in generale
+le verifiche probabilistiche sono state fondamentali \cite{Tre04, FGLSS96}.
 
 \section{Teorema PCP e Constraint Satisfaction Problems}
 
-Introduciamo i \emph{Constraint Satisfaction Problem}, cioè una classe di
-problemi che generalizza naturalmente \texttt{3SAT} e i problemi di colorazione di
-grafi. Fissata un'arietà $k$ e un alfabeto $\Sigma$ definiamo $k\CSP_\Sigma$ il
-seguente problema computazionale. Data una collezione $((C_j, R_j))_{j \in [m]}$
-di $k$-uple $C_j$ di variabili associate a relazioni $R_j \subseteq \Sigma^k$,
-determinare se esiste in $\Sigma^n$ un assegnamento delle variabili che soddisfa
-\emph{tutti} i vincoli, cioè tale che per ogni $k$-upla $C_j$ di variabili,
-il corrispondente assegnamento appartiene a $R_j$.
-Indicheremo con $k\CSP_W$ il problema $k\CSP_{[W]}$.
-Secondo la notazione appena introdotta \texttt{3COL}
+Al fine di legare il Teorema PCP all'inapprossimabilità e, nel Capitolo
+\ref{chap:pcpproof}, di dimostrarlo, introduciamo i
+\emph{Constraint Satisfaction Problem}, cioè una classe di problemi che
+generalizza naturalmente \texttt{3SAT} e i problemi di colorazione di grafi.
+
+\begin{definition}
+	Fissata un'arietà $k$ e un alfabeto $\Sigma$ definiamo $k\CSP_\Sigma$ il
+	seguente problema computazionale. Data una collezione
+	$((C_j, R_j))_{j \in [m]}$ di $k$-uple $C_j$ di variabili associate a
+	relazioni $R_j \subseteq \Sigma^k$, determinare se esiste in $\Sigma^n$ un
+	assegnamento delle variabili che soddisfa \emph{tutti} i vincoli, cioè tale
+	che per ogni $k$-upla $C_j$ di variabili il corrispondente assegnamento
+	appartiene a $R_j$.
+	Indicheremo con $k\CSP_W$ il problema $k\CSP_{[W]}$.
+\end{definition}
+
+Secondo la notazione appena introdotta, \texttt{3COL}
 corrisponde alla restrizione di $2\CSP_3$ alle istanze i cui vincoli sono
 espressi da $R_{\text{3col}} = \{(1, 2), (1, 3), (2, 3)\}$.
-Ogni variabile corrisponde a un nodo e assume un valore in $\{1, 2, 3\}$; per
+Ogni variabile corrisponde a un nodo e assume un valore in $\{1, 2, 3\}$ e per
 ogni coppia di nodi adiacenti si impone la relazione binaria ``$a \neq b$'' tra
 le corrispondenti variabili.
 
@@ -166,17 +179,13 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 
 \section{Risultati di inapprossimabilità}
 
-\todo{controlla le date. Guarda i record delle conferenze.}
-
 I risultati che dimostriamo in questa sezione hanno segnato l'inizio della
-teoria dell'inapprossimabilità per come la conosciamo oggi \cite{Tre04}.
-
-Il primo, dimostrato da Feige, Goldwasser, Lovász, Safra e Szegedy nel 1990,
+teoria dell'inapprossimabilità per come la conosciamo oggi.
+Il primo, dimostrato da Feige, Goldwasser, Lovász, Safra e Szegedy nel 1991,
 mostra il legame tra approssimazione e verifiche probabilistiche.
 Il secondo, diretta diretta conseguenza del Teorema PCP, mostra che non si
 può approssimare \texttt{MAX-3SAT} oltre un certo valore costante a meno che
 $\P = \NP$.
-
 Grazie al lavoro di Papadimitriou e Yannakis \cite{PY91}, ciò implica
 che la stessa conclusione vale per molti alti problemi di ottimizzazione
 combinatoria, per i quali, prima del Teorema PCP, nessun limite
@@ -313,41 +322,91 @@ più forte per \texttt{MAX-CLIQUE}.
 
 \subsection{Inapprossimabilità di \texttt{MAX-3SAT}}
 
-% citare PY91 e spiegare un po' la situazione.
+Mostriamo ora come dal Teorema PCP segue un risultato di inapprossimabilità
+per \texttt{MAX-3SAT}. Il contesto in cui si inserisce questo risultato è il
+seguente.
+Prima del Teorema PCP, per diversi problemi di ottimizzazione combinatoria non
+si riuscivano né a trovare algoritmi di approssimazione arbitrariamente buoni,
+né a dimostrare risultati di inapprossimabilità.
+Nel 1988 Papadimitriou e Yannakakis \cite{PY91} diedero un senso a questa
+situazione di stallo mostrando che \texttt{MAX-3SAT} e molti altri
+problemi\footnote{Per citarne alcuni, \texttt{MAX-2SAT}, \texttt{MAX-CUT} e
+restrizioni di \texttt{MIN-VERTEX-COVER} e \texttt{MAX-CLIQUE} a determinate
+classi di istanze.} condividono la stessa difficoltà di approssimazione:
+se esiste un limite costante  all'approssimabilità per uno, ne esiste uno anche
+per gli altri.
+Dimostriamo dunque, mediante il Teorema PCP, il risultato di inapprossimabilità
+di \texttt{MAX-3SAT} che sbloccò risultati di inapprossimabilità per l'intero
+gruppo di problemi.
 
-\begin{theorem}
+\begin{theorem} \label{thm:max-3sat}
 	Esiste un $\varepsilon_1 > 0$ tale che non esiste una
 	$\varepsilon_1$-approssimazione di \texttt{MAX-3SAT}, a meno che
 	$\P = \NP$.
 \end{theorem}
 
 \begin{proof}
-\iffalse
-	{\color{magenta}%
-	Mostriamo una riduzione polinomiale da $q\CSP_2$ a \texttt{MAX-3SAT} che preserva il gap di soddisfacibilità.
-	Sia $\varphi$ un'istanza di $q\CSP_2$ formata da $m$ vincoli $C_1, \dots, C_m$ sulle variabili $x_1, \dots, x_n \in \{0, 1\}$, derivante dal Teorema PCP \ref{thm:pcpapprox}.
+	Utilizziamo la versione di inapprossimabilità del Teorema PCP.
+	Sia dunque $q$ l'arietà data dal Teorema \ref{thm:pcpapprox}.
+	L'obiettivo sarà esibire una riduzione polinomiale da
+	(\texttt{MAX-})$q\CSP_2$ a (\texttt{MAX-})\texttt{3SAT} che controlla il
+	gap di soddisfacibilità dell'istanza prodotta, cosicché componendola
+	con la trasformazione del Teorema \ref{thm:pcpapprox}, si ottenga una
+	riduzione che mappa istanze negative di un generico linguaggio
+	$L \in \NP$ in istanze di (\texttt{MAX-})\texttt{3SAT} con gap almeno
+	costante. Un'ipotetica $\varepsilon_1$-approssimazione, allora, si potrà
+	usare per decidere $L$, da cui $\P = \NP$.
 
-	Ogni vincolo $C_j$ dipende da al più $q$ variabili originali. Possiamo esprimere la relazione ammissibile per $C_j$ in forma normale congiuntiva (CNF) con al più $2^q$ clausole su tali $q$ variabili. Successivamente, ogni clausola contenente $k$ letterali (con $k \le q$) viene convertita in un insieme di clausole con esattamente 3 letterali mediante l'introduzione di al più $q$ variabili ausiliarie.
-	In questo modo, ciascun vincolo $C_j$ viene tradotto in un insieme $S_j$ di clausole 3-CNF definite sulle $q$ variabili originali di $C_j$ e su un insieme di variabili ausiliarie $Y_j$. Indichiamo con $c_q$ il numero totale di clausole 3-CNF appartenenti a $S_j$. Poiché $q = O(1)$ è una costante, anche $c_q = O(1)$ è una costante.
+	Sia allora $\varphi$ un'istanza di $q\CSP_2$ formata dai vincoli
+	$C_1, \dots, C_m$ sulle variabili $u_1, \dots, u_n \in \{0, 1\}$.
+	Poiché ogni $C_j$ dipende da al più $q$ variabili, esso si può esprimere
+	con una formula CNF di al più $2^q$ clausole, ognuna dipendente dalle $q$
+	variabili in questione.
+	Esprimiamo ognuna di queste clausole dipendenti da $q$ variabili come
+	formula 3CNF sulle variabili originali e nuove variabili ausiliarie iterando
+	la seguente operazione:
+	\[
+		(u_1 \lor u_2 \lor u_3 \lor u_4) \mapsto
+		(u_1 \lor u_2 \lor v) \land (\bar v \lor u_3 \lor u_4).
+	\]
+	La formula 3CNF così prodotta consta di non più di $q$ clausole. Inoltre,
+	se un assegnamento $\mathbf{u}$ delle variabili originali non soddisfa la
+	clausola CNF di partenza, indipendentemente dal valore delle variabili
+	ausiliarie, almeno una clausola della corrispondente formula 3CNF non è
+	soddisfatta. Un valido assegnamento $\mathbf{u}$ per il vincolo, invece, si
+	completa a un valido assegnamento per la formula 3CNF.
+	Segue che ogni $C_j$ può essere espresso da una formula 3CNF con al più
+	$q 2^q$ clausole. Sia allora $\phi$ l'istanza di \texttt{3SAT} prodotta
+	dalla congiunzione di queste formula al variare di $C_j$, che consta dunque
+	di al più $q 2^q m$ clausole.
+	Vale che $\phi$ è soddisfacibile se e solo se lo è $\varphi$, ma anche
+	molto di più. Infatti, un assegnamento $\mathbf{u}$ che viola $k$ degli $m$
+	vincoli di $\varphi$ viola necessariamente anche $k$ degli $q 2^q m$
+	vincoli di $\phi$. Ciò si traduce in
+	\[
+		\val(\varphi) \le 1 - \varepsilon \implies
+		\val(\phi) \le 1 - \frac{\varepsilon}{q 2^q}
+	\]
+	per ogni $\varepsilon > 0$.
 
-	La riduzione garantisce le seguenti proprietà strutturali per ogni vincolo $C_j$:
-	\begin{enumerate}[label=(\roman*)]
-		\item Se un assegnamento alle variabili originali soddisfa $C_j$, allora esiste un'estensione alle variabili ausiliarie $Y_j$ che soddisfa \emph{tutte} le $c_q$ clausole di $S_j$.
-		\item Se un assegnamento alle variabili originali viola $C_j$, allora per \emph{qualunque} scelta delle variabili ausiliarie $Y_j$, al più $c_q - 1$ clausole di $S_j$ risultano soddisfatte (cioè almeno una clausola di $S_j$ viene violata).
-	\end{enumerate}
-
-	Sia $\phi'$ l'istanza di \texttt{MAX-3SAT} formata dalla congiunzione di tutti gli insiemi di clausole $S_1, \dots, S_m$. Il numero totale di clausole di $\phi'$ è $M = m \cdot c_q$.
-
-	Valutiamo il valore $\val(\phi')$ nei due casi:
-	\begin{itemize}
-		\item \textbf{Completezza}: se $\val(\varphi) = 1$, esiste un assegnamento globale alle variabili $x_1, \dots, x_n$ che soddisfa tutti gli $m$ vincoli $C_j$. Estendendo tale assegnamento in modo opportuno sulle variabili ausiliarie $Y_j$ per ciascun $j \in [m]$, tutte le $c_q$ clausole di ogni $S_j$ risultano soddisfatte. Di conseguenza, tutte le $M$ clausole di $\phi'$ sono soddisfatte e $\val(\phi') = 1$.
-		\item \textbf{Robustezza}: se $\val(\varphi) \le \frac12$, allora qualsiasi assegnamento alle variabili $x_1, \dots, x_n$ viola almeno $\frac{m}{2}$ vincoli di $\varphi$. Per ciascun vincolo $C_j$ violato, qualunque assegnamento alle variabili ausiliarie $Y_j$ viola almeno una clausola in $S_j$. Ne consegue che in $\phi'$ risultano violate almeno $\frac{m}{2}$ clausole su $M$, pertanto:
-		\[
-			\val(\phi') \le \frac{M - m/2}{M} = 1 - \frac{m/2}{m c_q} = 1 - \frac{1}{2 c_q}.
-		\]
-	\end{itemize}
-
-	Ponendo $\varepsilon_1 = \frac{1}{2 c_q} > 0$, un algoritmo di $\varepsilon_1$-approssimazione per \texttt{MAX-3SAT} (ovvero in grado di garantire soluzioni di valore entro un fattore $(1 - \varepsilon_1)$ dall'ottimo) permetterebbe di distinguere un'istanza con $\val(\phi') = 1$ da un'istanza con $\val(\phi') \le 1 - \varepsilon_1$, decidendo l'appartenenza a $L$ in tempo polinomiale. Si conclude che \texttt{MAX-3SAT} non ammette una $\varepsilon_1$-approssimazione a meno che $\P = \NP$.
-}
-\fi
+	Per ogni linguaggio $L \in \NP$, componiamo la trasformazione appena
+	descritta con quella del Teorema \ref{thm:pcpapprox} con $\rho = \frac12$ e
+	otteniamo una trasformazione che mappa istanze di $L$ a istanze di
+	\texttt{MAX-3SAT} e che soddisfa le proprietà di completezza e robustezza del
+	Teorema \ref{thm:pcpapprox} con $\tilde\rho = 1 - \frac1{q 2^{q + 1}}$.
+	Con l'argomento già presentato nei precedenti di inapprossimabilità,
+	per ogni $\varepsilon_1 > \tilde\rho$ non esistono
+	$\varepsilon_1$-approssimazioni efficienti di \texttt{MAX-3SAT},
+	a meno che $\P = \NP$.
 \end{proof}
+
+È bene sapere che l'$\varepsilon_1$ della nostra dimostrazione è ben lontano
+dal miglior risultato di inapprossimabilità possibile. Nel \todo{anno}
+Håstad dimostrò che per ogni $\varepsilon > 0$, non esistono
+$(\frac78 + \varepsilon)$-approssimazioni efficienti di \texttt{MAX-E3SAT}
+(e quindi di \texttt{MAX-3SAT}), modulo una congettura più forte di
+$\P \neq \NP$. Nel \todo{anno} Zuckermann \todo{controllare} completò la
+dimostrazione di inapprossimabilità, a meno di $\P = \NP$.
+La semplice approssimazione di \texttt{MAX-E3SAT} presentata nella prima
+sezione era dunque l'algoritmo ottimo: non si può fare meglio di una
+soluzione completamente casuale, a meno che $\P = \NP$.
