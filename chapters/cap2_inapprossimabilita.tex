@@ -155,7 +155,7 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 	Dato input $x$ per un problema $L$, il verificatore lo trasforma nell'istanza
 	$f(x)$ di $q\CSP_2$. Dimostrazioni di ``$x \in L$'' corrispondono a validi
 	assegnamenti per $f(x)$. Per verificare una dimostrazione, il verificatore
-	sceglie un vincolo uniformemente a caso impiegando $O(\log n)$ bit random,
+	sceglie un vincolo uniformemente a caso impiegando $O(\log n)$ bit casuali,
 	dopodiché legge le $q$ variabili da cui dipende il vincolo e accetta se e
 	soltanto se questo è soddisfatto.
 	In virtù del Teorema \ref{thm:pcpapprox}, questo sistema di verifica
@@ -166,13 +166,25 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 
 \section{Risultati di inapprossimabilità}
 
+\todo{controlla le date. Guarda i record delle conferenze.}
+
+I risultati che dimostriamo in questa sezione hanno segnato l'inizio della
+teoria dell'inapprossimabilità per come la conosciamo oggi \cite{Tre04}.
+
+Il primo, dimostrato da Feige, Goldwasser, Lovász, Safra e Szegedy nel 1990,
+mostra il legame tra approssimazione e verifiche probabilistiche.
+Il secondo, diretta diretta conseguenza del Teorema PCP, mostra che non si
+può approssimare \texttt{MAX-3SAT} oltre un certo valore costante a meno che
+$\P = \NP$.
+
+Grazie al lavoro di Papadimitriou e Yannakis \cite{PY91}, ciò implica
+che la stessa conclusione vale per molti alti problemi di ottimizzazione
+combinatoria, per i quali, prima del Teorema PCP, nessun limite
+all'approssimabilità era conosciuto.
+
 \subsection{Inapprossimabilità di \texttt{MAX-CLIQUE}}
 
-Il risultato che dimostriamo in questa sezione è stato il primo a mostrare il
-legame tra approssimazione e verifiche probabilistiche e segna l'inizio della
-moderna teoria dell'inapprossimabilità.
-
-Definiamo dunque il problema della cricca massima e mostriamo, grazie al
+Definiamo il problema della cricca massima e mostriamo, grazie al
 Teorema PCP, che non è possibile approssimare efficientemente la soluzione
 ottima per nessun fattore costante, a meno che $\P = \NP$.
 
@@ -187,6 +199,12 @@ ottima per nessun fattore costante, a meno che $\P = \NP$.
 	massima in un dato grafo $G$. Indicheremo con $\omega(G)$ tale cardinalità.
 \end{definition}
 
+La versione decisionale di \texttt{MAX-CLIQUE} è $\NP$-completa \cite{Karp72},
+dunque non abbiamo speranze di risolvere \texttt{MAX-CLIQUE} efficientemente, a
+meno che $\P = \NP$. Ci chiediamo quindi se riusciamo a trovare una cricca
+grande la metà, un quarto o anche solo un miliardesimo della cricca massima.
+Ci sono pessime notizie.
+
 \begin{theorem}[\cite{FGLSS96}] \label{thm:max-clique}
 	Per ogni $\varepsilon > 0$, non esiste una $\varepsilon$-approssimazione
 	efficiente di \texttt{MAX-CLIQUE}, a meno che $\P = \NP$.
@@ -197,25 +215,27 @@ ottima per nessun fattore costante, a meno che $\P = \NP$.
 	\texttt{MAX-CLIQUE} per decidere l'appartenenza a qualunque linguaggio in
 	$\NP$.
 
+	Il nostro obiettivo sarà trasformare istanze di un qualunque problema in
+	$\NP$ in grafi, in modo tale	che istanze positive vengano mappate in
+	grafi in cui la cricca massima è abbastanza grande e istanze negative
+	vengano mappate in grafi in cui tutte le cricche sono piccolissime.
+	Il fattore di approssimazione $\bar\varepsilon$ risulterà sufficiente a
+	disinguere i due scenari, dunque a decidere il problema.
+
 	Sia dunque $L \in \NP$ e, dal Teorema \ref{thm:pcp}, fissiamo un
 	verificatore $V$ per $L$ che sbaglia al più una frazione
 	$\delta < \bar\varepsilon$ delle volte.
 
-	Il nostro obiettivo sarà trasformare istanze di $L$ in grafi in modo tale
-	che istanze positive vengano mappate in grafi in cui la cricca massima è
-	abbastanza grande e istanze negativa vengano mappate in grafi in cui tutte
-	le cricche sono piccolissime. Il fattore di approssimazione $\bar\varepsilon$,
-	allora, sarà sufficiente a distinguere i due scenari.
 
 	Dato input $x \in \{0, 1\}^n$, il verificatore legge una stringa casuale
-	$r \in \{0, 1\}^{c \log n}$ e $q$ posizioni della dimostrazione $\pi$.
+	$r \in \{0, 1\}^{c \log n}$ e $q$ posizioni di una dimostrazione $\pi$.
 	Fissato l'input, il verificatore accetta o rifiuta esclusivamente sulla
 	base della stringa casuale e dei pezzi di dimostrazione che legge.
 	Ciò giustifica la seguente
 
 	\begin{definition}
 		Chiamiamo l'informazione $\langle r; \pi(i_1) \ldots \pi(i_q) \rangle$
-		uno \emph{scenario accettante} se:
+		uno \emph{scenario accettato} se:
 		\begin{itemize}
 			\item con stringa casuale $r$, il verificatore legge i bit in
 				posizioni $i_1, \ldots, i_q$ e
@@ -224,39 +244,72 @@ ottima per nessun fattore costante, a meno che $\P = \NP$.
 		\end{itemize}
 	\end{definition}
 
-\hline
+	Osserviamo che ci sono $2^{c \log n} 2^q = O(n^c)$ possibili scenari e, per
+	ognuno di essi, si verifica efficientemente se lo scenario è accettato.
+	A partire dall'istanza $x$, costruiamo il grafo $G_x$ come segue.
+	Gli scenari accettati costituiscono i vertici di $G_x$.
+	Due distinti scenari accettati $\langle r_1; \alpha \rangle$ e
+	$\langle r_2; \beta \rangle$ sono collegati da un arco in $G_x$ se e
+	soltanto se sono \emph{compatibili}, ossia se non discordano su nessun bit
+	della dimostrazione. In altre parole, se $V$ interroga una stessa posizione
+	con con stringa casuale $r_1$ e con stringa casuale $r_2$, allora
+	$\alpha$ e $\beta$ vi assegnano lo stesso valore.
+	Equivalentemente, due scenari accettati sono collegati da un arco se
+	potenzialmente fanno riferimento a uno stesso certificato.
+	Dalla definizione segue che due scenari collegato da un arco hanno stringhe
+	casuali distinte.
+	Osserviamo che il grafo $G_x$ si costruisce in tempo polinomiale.
 
-	Sia $M = 2^{c \log n} = n^c$ il numero totale di possibili stringhe casuali.
-	Costruiamo il grafo $G' = (V', E')$ nel modo seguente:
-	\begin{itemize}
-		\item \textbf{Vertici}: $V'$ è l'insieme di tutte le \emph{trascrizioni accettanti}, ossia le coppie $\langle R, \alpha \rangle$ con $R \in \{0, 1\}^{c \log n}$ e $\alpha \in \{0, 1\}^q$ tali che $V$, con stringa casuale $R$, interroga $q$ posizioni della dimostrazione e accetta quando i bit letti sono $\alpha$. Poiché vi sono $n^c$ stringhe casuali e per ciascuna al più $2^q$ risposte $\alpha$, il numero di vertici soddisfa $|V'| \le n^c \cdot 2^q = O(n^c)$. Il grafo $G'$ ha dunque dimensione polinomiale ed è costruibile in tempo polinomiale.
-		\item \textbf{Archi}: due trascrizioni accettanti distinte $u = \langle R_1, \alpha \rangle$ e $v = \langle R_2, \beta \rangle$ sono collegate da un arco in $E'$ se e solo se sono \emph{compatibili}, ossia $R_1 \neq R_2$ e non discordano su alcuna posizione della dimostrazione comune (cioè, se $V$ su $R_1$ e su $R_2$ interroga la stessa posizione, $\alpha$ e $\beta$ vi assegnano lo stesso valore di bit).
-	\end{itemize}
-
-	Mostriamo che la dimensione della massima cricca in $G'$ soddisfa:
+	Mostriamo ora che la dimensione della cricca massima in $G_x$ è legata alla
+	probabilità di accettazione del processo di verifica. Vale
 	\[
-		\omega(G') = \max_{\pi} \bigl|\{ R \in \{0, 1\}^{c \log n} : V \text{ accetta } \pi \text{ su stringa casuale } R \}\bigr|.
+		\omega(G_x) = \max_\pi \bigl| \{ R \in \{0, 1\}^{c \log n} :
+		V \text{ accetta } \pi \text{ con stringa casuale } r \} \bigr|.
 	\]
+
 	\begin{itemize}
-		\item ($\ge$) Data una qualunque dimostrazione $\pi$, l'insieme delle trascrizioni $\{\langle R, \pi|_R \rangle : V \text{ accetta } \pi \text{ su } R\}$ (dove $\pi|_R$ denota la restrizione di $\pi$ ai $q$ bit interrogati sotto $R$) forma una cricca in $G'$, in quanto tutte le trascrizioni provengono dalla medesima dimostrazione $\pi$ (quindi sono mutualmente compatibili) e hanno stringhe casuali distinte. La cardinalità di questa cricca è pari al numero di stringhe casuali su cui $V$ accetta $\pi$.
-		\item ($\le$) Viceversa, sia $K \subseteq V'$ una cricca in $G'$. I vertici di $K$ hanno stringhe casuali a due a due distinte e sono a due a due compatibili; definiscono pertanto un'unica dimostrazione parziale $\tilde{\pi}_K$. Estendendo arbitrariamente $\tilde{\pi}_K$ a una dimostrazione completa $\pi$, il verificatore $V$ accetta $\pi$ su tutte le $|K|$ stringhe casuali associate ai vertici di $K$. Ne deriva che $|K| \le \max_\pi |\{R : V \text{ accetta } \pi \text{ su } R\}|$.
+		\item ($\ge$) Data una qualunque dimostrazione $\pi$, l'insieme degli
+			scenari accettati
+			$\{\langle r, \pi|_r \rangle : V \text{ accetta } \pi \text{ con } r\}$
+			(dove $\pi|_r$ denota la restrizione di $\pi$ alle $q$ posizioni
+			interrogate con stringa casuale $r$) forma una cricca in $G_x$,
+			in quanto tutti gli scenari provengono da una stessa dimostrazione
+			$\pi$ e sono quindi sono quindi compatibili.
+			La cardinalità di questa cricca è pari al numero di stringhe casuali per
+			cui $V$ accetta $\pi$.
+		 \item ($\le$) Viceversa, sia $K \subseteq V(G_x)$ una cricca in $G_x$.
+			Poiché i vertici di $K$ sono a due a due compatibili, questi
+			definiscono un'unica dimostrazione parziale $\tilde{\pi}_K$.
+			Estendiamo $\tilde{\pi}_K$ a una qualunque dimostrazione completa
+			$\pi_K$. Il verificatore, allora, accetta $\pi_K$ su tutte le
+			$|K|$ stringhe casuali associate ai vertici di $K$, da cui
+			$|K| \le \max_\pi |\{r : V \text{ accetta } \pi \text{ con } r\}|$.
 	\end{itemize}
 
-	Dalla caratterizzazione di $\omega(G')$ segue che:
+	Dalla caratterizzazione di $\omega(G_x)$ segue la proprietà desiderata.
 	\begin{itemize}
-		\item se $x \in L$, per completezza esiste una dimostrazione $\pi$ accettata su tutte le $M = n^c$ stringhe casuali, per cui $\omega(G') = n^c$;
-		\item se $x \notin L$, per robustezza ogni dimostrazione $\pi$ è accettata su al più $\delta n^c < \varepsilon n^c$ stringhe casuali, per cui $\omega(G') < \varepsilon n^c$.
+		\item Se $x \in L$, per completezza esiste una dimostrazione $\pi$
+			accettata su tutte le $n^c$ stringhe casuali, da cui
+			$\omega(G_x) = n^c$;
+		\item Se $x \notin L$, per robustezza ogni dimostrazione $\pi$ è
+			accettata per al più $\delta n^c < \bar\varepsilon n^c$ stringhe
+			casuali, da cui $\omega(G_x) < \bar\varepsilon n^c$.
 	\end{itemize}
 
-	Se esistesse un algoritmo di $\varepsilon$-approssimazione efficiente per \texttt{MAX-CLIQUE}, esso restituirebbe su input $G'$ una cricca $K$ tale che:
+	Se esistesse un algoritmo di $\bar\varepsilon$-approssimazione efficiente
+	per \texttt{MAX-CLIQUE}, esso restituirebbe su input $G_x$ una cricca $K$
+	tale che:
 	\begin{itemize}
-		\item se $x \in L$, $|K| \ge \varepsilon \cdot \omega(G') = \varepsilon n^c$;
-		\item se $x \notin L$, $|K| \le \omega(G') < \varepsilon n^c$.
+		\item se $x \in L$, allora $|K| \ge \bar\varepsilon \omega(G_x)
+			= \bar\varepsilon n^c$;
+		\item se $x \notin L$, $|K| \le \omega(G_x) < \bar\varepsilon n^c$.
 	\end{itemize}
-	Controllando se $|K| \ge \varepsilon n^c$, potremmo quindi decidere in tempo polinomiale se $x \in L$, il che implicherebbe $\P = \NP$.
+	Controllando se $|K| \ge \bar\varepsilon n^c$, potremmo quindi decidere in tempo
+	polinomiale l'appartenenza a $L$, da cui $\P = \NP$.
 \end{proof}
 
-%%% END HERE
+Nel prossimo capitolo dimostreremo un risultato di approssimabilità ancora
+più forte per \texttt{MAX-CLIQUE}.
 
 \subsection{Inapprossimabilità di \texttt{MAX-3SAT}}
 

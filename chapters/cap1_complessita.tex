@@ -181,8 +181,10 @@ prima era un ``$<$'' e questo singolo errore, magari, invalida l'intero argoment
 È estremamente improbabile accorgersi dell'errore controllando solo una
 piccolissima frazione della dimostrazione, dunque per questa verifica il formato
 standard di dimostrazione non funziona.
-Il Teorema PCP dice che c'è un modo di scrivere dimostrazioni per cui la
-verifica descritta ha successo con alta probabilità.
+Il Teorema PCP, dimostrato in una prima versione da Arora e Safra \cite{AS98} e
+completato lo stesso anno da Arora, Lund, Motwani, Sudan e Szegedy \cite{ALMSS98},
+dice che c'è un modo di scrivere dimostrazioni per cui la verifica descritta ha
+successo con alta probabilità.
 
 Formalizziamo innanzitutto il processo di verifica per poterne parlare in modo preciso.
 
@@ -192,9 +194,12 @@ Formalizziamo innanzitutto il processo di verifica per poterne parlare in modo p
 	efficiente che ha accesso a un oracolo di dimostrazione $\pi \in \{0, 1\}^*$.
 	Data un'istanza in input $x \in \{0,1\}^n$:
 	\begin{enumerate}
-		\item il verificatore $V$ legge una stringa casuale $R \in \{0,1\}^{r(n)}$ di $r(n)$ bit;
-		\item sulla base di $x$ e di $R$, il verificatore determina le posizioni di $b(n)$ bit della dimostrazione $\pi$ da leggere;
-		\item il verificatore legge i $b(n)$ bit da $\pi$ e decide se accettare o rifiutare.
+		\item il verificatore $V$ legge una stringa casuale $R \in \{0,1\}^{r(n)}$
+			di $r(n)$ bit;
+		\item sulla base di $x$ e di $R$, il verificatore determina le posizioni di
+			$b(n)$ bit della dimostrazione $\pi$ da leggere;
+		\item il verificatore legge i $b(n)$ bit da $\pi$ e decide se accettare
+			o rifiutare.
 	\end{enumerate}
 \end{definition}
 
@@ -238,10 +243,6 @@ piccolissima parte.
 Qui dimostriamo il contenimento facile dei due. Rimandiamo
 la parte principale della dimostrazione al Capitolo \ref{chap:pcpproof}.
 
-\vspace{.5em}
-\lorenzo{Quella che segue non è una dimostrazione difficile o particolarmente
-significativa, da valutare se lasciarla al lettore per arrivare prima al punto.
-TBD.}
 \begin{proof}[Dimostrazione di $\PCP(\log n, 1) \subseteq \NP$]
 	Sia $L \in \PCP(\log n, 1)$. Per definizione, esistono due costanti $c, q > 0$
 	e un verificatore $V$ che, su input $x \in \{0,1\}^n$, legge fino a
@@ -261,7 +262,6 @@ TBD.}
 	corrispondenti posizioni di $\tilde{\pi}$ ed accetta se e solo se $V$ accetta
 	sempre, indipendentemente dalla stringa casuale. Dunque $L \in \NP$.
 \end{proof}
-
 
 
 \section{Teorema PCP debole}
