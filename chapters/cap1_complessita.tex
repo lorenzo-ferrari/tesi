@@ -109,7 +109,7 @@ formata da operatori AND, OR, NOT e parentesi applicati a variabili e insiemi
 di variabili, $\mathtt{SAT}$ chiede se esiste un assegnamento di valori VERO e
 FALSO per cui l'espressione è vera.
 Quasi sempre con $\mathtt{SAT}$ si indica la restrizione di $\mathtt{SAT}$ alle
-formule in forma normale congiuntiva, vale a dire nella forma
+formule in forma normale congiuntiva (CNF), vale a dire nella forma
 \[
 	(u_1 \lor u_2 \lor u_3) \land (\bar u_1 \lor \bar u_2) \land
 	\ldots \land (u_4 \lor \bar u_8 \lor u_{16} \lor \bar u_{32}).
@@ -121,7 +121,7 @@ Vale il seguente
 \end{theorem}
 
 Se inoltre ogni clausola è la disgiunzione di al più tre letterali, cioè al
-più tre tra variabili e variabili negate, si parla di $\mathtt{3SAT}$.
+più tre tra variabili e variabili negate (3CNF), si parla di $\mathtt{3SAT}$.
 Non è difficile ridurre $\mathtt{SAT}$ a $\mathtt{3SAT}$ e con un po' più
 di lavoro si riduce $\mathtt{3SAT}$ a $\mathtt{3COL}$. Dunque anche il problema
 della 3-colorabilità di grafi è $\NP$-completo \cite{Karp72, Stockmeyer73}.
