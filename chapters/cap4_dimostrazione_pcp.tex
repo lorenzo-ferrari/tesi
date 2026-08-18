@@ -1,15 +1,35 @@
 \chapter{Dimostrazione del Teorema PCP} \label{chap:pcpproof}
 
-In questo capitolo dimostriamo il Teorema PCP. Presentiamo nello specifico la
-dimostrazione di Dinur \cite{Din06}, per cui il ruolo degli expander è cruciale.
-La nostra è una rielaborazione della dimostrazione contenuta nel libro di
-Arora e Barak \cite{ABbook}.
+In questo capitolo dimostriamo il Teorema PCP nella sua versione di
+inapprossimabilità (Teorema \ref{thm:pcpapprox}), che abbiamo già dimostrato
+essere equivalente alla formulazione classica.
 
-\vspace{.5em}
-TBD: richiamare cosa stiamo dimostrando e cosa sappiamo fino a questo punto.
-\vspace{.5em}
+Presentiamo nello specifico la dimostrazione di Dinur \cite{Din06}, per cui il
+ruolo degli expander è cruciale. La nostra è una rielaborazione della
+dimostrazione contenuta nel libro di Arora e Barak \cite{ABbook}.
 
 \hline
+
+È sufficiente dimostrare la tesi per un problema \textbf{NP}-completo.
+Sia allora $q_0 \ge 3$ la costante data dal Lemma \ref{thm:pcp-key-lemma} e
+mostriamo che $q_0\CSP_2 \in \PCP(\log n, 1)$.
+
+Data un'istanza $\varphi$ di $q_0\CSP_2$ con $m$ vincoli, applichiamo $\log m$
+volte la trasformazione del Lemma \ref{thm:pcp-key-lemma}. Sia $\psi$
+l'istanza così ottenuta. Se $\varphi \in q_0\CSP_2$, allora anche
+$\psi \in q_0\CSP_2$.
+Se invece $\varphi \notin q_0\CSP_2$, allora necessariamente
+$\val(\varphi) \le 1 - \frac1{m}$, da cui $\val(\psi) \le 1 - \varepsilon_0$.
+Dimostrazioni di ``$\varphi \in q_0\CSP_2$'' corrispondono a dimostrazioni di
+``$\psi \in q_0\CSP_2$''. Poiché, se $\psi$ non è soddisfacibile, ogni
+assegnamento delle variabili di $\psi$ viola almeno una frazione costante
+dei vincoli, dimostrazioni di $\psi \in q_0\CSP_2$ si possono verificare
+probabilisticamente in maniera naïve e con buone garanzie di correttezza.
+Dunque $q_0\CSP_2 \in \PCP(\log n, 1)$.
+
+\hline
+
+\section{Struttura di dimostrazione}
 
 Ci interesseremo a trasformazioni tra istanze di $\CSP$. Fissati due $\CSP$
 $A$ e $B$, diremo che $f$ è una \emph{CL-trasformazione}\footnote{Per
@@ -37,28 +57,6 @@ soggiacente} $G_\varphi$ come il grafo con vertici $[n]$ e un arco $(i, j)$ per
 ogni vincolo che dipende da $x_i$ e $x_j$. In modo analogo, definiamo
 l'ipergrafo soggiacente a un'istanza di $k\CSP$.
 
-\hline
-
-È sufficiente dimostrare la tesi per un problema \textbf{NP}-completo.
-Sia allora $q_0 \ge 3$ la costante data dal Lemma \ref{thm:pcp-key-lemma} e
-mostriamo che $q_0\CSP_2 \in \PCP(\log n, 1)$.
-
-Data un'istanza $\varphi$ di $q_0\CSP_2$ con $m$ vincoli, applichiamo $\log m$
-volte la trasformazione del Lemma \ref{thm:pcp-key-lemma}. Sia $\psi$
-l'istanza così ottenuta. Se $\varphi \in q_0\CSP_2$, allora anche
-$\psi \in q_0\CSP_2$.
-Se invece $\varphi \notin q_0\CSP_2$, allora necessariamente
-$\val(\varphi) \le 1 - \frac1{m}$, da cui $\val(\psi) \le 1 - \varepsilon_0$.
-Dimostrazioni di ``$\varphi \in q_0\CSP_2$'' corrispondono a dimostrazioni di
-``$\psi \in q_0\CSP_2$''. Poiché, se $\psi$ non è soddisfacibile, ogni
-assegnamento delle variabili di $\psi$ viola almeno una frazione costante
-dei vincoli, dimostrazioni di $\psi \in q_0\CSP_2$ si possono verificare
-probabilisticamente in maniera naïve e con buone garanzie di correttezza.
-Dunque $q_0\CSP_2 \in \PCP(\log n, 1)$.
-
-\hline
-
-\section{Struttura di dimostrazione}
 
 \begin{lemma}[Lemma chiave del PCP] \label{thm:pcp-key-lemma}
 	Esistono costanti $q_0 \ge 3$, $\varepsilon_0 > 0$ e una CL-trasformazione $f$

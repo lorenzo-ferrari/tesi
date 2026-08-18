@@ -226,7 +226,7 @@ Ci sono pessime notizie.
 	$\NP$.
 
 	Il nostro obiettivo sarà trasformare istanze di un qualunque problema in
-	$\NP$ in grafi, in modo tale	che istanze positive vengano mappate in
+	$\NP$ in grafi, in modo tale che istanze positive vengano mappate in
 	grafi in cui la cricca massima è abbastanza grande e istanze negative
 	vengano mappate in grafi in cui tutte le cricche sono piccolissime.
 	Il fattore di approssimazione $\bar\varepsilon$ risulterà sufficiente a
@@ -234,8 +234,9 @@ Ci sono pessime notizie.
 
 	Sia dunque $L \in \NP$ e, dal Teorema \ref{thm:pcp}, fissiamo un
 	verificatore $V$ per $L$ che sbaglia al più una frazione
-	$\delta < \bar\varepsilon$ delle volte.
-
+	$\delta < \bar\varepsilon$ delle volte. Questo si ottiene come concatenazione
+	di $O(1)$ verifiche indipendenti di un verificatore che sbaglia al più una
+	frazione $\frac12$ delle volte.
 
 	Dato input $x \in \{0, 1\}^n$, il verificatore legge una stringa casuale
 	$r \in \{0, 1\}^{c \log n}$ e $q$ posizioni di una dimostrazione $\pi$.
@@ -244,7 +245,7 @@ Ci sono pessime notizie.
 	Ciò giustifica la seguente
 
 	\begin{definition}
-		Chiamiamo l'informazione $\langle r; \pi(i_1) \ldots \pi(i_q) \rangle$
+		Chiamiamo l'informazione $\langle r, \pi(i_1) \ldots \pi(i_q) \rangle$
 		uno \emph{scenario accettato} se:
 		\begin{itemize}
 			\item con stringa casuale $r$, il verificatore legge i bit in
@@ -258,8 +259,8 @@ Ci sono pessime notizie.
 	ognuno di essi, si verifica efficientemente se lo scenario è accettato.
 	A partire dall'istanza $x$, costruiamo il grafo $G_x$ come segue.
 	Gli scenari accettati costituiscono i vertici di $G_x$.
-	Due distinti scenari accettati $\langle r_1; \alpha \rangle$ e
-	$\langle r_2; \beta \rangle$ sono collegati da un arco in $G_x$ se e
+	Due distinti scenari accettati $\langle r_1, \alpha \rangle$ e
+	$\langle r_2, \beta \rangle$ sono collegati da un arco in $G_x$ se e
 	soltanto se sono \emph{compatibili}, ossia se non discordano su nessun bit
 	della dimostrazione. In altre parole, se $V$ interroga una stessa posizione
 	con stringa casuale $r_1$ e con stringa casuale $r_2$, allora $\alpha$ e
@@ -297,18 +298,18 @@ Ci sono pessime notizie.
 			virtù del fatto che i vertici di $G_x$ sono scenari accettati.
 	\end{itemize}
 
-	Dalla caratterizzazione di $\omega(G_x)$ segue la proprietà desiderata.
+	Dalla caratterizzazione di $\omega(G_x)$ segue la proprietà desiderata:
 	\begin{itemize}
-		\item Se $x \in L$, per completezza esiste una dimostrazione $\pi$
+		\item se $x \in L$, per completezza esiste una dimostrazione $\pi$
 			accettata su tutte le $n^c$ stringhe casuali, da cui
 			$\omega(G_x) = n^c$;
-		\item Se $x \notin L$, per robustezza ogni dimostrazione $\pi$ è
+		\item se $x \notin L$, per robustezza ogni dimostrazione $\pi$ è
 			accettata per al più $\delta n^c < \bar\varepsilon n^c$ stringhe
 			casuali, da cui $\omega(G_x) < \bar\varepsilon n^c$.
 	\end{itemize}
 
-	Se esistesse un algoritmo di $\bar\varepsilon$-approssimazione efficiente
-	per \texttt{MAX-CLIQUE}, esso restituirebbe su input $G_x$ una cricca $K$
+	Un ipotetico algoritmo di $\bar\varepsilon$-approssimazione efficiente
+	per \texttt{MAX-CLIQUE} restituirebbe su input $G_x$ una cricca $K$
 	tale che:
 	\begin{itemize}
 		\item se $x \in L$, allora $|K| \ge \bar\varepsilon \omega(G_x)
@@ -335,7 +336,7 @@ situazione di stallo mostrando che \texttt{MAX-3SAT} e molti altri
 problemi\footnote{Per citarne alcuni, \texttt{MAX-2SAT}, \texttt{MAX-CUT} e
 restrizioni di \texttt{MIN-VERTEX-COVER} e \texttt{MAX-CLIQUE} a determinate
 classi di istanze.} condividono la stessa difficoltà di approssimazione:
-se esiste un limite costante  all'approssimabilità per uno, ne esiste uno anche
+se esiste un limite costante all'approssimabilità per uno, ne esiste uno anche
 per gli altri.
 Dimostriamo dunque, mediante il Teorema PCP, il risultato di inapprossimabilità
 di \texttt{MAX-3SAT} che sbloccò risultati di inapprossimabilità per l'intero
@@ -356,7 +357,7 @@ gruppo di problemi.
 	con la trasformazione del Teorema \ref{thm:pcpapprox}, si ottenga una
 	riduzione che mappa istanze negative di un generico linguaggio
 	$L \in \NP$ in istanze di (\texttt{MAX-})\texttt{3SAT} con gap almeno
-	costante. Un'ipotetica $\varepsilon_1$-approssimazione, allora, si potrà
+	costante. Un'ipotetica $\varepsilon_1$-approssimazione si potrebbe quindi
 	usare per decidere $L$, da cui $\P = \NP$.
 
 	Sia allora $\varphi$ un'istanza di $q\CSP_2$ formata dai vincoli

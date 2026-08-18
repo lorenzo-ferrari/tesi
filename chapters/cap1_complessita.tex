@@ -51,7 +51,6 @@ arco connetta nodi di colori distinti. Grafi con questa proprietà si dicono
 	\begin{figure}[htbp]
 		\centering
 		\input{graphics/2colorability}
-		\label{fig:2colorability}
 	\end{figure}
 
 La $2$-colorabilità di grafi si può decidere in tempo lineare nella dimensione
@@ -91,9 +90,6 @@ Il problema è tuttavia aperto.
 
 Per confrontare la difficoltà relativa di problemi in $\NP$ si utilizza la
 nozione di riduzione polinomiale secondo Karp.
-%\footnote{Non è l'unica nozione
-%possibile: a volte, per esempio, si parla di riduzioni polinomiali secondo
-%Cook}.
 Formalmente, un linguaggio $L$ si riduce a $L'$ se esiste
 una funzione $f\colon \{0, 1\}^* \to \{0, 1\}^*$ calcolabile in tempo polinomiale tale
 che $x \in L \iff f(x) \in L'$. Un problema $L$ è detto $\NP$-\emph{completo}
@@ -125,15 +121,6 @@ più tre tra variabili e variabili negate (3CNF), si parla di $\mathtt{3SAT}$.
 Non è difficile ridurre $\mathtt{SAT}$ a $\mathtt{3SAT}$ e con un po' più
 di lavoro si riduce $\mathtt{3SAT}$ a $\mathtt{3COL}$. Dunque anche il problema
 della 3-colorabilità di grafi è $\NP$-completo \cite{Karp72, Stockmeyer73}.
-
-% Data un'istanza di $\mathtt{SAT}$ in forma normale congiuntiva è possibile
-% ottenere un'istanza di $\mathtt{3SAT}$ applicando iterativamente una
-% trasformazione del tipo
-% \[
-% 	(u_1 \lor u_2 \lor u_3 \lor u_4) \mapsto
-% 	(u_1 \lor u_2 \lor y) \land (\bar y \lor u_3 \lor u_4).
-% \]
-
 
 Un problema di natura algebrica che tornerà particolarmente utile a fine
 capitolo è il seguente.
@@ -240,7 +227,7 @@ Siamo pronti per enunciare il Teorema PCP.
 In altre parole, il Teorema PCP afferma che è possibile verificare
 dimostrazioni con alta probabilità di successo leggendone solo una
 piccolissima parte.
-Qui dimostriamo il contenimento facile dei due. Rimandiamo
+In questo capitolo dimostriamo il contenimento facile dei due. Rimandiamo
 la parte principale della dimostrazione al Capitolo \ref{chap:pcpproof}.
 
 \begin{proof}[Dimostrazione di $\PCP(\log n, 1) \subseteq \NP$]
@@ -250,7 +237,7 @@ la parte principale della dimostrazione al Capitolo \ref{chap:pcpproof}.
 
 	Fissati $x$ e $\pi$, esistono al più $2^{c \log n} = n^c$ possibili scenari,
 	indicizzati dalle corrispondenti stringhe casuali. Poiché in ogni
-	scenario il verificatore legge $q$ bit casuali, esistono non più di
+	scenario il verificatore legge $q$ bit del certificato, esistono non più di
 	$q n^c$ posizioni del certificato che il verificatore può potenzialmente
 	leggere. Ai fini della verifica, quindi, soltanto una porzione di lunghezza
 	polinomiale di $\pi$ è rilevante.
@@ -271,9 +258,9 @@ questo caso il verificatore legge un numero costante di bit, tuttavia la
 dimostrazione ha dimensione esponenziale nella dimensione
 dell'input e il verificatore utilizza $\mathrm{poly}(n)$ bit casuali.
 
-\begin{theorem}[PCP esponenziale per \textbf{NP} \cite{ALMSS98}] \label{thm:exppcp}
+\begin{theorem}[PCP esponenziale per $\NP$ \cite{ALMSS98}] \label{thm:exppcp}
 	\[
-		\textbf{NP} \subseteq \PCP(\mathrm{poly}(n), 1)
+		\NP \subseteq \PCP(\mathrm{poly}(n), 1)
 	\]
 \end{theorem}
 
@@ -328,8 +315,7 @@ che la linearità valga per una coppia di vettori scelti a caso.
 	$\Pr_\xx [f(\xx) = g(\xx)] \ge \rho$.
 \end{definition}
 
-% TBD. Capire chi citare. BLR90 mi sembra illeggibile.
-\begin{theorem}[Test di linearità] \label{thm:lintest}
+\begin{theorem}[Test di linearità \cite{BCHKS96}] \label{thm:lintest}
 	Sia $f\colon \F_2^n \to \F_2$ una funzione tale che
 	\[
 		\Pr_{\xx, \yy}
