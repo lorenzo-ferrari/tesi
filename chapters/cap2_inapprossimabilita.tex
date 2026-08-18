@@ -136,10 +136,8 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 
 \begin{proof}[Dimostrazione di equivalenza]
 	$(\implies)$
-	Come già fatto durante la dimostrazione del Teorema \ref{thm:exppcp},
-	è sufficiente mostrare che la conclusione del Teorema \ref{thm:pcpapprox}
+	È sufficiente mostrare che la conclusione del Teorema \ref{thm:pcpapprox}
 	vale per un fissato linguaggio $\NP$-completo $L$.
-
 	Supponiamo dunque che valga il Teorema \ref{thm:pcp}, cioè che
 	$\NP = \PCP(\log n, 1)$. Allora esistono costanti $c, q > 0$ e un
 	verificatore probabilistico $V$ che, data un'istanza $x \in \{0, 1\}^n$ di
@@ -150,10 +148,13 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 	$\pi$.
 	Per ogni stringa casuale $r \in \{0, 1\}^{c \log n}$, si pone un vincolo
 	$V_{x,r}$ soddisfatto se e soltanto se $V$ accetta $\pi$ con input $x$ e
-	stringa casuale $r$. Poiché $V_{x, r}$ dipende da al più $q$ variabili,
-	restringiamo $\varphi$ alle sole variabili che appaiono in uno dei vincoli
-	per ottenere un'istanza di taglia polinomiale e computabile con un numero
-	polinomiale di simulazioni di verifica.
+	stringa casuale $r$.
+
+	
+	Restringiamo $\varphi$ alle sole variabili che appaiono in uno dei vincoli
+	e, poiché ogni $V_{x, r}$ dipende da al più $q$ variabili, otteniamo
+	un'istanza di taglia polinomiale e computabile con un numero polinomiale di
+	simulazioni di verifica.
 
 	Assegnamenti delle variabili di $\varphi$ corrispondono a certificati
 	$\pi$, quindi il valore di $\varphi$ corrisponde esattamente alla massima
@@ -267,12 +268,12 @@ Ci sono pessime notizie.
 	potenzialmente fanno riferimento a uno stesso certificato.
 	Dalla definizione segue che due scenari collegato da un arco hanno stringhe
 	casuali distinte.
-	Osserviamo che il grafo $G_x$ si costruisce in tempo polinomiale.
+	Il grafo $G_x$, inoltre, si costruisce in tempo polinomiale.
 
 	Mostriamo ora che la dimensione della cricca massima in $G_x$ è legata alla
-	probabilità di accettazione del processo di verifica. Vale
+	probabilità di accettazione del processo di verifica. Vale infatti
 	\[
-		\omega(G_x) = \max_\pi \bigl| \{ R \in \{0, 1\}^{c \log n} :
+		\omega(G_x) = \max_\pi \bigl| \{ r \in \{0, 1\}^{c \log n} :
 		V \text{ accetta } \pi \text{ con stringa casuale } r \} \bigr|.
 	\]
 
@@ -288,11 +289,12 @@ Ci sono pessime notizie.
 			cui $V$ accetta $\pi$.
 		 \item ($\le$) Viceversa, sia $K \subseteq V(G_x)$ una cricca in $G_x$.
 			Poiché i vertici di $K$ sono a due a due compatibili, questi
-			definiscono un'unica dimostrazione parziale $\tilde{\pi}_K$.
+			definiscono un'unica dimostrazione parziale $\tilde{\pi}_K$
+			definita sulle posizioni interrogate in uno degli scenari in $K$.
 			Estendiamo $\tilde{\pi}_K$ a una qualunque dimostrazione completa
 			$\pi_K$. Il verificatore, allora, accetta $\pi_K$ su tutte le
-			$|K|$ stringhe casuali associate ai vertici di $K$, da cui
-			$|K| \le \max_\pi |\{r : V \text{ accetta } \pi \text{ con } r\}|$.
+			$|K|$ stringhe casuali associate ai vertici di $K$, proprio in
+			virtù del fatto che i vertici di $G_x$ sono scenari accettati.
 	\end{itemize}
 
 	Dalla caratterizzazione di $\omega(G_x)$ segue la proprietà desiderata.
@@ -340,7 +342,7 @@ di \texttt{MAX-3SAT} che sbloccò risultati di inapprossimabilità per l'intero
 gruppo di problemi.
 
 \begin{theorem} \label{thm:max-3sat}
-	Esiste un $\varepsilon_1 > 0$ tale che non esiste una
+	Esiste un $\varepsilon_1 < 1$ tale che non esiste una
 	$\varepsilon_1$-approssimazione di \texttt{MAX-3SAT}, a meno che
 	$\P = \NP$.
 \end{theorem}
@@ -350,7 +352,7 @@ gruppo di problemi.
 	Sia dunque $q$ l'arietà data dal Teorema \ref{thm:pcpapprox}.
 	L'obiettivo sarà esibire una riduzione polinomiale da
 	(\texttt{MAX-})$q\CSP_2$ a (\texttt{MAX-})\texttt{3SAT} che controlla il
-	gap di soddisfacibilità dell'istanza prodotta, cosicché componendola
+	gap di soddisfacibilità dell'istanza prodotta, cosicché, componendola
 	con la trasformazione del Teorema \ref{thm:pcpapprox}, si ottenga una
 	riduzione che mappa istanze negative di un generico linguaggio
 	$L \in \NP$ in istanze di (\texttt{MAX-})\texttt{3SAT} con gap almeno
@@ -364,7 +366,8 @@ gruppo di problemi.
 	variabili in questione.
 	Esprimiamo ognuna di queste clausole dipendenti da $q$ variabili come
 	formula 3CNF sulle variabili originali e nuove variabili ausiliarie iterando
-	la seguente operazione:
+	la seguente operazione per ridurre il numero di variabili da cui dipende una
+	clausola:
 	\[
 		(u_1 \lor u_2 \lor u_3 \lor u_4) \mapsto
 		(u_1 \lor u_2 \lor v) \land (\bar v \lor u_3 \lor u_4).
@@ -394,19 +397,18 @@ gruppo di problemi.
 	otteniamo una trasformazione che mappa istanze di $L$ a istanze di
 	\texttt{MAX-3SAT} e che soddisfa le proprietà di completezza e robustezza del
 	Teorema \ref{thm:pcpapprox} con $\tilde\rho = 1 - \frac1{q 2^{q + 1}}$.
-	Con l'argomento già presentato nei precedenti di inapprossimabilità,
+	Con l'argomento già presentato nei precedenti risultati di inapprossimabilità,
 	per ogni $\varepsilon_1 > \tilde\rho$ non esistono
 	$\varepsilon_1$-approssimazioni efficienti di \texttt{MAX-3SAT},
 	a meno che $\P = \NP$.
 \end{proof}
 
 È bene sapere che l'$\varepsilon_1$ della nostra dimostrazione è ben lontano
-dal miglior risultato di inapprossimabilità possibile. Nel \todo{anno}
-Håstad dimostrò che per ogni $\varepsilon > 0$, non esistono
-$(\frac78 + \varepsilon)$-approssimazioni efficienti di \texttt{MAX-E3SAT}
-(e quindi di \texttt{MAX-3SAT}), modulo una congettura più forte di
-$\P \neq \NP$. Nel \todo{anno} Zuckermann \todo{controllare} completò la
-dimostrazione di inapprossimabilità, a meno di $\P = \NP$.
+dal miglior risultato di inapprossimabilità possibile. Nel 1997
+Håstad dimostrò, grazie a un raffinamento del Teorema PCP \cite{Has01}, che per
+ogni $\varepsilon > 0$ non esistono $(\frac78 + \varepsilon)$-approssimazioni
+efficienti di \texttt{MAX-E3SAT} (e quindi di \texttt{MAX-3SAT}), a meno che
+$\P = \NP$.
 La semplice approssimazione di \texttt{MAX-E3SAT} presentata nella prima
 sezione era dunque l'algoritmo ottimo: non si può fare meglio di una
 soluzione completamente casuale, a meno che $\P = \NP$.
