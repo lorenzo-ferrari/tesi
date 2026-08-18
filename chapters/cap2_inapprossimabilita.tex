@@ -6,7 +6,7 @@ Cominciamo motivando gli algoritmi di approssimazione e definendo
 approssimazione e inapprossimabilità.
 Introduciamo poi i \emph{Constraint Satisfaction Problem} ($\CSP$) e le
 relative notazioni che torneranno utili nel Capitolo \ref{chap:pcpproof},
-dopodiché diamo una formulazione equivalente del Teorema PCP instrinsecamente
+dopodiché diamo una formulazione equivalente del Teorema PCP intrinsecamente
 legata all'inapprossimabilità di $\CSP$.
 Infine, a partire dal Teorema PCP, dimostriamo risultati di
 inapprossimabilità storicamente rilevanti per \texttt{MAX-CLIQUE} e
@@ -80,7 +80,7 @@ Al fine di legare il Teorema PCP all'inapprossimabilità e, nel Capitolo
 generalizza naturalmente \texttt{3SAT} e i problemi di colorazione di grafi.
 
 \begin{definition}
-	Fissata un'arietà $k$ e un alfabeto $\Sigma$ definiamo $k\CSP_\Sigma$ il
+	Fissati un'arietà $k$ e un alfabeto $\Sigma$, definiamo $k\CSP_\Sigma$ il
 	seguente problema computazionale. Data una collezione
 	$((C_j, R_j))_{j \in [m]}$ di $k$-uple $C_j$ di variabili associate a
 	relazioni $R_j \subseteq \Sigma^k$, determinare se esiste in $\Sigma^n$ un
@@ -184,11 +184,11 @@ I risultati che dimostriamo in questa sezione hanno segnato l'inizio della
 teoria dell'inapprossimabilità per come la conosciamo oggi.
 Il primo, dimostrato da Feige, Goldwasser, Lovász, Safra e Szegedy nel 1991,
 mostra il legame tra approssimazione e verifiche probabilistiche.
-Il secondo, diretta diretta conseguenza del Teorema PCP, mostra che non si
-può approssimare \texttt{MAX-3SAT} oltre un certo valore costante a meno che
+Il secondo, diretta conseguenza del Teorema PCP, mostra che non si può
+approssimare \texttt{MAX-3SAT} oltre un certo valore costante a meno che
 $\P = \NP$.
 Grazie al lavoro di Papadimitriou e Yannakis \cite{PY91}, ciò implica
-che la stessa conclusione vale per molti alti problemi di ottimizzazione
+che la stessa conclusione vale per molti altri problemi di ottimizzazione
 combinatoria, per i quali, prima del Teorema PCP, nessun limite
 all'approssimabilità era conosciuto.
 
@@ -230,7 +230,7 @@ Ci sono pessime notizie.
 	grafi in cui la cricca massima è abbastanza grande e istanze negative
 	vengano mappate in grafi in cui tutte le cricche sono piccolissime.
 	Il fattore di approssimazione $\bar\varepsilon$ risulterà sufficiente a
-	disinguere i due scenari, dunque a decidere il problema.
+	distinguere i due scenari, dunque a decidere il problema.
 
 	Sia dunque $L \in \NP$ e, dal Teorema \ref{thm:pcp}, fissiamo un
 	verificatore $V$ per $L$ che sbaglia al più una frazione
@@ -262,11 +262,11 @@ Ci sono pessime notizie.
 	$\langle r_2; \beta \rangle$ sono collegati da un arco in $G_x$ se e
 	soltanto se sono \emph{compatibili}, ossia se non discordano su nessun bit
 	della dimostrazione. In altre parole, se $V$ interroga una stessa posizione
-	con con stringa casuale $r_1$ e con stringa casuale $r_2$, allora
-	$\alpha$ e $\beta$ vi assegnano lo stesso valore.
+	con stringa casuale $r_1$ e con stringa casuale $r_2$, allora $\alpha$ e
+	$\beta$ vi assegnano lo stesso valore.
 	Equivalentemente, due scenari accettati sono collegati da un arco se
 	potenzialmente fanno riferimento a uno stesso certificato.
-	Dalla definizione segue che due scenari collegato da un arco hanno stringhe
+	Dalla definizione segue che due scenari collegati da un arco hanno stringhe
 	casuali distinte.
 	Il grafo $G_x$, inoltre, si costruisce in tempo polinomiale.
 
@@ -284,7 +284,7 @@ Ci sono pessime notizie.
 			(dove $\pi|_r$ denota la restrizione di $\pi$ alle $q$ posizioni
 			interrogate con stringa casuale $r$) forma una cricca in $G_x$,
 			in quanto tutti gli scenari provengono da una stessa dimostrazione
-			$\pi$ e sono quindi sono quindi compatibili.
+			$\pi$ e sono quindi compatibili.
 			La cardinalità di questa cricca è pari al numero di stringhe casuali per
 			cui $V$ accetta $\pi$.
 		 \item ($\le$) Viceversa, sia $K \subseteq V(G_x)$ una cricca in $G_x$.
@@ -319,7 +319,7 @@ Ci sono pessime notizie.
 	polinomiale l'appartenenza a $L$, da cui $\P = \NP$.
 \end{proof}
 
-Nel prossimo capitolo dimostreremo un risultato di approssimabilità ancora
+Nel prossimo capitolo dimostreremo un risultato di inapprossimabilità ancora
 più forte per \texttt{MAX-CLIQUE}.
 
 \subsection{Inapprossimabilità di \texttt{MAX-3SAT}}
@@ -380,12 +380,12 @@ gruppo di problemi.
 	completa a un valido assegnamento per la formula 3CNF.
 	Segue che ogni $C_j$ può essere espresso da una formula 3CNF con al più
 	$q 2^q$ clausole. Sia allora $\phi$ l'istanza di \texttt{3SAT} prodotta
-	dalla congiunzione di queste formula al variare di $C_j$, che consta dunque
+	dalla congiunzione di queste formule al variare di $C_j$, che consta dunque
 	di al più $q 2^q m$ clausole.
 	Vale che $\phi$ è soddisfacibile se e solo se lo è $\varphi$, ma anche
 	molto di più. Infatti, un assegnamento $\mathbf{u}$ che viola $k$ degli $m$
-	vincoli di $\varphi$ viola necessariamente anche $k$ degli $q 2^q m$
-	vincoli di $\phi$. Ciò si traduce in
+	vincoli di $\varphi$ viola necessariamente anche $k$ delle $q 2^q m$
+	clausole di $\phi$. Ciò si traduce in
 	\[
 		\val(\varphi) \le 1 - \varepsilon \implies
 		\val(\phi) \le 1 - \frac{\varepsilon}{q 2^q}
