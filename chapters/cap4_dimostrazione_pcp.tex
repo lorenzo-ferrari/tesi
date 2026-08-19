@@ -3,60 +3,47 @@
 In questo capitolo dimostriamo il Teorema PCP nella sua versione di
 inapprossimabilità (Teorema \ref{thm:pcpapprox}), che abbiamo già dimostrato
 essere equivalente alla formulazione classica.
-
 Presentiamo nello specifico la dimostrazione di Dinur \cite{Din06}, per cui il
 ruolo degli expander è cruciale. La nostra è una rielaborazione della
 dimostrazione contenuta nel libro di Arora e Barak \cite{ABbook}.
 
-\hline
-
-È sufficiente dimostrare la tesi per un problema \textbf{NP}-completo.
-Sia allora $q_0 \ge 3$ la costante data dal Lemma \ref{thm:pcp-key-lemma} e
-mostriamo che $q_0\CSP_2 \in \PCP(\log n, 1)$.
-
-Data un'istanza $\varphi$ di $q_0\CSP_2$ con $m$ vincoli, applichiamo $\log m$
-volte la trasformazione del Lemma \ref{thm:pcp-key-lemma}. Sia $\psi$
-l'istanza così ottenuta. Se $\varphi \in q_0\CSP_2$, allora anche
-$\psi \in q_0\CSP_2$.
-Se invece $\varphi \notin q_0\CSP_2$, allora necessariamente
-$\val(\varphi) \le 1 - \frac1{m}$, da cui $\val(\psi) \le 1 - \varepsilon_0$.
-Dimostrazioni di ``$\varphi \in q_0\CSP_2$'' corrispondono a dimostrazioni di
-``$\psi \in q_0\CSP_2$''. Poiché, se $\psi$ non è soddisfacibile, ogni
-assegnamento delle variabili di $\psi$ viola almeno una frazione costante
-dei vincoli, dimostrazioni di $\psi \in q_0\CSP_2$ si possono verificare
-probabilisticamente in maniera naïve e con buone garanzie di correttezza.
-Dunque $q_0\CSP_2 \in \PCP(\log n, 1)$.
-
-\hline
-
 \section{Struttura di dimostrazione}
 
-Ci interesseremo a trasformazioni tra istanze di $\CSP$. Fissati due $\CSP$
-$A$ e $B$, diremo che $f$ è una \emph{CL-trasformazione}\footnote{Per
-\emph{Complete Linear-blowup}.} da istanze di $A$ a istanze di $B$ se è
-computabile in tempo polinomiale e per ogni istanza $\varphi$ di $A$, valgono
-(a) l'istanza $f(\varphi)$ è soddisfacibile se e solo se lo è $\varphi$ e
-(b) l'istanza $f(\varphi)$ ha taglia lineare nella taglia di $\varphi$, cioè un
-numero di vincoli lineare nel numero di vincoli di $\varphi$.
+Mostreremo che per un opportuno $q_0 \ge 3$, esiste una trasformazione
+efficiente da istanze di $q_0\CSP_2$ in altre istanze di $q_0\CSP_2$ che
+soddisfano le proprietà di completezza e robustezza del Teorema
+\ref{thm:pcpapprox}. Poiché $q_0\CSP_2$ è $\NP$-completo, ciò sarà
+sufficiente. La trasformazione è data dalla composizione ripetuta
+di altre trasformazioni, le quali dovranno avere proprietà desiderabili.
+
+\begin{definition}
+	Fissati due $\CSP$ $A$ e $B$, diciamo che $f$ è una
+	\emph{CL-trasformazione}\footnote{Per \emph{Complete Linear-blowup}.} da
+	istanze di $A$ a istanze di $B$ se è computabile in tempo polinomiale e,
+	per ogni istanza $\varphi$ di $A$, valgono:
+	\begin{itemize}
+		\item l'istanza $f(\varphi)$ è soddisfacibile se e solo se lo è
+			$\varphi$;
+		\item l'istanza $f(\varphi)$ ha taglia lineare nella taglia di
+			$\varphi$, cioè un numero di vincoli lineare nel numero di vincoli
+			di $\varphi$.
+	\end{itemize}
+\end{definition}
 
 Saranno particolarmente utili le CL-trasformazioni che permettono di
 controllare il gap dell'istanza trasformata, nello specifico quelle per cui
 esistono costanti positive $\alpha$ e $\varepsilon_0$ tali che valga
 l'implicazione
 \[
-	\val(\varphi) \le \varepsilon \implies \val(f(\varphi)) \le \alpha \varepsilon
+	\val(\varphi) \le 1 - \varepsilon \implies
+	\val(f(\varphi)) \le 1 - \alpha \varepsilon
 \]
-per ogni $\varepsilon < \varepsilon_0$.
+per ogni $\varepsilon < \varepsilon_0$. Notiamo che le classi delle
+CL-trasformazioni e delle CL-trasformazioni che controllano il gap sono entrambe
+chiuse per composizione.
 
-Notiamo che le classi delle CL-trasformazioni e delle CL-trasformazioni che
-controllano il gap sono entrambe chiuse per composizione.
-
-Teniamo a mente l'esempio di \texttt{3COL}. Data un'istanza $\varphi$ di
-$2\CSP_\Sigma$ con $n$ variabili $x_1, \dots, x_n$, definiamo il suo \emph{grafo
-soggiacente} $G_\varphi$ come il grafo con vertici $[n]$ e un arco $(i, j)$ per
-ogni vincolo che dipende da $x_i$ e $x_j$. In modo analogo, definiamo
-l'ipergrafo soggiacente a un'istanza di $k\CSP$.
-
+Siamo pronti per enunciare il lemma a cui dedicheremo il resto del capitolo e
+mostrare perché il Teorema PCP segue.
 
 \begin{lemma}[Lemma chiave del PCP] \label{thm:pcp-key-lemma}
 	Esistono costanti $q_0 \ge 3$, $\varepsilon_0 > 0$ e una CL-trasformazione $f$
@@ -67,6 +54,20 @@ l'ipergrafo soggiacente a un'istanza di $k\CSP$.
 	\]
 	per ogni $\varepsilon < \varepsilon_0$.
 \end{lemma}
+
+\begin{proof}[Dimostrazione del Teorema \ref{thm:pcpapprox}
+	dal Lemma \ref{thm:pcp-key-lemma}:]
+	Data un'istanza $\varphi$ di $q_0\CSP_2$, applichiamo ripetutamente la
+	trasformazione del Lemma \ref{thm:pcp-key-lemma}, fino a che il gap di istanze
+	non soddisfacibili non è almeno costante. Se $\varphi$ non è soddisfacibile,
+	allora $\val(\varphi) \le 1 - \frac1{m}$ dove $m$ è il numero di vincoli.
+	Poiché a ogni iterazione il gap raddoppia, $\log m$ iterazioni sono
+	sufficienti per raggiungere $\varepsilon_1$ ed ottenere quindi un gap almeno
+	costante. In virtù del fatto che la trasformazione comporta un aumento di
+	taglia lineare, l'istanza ottenuta dopo $\log m$ applicazioni ha taglia
+	polinomiale nella taglia di $\varphi$, dunque l'intera computazione si svolge
+	in tempo polinomiale.
+\end{proof}
 
 La trasformazione del Lemma~\ref{thm:pcp-key-lemma} si ottiene come composizione
 di due trasformazioni la cui esistenza è garantita dai seguenti lemmi.
@@ -91,39 +92,90 @@ di due trasformazioni la cui esistenza è garantita dai seguenti lemmi.
 	\]
 \end{lemma}
 
-% \todo{Descrivere esplicitamente come scegliere le costanti per ottenere la
-% trasformazione che raddoppia il gap.}
-% Vedi pagina 463 di Arora, Barak.
+Il Lemma \ref{thm:gap-amplification} e il Lemma \ref{thm:alphabet-reduction}
+insieme implicano il Lemma \ref{thm:pcp-key-lemma} ponendo
+$f = h \circ g_{6, q_0}$, come mostra la
+Tabella \ref{tab:pcp-composition}.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{lcccc}
+		\hline
+		& Arietà & Alfabeto & Vincoli & Valore \\
+		\hline
+		Istanza originale & $q_0$ & binario & $m$ & $1 - \varepsilon$ \\
+		& $\Downarrow$ & $\Downarrow$ & $\Downarrow$ & $\Downarrow$ \\
+		Lemma \ref{thm:gap-amplification} ($\ell = 6, q = q_0$)
+			& $2$ & $W$ & $C m$ & $1 - 6\varepsilon$ \\
+		& $\Downarrow$ & $\Downarrow$ & $\Downarrow$ & $\Downarrow$ \\
+		Lemma \ref{thm:alphabet-reduction} & $q_0$ & binario & $C' C m$
+			& $1 - 2\varepsilon$ \\
+		\hline
+	\end{tabular}
+	\caption{I Lemmi \ref{thm:gap-amplification} e \ref{thm:alphabet-reduction}
+		implicano il Lemma \ref{thm:pcp-key-lemma}.}
+	\label{tab:pcp-composition}
+\end{table}
 
 \section{Amplificazione del gap}
 
 Per dimostrare il Lemma \ref{thm:gap-amplification} di amplificazione del gap
-esibiamo una trasformazione $g$ che mappi istanze di $q\CSP_2$ a istanze di
-$2\CSP_W$ con $W$ sufficientemente grande e tale che aumenti la minima frazione
-di vincoli violati.
+esibiamo una trasformazione $g$ che mappa istanze di $q\CSP_2$ a istanze di
+$2\CSP_W$ con $W$ sufficientemente grande e tale che la minima frazione di
+vincoli violati aumenta.
 
-Notiamo che se fossero permessi
-(a) un aumento polinomiale nella taglia dell'istanza e
-(b) arietà maggiore di $2$, basterebbe, per un qualche intero $k$, trasformare
+Se fossero permessi un aumento polinomiale nella taglia dell'istanza
+e arietà maggiore di $2$ basterebbe, per un qualche intero $k$, trasformare
 $\varphi$ in un'istanza di $k q \CSP_2$ con le stesse variabili e un
-vincolo per ogni $k$-upla di vincoli in $\varphi$. In questo modo, la minima
-frazione di vincoli violata sale a
+vincolo per ogni $k$-upla di vincoli in $\varphi$, soddisfatto se e soltanto se
+tutti i $k$ vincoli corrispondenti sono soddisfatti.
+In questo modo, la minima frazione di vincoli violata sale a
 $1 - (1 - \varepsilon)^k \ge (k - 1)\varepsilon$ per tutti gli $\varepsilon$
 sufficientemente piccoli.
-L'impiego diretto degli expander\footnote{Anziché enumerare tutte le $m^k$
-$k$-uple di vincoli, si selezionano solo quelle corrispondenti a una passeggiata
-aleatoria di lunghezza $k$ su un expander fissato sull'insieme dei vincoli.
-Queste sono solo $m d^{k - 1}$ e in virtù del Teorema \ref{thm:expander-walk}
-(Passeggiate aleatorie su expander), espandendo al primo ordine,
-l'amplificazione è comunque dell'ordine di $k$.} permetterebbe un aumento solo
-lineare in taglia, ma per ottenere arietà $2$ è necessario un approccio
-più sofisticato.
+
+La chiave è non enumerare tutte le $k$-uple di vertici, corrispondenti alle
+scelte casuali di $k$ vincoli, ma solo alcune, corrispondenti a scelte
+\emph{pseudocasuali}. Poiché le possibili scelte pseudocasuali sono meno delle
+possibili scelte davvero casuali, l'aumento di taglia è contenuto, nel nostro
+caso lineare.
+Utilizziamo dunque le proprietà pseudocasuali dei grafi expander dimostrate
+nel Capitolo \ref{chap:expander}.
+
+Un primo tentativo ragionevole è il seguente: enumeriamo tutte e sole le
+$k$-uple corrispondenti a una passeggiata aleatoria di lunghezza $k$ su un
+expander fissato sull'insieme dei vincoli.
+Queste sono solo $m d^{k - 1}$ e, espandendo al primo ordine la stima
+del Teorema \ref{thm:expander-walk}, l'amplificazione è comunque dell'ordine
+di $k$.
+Purtroppo in questo modo l'arietà è comunque $k q$.
+
+Risolveremo questo problema considerando vincoli corrispondenti a passeggiate
+aleatorie su expander i cui nodi corrispondono alle variabili di $\varphi$.
+Questi vincoli dipenderanno solo dagli estremi della passeggiata, il cui valore
+rappresenta un'opinione sui valori in un'intorno del nodo.
+La possibile inconsistenza di queste opinioni spiega la complessità della
+dimostrazione che segue.
+
+% Vale la pena citare il fatto che il grafo linea di un expander è un expander?
 
 \subsection{Amplificazione del gap di Dinur}
 
 Sarà cruciale il Lemma $\ref{thm:Din06Prop2.5}$, dimostrato nel capitolo \ref{chap:expander}, che riportiamo qui per comodità.
 
 \expanderFwalk*
+
+\todo{}
+Tenendo a mente l'esempio di \texttt{3COL}, diamo un'ultima definizione
+riguardante i $\CSP$ che sarà utile.
+% Sarà utile la forma dei vincoli.
+
+\begin{definition}[Grafo soggiacente]
+	Data un'istanza $\varphi$ di $2\CSP_\Sigma$ con $n$ variabili
+	$x_1, \dots, x_n$, il suo \emph{grafo soggiacente} $G_\varphi$ è il grafo
+	con vertici $[n]$ e un arco $(i, j)$ per ogni vincolo dipendente da $x_i$ e
+	$x_j$. In modo analogo, definiamo l'ipergrafo soggiacente a un'istanza di $k\CSP$.
+\end{definition}
+
 
 \begin{definition}[Istanza amplificabile] \label{def:istanza-amplificabile}
 Diciamo che un'istanza $\varphi$ di $q \CSP_W$ è \emph{amplificabile} se
@@ -719,19 +771,19 @@ la riduzione dell'alfabeto.
 
 	TBD.
 
-	\textcolor{red}{
-		ATTENZIONE!
-		Arora-Barak imposta la perdita di gap nella riduzione dell'alfabeto come
-		\[
-			\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon/3.
-		\]
-		A me sembra regga
-		\[
-			\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon/2.
-		\]
-		Quell'$1/2$ è lo stesso $1/2$ del Corollario \ref{thm:pcpprox} e corrisponde
-		alla perdita di $1/2$ che si ha con Walsh-Hadamard. Capire se, invece,
-		$\varepsilon/3$ è giusto per qualche sottigliezza con $<$ vs. $\le$ o altro.}
+% 	\textcolor{red}{
+% 		ATTENZIONE!
+% 		Arora-Barak imposta la perdita di gap nella riduzione dell'alfabeto come
+% 		\[
+% 			\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon/3.
+% 		\]
+% 		A me sembra regga
+% 		\[
+% 			\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon/2.
+% 		\]
+% 		Quell'$1/2$ è lo stesso $1/2$ del Corollario \ref{thm:pcpprox} e corrisponde
+% 		alla perdita di $1/2$ che si ha con Walsh-Hadamard. Capire se, invece,
+% 		$\varepsilon/3$ è giusto per qualche sottigliezza con $<$ vs. $\le$ o altro.}
 \end{proof}
 
 \begin{proof}[Dimostrazione del Corollario \ref{thm:pcpprox}]
