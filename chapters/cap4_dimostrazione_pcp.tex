@@ -1,3 +1,6 @@
+%%% CONSISTENZA!!!
+%%% TBD. Come chiamo i vertici del cammino?
+
 \chapter{Dimostrazione del Teorema PCP} \label{chap:pcpproof}
 
 In questo capitolo dimostriamo il Teorema PCP nella sua versione di
@@ -10,11 +13,11 @@ dimostrazione contenuta nel libro di Arora e Barak \cite{ABbook}.
 \section{Struttura di dimostrazione}
 
 Mostreremo che per un opportuno $q_0 \ge 3$, esiste una trasformazione
-efficiente da istanze di $q_0\CSP_2$ in altre istanze di $q_0\CSP_2$ che
+efficiente da istanze di $q_0\CSP_2$ ad altre istanze di $q_0\CSP_2$ che
 soddisfano le proprietà di completezza e robustezza del Teorema
-\ref{thm:pcpapprox}. Poiché $q_0\CSP_2$ è $\NP$-completo, ciò sarà
-sufficiente. La trasformazione è data dalla composizione ripetuta
-di altre trasformazioni, le quali dovranno avere proprietà desiderabili.
+\ref{thm:pcpapprox}. Poiché $q_0\CSP_2$ è $\NP$-completo, ciò è sufficiente.
+La trasformazione è data dalla composizione ripetuta di altre trasformazioni,
+le quali soddisferanno proprietà desiderabili.
 
 \begin{definition}
 	Fissati due $\CSP$ $A$ e $B$, diciamo che $f$ è una
@@ -117,7 +120,7 @@ Tabella \ref{tab:pcp-composition}.
 	\label{tab:pcp-composition}
 \end{table}
 
-\section{Amplificazione del gap}
+\section{Amplificazione del gap e ruolo degli expander}
 
 Per dimostrare il Lemma \ref{thm:gap-amplification} di amplificazione del gap
 esibiamo una trasformazione $g$ che mappa istanze di $q\CSP_2$ a istanze di
@@ -136,65 +139,68 @@ sufficientemente piccoli.
 La chiave è non enumerare tutte le $k$-uple di vertici, corrispondenti alle
 scelte casuali di $k$ vincoli, ma solo alcune, corrispondenti a scelte
 \emph{pseudocasuali}. Poiché le possibili scelte pseudocasuali sono meno delle
-possibili scelte davvero casuali, l'aumento di taglia è contenuto, nel nostro
-caso lineare.
+possibili scelte casuali, l'aumento di taglia è contenuto, nel nostro caso
+lineare.
 Utilizziamo dunque le proprietà pseudocasuali dei grafi expander dimostrate
 nel Capitolo \ref{chap:expander}.
 
-Un primo tentativo ragionevole è il seguente: enumeriamo tutte e sole le
-$k$-uple corrispondenti a una passeggiata aleatoria di lunghezza $k$ su un
-expander fissato sull'insieme dei vincoli.
-Queste sono solo $m d^{k - 1}$ e, espandendo al primo ordine la stima
+Un primo tentativo ragionevole è il seguente. Fissiamo un expander
+sull'insieme degli $m$ vincoli ed enumeriamo tutte e sole le $k$-uple
+corrispondenti a passeggiate aleatorie di lunghezza $k$.
+Queste sono solo $m d^{k - 1} = O(m)$ e, espandendo al primo ordine la stima
 del Teorema \ref{thm:expander-walk}, l'amplificazione è comunque dell'ordine
 di $k$.
-Purtroppo in questo modo l'arietà è comunque $k q$.
+Purtroppo anche in questo modo l'istanza prodotta ha arietà $k q$.
 
-Risolveremo questo problema considerando vincoli corrispondenti a passeggiate
+Risolveremo questo problema considereremo vincoli corrispondenti a passeggiate
 aleatorie su expander i cui nodi corrispondono alle variabili di $\varphi$.
-Questi vincoli dipenderanno solo dagli estremi della passeggiata, il cui valore
-rappresenta un'opinione sui valori in un'intorno del nodo.
-La possibile inconsistenza di queste opinioni spiega la complessità della
-dimostrazione che segue.
-
-% Vale la pena citare il fatto che il grafo linea di un expander è un expander?
+Espanderemo l'alfabeto in modo tale che ogni variabile esprima un'opinione sui
+valori delle variabili in un suo intorno, cosicché sarà possibile limitare la
+dipendenza dei vincoli ai soli estremi della corrispondente passeggiata.
+La possibile inconsistenza di queste opinioni è parzialmente causa della
+complessità della dimostrazione che segue.
 
 \subsection{Amplificazione del gap di Dinur}
 
-Sarà cruciale il Lemma $\ref{thm:Din06Prop2.5}$, dimostrato nel capitolo \ref{chap:expander}, che riportiamo qui per comodità.
+Le proprietà pseudocasuali degli expander di cui faremo uso si manifestano nel
+Lemma $\ref{thm:Din06Prop2.5}$, dimostrato nel Capitolo \ref{chap:expander},
+che riportiamo qui per comodità.
 
 \expanderFwalk*
 
-\todo{}
-Tenendo a mente l'esempio di \texttt{3COL}, diamo un'ultima definizione
-riguardante i $\CSP$ che sarà utile.
-% Sarà utile la forma dei vincoli.
+% Pensare a un verbo migliore di svolgono. TBD.
+L'expander su cui si svolgono le passeggiate aleatorie è strettamente legato
+all'istanza il cui gap intendiamo amplificare. Tenendo a mente l'esempio di
+\texttt{3COL}, diamo un'ultima definizione legata ai $\CSP$.
 
-\begin{definition}[Grafo soggiacente]
+\begin{definition}
 	Data un'istanza $\varphi$ di $2\CSP_\Sigma$ con $n$ variabili
 	$x_1, \dots, x_n$, il suo \emph{grafo soggiacente} $G_\varphi$ è il grafo
 	con vertici $[n]$ e un arco $(i, j)$ per ogni vincolo dipendente da $x_i$ e
-	$x_j$. In modo analogo, definiamo l'ipergrafo soggiacente a un'istanza di $k\CSP$.
+	$x_j$. Definiamo in modo analogo l'ipergrafo soggiacente a un'istanza di
+	$k\CSP$.
 \end{definition}
 
+Richiediamo qualche proprietà in più alle istanze da amplificare affinché
+la strategia descritta a inizio capitolo funzioni.
 
 \begin{definition}[Istanza amplificabile] \label{def:istanza-amplificabile}
-Diciamo che un'istanza $\varphi$ di $q \CSP_W$ è \emph{amplificabile} se
-soddisfa le seguenti tre proprietà. Detto $G_\varphi$ il grafo soggiacente a
-$\varphi$:
-\begin{enumerate}[label=(\roman*)]
-	\item l'arietà di $\varphi$ è $2$, cioè $q = 2$;
-	\item il grafo $G_\varphi$ è un	$(d, \lambda)$-expander per una costante $d$
-		e $\lambda = 0.9$;
-	\item metà degli archi uscenti da ogni nodo di $G_\varphi$ sono cappi.
-\end{enumerate}
-
-A meno di una perdita di gap per la quale è facile compensare, potremo supporre
-la nostra istanza $\varphi$ sia amplificabile. Nello specifico, esiste una
-CL-trasformazione da istanze di $q\CSP$ a istanze amplificabili. Rimandiamo
-alla Sezione \ref{subsec:istanze-amplificabili} per la dimostrazione.
+	Diciamo che un'istanza $\varphi$ di $q \CSP_W$ è \emph{amplificabile} se
+	soddisfa le seguenti tre proprietà:
+	\begin{enumerate}[label=(\roman*)]
+		\item l'arietà di $\varphi$ è $2$, cioè $q = 2$;
+		\item il grafo soggiacente $G_\varphi$ è un	$(d, \lambda)$-expander per
+			una costante $d$ e $\lambda = 0.9$;
+		\item metà degli archi uscenti da ogni nodo di $G_\varphi$ sono cappi.
+	\end{enumerate}
 \end{definition}
 
-Il resto della dimostrazione si occupa di amplificare il gap di istanze amplificabili.
+A meno di una perdita di gap per la quale è facile compensare, possiamo supporre
+la nostra istanza $\varphi$ sia amplificabile. Nello specifico, esiste una
+CL-trasformazione che controlla il gap da istanze di $q\CSP_2$ a istanze
+amplificabili. Ce ne occuperemo nella Sezione \ref{subsec:istanze-amplificabili}.
+Il resto della dimostrazione si occupa di amplificare il gap di istanze
+amplificabili.
 
 \begin{lemma}[Potenza di un'istanza] \label{thm:powering}
 	Esiste un algoritmo efficiente che, data un'istanza amplificabile $\varphi$ e un
@@ -202,7 +208,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 	\begin{enumerate}
 		\item l'istanza $\varphi^t$ è un'istanza di $2\CSP_{W'}$ con alfabeto
 			di cardinalità $W' \le W^{d^{3 t}}$, dove $d$ è il grado del grafo
-			soggiacente a $\varphi$ e $W$ l'alfabeto di $\varphi$;
+			soggiacente a $\varphi$ e $W$ è la cardinalità dell'alfabeto di $\varphi$;
 		\item se $\varphi$ è soddisfacibile, anche $\varphi^t$ lo è;
 		\item per ogni $\varepsilon < \frac1{\sqrt{t}}$,
 			se $\val(\varphi) < 1 - \varepsilon$, allora
@@ -211,9 +217,14 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 	\end{enumerate}
 \end{lemma}
 
+La trasformazione del Lemma~\ref{thm:powering} amplifica il gap (di un'istanza
+amplificabile) di $\Omega(\sqrt{t})$ e, poiché la scelta di $t$ è arbitraria,
+ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
+
 \begin{proof}[Dimostrazione del Lemma~\ref{thm:powering}]
 	Per $t$ piccolo, cioè $\sqrt{t} \le 10^3 W^5$, la tesi è banale. Supponiamo
-	dunque $t$ sufficientemente grande.
+	dunque $t$ sufficientemente grande e formalizziamo l'idea introdotta a
+	inizio sezione.
 
 	La formula $\varphi^t$ avrà lo stesso numero di variabili di $\varphi$.
 	I valori delle nuove variabili $\mathbf{y} = y_1, \ldots, y_n$
@@ -229,7 +240,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 	$i_2$, posto che questi siano sufficientemente vicini.
 	Osserviamo che non è detto le opinioni siano consistenti.
 
-	L'istanza $\varphi^t$ avrà i seguenti vincoli.
+	I vincoli dell'istanza $\varphi^t$ saranno i seguenti.
 	A ogni percorso $p = \langle i_1, \ldots, i_{2t + 2} \rangle$ di lunghezza
 	$(2 t + 1)$ in $G_\varphi$,	corrisponde un vincolo $C_p$ di $\varphi^t$,
 	dipendente dai valori di $y_{i_1}$ e $y_{i_{2t + 2}}$.
@@ -246,38 +257,43 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 
 	Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
 	(i) del Lemma \ref{thm:powering}.
-	Vale inoltre che ogni assegnamento valido delle variabili di $\varphi$ si
-	solleva a un corrispondente valido assegnamento delle variabili di $\varphi^t$,
-	dunque la costruzione soddisfa anche la proprietà (ii).
+	Inoltre, ogni assegnamento valido delle variabili di $\varphi$ si solleva a
+	un corrispondente valido assegnamento delle variabili di $\varphi^t$, dunque
+	la costruzione soddisfa anche la proprietà (ii).
 	La proprietà (iii) è la più difficile da dimostrare. Supponiamo dunque che
 	$\varphi$ non sia soddisfacibile.
 
 	\subsubsection{Estrarre un assegnamento per $\varphi$}
-	Per dimostrare la proprietà (iii), trasformiamo ogni assegnamento di $\mathbf{y}$
+	Per dimostrare la proprietà (iii) trasformiamo ogni assegnamento di $\mathbf{y}$
 	per $\varphi^t$ in un assegnamento di $\mathbf{x}$ per $\varphi$. Mostreremo
 	che se l'assegnamento delle vecchie variabili viola anche solo ``pochi'',
 	cioè una frazione $\varepsilon$, dei vincoli, l'assegnamento delle nuove
 	variabili ne viola necessariamente ``tanti'', cioè una frazione
 	$\Omega(\sqrt{t}\varepsilon)$.
 
-	Per ogni variabile $x_i$ di $\varphi$, definiamo la variabile aleatoria
-	$Z_i \in [W]$ come il risultato del seguente processo.
-	Partendo dal nodo $x_i$, si fa una passeggiata aleatoria di $t$ passi in
-	$G_\varphi$, questa raggiunge un certo nodo $x_k$ e restituisce l'opinione di $y_k$
-	sulla variabile $x_i$. Detta $z_i$ la moda di $Z_i$, chiamiamo
-	\emph{assegnamento di maggioranza} quello corrispondente a $z_1, \ldots, z_n$.
-	Informalmente, $z_i$ corrisponde all'opinione sul valore di $x_i$ più
-	popolare in un suo intorno.
-	Euristicamente, poiché l'assegnamento $z_1, \ldots, z_n$ viola abbastanza
-	vincoli e poiché i suoi valori sono abbastanza condivisi secondo l'assegnamento
-	di $\mathbf{y}$, anche l'assegnamento di $\mathbf{y}$ viola abbastanza vincoli.
+	% capire come chiamare i nodi nel grafo e come chiamare le variabili
+	% nuova proposta: nodi [n], variabili x_1, ..., x_n
 
-	Poiché $\val(\varphi) \le 1 - \varepsilon$, un qualunque assegnamento alle
-	variabili di $\varphi$ viola almeno una frazione $\varepsilon$ dei vincoli.
+	Per ogni variabile $x_j$ di $\varphi$, definiamo la variabile aleatoria
+	$Z_j \in [W]$ come il risultato del seguente processo.
+	Partendo dal nodo $i_j$, si fa una passeggiata aleatoria di $t$ passi in
+	$G_\varphi$, questa raggiunge un certo nodo $i_k$ e restituisce l'opinione di $y_k$
+	sulla variabile $x_j$. Detta $z_j$ la moda di $Z_j$, chiamiamo
+	\emph{assegnamento di maggioranza} quello corrispondente a $z_1, \ldots, z_n$.
+	Informalmente $z_j$ corrisponde all'opinione sul valore di $x_j$ più
+	popolare in un suo intorno.
+	In seguito formalizziamo il seguente ragionamento euristico:
+	poiché l'assegnamento $z_1, \ldots, z_n$ viola abbastanza vincoli e poiché i
+	suoi valori sono abbastanza condivisi secondo l'assegnamento di $\mathbf{y}$,
+	anche l'assegnamento di $\mathbf{y}$ viola abbastanza vincoli.
+
+	Data allora un'istanza $\varphi$ con $\val(\varphi) \le 1 - \varepsilon$,
+	un qualunque assegnamento alle variabili di $\varphi$ viola per definizione
+	almeno una frazione $\varepsilon$ dei vincoli.
 	Sia allora $F \subseteq E(G_\varphi)$ un sottoinsieme di $\varepsilon m$
 	vincoli violati dall'assegnamento di maggioranza.
 
-	Useremo questo insieme per mostrare che l'assegnamento ad $\mathbf{y}$ viola
+	Useremo questo insieme per mostrare che l'assegnamento $\mathbf{y}$ viola
 	almeno una frazione	$\Omega(\sqrt{t} \varepsilon)$ dei vincoli di $\varphi^t$.
 
 	\subsubsection{Analisi}
@@ -311,11 +327,11 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 		\]
 	\end{lemma}
 
-	\begin{proof}[Dimostrazione del Lemma \ref{thm:mid-archi-consistenti}]
-		L'intuizione dietro al lemma è che poiché metà degli archi di $G_\varphi$
-		sono cappi, una passeggiata aleatoria di lunghezza compresa tra
-		$t - \delta \sqrt{t}$ e  $t + \delta \sqrt{t}$ è statisticamente molto simile
-		a una passeggiata aleatoria di lunghezza $t$.
+	\begin{proof}[Dimostrazione]
+		L'intuizione dietro al lemma è che, poiché metà degli archi di
+		$G_\varphi$ sono cappi, una passeggiata aleatoria di lunghezza
+		$t \pm \delta \sqrt{t}$	è statisticamente molto simile a una passeggiata
+		aleatoria di lunghezza $t$.
 
 		Formalmente, il lemma è dimostrato cambiando punto di vista sul modo in
 		cui il cammino è generato. Un cammino di lunghezza $2t + 1$ che contiene
@@ -343,7 +359,7 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 		privato dei cappi.
 
 		Vale il seguente
-		\begin{Claim}
+		\begin{lemma}
 			Per ogni $t, t' \ge 1$ con $|t - t'| \le \delta \sqrt{t}$, le variabili
 			aleatorie $S_t$ e $S_{t'}$ sono a distanza statistica al più $\delta$.
 			In altre parole,
@@ -351,11 +367,10 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 				\frac12 \sum_{m}{ \big| \Pr[S_t = m] - \Pr[S_{t'} = m]	\big| }
 				\le \delta.
 			\]
-		\end{Claim}
-		\begin{proof}[Dimostrazione del claim]
+		\end{lemma}
+		\begin{proof}
 			Indichiamo con $d(X, Y)$ la distanza statistica di generiche variabili
 			aleatorie $X$ e $Y$.
-			
 			Stimiamo innanzitutto la distanza statistica tra $S_n$ e $S_{n + 1}$, poi
 			concludiamo per disuguaglianza triangolare.
 			Poiché le variabili in questione sono binomiali di parametro $1/2$, vale
@@ -381,33 +396,29 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 			Entrambe le somme si telescopizzano e valgono $\Pr[S_n = M]$, quindi la
 			distanza statistica vale esattamente
 			$d(S_n, S_{n + 1}) = \frac12 \Pr[S_n = M]$.
-			Per concludere ci basta il seguente
-			\begin{lemma} \label{thm:centro-binomiale}
-				Per ogni intero positivo $n$, vale
-				$\Pr[S_n = \lfloor \frac{n}{2} \rfloor] \le \frac1{\sqrt{n}}$.
-			\end{lemma}
-			\begin{proof}[Dimostrazione del Lemma \ref{thm:centro-binomiale}]
-				La probabilità in questione vale
-				${n \choose \lfloor \frac{n}{2} \rfloor} 2^{-n}$.
-				In caso di $n$ pari, cioè quando $n = 2c$, per sole
-				semplificazioni si ottiene
-				\[
-					\frac{(2c)!}{c!^2 2^{2c}} = \frac{1 \cdot 3 \cdots
-					(2c - 1)}{2 \cdot 4 \cdots 2c}.
-				\]
-				Chiamiamo $A$ il membro di destra e poniamo $B = \frac{2 \cdot 4
-				\cdots 2c}{3 \cdot 5 \cdots (2c + 1)}$. Valgono $A < B$ e
-				$A B = \frac1{2c + 1}$, da cui
-				$A < \frac1{\sqrt{2c + 1}} < \frac1{\sqrt n}$.
+			Per concludere, mostriamo che per ogni intero positivo $n$ vale
+			$\Pr[S_n = \lfloor \frac{n}{2} \rfloor] \le \frac1{\sqrt{n}}$.
 
-				Se invece $n = 2c + 1$, allora
-				$\frac{(2c+1)!}{c! (c+1)! 2^{2c + 1}} = A \frac{2c + 1}{2c + 2}$,
-				nel cui caso la tesi segue da $A \frac{2c + 1}{2c + 2} <
-				\frac{\sqrt{2c + 1}}{2c + 2} < \frac1{\sqrt{2c + 1}} = \frac1{\sqrt{n}}$.
-			\end{proof}
+			La probabilità in questione vale
+			${n \choose \lfloor \frac{n}{2} \rfloor} 2^{-n}$.
+			In caso di $n$ pari, cioè quando $n = 2c$, per sole
+			semplificazioni si ottiene
+			\[
+				\frac{(2c)!}{c!^2 2^{2c}} = \frac{1 \cdot 3 \cdots
+				(2c - 1)}{2 \cdot 4 \cdots 2c}.
+			\]
+			Chiamiamo $A$ il membro di destra e poniamo $B = \frac{2 \cdot 4
+			\cdots 2c}{3 \cdot 5 \cdots (2c + 1)}$. Valgono $A < B$ e
+			$A B = \frac1{2c + 1}$, da cui
+			$A < \frac1{\sqrt{2c + 1}} < \frac1{\sqrt n}$.
 
-			Dato il Lemma \ref{thm:centro-binomiale}, concludiamo per
-			disuguaglianza triangolare. Per esempio
+			Se invece $n = 2c + 1$, allora
+			$\frac{(2c+1)!}{c! (c+1)! 2^{2c + 1}} = A \frac{2c + 1}{2c + 2}$,
+			nel cui caso la tesi segue da $A \frac{2c + 1}{2c + 2} <
+			\frac{\sqrt{2c + 1}}{2c + 2} < \frac1{\sqrt{2c + 1}} = \frac1{\sqrt{n}}$.
+
+			Possiamo felicemente concludere per disuguaglianza triangolare,
+			per esempio
 			\[
 				d(S_t, S_{t + \delta\sqrt{t}})
 				\le \frac12 \Big(\frac1{\sqrt{t}} + \dots +
@@ -418,18 +429,16 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 			La distanza tra $S_t$ e $S_{t - \delta \sqrt{t}}$ sarà maggiore, ma
 			non si perde più di un fattore due.
 		\end{proof}
-		% \todo{Chiedersi se quest'ultima pagina di dimostrazione più o meno
-		% scorrelata dal resto sta meglio in appendice.}
 
-		Dunque la distribuzione dell'estremo di una passeggiata aleatoria di lunghezza
-		entro $t \pm \delta \sqrt{t}$ è statisticamente vicina a quella per una
-		passeggiata di lunghezza $t$. Tanto basta.
+		Dunque la distribuzione dell'estremo di una passeggiata aleatoria di
+		lunghezza $t \pm \delta \sqrt{t}$ è statisticamente vicina a quella per
+		una passeggiata di lunghezza $t$. Tanto basta.
 
 		Data una passeggiata aleatoria di lunghezza $\ell$, chiamiamo
 		\emph{$\ell$-estremo}, o \emph{vero $S_\ell$-estremo} il nodo di arrivo.
 		Diciamo che l'estremo \emph{concorda} (con la distribuzione di maggioranza)
-		se questo assegna al punto di partenza il colore di maggioranza.
-		Sappiamo allora
+		se questo assegna al punto di partenza il valore di maggioranza.
+		Vale allora
 
 		\begin{align*}
 			\frac1W &\le \Pr[\text{il $t$-estremo concorda}] \\
@@ -442,16 +451,16 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 			&= \Pr[\text{il $t + \delta \sqrt{t}$-estremo concorda}] + \delta.
 		\end{align*}
 
-		Concludiamo dunque con
+		Poiché $\delta \le \frac1{10 W}$, concludiamo con
 		\[
 			\left( \frac1W - \delta \right) 
 			\left( \frac1W - \delta \right) \ge \frac1{2W^2}.
 		\]
 	\end{proof}
 
-	Sia $V$ la variabile aleatoria che conta quanti tra i $2 \delta \sqrt{t} + 1$
-	archi centrali considerati sono consistenti e in $F$. Il nostro obiettivo è
-	dimostrare $\Pr[V > 0] \ge \varepsilon'$.
+	Sia allora $V$ la variabile aleatoria che conta quanti tra i
+	$2 \delta \sqrt{t} + 1$	archi centrali considerati sono consistenti e in
+	$F$. Il nostro obiettivo è dimostrare $\Pr[V > 0] \ge \varepsilon'$.
 
 	Il lemma appena dimostrato implica per linearità del valore atteso
 	\[
@@ -462,23 +471,49 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 	Dunque $\E[V]$ è elevato, ma ciò non basta, poiché $V$ potrebbe
 	comunque essere $0$ per quasi tutte le passeggiate aleatorie.
 	Per escludere questa possibilità, maggioriamo il momento secondo $\E[V^2]$.
+	Concluderemo con una stima di $\Pr[V > 0]$ in termini di momento primo e
+	secondo descritta dal seguente
 
-	\begin{Claim}
+	\begin{lemma} \label{thm:cs-estimate}
+		Per ogni variabile aleatoria $V \ge 0$, vale $\Pr[V > 0] \ge \E[V]^2 / \E[V^2]$.
+	\end{lemma}
+	\begin{proof}[Dimostrazione del Lemma \ref{thm:cs-estimate}]
+		Applichiamo la disuguaglianza di Cauchy-Schwarz alla variabile aleatoria
+		$(V \mid V > 0)$ e concludiamo con
+		$\E[V \mid V > 0] = \frac1{\Pr[V > 0]} \E[V]$ e
+		$\E[V^2 \mid V > 0] = \frac1{\Pr[V > 0]}\E[V^2]$.
+	\end{proof}
+
+	La maggiorazione di cui abbiamo bisogno è dunque
+	$\E[V^2] = O(\varepsilon \sqrt{t})$.
+
+	\begin{lemma} \label{thm:momento-secondo}
 		Sia $V$ come sopra. Allora
 		\[
 			\E[V^2] \le 100 \varepsilon \delta \sqrt{t}.
 		\]
-	\end{Claim}
-	\begin{proof}
+	\end{lemma}
+
+	Supponiamo per un momento che gli archi centrali siano scelti in maniera
+	davvero casuale e ignoriamo i problemi di consistenza, così che valga
+	$V \sim \B(2\delta\sqrt{t} + 1, \varepsilon)$.
+	Ricordando che il momento secondo di una variabile $\B(n, p)$ vale
+	$n p (1 - p) + n^2 p^2$, anche in questo caso ideale avremmo
+	$\E[V^2] = \Theta(\sqrt{t} \varepsilon + t \varepsilon^2)$.
+	Per questo approccio è dunque necessaria un'ipotesi del tipo
+	$\varepsilon < \frac1{\sqrt{t}}$ come quella del Lemma~\ref{thm:powering}.
+	I nostri archi non sono scelti in maniera casuale, ma proprio qui entra in
+	gioco l'espansione del grafo soggiacente.
+
+	\begin{proof}[Dimostrazione del Lemma~\ref{thm:momento-secondo}]
 		Sia $V'$ il numero di archi nell'intervallo centrale e in $F$.
-		Poiché $V$ conta il numero di archi in $F$ \emph{e}	consistenti,
-		vale $V \le V'$.
-		Basta dunque mostrare $\E[V'^2] \le 100 \varepsilon \delta \sqrt{t}$.
+		Poiché $V$ conta il numero di archi centrali in $F$ \emph{e}
+		consistenti vale $V \le V'$, quindi basta mostrare
+		$\E[V'^2] \le 100 \varepsilon \delta \sqrt{t}$.
 
-		Per dimostrarlo usiamo finalmente le proprietà di mescolamento degli
-		expander e che l'insieme $F$ contiene una frazione $\varepsilon$ degli archi.
-
-		Nello specifico, per $j \in \{ t - \delta \sqrt{t}, \ldots, t + \delta
+		Utilizziamo le proprietà di mescolamento degli expander e che l'insieme
+		$F$ contiene una frazione $\varepsilon$ degli archi.
+		Per $j \in \{ t - \delta \sqrt{t}, \ldots, t + \delta
 		\sqrt{t} \}$ sia $I_j$ l'indicatrice dell'evento ``il $j$-esimo arco è in
 		$F$''.
 
@@ -491,24 +526,28 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 			\]
 		\end{lemma}
 		\begin{proof}
-			Osserviamo innanzitutto	$\Pr[I_i = 1] = \frac{|F|}{|E|}$ per ogni $i$.
+			Per ogni $i$ vale $\Pr[I_i = 1] = \frac{|F|}{|E|}$ per ogni $i$.
 			Allora,
 			\[
 				\E[I_i I_j] = \Pr[I_i I_j = 1] = \Pr[I_i = 1]\Pr[I_j = 1 \mid I_i = 1]
 				= \frac{|F|}{|E|} \cdot \Pr[I_j = 1 \mid I_i = 1].
 			\]
-			Se $i = 1$, per il Lemma \ref{thm:Din06Prop2.5},
+			Se $i = 1$, per il Lemma \ref{thm:Din06Prop2.5} si ha
 			\[
 				\Pr_\mathbf{e}[I_j = 1 \mid I_1 = 1]
 				\le \frac{|F|}{|E|} + \lambda^{j - 2},
 			\]
-			poiché la distribuzione di $v_1$ condizionata a $I_1 = 1$ è proprio la
-			distribuzione $K$, definita nel Lemma \ref{thm:Din06Prop2.5}.
-			Ricordando che la distribuzione dell'ultimo arco percorso è in ogni
-			istante uniforme, lo stesso vale per la distribuzione di $v_i$ condizionata
-			a $I_i = 1$, da cui si ottiene la tesi.
+			poiché la distribuzione del primo vertice $v_1$ condizionata a
+			$I_1 = 1$ è proprio la distribuzione $K$ definita nel Lemma
+			\ref{thm:Din06Prop2.5}.
+			Ma la distribuzione dell'ultimo arco percorso è in ogni
+			istante uniforme, dunque lo stesso vale per la distribuzione di
+			$v_i$ condizionata a $I_i = 1$, da cui si ottiene la tesi.
 		\end{proof}
 
+		Per concludere espandiamo il momento secondo di $V'$ e maggioriamo
+		con la stima nel lemma appena dimostrato e ciò che sappiamo dei
+		parametri $\delta$, $\lambda$ ed $\varepsilon$.
 		\begin{align*}
 			\E[V'^2] &= \E[ \sum_{i, j} I_i I_j ] \\
 			&= \E[ \sum_{i} I_i^2 ] + \E[ \sum_{i \neq j} I_i I_i ] \\
@@ -531,39 +570,36 @@ Il resto della dimostrazione si occupa di amplificare il gap di istanze amplific
 	\end{align*}
 	\end{proof}
 
-	\begin{lemma} \label{thm:cs-estimate}
-		Per ogni variabile aleatoria $V \ge 0$, vale $\Pr[V > 0] \ge \E[V]^2 / \E[V^2]$.
-	\end{lemma}
-	\begin{proof}[Dimostrazione del Lemma \ref{thm:cs-estimate}]
-		Applichiamo la disuguaglianza di Cauchy-Schwarz alla variabile aleatoria
-		$(V | V > 0)$.
-	\end{proof}
-
 	Nel nostro caso, la stima del Lemma $\ref{thm:cs-estimate}$ diventa
 	\[
 		\Pr[V > 0] \ge \left( \frac{\delta \sqrt{t} \varepsilon}{W^2} \right)^2 \cdot
 		\frac1{100 \delta \sqrt{t} \varepsilon}
 		= \frac{\delta \sqrt{t}}{100 W^4} \varepsilon
-		\le \frac{\sqrt{t}}{10^3 W^5} \varepsilon.
+		\le \frac{\sqrt{t}}{10^3 W^5} \varepsilon
 	\]
-	Il Lemma \ref{thm:gap-amplification} di amplificazione del gap è dimostrato.
+	e il Lemma \ref{thm:powering} è dimostrato.
+	Per dimostrare anche il Lemma \ref{thm:gap-amplification} di amplificazione
+	del gap è ora sufficiente esibire una CL-trasformazione da istanze di
+	$q\CSP_2$ a istanze amplificabili.
 \end{proof}
 
-\subsection{Ottenere istanze amplificabili} \label{subsec:istanze-amplificabili}
+\subsection{Ottenere istanze amplificabili} \labelsubsec:istanze-amplificabili}
 
 Il Lemma \ref{thm:powering} si applica a istanze di $\CSP$ con determinate
 caratteristiche. Dunque è necessario mostrare che, a meno di una perdita di gap,
-è possibile supporre l'istanza da amplificare le soddisfi.
-Come per la precedente dimostrazione, la chiave è comporre trasformazioni.
+è possibile supporre che l'istanza da amplificare le soddisfi.
+Anche in questo caso, la chiave è comporre trasformazioni.
 Ogni trasformazione perde un po' di gap, ma produce istanze che soddisfano via
 via più ipotesi, fino a ottenere istanze amplificabili.
 La prima trasformazione mappa istanze di $q\CSP_2$ in istanze di $2\CSP_W$ per
 un opportuno $W$, cosicché si possa parlare di grafo soggiacente e non solo di
 ipergrafo soggiacente.
-La seconda trasformazione rende questo grafo regolare: stimare la perdita di
-gap in questo caso è la parte più delicata.
+La seconda trasformazione rende questo grafo regolare e stimare la perdita di
+gap dovuta a questa trasformazione è la parte più delicata. Anche in questa
+parte di dimostrazione faremo uso di expander.
 Infine, dato un grafo regolare non è difficile aggiungere archi per renderlo
 un expander con abbastanza cappi a ogni nodo.
+L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 
 \begin{lemma}
 	Esiste una CL-trasformazione da istanze $\varphi$ di $q\CSP_2$ a istanze
@@ -585,41 +621,30 @@ un expander con abbastanza cappi a ogni nodo.
 	sulla $j$-esima variabile e che l'assegnamento indicato da $y_i$ soddisfi
 	$\varphi_i$.
 
-	Mostriamo per contronominale che la perdita di gap è al più di un fattore $q$.
-	Se esiste un assegnamento delle variabili di $\psi$ che	viola meno di
+	Mostriamo per contronominale che la perdita di gap è al più di un fattore
+	$q$. Se esiste un assegnamento delle variabili di $\psi$ che viola meno di
 	$\varepsilon/q \cdot mq = \varepsilon m$ vincoli, esistono più di
 	$m(1 - \varepsilon)$ indici $i$ tali per cui il vincolo $\psi_{i, j}$ è
-	soddisfatto per tutti i $j \in [q]$. Estraendo gli assegnamenti alle variabili
-	originali descritti dai valori degli $y_i$, si ottiene un assegnamento per
-	$\varphi$ che viola meno di $\varepsilon m$ vincoli.
+	soddisfatto per tutti i $j \in [q]$. Estraendo gli assegnamenti alle
+	variabili originali descritti dai valori degli $y_i$, si ottiene un
+	assegnamento per $\varphi$ che viola meno di $\varepsilon m$ vincoli.
 \end{proof}
 
 
 \begin{lemma}
-	Esistono una costante $d$ e una CL-trasformazione da istanze $\varphi$ di $2\CSP_W$ a istanze $\psi$ di $2\CSP_W$ tali che il grafo soggiacente a $\psi$ sia $d$-regolare e valga
+	Esistono una costante $d$ e una CL-trasformazione da istanze $\varphi$ di
+	$2\CSP_W$ a istanze $\psi$ di $2\CSP_W$ tali che il grafo soggiacente a
+	$\psi$ sia $d$-regolare e valga
 	\[
 		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi)
 			\le 1 - \varepsilon / (100 W d).
 	\]
 \end{lemma}
 \begin{proof}
-\iffalse
-	Descriviamo innanzitutto la trasformazione dei relativi grafi soggiacenti, cioè
-	come ottenere $G_\psi$ a partire da $G_\varphi$.
-	Fissiamo $\{G_n\}_{n \in \mathbb{N}}$ una famiglia esplicita di expander
-	$d$-regolari.
-	Ad ogni nodo $v \in V(G_\varphi)$ corrisponde una ``nube'' di
-	$\deg_{G_\varphi}(v)$ corrispondenti nodi in $G_\psi$. Ad ogni nodo nella nube
-	si assegna in maniera biunivoca un arco incidente a $v$ in $G_\varphi$. Ogni
-	arco di $G_\varphi$ connette i nodi a lui assegnati in $G_\psi$.
-	Sui nodi appartenenti a una stessa nube si pone un expander della famiglia
-	fissata. Il grafo $G_\psi$ così costruito è dunque regolare di grado $d + 1$.
-\fi
-
 	Fissiamo una famiglia esplicita $\{G_k\}_{k \in \mathbb{N}}$ di expander
 	$d$-regolari.
 	A ogni variabile $u_i$ di $\varphi$	che appare in esattamente $k$ vincoli
-	corrisponde una nuvola di $k$ variabili	$y_i^1, \dots, y_i^k$ in $\psi$.
+	corrisponde una nube di $k$ variabili $y_i^1, \dots, y_i^k$ in $\psi$.
 	Le occorrenze di $u_i$ nei vincoli che lo coinvolgono si sostituiscono con
 	opportuni $y_i^j$, in modo tale che ogni $y_i^j$ appaia in esattamente uno
 	dei vincoli. Poniamo infine vincoli di uguaglianza tra le variabili
@@ -668,10 +693,10 @@ un expander con abbastanza cappi a ogni nodo.
 
 \begin{lemma}
 	Esistono una costante $d$ arbitrariamente grande e una CL-trasformazione da
-	istanze $\varphi$ di $2\CSP_W$ con grafo soggiacente $d'$-regolare per un
-	qualche $d' \le d$ a istanze $\psi$ di $2\CSP_W$ il cui grafo soggiacente
-	è un expander $4d$-regolare e tale che almeno metà degli archi uscenti da
-	ogni nodo sono cappi. Vale inoltre
+	istanze $\varphi$ di $2\CSP_W$ con grafo soggiacente $d'$-regolare per
+	$d' \le d$ a istanze $\psi$ di $2\CSP_W$ il cui grafo soggiacente è un
+	expander $4d$-regolare e tale che almeno metà degli archi uscenti da ogni
+	nodo sono cappi. Vale inoltre
 	\[
 		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi)
 			\le 1 - \varepsilon / (10 d).
@@ -681,17 +706,17 @@ un expander con abbastanza cappi a ogni nodo.
 	Per il Teorema \ref{thm:expander-construction} esiste una costante $d$ e
 	una famiglia esplicita di $(0.1, d)$-expander $\{G_n\}_{n \in \mathbb{N}}$.
 
-	Sia allora $\varphi$ un'istanza di $2\CSP_W$ come da ipotesi e $n$ il
+	Siano allora $\varphi$ un'istanza di $2\CSP_W$ come da ipotesi e $n$ il
 	numero di variabili. A meno di aggiungere cappi banalmente soddisfatti  al
 	grafo soggiacente a $\varphi$, possiamo supporre questo sia $d$-regolare.
 	Questa operazione riduce il gap al più di un fattore $d$.
 	Per ogni arco in $G_n$ poniamo un vincolo banale tra le corrispondenti
 	variabili di $\varphi$. Infine aggiungiamo a ogni variabile altri $2d$ cappi
-	banali. Il grafo risultante è dunque $4d$-regolare e l'aggiunta dei vincoli
-	banali riduce ulteriormente il gap al più di un fattore quattro.
+	banali. Il grafo risultante $G_\psi$ è dunque $4d$-regolare e l'aggiunta dei
+	vincoli banali riduce ulteriormente il gap al più di un fattore quattro.
 
-	Ricordiamo che per ogni grafo regolare $H$, vale $\lambda(H) \le 1$.
-	Dunque, dalla subadditività del modulo del secondo autovalore, segue
+	Ricordiamo che per ogni grafo regolare $H$ vale $\lambda(H) \le 1$.
+	Dalla subadditività del modulo del secondo autovalore segue allora
 	\[
 		\lambda(G_\psi) \le \frac34 + \frac14 \lambda(G_n) \le 0.9,
 	\]
