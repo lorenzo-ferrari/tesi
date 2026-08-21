@@ -3,11 +3,11 @@
 
 \chapter{Dimostrazione del Teorema PCP} \label{chap:pcpproof}
 
-In questo capitolo dimostriamo il Teorema PCP nella sua versione di
-inapprossimabilità (Teorema \ref{thm:pcpapprox}), che abbiamo già dimostrato
-essere equivalente alla formulazione classica.
-Presentiamo nello specifico la dimostrazione di Dinur \cite{Din06}, per cui il
-ruolo degli expander è cruciale. La nostra è una rielaborazione della
+In questo capitolo presentiamo la dimostrazione del Teorema PCP nella sua
+versione di inapprossimabilità (Teorema~\ref{thm:pcpapprox}), che sappiamo
+già essere equivalente alla formulazione classica.
+Ci interessiamo nello specifico alla dimostrazione di Dinur \cite{Din06}, in
+cui il ruolo degli expander è cruciale. La nostra è una rielaborazione della
 dimostrazione contenuta nel libro di Arora e Barak \cite{ABbook}.
 
 \section{Struttura di dimostrazione}
@@ -58,10 +58,10 @@ mostrare perché il Teorema PCP segue.
 	per ogni $\varepsilon < \varepsilon_0$.
 \end{lemma}
 
-\begin{proof}[Dimostrazione del Teorema \ref{thm:pcpapprox}
-	dal Lemma \ref{thm:pcp-key-lemma}:]
+\begin{proof}[Dimostrazione del Teorema~\ref{thm:pcpapprox}
+	dal Lemma~\ref{thm:pcp-key-lemma}:]
 	Data un'istanza $\varphi$ di $q_0\CSP_2$, applichiamo ripetutamente la
-	trasformazione del Lemma \ref{thm:pcp-key-lemma}, fino a che il gap di istanze
+	trasformazione del Lemma~\ref{thm:pcp-key-lemma}, fino a che il gap di istanze
 	non soddisfacibili non è almeno costante. Se $\varphi$ non è soddisfacibile,
 	allora $\val(\varphi) \le 1 - \frac1{m}$ dove $m$ è il numero di vincoli.
 	Poiché a ogni iterazione il gap raddoppia, $\log m$ iterazioni sono
@@ -95,10 +95,10 @@ di due trasformazioni la cui esistenza è garantita dai seguenti lemmi.
 	\]
 \end{lemma}
 
-Il Lemma \ref{thm:gap-amplification} e il Lemma \ref{thm:alphabet-reduction}
-insieme implicano il Lemma \ref{thm:pcp-key-lemma} ponendo
+Il Lemma~\ref{thm:gap-amplification} e il Lemma~\ref{thm:alphabet-reduction}
+insieme implicano il Lemma~\ref{thm:pcp-key-lemma} ponendo
 $f = h \circ g_{6, q_0}$, come mostra la
-Tabella \ref{tab:pcp-composition}.
+Tabella~\ref{tab:pcp-composition}.
 
 \begin{table}[htbp]
 	\centering
@@ -108,21 +108,21 @@ Tabella \ref{tab:pcp-composition}.
 		\hline
 		Istanza originale & $q_0$ & binario & $m$ & $1 - \varepsilon$ \\
 		& $\Downarrow$ & $\Downarrow$ & $\Downarrow$ & $\Downarrow$ \\
-		Lemma \ref{thm:gap-amplification} ($\ell = 6, q = q_0$)
+		Lemma~\ref{thm:gap-amplification} ($\ell = 6, q = q_0$)
 			& $2$ & $W$ & $C m$ & $1 - 6\varepsilon$ \\
 		& $\Downarrow$ & $\Downarrow$ & $\Downarrow$ & $\Downarrow$ \\
-		Lemma \ref{thm:alphabet-reduction} & $q_0$ & binario & $C' C m$
+		Lemma~\ref{thm:alphabet-reduction} & $q_0$ & binario & $C' C m$
 			& $1 - 2\varepsilon$ \\
 		\hline
 	\end{tabular}
-	\caption{I Lemmi \ref{thm:gap-amplification} e \ref{thm:alphabet-reduction}
-		implicano il Lemma \ref{thm:pcp-key-lemma}.}
+	\caption{I Lemmi~\ref{thm:gap-amplification} e~\ref{thm:alphabet-reduction}
+		implicano il Lemma~\ref{thm:pcp-key-lemma}.}
 	\label{tab:pcp-composition}
 \end{table}
 
 \section{Amplificazione del gap e ruolo degli expander}
 
-Per dimostrare il Lemma \ref{thm:gap-amplification} di amplificazione del gap
+Per dimostrare il Lemma~\ref{thm:gap-amplification} di amplificazione del gap
 esibiamo una trasformazione $g$ che mappa istanze di $q\CSP_2$ a istanze di
 $2\CSP_W$ con $W$ sufficientemente grande e tale che la minima frazione di
 vincoli violati aumenta.
@@ -142,13 +142,13 @@ scelte casuali di $k$ vincoli, ma solo alcune, corrispondenti a scelte
 possibili scelte casuali, l'aumento di taglia è contenuto, nel nostro caso
 lineare.
 Utilizziamo dunque le proprietà pseudocasuali dei grafi expander dimostrate
-nel Capitolo \ref{chap:expander}.
+nel Capitolo~\ref{chap:expander}.
 
 Un primo tentativo ragionevole è il seguente. Fissiamo un expander
 sull'insieme degli $m$ vincoli ed enumeriamo tutte e sole le $k$-uple
 corrispondenti a passeggiate aleatorie di lunghezza $k$.
 Queste sono solo $m d^{k - 1} = O(m)$ e, espandendo al primo ordine la stima
-del Teorema \ref{thm:expander-walk}, l'amplificazione è comunque dell'ordine
+del Teorema~\ref{thm:expander-walk}, l'amplificazione è comunque dell'ordine
 di $k$.
 Purtroppo anche in questo modo l'istanza prodotta ha arietà $k q$.
 
@@ -163,7 +163,7 @@ complessità della dimostrazione che segue.
 \subsection{Amplificazione del gap di Dinur}
 
 Le proprietà pseudocasuali degli expander di cui faremo uso si manifestano nel
-Lemma $\ref{thm:Din06Prop2.5}$, dimostrato nel Capitolo \ref{chap:expander},
+Lemma $\ref{thm:Din06Prop2.5}$, dimostrato nel Capitolo~\ref{chap:expander},
 che riportiamo qui per comodità.
 
 \expanderFwalk*
@@ -198,7 +198,7 @@ la strategia descritta a inizio capitolo funzioni.
 A meno di una perdita di gap per la quale è facile compensare, possiamo supporre
 la nostra istanza $\varphi$ sia amplificabile. Nello specifico, esiste una
 CL-trasformazione che controlla il gap da istanze di $q\CSP_2$ a istanze
-amplificabili. Ce ne occuperemo nella Sezione \ref{subsec:istanze-amplificabili}.
+amplificabili. Ce ne occuperemo nella Sezione~\ref{subsec:istanze-amplificabili}.
 Il resto della dimostrazione si occupa di amplificare il gap di istanze
 amplificabili.
 
@@ -256,7 +256,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	\end{enumerate}
 
 	Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
-	(i) del Lemma \ref{thm:powering}.
+	(i) del Lemma~\ref{thm:powering}.
 	Inoltre, ogni assegnamento valido delle variabili di $\varphi$ si solleva a
 	un corrispondente valido assegnamento delle variabili di $\varphi^t$, dunque
 	la costruzione soddisfa anche la proprietà (ii).
@@ -477,7 +477,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	\begin{lemma} \label{thm:cs-estimate}
 		Per ogni variabile aleatoria $V \ge 0$, vale $\Pr[V > 0] \ge \E[V]^2 / \E[V^2]$.
 	\end{lemma}
-	\begin{proof}[Dimostrazione del Lemma \ref{thm:cs-estimate}]
+	\begin{proof}[Dimostrazione del Lemma~\ref{thm:cs-estimate}]
 		Applichiamo la disuguaglianza di Cauchy-Schwarz alla variabile aleatoria
 		$(V \mid V > 0)$ e concludiamo con
 		$\E[V \mid V > 0] = \frac1{\Pr[V > 0]} \E[V]$ e
@@ -532,7 +532,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 				\E[I_i I_j] = \Pr[I_i I_j = 1] = \Pr[I_i = 1]\Pr[I_j = 1 \mid I_i = 1]
 				= \frac{|F|}{|E|} \cdot \Pr[I_j = 1 \mid I_i = 1].
 			\]
-			Se $i = 1$, per il Lemma \ref{thm:Din06Prop2.5} si ha
+			Se $i = 1$, per il Lemma~\ref{thm:Din06Prop2.5} si ha
 			\[
 				\Pr_{\bm{e}}[I_j = 1 \mid I_1 = 1]
 				\le \frac{|F|}{|E|} + \lambda^{j - 2},
@@ -577,15 +577,15 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 		= \frac{\delta \sqrt{t}}{100 W^4} \varepsilon
 		\le \frac{\sqrt{t}}{10^3 W^5} \varepsilon
 	\]
-	e il Lemma \ref{thm:powering} è dimostrato.
-	Per dimostrare anche il Lemma \ref{thm:gap-amplification} di amplificazione
+	e il Lemma~\ref{thm:powering} è dimostrato.
+	Per dimostrare anche il Lemma~\ref{thm:gap-amplification} di amplificazione
 	del gap è ora sufficiente esibire una CL-trasformazione da istanze di
 	$q\CSP_2$ a istanze amplificabili.
 \end{proof}
 
 \subsection{Ottenere istanze amplificabili} \label{subsec:istanze-amplificabili}
 
-Il Lemma \ref{thm:powering} si applica a istanze di $\CSP$ con determinate
+Il Lemma~\ref{thm:powering} si applica a istanze di $\CSP$ con determinate
 caratteristiche. Dunque è necessario mostrare che, a meno di una perdita di gap,
 è possibile supporre che l'istanza da amplificare le soddisfi.
 Anche in questo caso, la chiave è comporre trasformazioni.
@@ -680,7 +680,7 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 	Se $\sum_{i=1}^n t_i \ge \frac{\varepsilon}{2} m$, allora abbastanza vincoli
 	di uguaglianza sono violati per le proprietà di mescolamento degli expander.
 	Posti infatti $S_i$ l'insieme degli $y_i^j$ che concordano con
-	$\xx$ e $\bar{S}_i$ il suo complementare, per il Lemma \ref{thm:ESbarS}
+	$\xx$ e $\bar{S}_i$ il suo complementare, per il Lemma~\ref{thm:ESbarS}
 	vale $E(S_i, \bar{S}_i) \ge (1 - \lambda) \frac{d}{k} |S_i| |\bar{S}_i|
 	\ge (1 - \lambda)\frac{d}{k} \frac{k}{W} t_i \ge \frac{d}{10 W}t_i
 	\ge \frac{t_i}{10 W}$. Dunque, almeno $\frac1{10 W} \sum_{i = 1}^n t_i
@@ -703,7 +703,7 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 	\]
 \end{lemma}
 \begin{proof}
-	Per il Teorema \ref{thm:expander-construction} esiste una costante $d$ e
+	Per il Teorema~\ref{thm:expander-construction} esiste una costante $d$ e
 	una famiglia esplicita di $(0.1, d)$-expander $\{G_n\}_{n \in \mathbb{N}}$.
 
 	Siano allora $\varphi$ un'istanza di $2\CSP_W$ come da ipotesi e $n$ il
@@ -727,7 +727,7 @@ Lemma~\ref{thm:gap-amplification} di amplificazione del gap.
 
 \section{Riduzione dell'alfabeto}
 
-In questa sezione dimostriamo il Lemma \ref{thm:alphabet-reduction} di
+In questa sezione ci occupiamo del Lemma~\ref{thm:alphabet-reduction} di
 riduzione dell'alfabeto: data un'istanza $\varphi$ di $2\CSP_W$ su alfabeto
 grande a piacere, l'obiettivo è trasformarla a un'istanza $\psi$ di $q_0\CSP_2$
 per un $q_0$ fissato e indipendente da $W$, il tutto con perdita di gap al più
@@ -773,7 +773,9 @@ semplicemente implementando in ogni circuito la formula $(2 \log W)$CNF che
 rappresenta il vincolo\footnote{Tale formula $(2 \log W)$CNF consta infatti di
 al più $2^{2 \log W} = W^4$ clausole, il valore di ognuna delle quali si
 calcola con $2 \log W$ porte logiche aggiuntive, da cui la maggiorazione
-$\ell \le W^5$.}.
+$\ell \le W^5$.}. Per la dimostrazione che segue è importante tenere a mente che
+$\ell$ è una costante e che, a costo di aggiungere nodi inutilizzati, possiamo
+supporre tutti i vincoli siano rappresentati da circuiti della stessa taglia.
 
 Useremo come ingrediente fondamentale la dimostrazione del Teorema
 \ref{thm:exppcp}, da cui segue l'esistenza di sistemi PCP in grado di accettare
@@ -804,15 +806,15 @@ un certificato valido.
 Prima della dimostrazione, vediamo come il corollario è sufficiente per
 la riduzione dell'alfabeto.
 
-\begin{proof}[Dimostrazione del Lemma \ref{thm:alphabet-reduction} di riduzione dell'alfabeto]
+\begin{proof}[Dimostrazione del Lemma~\ref{thm:alphabet-reduction} di riduzione dell'alfabeto]
 	Sostituiamo a ogni variabile originale $u_i$ una sequenza
 	$U_i = (U_{i,1}, \dots, U_{i, W})$ di $2^{\log W} = W$ variabili
 	binarie che, in un assegnamento valido, rappresentano la codifica
 	di Walsh-Hadamard di $u_i \in \{0, 1\}^{\log W}$.
 	Per ogni vincolo originale $C_s(u_i, u_j)$, consideriamo il $\CSP$
-	corrispondente al sistema PCP descritto nel Corollario \ref{thm:pcpprox}
+	corrispondente al sistema PCP descritto nel Corollario~\ref{thm:pcpprox}
 	applicato al circuito $C_s$ relativo al vincolo, secondo la corrispondenza
-	mostrata nel Capitolo \ref{chap:inapprox}.
+	mostrata nel Capitolo~\ref{chap:inapprox}.
 	Per ogni vincolo abbiamo un vettore di $2^{\mathrm{poly}(\ell)}$ variabili
 	binarie $\Pi_s$ che rappresentano $\pi_3$, mentre $U_i$ e $U_j$ svolgono il
 	ruolo di $\pi_1$ e $\pi_2$.
@@ -824,7 +826,7 @@ la riduzione dell'alfabeto.
 
 	L'istanza finale $\psi$ è data dall'unione dei vincoli
 	$\cup_{s = 1}^{m} \mathcal{C}_s$.
-	In virtù del punto 1. del Corollario \ref{thm:pcpprox}, ogni assegnamento
+	In virtù del punto 1. del Corollario~\ref{thm:pcpprox}, ogni assegnamento
 	valido per l'istanza originale $\varphi$ si solleva\footnote{Non
 	necessariamente in modo univoco.} a un assegnamento valido per la nuova
 	istanza $\psi$. Dunque se la prima era soddisfacibile, lo è anche la seconda.
@@ -841,95 +843,75 @@ la riduzione dell'alfabeto.
 	soddisfatti. Se le decodifiche $a_i$, $a_j$ di $U_i$, $U_j$ non soddisfano
 	$C_s$, allora il Corollario~\ref{thm:pcpprox} implica che almeno metà dei
 	vincoli di $\mathcal{C}_s$ non erano in ogni caso soddisfatti.
-
-	{\color{magenta}Poiché ogni cluster $\mathcal{C}_s$ consta del medesimo numero
-	$2^{\mathrm{poly}(\ell)}$ di nuovi vincoli, se $\varepsilon$ è la frazione di vincoli
-	originali non soddisfatti, ogni assegnamento delle variabili della
-	nuova istanza $\psi$ viola almeno una frazione $\frac{\varepsilon}{2}$ dei vincoli.}
+	Poiché ogni insieme di vincoli $\mathcal{C}_s$ ha la stessa cardinalità
+	$2^{\mathrm{poly}(\ell)}$, se $\varepsilon$ è la minima frazione di vincoli
+	originali non soddisfatti, allora ogni assegnamento delle variabili della
+	nuova istanza $\psi$ viola almeno una frazione $\frac{\varepsilon}{2}$ dei
+	vincoli.
 \end{proof}
 
 Per concludere, presentiamo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 
+% TBD. Capire ed esplicitare le quantificazioni su \ell e k.
 \begin{proof}[Dimostrazione del Corollario~\ref{thm:pcpprox}]
-	{\color{magenta}
-	Per questa dimostrazione riduciamo il problema di decidere la
-	soddisfacibilità di circuiti\footnote{Questo problema si chiama comunemente
-	\texttt{CKT-SAT}.} a \texttt{QUADEQ}. Questa riduzione trasforma un
-	circuito $C$ con $2k$ input e taglia $\ell$ in un sistema di $O(\ell)$
-	equazioni quadratiche in $\ell$ variabili su $\F_2$.
-	Le variabili $\ww = (w_1, \dots, w_\ell) \in \{0, 1\}^\ell$ dell'istanza
-	di \texttt{QUADEQ} corrispondono ai valori assunti dai nodi e archi del
-	circuito, per cui ogni soluzione ammissibile $\ww$ soddisfa le equazioni e
-	i suoi primi $2k$ bit $(w_1, \dots, w_{2k})$ costituiscono un input
-	$\bm{u_1 u_2} \in \{0, 1\}^{2k}$ (con $\bm{u_1}, \bm{u_2} \in \{0, 1\}^k$) che
-	rende l'output di $C$ pari a $1$.
+	Riduciamo il problema di decidere la soddisfacibilità di
+	circuiti\footnote{Questo problema si chiama comunemente \texttt{CKT-SAT}.}
+	a \texttt{QUADEQ}, che poi verifichiamo	probabilisticamente come nella
+	dimostrazione del Teorema~\ref{thm:exppcp}.
+
+	Dato un circuito $C$ con $2k$ input e di taglia $\ell$, la corrispondente
+	istanza di \texttt{QUADEQ} avrà come variabili i nodi del circuito e
+	un'equazione a esprimere ogni porta logica, come in
+	Figura~\ref{fig:porte-logiche-quadeq}.
+
+	\begin{figure}[htbp]
+		\centering
+		\input{graphics/logic_gates_quadeq.tex}
+		\caption{Porte logiche ed equazioni quadratiche equivalenti su $\F_2$.}
+		\label{fig:porte-logiche-quadeq}
+	\end{figure}
+
+	Poiché le variabili $\ww = (w_1, \dots, w_\ell) \in \{0, 1\}^\ell$
+	dell'istanza corrispondono ai valori assunti dai nodi del circuito, i primi
+	$2 k$ bit di ogni soluzione ammissibile costituiscono un input
+	$\bm{u_1 u_2} \in \{0, 1\}^{2 k}$ accettato dal circuito.
 
 	Il verificatore $V$ ha accesso alle tre stringhe del certificato:
-	$\pi_1 \in \{0, 1\}^{2^k}$, $\pi_2 \in \{0, 1\}^{2^k}$ e alla dimostrazione
-	ausiliaria $\pi_3 \in \{0, 1\}^{2^{\mathrm{poly}(\ell)}}$.
-	Interpretiamo $\pi_1$ e $\pi_2$ come funzioni $\F_2^k \to \F_2$,
-	mentre $\pi_3$ è strutturata come la coppia di funzioni
-	$f \colon \F_2^\ell \to \F_2$ e $g \colon \F_2^{\ell^2} \to \F_2$ previste
-	dal sistema di verifica PCP esponenziale per \texttt{QUADEQ} relativo al
-	Teorema~\ref{thm:exppcp}. In una dimostrazione valida per un input
+	$\pi_1, \pi_2 \in \{0, 1\}^{2^k}$ e la dimostrazione ausiliaria
+	$\pi_3 \in \{0, 1\}^{2^{\mathrm{poly}(\ell)}}$.
+	Interpretiamo $\pi_1$ e $\pi_2$ come funzioni $\F_2^k \to \F_2$, mentre
+	$\pi_3$ corrisponde esattamente alla dimostrazione prevista dal sistema di
+	verifica previsto dal Teorema~\ref{thm:exppcp}.
+	La stringa $\pi_3$ si interpreta dunque come coppia di funzioni
+	$f\colon \F_2^\ell \to \F_2$ e $g\colon \F_2^{\ell^2} \to \F_2$.
+	In una dimostrazione valida, $\pi_3$ è la concatenazione delle codifiche di
+	Walsh-Hadamard $\WH(\ww)$ e $\WH(\ww \otimes \ww)$ per un valido
+	assegnamento $\ww$.
+	In una dimostrazione valida per un input
 	$\bm{u_1 u_2}$ accettato dal circuito $C$, si ha $\pi_1 = \WH(\bm{u_1})$,
 	$\pi_2 = \WH(\bm{u_2})$, $f = \WH(\ww)$ e $g = \WH(\ww \otimes \ww)$, dove
 	$\ww \in \{0, 1\}^\ell$ ha come primi $2k$ bit $\bm{u_1 u_2}$ e soddisfa
-	l'istanza di \texttt{QUADEQ}.
+	l'istanza di \texttt{QUADEQ}. In particolare, per ogni input accettato dal
+	circuito esiste una corrispondente dimostrazione valida.
 
-	La procedura di verifica svolta da $V$ consiste nei seguenti tre controlli:
-	\begin{enumerate}
-		\item \textbf{Test di linearità}: $V$ esegue il test di linearità (BLR) su
-			$\pi_1$, $\pi_2$, $f$ e $g$. Se superato, si garantisce che tali
-			funzioni siano $0.99$-vicine a funzioni perfettamente lineari
-			$\tilde{\pi}_1 = \WH(\bm{u_1})$, $\tilde{\pi}_2 = \WH(\bm{u_2})$,
-			$\tilde{f} = \WH(\ww)$ e $\tilde{g} = \WH(\ww \otimes \ww)$ per opportuni
-			vettori $\bm{u_1}, \bm{u_2} \in \{0, 1\}^k$ e $\ww \in \{0, 1\}^\ell$.
-		\item \textbf{Test per \texttt{QUADEQ}}: $V$ esegue sui blocchi $f$ e $g$
-			di $\pi_3$ i controlli del verificatore per \texttt{QUADEQ} (verifica
-			di consistenza tra $f$ e $g$ e verifica del soddisfacimento delle
-			equazioni quadratiche).
-		\item \textbf{Test di concatenazione}: $V$ deve verificare che i primi
-			$2k$ bit del vettore $\ww$ codificato da $\tilde{f}$ coincidano
-			esattamente con la concatenazione $\bm{u_1 u_2}$ dei vettori
-			codificati da $\tilde{\pi}_1$ e $\tilde{\pi}_2$.
-			Per fare questo leggendo soltanto $O(1)$ bit, $V$ sceglie due vettori
-			$\xx, \yy \in \F_2^k$ uniformemente a caso e definisce il
-			vettore $\bm{xy0} \in \F_2^\ell$ come la stringa i cui primi
-			$k$ bit sono $\xx$, i successivi $k$ bit sono $\yy$ e i restanti
-			$\ell - 2k$ bit sono tutti pari a $0$.
-			Notiamo che per ogni vettore $\ww \in \{0, 1\}^\ell$:
-			\[
-				\langle \ww, \bm{xy0} \rangle =
-				\sum_{i=1}^k w_i x_i + \sum_{j=1}^k w_{k+j} y_j =
-				\langle \ww_{1..k}, \xx \rangle + \langle \ww_{k+1..2k}, \yy \rangle.
-			\]
-			Di conseguenza, $\tilde{f}(\bm{xy0}) = \tilde{\pi}_1(\xx) + \tilde{\pi}_2(\yy)$
-			se e solo se $\langle \ww_{1..k} \oplus \bm{u_1}, \xx \rangle +
-			\langle \ww_{k+1..2k} \oplus \bm{u_2}, \yy \rangle = 0$.
-			Per il principio della somma casuale, se $(\ww_{1..k}, \ww_{k+1..2k}) \neq (\bm{u_1}, \bm{u_2})$,
-			tale uguaglianza vale con probabilità al più $1/2$ al variare di
-			$\xx, \yy$. Pertanto $V$ legge $\pi_1(\xx)$, $\pi_2(\yy)$ e
-			$f(\bm{xy0})$ e accetta se e solo se
-			$f(\bm{xy0}) = \pi_1(\xx) + \pi_2(\yy)$.
-	\end{enumerate}
+	Il verificatore $V$ esegue innanzitutto un test di linearità su $\pi_1$,
+	$\pi_2$, $f$ e $g$. Se superato, con alta probabilità tali funzioni sono
+	$0.99$-vicine a funzioni lineari $\tilde{\pi}_1 = \WH(\bm{u_1})$,
+	$\tilde{\pi}_2 = \WH(\bm{u_2})$, $\tilde{f} = \WH(\ww)$ e
+	$\tilde{g} = \WH(\ww \otimes \ww)$.
+	Il verificatore controlla poi che $\pi_3$ codifichi un valido assegnamento
+	per l'istanza di \texttt{QUADEQ} equivalente al circuito, come già visto
+	nella dimostrazione del Teorema~\ref{thm:exppcp}.
+	Se le verifiche sono superate, rimane solo da assicurarsi che i primi $2 k$
+	bit di $\ww$ coincidano con $\bm{u_1 u_2}$, vale a dire
+	$(w_1, \dots, w_{2 k}) = \bm{u_1 u_2}$.
+	Dal Capitolo~\ref{chap:complessita} sappiamo che è sufficiente testare il
+	prodotto scalare con un vettore casuale in $\{0, 1\}^{2 k}$. Il
+	verificatore sceglie dunque due vettori $\xx, \yy \in \{0, 1\}^k$ e
+	verifica che $f(\xx \yy \bm{0}) = \pi_1 (\xx) + \pi_2 (\yy)$, dove $\bm{0}$
+	è la stringa di lunghezza $\ell - 2 k$ nulla in tutte le posizioni.
 
-	Analizziamo le tre proprietà enunciate nel corollario:
-	\begin{enumerate}
-		\item \textbf{Completezza}: Se $\bm{u_1 u_2}$ è accettato da $C$,
-			costruendo $\pi_3$ usando $\ww$ (il quale estende $\bm{u_1 u_2}$ e
-			soddisfa l'istanza di \texttt{QUADEQ}), tutte le identità verificate da $V$
-			valgono identicamente e $V$ accetta con probabilità $1$.
-		\item \textbf{Soundness}: Se $V$ accetta con probabilità almeno $1/2$, dai
-			test di linearità $\pi_1, \pi_2$ sono $0.99$-vicini a $\WH(\bm{u_1})$
-			e $\WH(\bm{u_2})$, mentre dal test di concatenazione e dai test per
-			\texttt{QUADEQ} segue che $\bm{u_1 u_2}$ è un assegnamento valido che
-			soddisfa il circuito $C$.
-		\item \textbf{Complessità}: La scelta di $\xx, \yy \in \F_2^k$ e dei
-			vettori casuali per i test di \texttt{QUADEQ} richiede
-			$O(\mathrm{poly}(\ell))$ bit random. In ciascun test $V$ legge un
-			numero costante $O(1)$ di bit dal certificato e impiega tempo di calcolo
-			$\mathrm{poly}(\ell)$.
-	\end{enumerate}
-	}
+	Complessivamente, il verificatore impiega tempo polinomiale in $\ell$, utilizza
+	$\mathrm{poly}(\ell)$ bit casuali e legge un numero costante di bit del
+	certificato.
 \end{proof}

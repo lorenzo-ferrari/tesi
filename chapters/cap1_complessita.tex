@@ -228,7 +228,7 @@ In altre parole, il Teorema PCP afferma che è possibile verificare
 dimostrazioni con alta probabilità di successo leggendone solo una
 piccolissima parte.
 In questo capitolo dimostriamo il contenimento facile dei due. Rimandiamo
-la parte principale della dimostrazione al Capitolo \ref{chap:pcpproof}.
+la parte principale della dimostrazione al Capitolo~\ref{chap:pcpproof}.
 
 \begin{proof}[Dimostrazione di $\PCP(\log n, 1) \subseteq \NP$]
 	Sia $L \in \PCP(\log n, 1)$. Per definizione, esistono due costanti $c, q > 0$
@@ -253,7 +253,7 @@ la parte principale della dimostrazione al Capitolo \ref{chap:pcpproof}.
 
 \section{Teorema PCP debole}
 
-Dimostriamo qui una versione debole del Teorema \ref{thm:pcp}. Anche in
+Dimostriamo qui una versione debole del Teorema~\ref{thm:pcp}. Anche in
 questo caso il verificatore legge un numero costante di bit, tuttavia la
 dimostrazione ha dimensione esponenziale nella dimensione
 dell'input e il verificatore utilizza $\mathrm{poly}(n)$ bit casuali.
@@ -264,8 +264,8 @@ dell'input e il verificatore utilizza $\mathrm{poly}(n)$ bit casuali.
 	\]
 \end{theorem}
 
-Il Teorema \ref{thm:exppcp} sarà un ingrediente fondamentale nella dimostrazione
-del Teorema \ref{thm:pcp}. Per dimostrare il Teorema \ref{thm:exppcp} è
+Il Teorema~\ref{thm:exppcp} sarà un ingrediente fondamentale nella dimostrazione
+del Teorema~\ref{thm:pcp}. Per dimostrare il Teorema~\ref{thm:exppcp} è
 sufficiente dimostrare che un singolo problema $\NP$-completo, nel nostro caso
 $\mathtt{QUADEQ}$, appartiene a $\PCP(\mathrm{poly}(n), 1)$: un generico
 problema in $\NP$ prima si riduce a $\mathtt{QUADEQ}$, poi si verifica
@@ -295,7 +295,7 @@ funzionali su $\F_2^n$ differiscono su metà degli input, o equivalentemente
 che le codifiche di Walsh-Hadamard di due distinti vettori differiscono in metà
 delle posizioni.
 
-I certificati validi per il Teorema \ref{thm:exppcp} saranno forniti sotto
+I certificati validi per il Teorema~\ref{thm:exppcp} saranno forniti sotto
 forma di codifiche di Walsh-Hadamard, dunque come funzioni lineari. Per
 riconoscere certificati non validi sarebbe bene essere in grado di
 determinare con alta probabilità se una funzione $f\colon \F_2^n \to \F_2$ è lineare
@@ -324,13 +324,13 @@ che la linearità valga per una coppia di vettori scelti a caso.
 	per $\rho > \frac12$. Allora $f$ è $\rho$-vicina a una funzione lineare.
 \end{theorem}
 
-Il Teorema \ref{thm:lintest} garantisce che ripetere $O(1)$ volte il test di
+Il Teorema~\ref{thm:lintest} garantisce che ripetere $O(1)$ volte il test di
 linearità è sufficiente per rifiutare con alta probabilità qualunque funzione
 (per esempio) non $0.99$-vicina a una funzione lineare. Se infatti $f$ non
 è $0.99$-vicina a una funzione lineare e il test viene ripetuto cento volte,
 questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 
-\begin{proof}[Dimostrazione del Teorema \ref{thm:lintest}]
+\begin{proof}[Dimostrazione del Teorema~\ref{thm:lintest}]
 	Richiamiamo qualche nozione di analisi di Fourier discreta su
 	$(\Z/2\Z)^n$.
 	Identifichiamo $\F_2^n$ con l'ipercubo $\{\pm 1\}^n$. Definiamo per

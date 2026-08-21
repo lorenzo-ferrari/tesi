@@ -5,7 +5,7 @@ In questo capitolo presentiamo il legame tra Teorema PCP e
 Cominciamo motivando gli algoritmi di approssimazione e definendo
 approssimazione e inapprossimabilità.
 Introduciamo poi i \emph{Constraint Satisfaction Problem} ($\CSP$) e le
-relative notazioni che torneranno utili nel Capitolo \ref{chap:pcpproof},
+relative notazioni che torneranno utili nel Capitolo~\ref{chap:pcpproof},
 dopodiché diamo una formulazione equivalente del Teorema PCP intrinsecamente
 legata all'inapprossimabilità di $\CSP$.
 Infine, a partire dal Teorema PCP, dimostriamo risultati di
@@ -130,15 +130,15 @@ Di conseguenza, sulla base del valore della soluzione restituita dall'ipotetico
 algoritmo di approssimazione, si potrebbe decidere efficientemente
 l'appartenenza ad $L$, da cui $\P = \NP$.
 
-Dimostriamo quindi l'equivalenza Teorema \ref{thm:pcp} $\iff$
-Teorema \ref{thm:pcpapprox}. Nel Capitolo \ref{chap:pcpproof} useremo
+Dimostriamo quindi l'equivalenza Teorema~\ref{thm:pcp} $\iff$
+Teorema~\ref{thm:pcpapprox}. Nel Capitolo~\ref{chap:pcpproof} useremo
 quest'ultima formulazione per dimostrare il Teorema PCP.
 
 \begin{proof}[Dimostrazione di equivalenza]
 	$(\implies)$
-	È sufficiente mostrare che la conclusione del Teorema \ref{thm:pcpapprox}
+	È sufficiente mostrare che la conclusione del Teorema~\ref{thm:pcpapprox}
 	vale per un fissato linguaggio $\NP$-completo $L$.
-	Supponiamo dunque che valga il Teorema \ref{thm:pcp}, cioè che
+	Supponiamo dunque che valga il Teorema~\ref{thm:pcp}, cioè che
 	$\NP = \PCP(\log n, 1)$. Allora esistono costanti $c, q > 0$ e un
 	verificatore probabilistico $V$ che, data un'istanza $x \in \{0, 1\}^n$ di
 	$L$, utilizza al più $c \log n$ bit casuali e legge al più $q$ bit
@@ -158,23 +158,23 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 	Assegnamenti delle variabili di $\varphi$ corrispondono a certificati
 	$\pi$, quindi il valore di $\varphi$ corrisponde esattamente alla massima
 	probabilità che un certificato sia accettato.
-	Le proprietà di completezza e robustezza del Teorema \ref{thm:pcp} si
+	Le proprietà di completezza e robustezza del Teorema~\ref{thm:pcp} si
 	traducono allora nelle proprietà di robustezza e completezza per il Teorema
 	\ref{thm:pcpapprox} con $\rho = \frac12$.
 
 	$(\impliedby)$
 	Viceversa, mostriamo come costruire un valido verificatore $\PCP$ a partire
-	dalla trasformazione del Teorema \ref{thm:pcpapprox}.
+	dalla trasformazione del Teorema~\ref{thm:pcpapprox}.
 	Dato input $x$ per un problema $L$, il verificatore lo trasforma nell'istanza
 	$f(x)$ di $q\CSP_2$. Dimostrazioni di ``$x \in L$'' corrispondono a validi
 	assegnamenti per $f(x)$. Per verificare una dimostrazione, il verificatore
 	sceglie un vincolo uniformemente a caso impiegando $O(\log n)$ bit casuali,
 	dopodiché legge le $q$ variabili da cui dipende il vincolo e accetta se e
 	soltanto se questo è soddisfatto.
-	In virtù del Teorema \ref{thm:pcpapprox}, questo sistema di verifica
+	In virtù del Teorema~\ref{thm:pcpapprox}, questo sistema di verifica
 	soddisfa la proprietà di completezza e ha robustezza $\rho$.
 	È sufficiente ripetere la verifica $O(1)$ volte per ottenere robustezza
-	$\frac12$ e dimostrare quindi il Teorema \ref{thm:pcp}.
+	$\frac12$ e dimostrare quindi il Teorema~\ref{thm:pcp}.
 \end{proof}
 
 La dimostrazione appena svolta mostra, più in generale, una corrispondenza
@@ -204,7 +204,7 @@ computabile efficientemente.
 			Logaritmo del numero di vincoli ($\log m$) \\
 		Parametro di robustezza ($1/2$) & $\longleftrightarrow$ &
 			Massimo valore $\val(\varphi)$ di istanze negative \\
-		Teorema \ref{thm:pcp} & $\longleftrightarrow$ & Teorema \ref{thm:pcpapprox} \\
+		Teorema~\ref{thm:pcp} & $\longleftrightarrow$ & Teorema~\ref{thm:pcpapprox} \\
 		\hline
 	\end{tabular}
 	\caption{Due punti di vista sul Teorema PCP.}
@@ -265,7 +265,7 @@ Ci sono pessime notizie.
 	Il fattore di approssimazione $\bar\varepsilon$ risulterà sufficiente a
 	distinguere i due scenari, dunque a decidere il problema.
 
-	Sia dunque $L \in \NP$ e, dal Teorema \ref{thm:pcp}, fissiamo un
+	Sia dunque $L \in \NP$ e, dal Teorema~\ref{thm:pcp}, fissiamo un
 	verificatore $V$ per $L$ che sbaglia al più una frazione
 	$\delta < \bar\varepsilon$ delle volte. Questo si ottiene come concatenazione
 	di $O(1)$ verifiche indipendenti di un verificatore che sbaglia al più una
@@ -383,11 +383,11 @@ gruppo di problemi.
 
 \begin{proof}
 	Utilizziamo la versione di inapprossimabilità del Teorema PCP.
-	Sia dunque $q$ l'arietà data dal Teorema \ref{thm:pcpapprox}.
+	Sia dunque $q$ l'arietà data dal Teorema~\ref{thm:pcpapprox}.
 	L'obiettivo sarà esibire una riduzione polinomiale da
 	(\texttt{MAX-})$q\CSP_2$ a (\texttt{MAX-})\texttt{3SAT} che controlla il
 	gap di soddisfacibilità dell'istanza prodotta, cosicché, componendola
-	con la trasformazione del Teorema \ref{thm:pcpapprox}, si ottenga una
+	con la trasformazione del Teorema~\ref{thm:pcpapprox}, si ottenga una
 	riduzione che mappa istanze negative di un generico linguaggio
 	$L \in \NP$ in istanze di (\texttt{MAX-})\texttt{3SAT} con gap almeno
 	costante. Un'ipotetica $\varepsilon_1$-approssimazione si potrebbe quindi
@@ -427,10 +427,10 @@ gruppo di problemi.
 	per ogni $\varepsilon > 0$.
 
 	Per ogni linguaggio $L \in \NP$, componiamo la trasformazione appena
-	descritta con quella del Teorema \ref{thm:pcpapprox} con $\rho = \frac12$ e
+	descritta con quella del Teorema~\ref{thm:pcpapprox} con $\rho = \frac12$ e
 	otteniamo una trasformazione che mappa istanze di $L$ a istanze di
 	\texttt{MAX-3SAT} e che soddisfa le proprietà di completezza e robustezza del
-	Teorema \ref{thm:pcpapprox} con $\tilde\rho = 1 - \frac1{q 2^{q + 1}}$.
+	Teorema~\ref{thm:pcpapprox} con $\tilde\rho = 1 - \frac1{q 2^{q + 1}}$.
 	Con l'argomento già presentato nei precedenti risultati di inapprossimabilità,
 	per ogni $\varepsilon_1 > \tilde\rho$ non esistono
 	$\varepsilon_1$-approssimazioni efficienti di \texttt{MAX-3SAT},
