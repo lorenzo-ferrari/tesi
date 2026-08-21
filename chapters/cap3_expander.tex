@@ -73,7 +73,7 @@ Il Teorema \ref{thm:expander-walk} sarà di fondamentale importanza per
 	{2 |F|}$, e $y_v$ la probabilità che un arco incidente a $v$ sia in $F$, cioè
 	$y = \frac{2 |F|}{d} x$.
 	Scomponiamo $x = x^\parallel + x^\perp$ con
-	$x^\parallel := \frac1n \mathbf{1}$. Vale per definizione
+	$x^\parallel := \frac1n \bm{1}$. Vale per definizione
 	\[
 		p = \sum_{v \in V}{ y_v (A^i x)_v }
 		  = \langle y, A^i x \rangle.
@@ -128,24 +128,24 @@ tra un insieme e il suo complementare, come segue.
 \begin{proof}
 	Esprimiamo $E(S, \bar S)$ come un opportuno prodotto scalare e analizziamo
 	separatamente componente parallela e perpendicolare al vettore costante.
-	Detta $A$ la matrice di adiacenza rinormalizzata, siano $\mathbf{1}_S$ e
-	$\mathbf{1}_{\bar{S}}$ i vettori indicatori di $S$ e del suo complementare.
-	Siano anche $\mathbf{1}_S^\parallel = \frac{|S|}{n} \mathbf{1}$ e
-	$\mathbf{1}_S^\perp = \mathbf{1}_S - \mathbf{1}_S^\parallel$ le componenti
-	di $\mathbf{1}_S$ parallela e perpendicolare a $\mathbf{1}$.
+	Detta $A$ la matrice di adiacenza rinormalizzata, siano $\bm{1}_S$ e
+	$\bm{1}_{\bar{S}}$ i vettori indicatori di $S$ e del suo complementare.
+	Siano anche $\bm{1}_S^\parallel = \frac{|S|}{n} \bm{1}$ e
+	$\bm{1}_S^\perp = \bm{1}_S - \bm{1}_S^\parallel$ le componenti
+	di $\bm{1}_S$ parallela e perpendicolare a $\bm{1}$.
 	Vale
 	\begin{align*}
-		\frac{1}{d} E(S, \bar{S}) &= \langle \mathbf{1}_S, A \mathbf{1}_{\bar S} \rangle \\
-		&= \langle \mathbf{1}_S, A (\mathbf{1} - \mathbf{1}_{\bar S}) \rangle \\
-		&= \langle \mathbf{1}_S, \mathbf{1} \rangle
-			- \langle \mathbf{1}_S, A \mathbf{1}_S \rangle \\
-		&= |S| - \big\langle \mathbf{1}_S^\parallel + \mathbf{1}_S^\perp,
-			A (\mathbf{1}_S^\parallel + \mathbf{1}_S^\perp ) \big\rangle \\
-		&= |S| - \big\langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\parallel \big\rangle
-			- \big\langle \mathbf{1}_S^\perp, A \mathbf{1}_S^\perp \big\rangle
-			- 2 \big\langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\perp \big\rangle \\
-		&\ge |S| - \big\langle \mathbf{1}_S^\parallel, \mathbf{1}_S^\parallel \big\rangle
-			- \lambda \big\langle \mathbf{1}_S^\perp, \mathbf{1}_S^\perp \big\rangle \\
+		\frac{1}{d} E(S, \bar{S}) &= \langle \bm{1}_S, A \bm{1}_{\bar S} \rangle \\
+		&= \langle \bm{1}_S, A (\bm{1} - \bm{1}_{\bar S}) \rangle \\
+		&= \langle \bm{1}_S, \bm{1} \rangle
+			- \langle \bm{1}_S, A \bm{1}_S \rangle \\
+		&= |S| - \big\langle \bm{1}_S^\parallel + \bm{1}_S^\perp,
+			A (\bm{1}_S^\parallel + \bm{1}_S^\perp ) \big\rangle \\
+		&= |S| - \big\langle \bm{1}_S^\parallel, \bm{1}_S^\parallel \big\rangle
+			- \big\langle \bm{1}_S^\perp, A \bm{1}_S^\perp \big\rangle
+			- 2 \big\langle \bm{1}_S^\parallel, \bm{1}_S^\perp \big\rangle \\
+		&\ge |S| - \big\langle \bm{1}_S^\parallel, \bm{1}_S^\parallel \big\rangle
+			- \lambda \big\langle \bm{1}_S^\perp, \bm{1}_S^\perp \big\rangle \\
 		&= |S| - \frac{|S|^2}{n} - \lambda\bigg(|S| - \frac{|S|^2}{n}\bigg) \\
 		&= (1 - \lambda)\frac{|S|}{n}(n - |S|) = (1 - \lambda) \frac1{n} |S| |\bar S|.
 	\end{align*}

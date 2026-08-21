@@ -227,7 +227,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	inizio sezione.
 
 	La formula $\varphi^t$ avrà lo stesso numero di variabili di $\varphi$.
-	I valori delle nuove variabili $\mathbf{y} = y_1, \ldots, y_n$
+	I valori delle nuove variabili $\yy = y_1, \ldots, y_n$
 	saranno in un alfabeto di taglia $W' = W^{d^3 t}$ corrispondente all'insieme
 	delle $d^{3 t}$-uple di valori nell'alfabeto originale $[W]$.
 
@@ -264,8 +264,8 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	$\varphi$ non sia soddisfacibile.
 
 	\subsubsection{Estrarre un assegnamento per $\varphi$}
-	Per dimostrare la proprietà (iii) trasformiamo ogni assegnamento di $\mathbf{y}$
-	per $\varphi^t$ in un assegnamento di $\mathbf{x}$ per $\varphi$. Mostreremo
+	Per dimostrare la proprietà (iii) trasformiamo ogni assegnamento di $\yy$
+	per $\varphi^t$ in un assegnamento di $\xx$ per $\varphi$. Mostreremo
 	che se l'assegnamento delle vecchie variabili viola anche solo ``pochi'',
 	cioè una frazione $\varepsilon$, dei vincoli, l'assegnamento delle nuove
 	variabili ne viola necessariamente ``tanti'', cioè una frazione
@@ -284,8 +284,8 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	popolare in un suo intorno.
 	In seguito formalizziamo il seguente ragionamento euristico:
 	poiché l'assegnamento $z_1, \ldots, z_n$ viola abbastanza vincoli e poiché i
-	suoi valori sono abbastanza condivisi secondo l'assegnamento di $\mathbf{y}$,
-	anche l'assegnamento di $\mathbf{y}$ viola abbastanza vincoli.
+	suoi valori sono abbastanza condivisi secondo l'assegnamento di $\yy$,
+	anche l'assegnamento di $\yy$ viola abbastanza vincoli.
 
 	Data allora un'istanza $\varphi$ con $\val(\varphi) \le 1 - \varepsilon$,
 	un qualunque assegnamento alle variabili di $\varphi$ viola per definizione
@@ -293,7 +293,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	Sia allora $F \subseteq E(G_\varphi)$ un sottoinsieme di $\varepsilon m$
 	vincoli violati dall'assegnamento di maggioranza.
 
-	Useremo questo insieme per mostrare che l'assegnamento $\mathbf{y}$ viola
+	Useremo questo insieme per mostrare che l'assegnamento $\yy$ viola
 	almeno una frazione	$\Omega(\sqrt{t} \varepsilon)$ dei vincoli di $\varphi^t$.
 
 	\subsubsection{Analisi}
@@ -534,7 +534,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			\]
 			Se $i = 1$, per il Lemma \ref{thm:Din06Prop2.5} si ha
 			\[
-				\Pr_\mathbf{e}[I_j = 1 \mid I_1 = 1]
+				\Pr_{\bm{e}}[I_j = 1 \mid I_1 = 1]
 				\le \frac{|F|}{|E|} + \lambda^{j - 2},
 			\]
 			poiché la distribuzione del primo vertice $v_1$ condizionata a
@@ -663,24 +663,24 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 	Resta da maggiorare la perdita di gap.
 	Se $\varphi$ ha $m$ vincoli, allora $\psi$ ne ha per costruzione $m(d + 1)$.
 	Supponiamo valga $\val(\varphi) \le 1 - \varepsilon$ e mostriamo che ogni
-	assegnamento $\mathbf{y}$ delle variabili di $\psi$ viola almeno
+	assegnamento $\yy$ delle variabili di $\psi$ viola almeno
 	$\frac{\varepsilon}{100 W d} m (d + 1) \le \frac{\varepsilon}{50 W} m$ vincoli
-	di $\psi$. A partire da $\mathbf{y}$, estraiamo un assegnamento
-	$\mathbf{x}$ per le variabili di $\varphi$ assegnando a $x_i$ il valore di
+	di $\psi$. A partire da $\yy$, estraiamo un assegnamento
+	$\xx$ per le variabili di $\varphi$ assegnando a $x_i$ il valore di
 	maggioranza tra $y_i^1, \dots, y_i^k$.
-	L'assegnamento $\mathbf{x}$, così come ogni altro assegnamento per $\varphi$,
+	L'assegnamento $\xx$, così come ogni altro assegnamento per $\varphi$,
 	viola almeno $\varepsilon m$ vincoli.
 	Intuitivamente, se l'opinione di maggioranza è poco popolare, allora tanti
-	vincoli di uguaglianza sono violati da $\mathbf{y}$. Se invece l'opinione di
+	vincoli di uguaglianza sono violati da $\yy$. Se invece l'opinione di
 	maggioranza è molto popolare, abbastanza degli $\varepsilon m$ vincoli
-	violati da $\mathbf{x}$ sono violati anche da $\mathbf{y}$.
+	violati da $\xx$ sono violati anche da $\yy$.
 	Sia allora $t_i$ il numero di variabili $y_i^j$ in \emph{disaccordo} con
 	l'assegnamento di maggioranza. Vale	$0 \le t_i \le k(1 - \frac1{W})$.
 	
 	Se $\sum_{i=1}^n t_i \ge \frac{\varepsilon}{2} m$, allora abbastanza vincoli
 	di uguaglianza sono violati per le proprietà di mescolamento degli expander.
 	Posti infatti $S_i$ l'insieme degli $y_i^j$ che concordano con
-	$\mathbf{x}$ e $\bar{S}_i$ il suo complementare, per il Lemma \ref{thm:ESbarS}
+	$\xx$ e $\bar{S}_i$ il suo complementare, per il Lemma \ref{thm:ESbarS}
 	vale $E(S_i, \bar{S}_i) \ge (1 - \lambda) \frac{d}{k} |S_i| |\bar{S}_i|
 	\ge (1 - \lambda)\frac{d}{k} \frac{k}{W} t_i \ge \frac{d}{10 W}t_i
 	\ge \frac{t_i}{10 W}$. Dunque, almeno $\frac1{10 W} \sum_{i = 1}^n t_i
@@ -688,7 +688,7 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 
 	Se invece $\sum_{i=1}^n t_i < \frac{\varepsilon}{2} m$, allora almeno
 	$\frac{\varepsilon}{2} m$ degli $\varepsilon m$ vincoli violati da
-	$\mathbf{x}$ sono violati anche da $\mathbf{y}$.
+	$\xx$ sono violati anche da $\yy$.
 \end{proof}
 
 \begin{lemma}
@@ -785,15 +785,15 @@ un certificato valido.
 	Esiste un verificatore $V$ che dato un qualunque circuito $C$ con $2k$ input
 	e taglia $\ell$, ha le seguenti proprietà:
 	\begin{enumerate}
-		\item date $\mathbf{u_1}, \mathbf{u_2} \in \{0, 1\}^k$ tali che $\mathbf{u_1u_2}$
+		\item date $\bm{u_1}, \bm{u_2} \in \{0, 1\}^k$ tali che $\bm{u_1 u_2}$
 			è un input accettato dal circuito, esiste una stringa
 			$\pi_3 \in \{0, 1\}^{\mathrm{poly}(\ell)}$ tale che $V$ accetta
-			certamente il certificato $\WH(\mathbf{u_1}) \WH(\mathbf{u_2}) \pi_3$;
+			certamente il certificato $\WH(\bm{u_1}) \WH(\bm{u_2}) \pi_3$;
 		\item per ogni tripla di stringhe binarie $\pi_1, \pi_2, \pi_3$ con
 			$\pi_1, \pi_2 \in \{0, 1\}^{2^k}$, se $V$ accetta $\pi_1 \pi_2 \pi_3$ con
 			probabilità almeno $1/2$, allora $\pi_1$ e $\pi_2$ sono $0.99$-vicine a
-			$\WH(\mathbf{u_1})$ e $\WH(\mathbf{u_2})$ per due stringhe
-			$\mathbf{u_1}, \mathbf{u_2} \in \{0, 1\}^k$ tali che $\mathbf{u_1u_2}$ è
+			$\WH(\bm{u_1})$ e $\WH(\bm{u_2})$ per due stringhe
+			$\bm{u_1}, \bm{u_2} \in \{0, 1\}^k$ tali che $\bm{u_1 u_2}$ è
 			un input accettato dal circuito;
 		\item il verificatore $V$ impiega tempo $\mathrm{poly}(\ell)$, usa
 			$\mathrm{poly}(\ell)$ bit random e legge solo $O(1)$ bit del certificato
@@ -861,7 +861,7 @@ Per concludere, presentiamo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 	di \texttt{QUADEQ} corrispondono ai valori assunti dai nodi e archi del
 	circuito, per cui ogni soluzione ammissibile $\ww$ soddisfa le equazioni e
 	i suoi primi $2k$ bit $(w_1, \dots, w_{2k})$ costituiscono un input
-	$\mathbf{u_1 u_2} \in \{0, 1\}^{2k}$ (con $\mathbf{u_1}, \mathbf{u_2} \in \{0, 1\}^k$) che
+	$\bm{u_1 u_2} \in \{0, 1\}^{2k}$ (con $\bm{u_1}, \bm{u_2} \in \{0, 1\}^k$) che
 	rende l'output di $C$ pari a $1$.
 
 	Il verificatore $V$ ha accesso alle tre stringhe del certificato:
@@ -872,9 +872,9 @@ Per concludere, presentiamo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 	$f \colon \F_2^\ell \to \F_2$ e $g \colon \F_2^{\ell^2} \to \F_2$ previste
 	dal sistema di verifica PCP esponenziale per \texttt{QUADEQ} relativo al
 	Teorema~\ref{thm:exppcp}. In una dimostrazione valida per un input
-	$\mathbf{u_1 u_2}$ accettato dal circuito $C$, si ha $\pi_1 = \WH(\mathbf{u_1})$,
-	$\pi_2 = \WH(\mathbf{u_2})$, $f = \WH(\ww)$ e $g = \WH(\ww \otimes \ww)$, dove
-	$\ww \in \{0, 1\}^\ell$ ha come primi $2k$ bit $\mathbf{u_1 u_2}$ e soddisfa
+	$\bm{u_1 u_2}$ accettato dal circuito $C$, si ha $\pi_1 = \WH(\bm{u_1})$,
+	$\pi_2 = \WH(\bm{u_2})$, $f = \WH(\ww)$ e $g = \WH(\ww \otimes \ww)$, dove
+	$\ww \in \{0, 1\}^\ell$ ha come primi $2k$ bit $\bm{u_1 u_2}$ e soddisfa
 	l'istanza di \texttt{QUADEQ}.
 
 	La procedura di verifica svolta da $V$ consiste nei seguenti tre controlli:
@@ -882,48 +882,48 @@ Per concludere, presentiamo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 		\item \textbf{Test di linearità}: $V$ esegue il test di linearità (BLR) su
 			$\pi_1$, $\pi_2$, $f$ e $g$. Se superato, si garantisce che tali
 			funzioni siano $0.99$-vicine a funzioni perfettamente lineari
-			$\tilde{\pi}_1 = \WH(\mathbf{u_1})$, $\tilde{\pi}_2 = \WH(\mathbf{u_2})$,
+			$\tilde{\pi}_1 = \WH(\bm{u_1})$, $\tilde{\pi}_2 = \WH(\bm{u_2})$,
 			$\tilde{f} = \WH(\ww)$ e $\tilde{g} = \WH(\ww \otimes \ww)$ per opportuni
-			vettori $\mathbf{u_1}, \mathbf{u_2} \in \{0, 1\}^k$ e $\ww \in \{0, 1\}^\ell$.
+			vettori $\bm{u_1}, \bm{u_2} \in \{0, 1\}^k$ e $\ww \in \{0, 1\}^\ell$.
 		\item \textbf{Test per \texttt{QUADEQ}}: $V$ esegue sui blocchi $f$ e $g$
 			di $\pi_3$ i controlli del verificatore per \texttt{QUADEQ} (verifica
 			di consistenza tra $f$ e $g$ e verifica del soddisfacimento delle
 			equazioni quadratiche).
 		\item \textbf{Test di concatenazione}: $V$ deve verificare che i primi
 			$2k$ bit del vettore $\ww$ codificato da $\tilde{f}$ coincidano
-			esattamente con la concatenazione $\mathbf{u_1 u_2}$ dei vettori
+			esattamente con la concatenazione $\bm{u_1 u_2}$ dei vettori
 			codificati da $\tilde{\pi}_1$ e $\tilde{\pi}_2$.
 			Per fare questo leggendo soltanto $O(1)$ bit, $V$ sceglie due vettori
 			$\xx, \yy \in \F_2^k$ uniformemente a caso e definisce il
-			vettore $\mathbf{xy0} \in \F_2^\ell$ come la stringa i cui primi
+			vettore $\bm{xy0} \in \F_2^\ell$ come la stringa i cui primi
 			$k$ bit sono $\xx$, i successivi $k$ bit sono $\yy$ e i restanti
 			$\ell - 2k$ bit sono tutti pari a $0$.
 			Notiamo che per ogni vettore $\ww \in \{0, 1\}^\ell$:
 			\[
-				\langle \ww, \mathbf{xy0} \rangle =
+				\langle \ww, \bm{xy0} \rangle =
 				\sum_{i=1}^k w_i x_i + \sum_{j=1}^k w_{k+j} y_j =
 				\langle \ww_{1..k}, \xx \rangle + \langle \ww_{k+1..2k}, \yy \rangle.
 			\]
-			Di conseguenza, $\tilde{f}(\mathbf{xy0}) = \tilde{\pi}_1(\xx) + \tilde{\pi}_2(\yy)$
-			se e solo se $\langle \ww_{1..k} \oplus \mathbf{u_1}, \xx \rangle +
-			\langle \ww_{k+1..2k} \oplus \mathbf{u_2}, \yy \rangle = 0$.
-			Per il principio della somma casuale, se $(\ww_{1..k}, \ww_{k+1..2k}) \neq (\mathbf{u_1}, \mathbf{u_2})$,
+			Di conseguenza, $\tilde{f}(\bm{xy0}) = \tilde{\pi}_1(\xx) + \tilde{\pi}_2(\yy)$
+			se e solo se $\langle \ww_{1..k} \oplus \bm{u_1}, \xx \rangle +
+			\langle \ww_{k+1..2k} \oplus \bm{u_2}, \yy \rangle = 0$.
+			Per il principio della somma casuale, se $(\ww_{1..k}, \ww_{k+1..2k}) \neq (\bm{u_1}, \bm{u_2})$,
 			tale uguaglianza vale con probabilità al più $1/2$ al variare di
 			$\xx, \yy$. Pertanto $V$ legge $\pi_1(\xx)$, $\pi_2(\yy)$ e
-			$f(\mathbf{xy0})$ e accetta se e solo se
-			$f(\mathbf{xy0}) = \pi_1(\xx) + \pi_2(\yy)$.
+			$f(\bm{xy0})$ e accetta se e solo se
+			$f(\bm{xy0}) = \pi_1(\xx) + \pi_2(\yy)$.
 	\end{enumerate}
 
 	Analizziamo le tre proprietà enunciate nel corollario:
 	\begin{enumerate}
-		\item \textbf{Completezza}: Se $\mathbf{u_1 u_2}$ è accettato da $C$,
-			costruendo $\pi_3$ usando $\ww$ (il quale estende $\mathbf{u_1 u_2}$ e
+		\item \textbf{Completezza}: Se $\bm{u_1 u_2}$ è accettato da $C$,
+			costruendo $\pi_3$ usando $\ww$ (il quale estende $\bm{u_1 u_2}$ e
 			soddisfa l'istanza di \texttt{QUADEQ}), tutte le identità verificate da $V$
 			valgono identicamente e $V$ accetta con probabilità $1$.
 		\item \textbf{Soundness}: Se $V$ accetta con probabilità almeno $1/2$, dai
-			test di linearità $\pi_1, \pi_2$ sono $0.99$-vicini a $\WH(\mathbf{u_1})$
-			e $\WH(\mathbf{u_2})$, mentre dal test di concatenazione e dai test per
-			\texttt{QUADEQ} segue che $\mathbf{u_1 u_2}$ è un assegnamento valido che
+			test di linearità $\pi_1, \pi_2$ sono $0.99$-vicini a $\WH(\bm{u_1})$
+			e $\WH(\bm{u_2})$, mentre dal test di concatenazione e dai test per
+			\texttt{QUADEQ} segue che $\bm{u_1 u_2}$ è un assegnamento valido che
 			soddisfa il circuito $C$.
 		\item \textbf{Complessità}: La scelta di $\xx, \yy \in \F_2^k$ e dei
 			vettori casuali per i test di \texttt{QUADEQ} richiede

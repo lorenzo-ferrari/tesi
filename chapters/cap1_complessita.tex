@@ -244,7 +244,7 @@ la parte principale della dimostrazione al Capitolo \ref{chap:pcpproof}.
 
 	Sia $\tilde{\pi}$ la stringa binaria data dalla restrizione di $\pi$ alle
 	posizioni rilevanti. Allora $\tilde{\pi}$ è un valido certificato per un
-	verificatore deterministico polinomiale $V_\NP$ per $L$. Il verificatore in
+	verificatore deterministico polinomiale $V_{\NP}$ per $L$. Il verificatore in
 	questione simula $V$ su tutte le $n^c$ possibili stringhe casuali, legge le
 	corrispondenti posizioni di $\tilde{\pi}$ ed accetta se e solo se $V$ accetta
 	sempre, indipendentemente dalla stringa casuale. Dunque $L \in \NP$.
@@ -312,7 +312,7 @@ che la linearità valga per una coppia di vettori scelti a caso.
 	Sia $\rho \in [0, 1]$ una costante. Diciamo che le funzioni
 	$f, g\colon \F_2^n \to \F_2$ sono $\rho$-vicine se queste coincidono su almeno una
 	frazione $\rho$ degli input, cioè se vale
-	$\Pr_\xx [f(\xx) = g(\xx)] \ge \rho$.
+	$\Pr_{\xx} [f(\xx) = g(\xx)] \ge \rho$.
 \end{definition}
 
 \begin{theorem}[Test di linearità \cite{BCHKS96}] \label{thm:lintest}
@@ -391,8 +391,8 @@ questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 	Parseval.}.
 
 	Se $\hat{f_\alpha} \ge 2 \varepsilon$, allora
-	$\E_\xx[f(\xx) \chi_\alpha (\xx)] \ge 2 \varepsilon$, da cui
-	$\Pr_\xx[f(\xx) = \chi_\alpha (\xx)] \ge \frac12 + \varepsilon = \rho$.
+	$\E_{\xx}[f(\xx) \chi_\alpha (\xx)] \ge 2 \varepsilon$, da cui
+	$\Pr_{\xx}[f(\xx) = \chi_\alpha (\xx)] \ge \frac12 + \varepsilon = \rho$.
 \end{proof}
 
 Introduciamo l'ultimo strumento necessario per la dimostrazione del Teorema PCP

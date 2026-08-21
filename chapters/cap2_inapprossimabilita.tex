@@ -407,17 +407,17 @@ gruppo di problemi.
 		(u_1 \lor u_2 \lor v) \land (\bar v \lor u_3 \lor u_4).
 	\]
 	La formula 3CNF così prodotta consta di non più di $q$ clausole. Inoltre,
-	se un assegnamento $\mathbf{u}$ delle variabili originali non soddisfa la
+	se un assegnamento $\uu$ delle variabili originali non soddisfa la
 	clausola CNF di partenza, indipendentemente dal valore delle variabili
 	ausiliarie, almeno una clausola della corrispondente formula 3CNF non è
-	soddisfatta. Un valido assegnamento $\mathbf{u}$ per il vincolo, invece, si
+	soddisfatta. Un valido assegnamento $\uu$ per il vincolo, invece, si
 	completa a un valido assegnamento per la formula 3CNF.
 	Segue che ogni $C_j$ può essere espresso da una formula 3CNF con al più
 	$q 2^q$ clausole. Sia allora $\phi$ l'istanza di \texttt{3SAT} prodotta
 	dalla congiunzione di queste formule al variare di $C_j$, che consta dunque
 	di al più $q 2^q m$ clausole.
 	Vale che $\phi$ è soddisfacibile se e solo se lo è $\varphi$, ma anche
-	molto di più. Infatti, un assegnamento $\mathbf{u}$ che viola $k$ degli $m$
+	molto di più. Infatti, un assegnamento $\uu$ che viola $k$ degli $m$
 	vincoli di $\varphi$ viola necessariamente anche $k$ delle $q 2^q m$
 	clausole di $\phi$. Ciò si traduce in
 	\[
