@@ -1,4 +1,4 @@
-\chapter{Inapprossimabilità}
+\chapter{Inapprossimabilità} \label{chap:inapprox}
 
 In questo capitolo presentiamo il legame tra Teorema PCP e
 (in)approssimabilità di problemi di ottimizzazione combinatoria.
@@ -149,7 +149,6 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 	Per ogni stringa casuale $r \in \{0, 1\}^{c \log n}$, si pone un vincolo
 	$V_{x,r}$ soddisfatto se e soltanto se $V$ accetta $\pi$ con input $x$ e
 	stringa casuale $r$.
-
 	
 	Restringiamo $\varphi$ alle sole variabili che appaiono in uno dei vincoli
 	e, poiché ogni $V_{x, r}$ dipende da al più $q$ variabili, otteniamo
@@ -177,6 +176,40 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 	È sufficiente ripetere la verifica $O(1)$ volte per ottenere robustezza
 	$\frac12$ e dimostrare quindi il Teorema \ref{thm:pcp}.
 \end{proof}
+
+La dimostrazione appena svolta mostra, più in generale, una corrispondenza
+tra protocolli di verifica PCP e Constraint Satisfaction Problems, riassunta
+nella tabella che segue.
+La corrispondenza rimane valida anche per classi $\PCP$ diverse da
+$\PCP(\log n, 1)$, ma in generale non è detto che l'istanza $\varphi$ sia
+computabile efficientemente.
+
+\begin{table}[htbp]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.35}
+	\begin{tabular}{p{6.0cm} c p{6.5cm}}
+		\hline
+		\rule{0pt}{1.5em}\textbf{Protocolli PCP} & & \textbf{Inapprossimabilità di $\CSP$} \\[0.4em]
+		\hline
+		Verificatore PCP ($V$) & $\longleftrightarrow$ &
+			Istanza $\CSP$ ($\varphi$) \\
+		Dimostrazione PCP ($\pi$) & $\longleftrightarrow$ &
+			Assegnamento alle variabili ($\uu$) \\
+		Lunghezza della dimostrazione & $\longleftrightarrow$ &
+			Numero di variabili ($n$) \\
+		Numero di posizioni lette ($q$) & $\longleftrightarrow$ &
+			Arietà dei vincoli ($q$) \\
+		Numero di bit casuali ($r$) & $\longleftrightarrow$ &
+			Logaritmo del numero di vincoli ($\log m$) \\
+		Parametro di robustezza ($1/2$) & $\longleftrightarrow$ &
+			Massimo valore $\val(\varphi)$ di istanze negative \\
+		Teorema \ref{thm:pcp} & $\longleftrightarrow$ & Teorema \ref{thm:pcpapprox} \\
+		\hline
+	\end{tabular}
+	\caption{Due punti di vista sul Teorema PCP.}
+	\label{tab:due-punti-di-vista-pcp}
+\end{table}
 
 \section{Risultati di inapprossimabilità}
 

@@ -750,10 +750,16 @@ di una stringa binaria in input.
 
 \begin{figure}[htbp]
 	\centering
-	\input{graphics/xor_circuit}
-	\caption{Un circuito che calcola la funzione $\mathrm{XOR}$ ($\mathrm{OR}$
-		esclusivo) su due bit in	input $x_1, x_2$.}
-	\label{fig:xor-circuit}
+	\begin{minipage}[c]{0.52\textwidth}
+		\caption{Un circuito che calcola la funzione $\mathrm{XOR}$
+			($\mathrm{OR}$ esclusivo) su due bit in input $x_1, x_2$.}
+		\label{fig:xor-circuit}
+	\end{minipage}%
+	\hfill
+	\begin{minipage}[c]{0.42\textwidth}
+		\centering
+		\input{graphics/xor_circuit}
+	\end{minipage}
 \end{figure}
 
 A meno di aggiungere simboli inutilizzati, possiamo supporre $W$ sia una
@@ -762,15 +768,19 @@ $\{0, 1\}^{\log W}$. Un qualunque vincolo $C_s$ dipendente dalle variabili
 $u_i$ e $u_j$ si può pensare come un circuito applicato alle stringhe binarie
 che rappresentano $u_i$ e $u_j$: il vincolo è soddisfatto se e soltanto se
 l'output del circuito è $1$. Sia $\ell$ un limite superiore alla taglia
-del circuito al variare di tutti i vincoli. Possiamo supporre $\ell \le TBD$,
-semplicemente implementando in ogni circuito la formula $2k$-CNF che
-rappresenta il vincolo\footnote{Qualche dettaglio in più. TBD.}.
+del circuito al variare di tutti i vincoli. Possiamo supporre $\ell \le W^5$,
+semplicemente implementando in ogni circuito la formula $(2 \log W)$CNF che
+rappresenta il vincolo\footnote{Tale formula $(2 \log W)$CNF consta infatti di
+al più $2^{2 \log W} = W^4$ clausole, il valore di ognuna delle quali si
+calcola con $2 \log W$ porte logiche aggiuntive, da cui la maggiorazione
+$\ell \le W^5$.}.
 
 Useremo come ingrediente fondamentale la dimostrazione del Teorema
 \ref{thm:exppcp}, da cui segue l'esistenza di sistemi PCP in grado di accettare
 con buon probabilità un certificato se e soltanto se questo è \emph{vicino} a
 un certificato valido.
 
+% quantifichiamo su k e l??
 \begin{corollary}[PCP di prossimità] \label{thm:pcpprox}
 	Esiste un verificatore $V$ che dato un qualunque circuito $C$ con $2k$ input
 	e taglia $\ell$, ha le seguenti proprietà:
@@ -779,7 +789,7 @@ un certificato valido.
 			è un input accettato dal circuito, esiste una stringa
 			$\pi_3 \in \{0, 1\}^{\mathrm{poly}(\ell)}$ tale che $V$ accetta
 			certamente il certificato $\WH(\mathbf{u_1}) \WH(\mathbf{u_2}) \pi_3$;
-		\item per ogni triple di stringhe binarie $\pi_1, \pi_2, \pi_3$ con
+		\item per ogni tripla di stringhe binarie $\pi_1, \pi_2, \pi_3$ con
 			$\pi_1, \pi_2 \in \{0, 1\}^{2^k}$, se $V$ accetta $\pi_1 \pi_2 \pi_3$ con
 			probabilità almeno $1/2$, allora $\pi_1$ e $\pi_2$ sono $0.99$-vicine a
 			$\WH(\mathbf{u_1})$ e $\WH(\mathbf{u_2})$ per due stringhe
@@ -801,12 +811,16 @@ la riduzione dell'alfabeto.
 	di Walsh-Hadamard di $u_i \in \{0, 1\}^{\log W}$.
 	Per ogni vincolo originale $C_s(u_i, u_j)$, consideriamo il $\CSP$
 	corrispondente al sistema PCP descritto nel Corollario \ref{thm:pcpprox}
-	applicato al circuito $C_s$ relativo al vincolo. Per ogni vincolo
-	abbiamo un vettore di $2^{\mathrm{poly}(\ell)}$ variabili binarie $\Pi_s$
-	che rappresentano $\pi_3$, mentre $U_i$ e $U_j$ svolgono il ruolo di $\pi_1$
-	e $\pi_2$. Indichiamo con $\mathcal{C}_s$ l'insieme dei nuovi vincoli
-	corrispondenti a $C_s$. Sottolineiamo che l'arietà dei nuovi vincoli è una
-	costante $q_0$ \emph{indipendente} da $W$.
+	applicato al circuito $C_s$ relativo al vincolo, secondo la corrispondenza
+	mostrata nel Capitolo \ref{chap:inapprox}.
+	Per ogni vincolo abbiamo un vettore di $2^{\mathrm{poly}(\ell)}$ variabili
+	binarie $\Pi_s$ che rappresentano $\pi_3$, mentre $U_i$ e $U_j$ svolgono il
+	ruolo di $\pi_1$ e $\pi_2$.
+	Indichiamo con $\mathcal{C}_s$ l'insieme dei $2^{\mathrm{poly}(\ell)}$ nuovi
+	vincoli corrispondenti a $C_s$, uno per ogni possibile valore dei
+	$\mathrm{poly}(\ell)$ bit casuali.
+	Sottolineiamo che l'arietà dei nuovi vincoli è una costante $q_0$
+	\emph{indipendente} da $W$.
 
 	L'istanza finale $\psi$ è data dall'unione dei vincoli
 	$\cup_{s = 1}^{m} \mathcal{C}_s$.
@@ -818,24 +832,104 @@ la riduzione dell'alfabeto.
 	Mostriamo che se esiste un assegnamento che viola meno di una frazione
 	$\varepsilon/3$ di vincoli in $\psi$, allora ne esiste uno che viola
 	meno di una frazione $\varepsilon$ di vincoli in $\varphi$.
+	Decodifichiamo, ogni insieme di nuove variabili nel seguente modo: se
+	$U_i$ è $0.99$-vicino a una funzione lineare $\WH(a_i)$, allora assegniamo
+	alla variabile originale $u_i$ il valore $a_i$, altrimenti vi assegniamo una
+	stringa arbitraria.
 
-	TBD.
+	Pensiamo ora a quanti dei vincoli originali $C_s (u_i, u_j)$ sono
+	soddisfatti. Se le decodifiche $a_i$, $a_j$ di $U_i$, $U_j$ non soddisfano
+	$C_s$, allora il Corollario~\ref{thm:pcpprox} implica che almeno metà dei
+	vincoli di $\mathcal{C}_s$ non erano in ogni caso soddisfatti.
 
-% 	\textcolor{red}{
-% 		ATTENZIONE!
-% 		Arora-Barak imposta la perdita di gap nella riduzione dell'alfabeto come
-% 		\[
-% 			\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon/3.
-% 		\]
-% 		A me sembra regga
-% 		\[
-% 			\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon/2.
-% 		\]
-% 		Quell'$1/2$ è lo stesso $1/2$ del Corollario \ref{thm:pcpprox} e corrisponde
-% 		alla perdita di $1/2$ che si ha con Walsh-Hadamard. Capire se, invece,
-% 		$\varepsilon/3$ è giusto per qualche sottigliezza con $<$ vs. $\le$ o altro.}
+	{\color{magenta}Poiché ogni cluster $\mathcal{C}_s$ consta del medesimo numero
+	$2^{\mathrm{poly}(\ell)}$ di nuovi vincoli, se $\varepsilon$ è la frazione di vincoli
+	originali non soddisfatti, ogni assegnamento delle variabili della
+	nuova istanza $\psi$ viola almeno una frazione $\frac{\varepsilon}{2}$ dei vincoli.}
 \end{proof}
 
-\begin{proof}[Dimostrazione del Corollario \ref{thm:pcpprox}]
-	TBD.
+Per concludere, presentiamo la dimostrazione del Corollario~\ref{thm:pcpprox}.
+
+\begin{proof}[Dimostrazione del Corollario~\ref{thm:pcpprox}]
+	{\color{magenta}
+	Per questa dimostrazione riduciamo il problema di decidere la
+	soddisfacibilità di circuiti\footnote{Questo problema si chiama comunemente
+	\texttt{CKT-SAT}.} a \texttt{QUADEQ}. Questa riduzione trasforma un
+	circuito $C$ con $2k$ input e taglia $\ell$ in un sistema di $O(\ell)$
+	equazioni quadratiche in $\ell$ variabili su $\F_2$.
+	Le variabili $\ww = (w_1, \dots, w_\ell) \in \{0, 1\}^\ell$ dell'istanza
+	di \texttt{QUADEQ} corrispondono ai valori assunti dai nodi e archi del
+	circuito, per cui ogni soluzione ammissibile $\ww$ soddisfa le equazioni e
+	i suoi primi $2k$ bit $(w_1, \dots, w_{2k})$ costituiscono un input
+	$\mathbf{u_1 u_2} \in \{0, 1\}^{2k}$ (con $\mathbf{u_1}, \mathbf{u_2} \in \{0, 1\}^k$) che
+	rende l'output di $C$ pari a $1$.
+
+	Il verificatore $V$ ha accesso alle tre stringhe del certificato:
+	$\pi_1 \in \{0, 1\}^{2^k}$, $\pi_2 \in \{0, 1\}^{2^k}$ e alla dimostrazione
+	ausiliaria $\pi_3 \in \{0, 1\}^{2^{\mathrm{poly}(\ell)}}$.
+	Interpretiamo $\pi_1$ e $\pi_2$ come funzioni $\F_2^k \to \F_2$,
+	mentre $\pi_3$ è strutturata come la coppia di funzioni
+	$f \colon \F_2^\ell \to \F_2$ e $g \colon \F_2^{\ell^2} \to \F_2$ previste
+	dal sistema di verifica PCP esponenziale per \texttt{QUADEQ} relativo al
+	Teorema~\ref{thm:exppcp}. In una dimostrazione valida per un input
+	$\mathbf{u_1 u_2}$ accettato dal circuito $C$, si ha $\pi_1 = \WH(\mathbf{u_1})$,
+	$\pi_2 = \WH(\mathbf{u_2})$, $f = \WH(\ww)$ e $g = \WH(\ww \otimes \ww)$, dove
+	$\ww \in \{0, 1\}^\ell$ ha come primi $2k$ bit $\mathbf{u_1 u_2}$ e soddisfa
+	l'istanza di \texttt{QUADEQ}.
+
+	La procedura di verifica svolta da $V$ consiste nei seguenti tre controlli:
+	\begin{enumerate}
+		\item \textbf{Test di linearità}: $V$ esegue il test di linearità (BLR) su
+			$\pi_1$, $\pi_2$, $f$ e $g$. Se superato, si garantisce che tali
+			funzioni siano $0.99$-vicine a funzioni perfettamente lineari
+			$\tilde{\pi}_1 = \WH(\mathbf{u_1})$, $\tilde{\pi}_2 = \WH(\mathbf{u_2})$,
+			$\tilde{f} = \WH(\ww)$ e $\tilde{g} = \WH(\ww \otimes \ww)$ per opportuni
+			vettori $\mathbf{u_1}, \mathbf{u_2} \in \{0, 1\}^k$ e $\ww \in \{0, 1\}^\ell$.
+		\item \textbf{Test per \texttt{QUADEQ}}: $V$ esegue sui blocchi $f$ e $g$
+			di $\pi_3$ i controlli del verificatore per \texttt{QUADEQ} (verifica
+			di consistenza tra $f$ e $g$ e verifica del soddisfacimento delle
+			equazioni quadratiche).
+		\item \textbf{Test di concatenazione}: $V$ deve verificare che i primi
+			$2k$ bit del vettore $\ww$ codificato da $\tilde{f}$ coincidano
+			esattamente con la concatenazione $\mathbf{u_1 u_2}$ dei vettori
+			codificati da $\tilde{\pi}_1$ e $\tilde{\pi}_2$.
+			Per fare questo leggendo soltanto $O(1)$ bit, $V$ sceglie due vettori
+			$\xx, \yy \in \F_2^k$ uniformemente a caso e definisce il
+			vettore $\mathbf{xy0} \in \F_2^\ell$ come la stringa i cui primi
+			$k$ bit sono $\xx$, i successivi $k$ bit sono $\yy$ e i restanti
+			$\ell - 2k$ bit sono tutti pari a $0$.
+			Notiamo che per ogni vettore $\ww \in \{0, 1\}^\ell$:
+			\[
+				\langle \ww, \mathbf{xy0} \rangle =
+				\sum_{i=1}^k w_i x_i + \sum_{j=1}^k w_{k+j} y_j =
+				\langle \ww_{1..k}, \xx \rangle + \langle \ww_{k+1..2k}, \yy \rangle.
+			\]
+			Di conseguenza, $\tilde{f}(\mathbf{xy0}) = \tilde{\pi}_1(\xx) + \tilde{\pi}_2(\yy)$
+			se e solo se $\langle \ww_{1..k} \oplus \mathbf{u_1}, \xx \rangle +
+			\langle \ww_{k+1..2k} \oplus \mathbf{u_2}, \yy \rangle = 0$.
+			Per il principio della somma casuale, se $(\ww_{1..k}, \ww_{k+1..2k}) \neq (\mathbf{u_1}, \mathbf{u_2})$,
+			tale uguaglianza vale con probabilità al più $1/2$ al variare di
+			$\xx, \yy$. Pertanto $V$ legge $\pi_1(\xx)$, $\pi_2(\yy)$ e
+			$f(\mathbf{xy0})$ e accetta se e solo se
+			$f(\mathbf{xy0}) = \pi_1(\xx) + \pi_2(\yy)$.
+	\end{enumerate}
+
+	Analizziamo le tre proprietà enunciate nel corollario:
+	\begin{enumerate}
+		\item \textbf{Completezza}: Se $\mathbf{u_1 u_2}$ è accettato da $C$,
+			costruendo $\pi_3$ usando $\ww$ (il quale estende $\mathbf{u_1 u_2}$ e
+			soddisfa l'istanza di \texttt{QUADEQ}), tutte le identità verificate da $V$
+			valgono identicamente e $V$ accetta con probabilità $1$.
+		\item \textbf{Soundness}: Se $V$ accetta con probabilità almeno $1/2$, dai
+			test di linearità $\pi_1, \pi_2$ sono $0.99$-vicini a $\WH(\mathbf{u_1})$
+			e $\WH(\mathbf{u_2})$, mentre dal test di concatenazione e dai test per
+			\texttt{QUADEQ} segue che $\mathbf{u_1 u_2}$ è un assegnamento valido che
+			soddisfa il circuito $C$.
+		\item \textbf{Complessità}: La scelta di $\xx, \yy \in \F_2^k$ e dei
+			vettori casuali per i test di \texttt{QUADEQ} richiede
+			$O(\mathrm{poly}(\ell))$ bit random. In ciascun test $V$ legge un
+			numero costante $O(1)$ di bit dal certificato e impiega tempo di calcolo
+			$\mathrm{poly}(\ell)$.
+	\end{enumerate}
+	}
 \end{proof}
