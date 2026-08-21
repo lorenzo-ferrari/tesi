@@ -733,6 +733,14 @@ grande a piacere, l'obiettivo è trasformarla a un'istanza $\psi$ di $q_0\CSP_2$
 per un $q_0$ fissato e indipendente da $W$, il tutto con perdita di gap al più
 costante.
 
+% TBD. Dire, necessariamente in modo vago, che verifichiamo ogni vincolo
+% con un piccolo protocollo PCP, che però può essere anche molto inefficiente,
+% poiché i vincoli sono oggetti di dimensione costante.
+% le variabili della nuova istanza di CSP corrisponderanno ai bit delle
+% dimostrazione per i protocolli PCP.
+% leggendo questa costruzione attraverso la corrispondenza tra sistemi PCP e
+% CSP, otteniamo un'istanza su un alfabeto binario.
+
 Sarà utile ragionare in termini di circuiti, cioè diagrammi procedurali per
 calcolare un bit di output applicando una sequenza di operazioni logiche ai bit
 di una stringa binaria in input.
@@ -782,9 +790,8 @@ Useremo come ingrediente fondamentale la dimostrazione del Teorema
 con buon probabilità un certificato se e soltanto se questo è \emph{vicino} a
 un certificato valido.
 
-% quantifichiamo su k e l??
 \begin{corollary}[PCP di prossimità] \label{thm:pcpprox}
-	Esiste un verificatore $V$ che dato un qualunque circuito $C$ con $2k$ input
+	Esiste un verificatore $V$ che dato un qualunque circuito $C$ con $2 k$ input
 	e taglia $\ell$, ha le seguenti proprietà:
 	\begin{enumerate}
 		\item date $\bm{u_1}, \bm{u_2} \in \{0, 1\}^k$ tali che $\bm{u_1 u_2}$
@@ -850,16 +857,15 @@ la riduzione dell'alfabeto.
 	vincoli.
 \end{proof}
 
-Per concludere, presentiamo la dimostrazione del Corollario~\ref{thm:pcpprox}.
+Per concludere, manca solo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 
-% TBD. Capire ed esplicitare le quantificazioni su \ell e k.
 \begin{proof}[Dimostrazione del Corollario~\ref{thm:pcpprox}]
 	Riduciamo il problema di decidere la soddisfacibilità di
 	circuiti\footnote{Questo problema si chiama comunemente \texttt{CKT-SAT}.}
-	a \texttt{QUADEQ}, che poi verifichiamo	probabilisticamente come nella
-	dimostrazione del Teorema~\ref{thm:exppcp}.
+	a \texttt{QUADEQ}, le cui dimostrazioni verifichiamo poi probabilisticamente
+	come nella dimostrazione del Teorema~\ref{thm:exppcp}.
 
-	Dato un circuito $C$ con $2k$ input e di taglia $\ell$, la corrispondente
+	Dato un circuito $C$ con $2 k$ input e di taglia $\ell$, la corrispondente
 	istanza di \texttt{QUADEQ} avrà come variabili i nodi del circuito e
 	un'equazione a esprimere ogni porta logica, come in
 	Figura~\ref{fig:porte-logiche-quadeq}.
@@ -870,30 +876,29 @@ Per concludere, presentiamo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 		\caption{Porte logiche ed equazioni quadratiche equivalenti su $\F_2$.}
 		\label{fig:porte-logiche-quadeq}
 	\end{figure}
-
-	Poiché le variabili $\ww = (w_1, \dots, w_\ell) \in \{0, 1\}^\ell$
+	Inoltre, poiché le variabili $\ww = (w_1, \dots, w_\ell) \in \{0, 1\}^\ell$
 	dell'istanza corrispondono ai valori assunti dai nodi del circuito, i primi
 	$2 k$ bit di ogni soluzione ammissibile costituiscono un input
 	$\bm{u_1 u_2} \in \{0, 1\}^{2 k}$ accettato dal circuito.
 
 	Il verificatore $V$ ha accesso alle tre stringhe del certificato:
-	$\pi_1, \pi_2 \in \{0, 1\}^{2^k}$ e la dimostrazione ausiliaria
+	$\pi_1, \pi_2 \in \{0, 1\}^{2^k}$ e la restante parte di dimostrazione
 	$\pi_3 \in \{0, 1\}^{2^{\mathrm{poly}(\ell)}}$.
 	Interpretiamo $\pi_1$ e $\pi_2$ come funzioni $\F_2^k \to \F_2$, mentre
 	$\pi_3$ corrisponde esattamente alla dimostrazione prevista dal sistema di
-	verifica previsto dal Teorema~\ref{thm:exppcp}.
+	verifica del Teorema~\ref{thm:exppcp}.
 	La stringa $\pi_3$ si interpreta dunque come coppia di funzioni
-	$f\colon \F_2^\ell \to \F_2$ e $g\colon \F_2^{\ell^2} \to \F_2$.
-	In una dimostrazione valida, $\pi_3$ è la concatenazione delle codifiche di
-	Walsh-Hadamard $\WH(\ww)$ e $\WH(\ww \otimes \ww)$ per un valido
-	assegnamento $\ww$.
-	In una dimostrazione valida per un input
-	$\bm{u_1 u_2}$ accettato dal circuito $C$, si ha $\pi_1 = \WH(\bm{u_1})$,
-	$\pi_2 = \WH(\bm{u_2})$, $f = \WH(\ww)$ e $g = \WH(\ww \otimes \ww)$, dove
-	$\ww \in \{0, 1\}^\ell$ ha come primi $2k$ bit $\bm{u_1 u_2}$ e soddisfa
-	l'istanza di \texttt{QUADEQ}. In particolare, per ogni input accettato dal
-	circuito esiste una corrispondente dimostrazione valida.
+	$f\colon \F_2^\ell \to \F_2$ e $g\colon \F_2^{\ell^2} \to \F_2$, che nel caso
+	di una dimostrazione valida corrispondono alle codifiche di	Walsh-Hadamard
+	$\WH(\ww)$ e $\WH(\ww \otimes \ww)$ per un valido assegnamento $\ww$.
 
+	Per ogni input $\bm{u_1 u_2}$ accettato dal circuito $C$, una valida
+	dimostrazione è data da	$\pi_1 = \WH(\bm{u_1})$,
+	$\pi_2 = \WH(\bm{u_2})$ e le codifiche relative a un vettore
+	$\ww \in \{0, 1\}^\ell$ che rappresenta i valori degli $\ell$ nodi del
+	circuito quando questo ha input $\bm{u_1 u_2}$.
+
+	Il processo di verifica è il seguente.
 	Il verificatore $V$ esegue innanzitutto un test di linearità su $\pi_1$,
 	$\pi_2$, $f$ e $g$. Se superato, con alta probabilità tali funzioni sono
 	$0.99$-vicine a funzioni lineari $\tilde{\pi}_1 = \WH(\bm{u_1})$,
@@ -905,11 +910,21 @@ Per concludere, presentiamo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 	Se le verifiche sono superate, rimane solo da assicurarsi che i primi $2 k$
 	bit di $\ww$ coincidano con $\bm{u_1 u_2}$, vale a dire
 	$(w_1, \dots, w_{2 k}) = \bm{u_1 u_2}$.
-	Dal Capitolo~\ref{chap:complessita} sappiamo che è sufficiente testare il
-	prodotto scalare con un vettore casuale in $\{0, 1\}^{2 k}$. Il
-	verificatore sceglie dunque due vettori $\xx, \yy \in \{0, 1\}^k$ e
-	verifica che $f(\xx \yy \bm{0}) = \pi_1 (\xx) + \pi_2 (\yy)$, dove $\bm{0}$
-	è la stringa di lunghezza $\ell - 2 k$ nulla in tutte le posizioni.
+	Dal Capitolo~\ref{chap:complessita} sappiamo che per distinguere con
+	probabilità $\frac12$ due vettori è sufficiente confrontarne i prodotti
+	scalari con un terzo vettore casuale.
+	Il verificatore sceglie dunque uniformemente due vettori
+	$\xx, \yy \in \{0, 1\}^k$ e	verifica che
+	$f(\xx \yy \bm{0}) = \pi_1 (\xx) + \pi_2 (\yy)$, dove con $\bm{0}$ indichiamo
+	la stringa di lunghezza $\ell - 2 k$ nulla in tutte le posizioni.
+	Le parti sinistra e destra dell'uguale valgono rispettivamente
+	$\langle (w_1, \dots, w_{2 k}), \bm{x y} \rangle$ e
+	$\langle \bm{u_1 u_2}, \bm{x y} \rangle$, dunque la verifica è quella
+	desiderata. Come al solito, è sufficiente ripetere il test un numero
+	costante di volte per abbassare a piacere la probabilità di errore. Nel
+	nostro è sufficiente avere probabilità di errore minore di $\frac12$,
+	cosicché che il protocollo di verifica soddisfi le proprietà 2. del
+	Corollario~\ref{thm:pcpapprox}.
 
 	Complessivamente, il verificatore impiega tempo polinomiale in $\ell$, utilizza
 	$\mathrm{poly}(\ell)$ bit casuali e legge un numero costante di bit del
