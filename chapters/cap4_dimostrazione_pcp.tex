@@ -583,7 +583,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	$q\CSP_2$ a istanze amplificabili.
 \end{proof}
 
-\subsection{Ottenere istanze amplificabili} \labelsubsec:istanze-amplificabili}
+\subsection{Ottenere istanze amplificabili} \label{subsec:istanze-amplificabili}
 
 Il Lemma \ref{thm:powering} si applica a istanze di $\CSP$ con determinate
 caratteristiche. Dunque è necessario mostrare che, a meno di una perdita di gap,
@@ -722,21 +722,46 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 	\]
 	nello specifico $G_\psi$ è un expander e l'istanza $\psi$ è amplificabile.
 \end{proof}
+Con questo si conclude anche la dimostrazione del
+Lemma~\ref{thm:gap-amplification} di amplificazione del gap.
 
 \section{Riduzione dell'alfabeto}
 
 In questa sezione dimostriamo il Lemma \ref{thm:alphabet-reduction} di
-riduzione dell'alfabeto: data
-un'istanza $\varphi$ di $2\CSP_W$ su alfabeto grande a piacere,
-l'obiettivo è trasformarla a un'istanza $\psi$ di $q_0\CSP_2$ per un $q_0$
-fissato e indipendente da $W$, il tutto con perdita di gap al più costante.
+riduzione dell'alfabeto: data un'istanza $\varphi$ di $2\CSP_W$ su alfabeto
+grande a piacere, l'obiettivo è trasformarla a un'istanza $\psi$ di $q_0\CSP_2$
+per un $q_0$ fissato e indipendente da $W$, il tutto con perdita di gap al più
+costante.
+
+Sarà utile ragionare in termini di circuiti, cioè diagrammi procedurali per
+calcolare un bit di output applicando una sequenza di operazioni logiche ai bit
+di una stringa binaria in input.
+
+\begin{definition}
+	Un \emph{circuito booleano} è un grafo diretto aciclico i cui nodi
+	sorgente rappresentano i bit di input e i nodi interni, detti
+	\emph{porte logiche}, corrispondono a operazioni logiche
+	$\mathrm{AND}$ (due archi entranti), $\mathrm{OR}$ (due archi entranti) o
+	$\mathrm{NOT}$ (un arco entrante).
+	Un nodo prescelto fornisce il bit di output, ottenuto applicando la
+	sequenza di operazioni descritta dalle porte logiche ai bit di input.
+	Il numero di nodi si dice \emph{taglia} del circuito.
+\end{definition}
+
+\begin{figure}[htbp]
+	\centering
+	\input{graphics/xor_circuit}
+	\caption{Un circuito che calcola la funzione $\mathrm{XOR}$ ($\mathrm{OR}$
+		esclusivo) su due bit in	input $x_1, x_2$.}
+	\label{fig:xor-circuit}
+\end{figure}
 
 A meno di aggiungere simboli inutilizzati, possiamo supporre $W$ sia una
 potenza di due e identificare i simboli in $W$ con le stringhe in
 $\{0, 1\}^{\log W}$. Un qualunque vincolo $C_s$ dipendente dalle variabili
 $u_i$ e $u_j$ si può pensare come un circuito applicato alle stringhe binarie
 che rappresentano $u_i$ e $u_j$: il vincolo è soddisfatto se e soltanto se
-l'output del circuito è $1$. Sia $\ell$ un limite superiore sulla dimensione
+l'output del circuito è $1$. Sia $\ell$ un limite superiore alla taglia
 del circuito al variare di tutti i vincoli. Possiamo supporre $\ell \le TBD$,
 semplicemente implementando in ogni circuito la formula $2k$-CNF che
 rappresenta il vincolo\footnote{Qualche dettaglio in più. TBD.}.
