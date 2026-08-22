@@ -1,6 +1,3 @@
-%%% CONSISTENZA!!!
-%%% TBD. Come chiamo i vertici del cammino?
-
 \chapter{Dimostrazione del Teorema PCP} \label{chap:pcpproof}
 
 In questo capitolo presentiamo la dimostrazione del Teorema PCP nella sua
@@ -264,8 +261,8 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	$\varphi$ non sia soddisfacibile.
 
 	\subsubsection{Estrarre un assegnamento per $\varphi$}
-	Per dimostrare la proprietà (iii) trasformiamo ogni assegnamento di $\yy$
-	per $\varphi^t$ in un assegnamento di $\zz$ per $\varphi$. Mostreremo
+	Per dimostrare la proprietà (iii) trasformiamo ogni assegnamento $\yy$
+	per $\varphi^t$ in un assegnamento $\zz$ per $\varphi$. Mostreremo
 	che se l'assegnamento delle vecchie variabili viola anche solo ``pochi'',
 	cioè una frazione $\varepsilon$, dei vincoli, l'assegnamento delle nuove
 	variabili ne viola necessariamente ``tanti'', cioè una frazione
@@ -726,7 +723,7 @@ Lemma~\ref{thm:gap-amplification} di amplificazione del gap.
 
 In questa sezione ci occupiamo del Lemma~\ref{thm:alphabet-reduction} di
 riduzione dell'alfabeto: data un'istanza $\varphi$ di $2\CSP_W$ su alfabeto
-grande a piacere, l'obiettivo è trasformarla a un'istanza $\psi$ di $q_0\CSP_2$
+grande a piacere, l'obiettivo è trasformarla in un'istanza $\psi$ di $q_0\CSP_2$
 per un $q_0$ fissato e indipendente da $W$, il tutto con perdita di gap al più
 costante.
 
@@ -929,7 +926,7 @@ Per concludere, manca solo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 	costante di volte per abbassare a piacere la probabilità di errore. Per noi
 	è sufficiente tale probabilità di errore sia minore di $\frac12$, cosicché
 	il protocollo di verifica soddisfi la proprietà 2. del
-	Corollario~\ref{thm:pcpapprox}.
+	Corollario~\ref{thm:pcpprox}.
 
 	Complessivamente, il verificatore impiega tempo polinomiale in $\ell$,
 	utilizza $\mathrm{poly}(\ell)$ bit casuali e legge un numero costante di bit

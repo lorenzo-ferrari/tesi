@@ -142,10 +142,10 @@ Chiamiamo questo problema $\mathtt{QUADEQ}$.
 Gli operatori logici si possono esprimere con equazioni di grado al più due,
 per cui non è difficile ridurre $\mathtt{SAT}$ a $\mathtt{QUADEQ}$ e mostrare
 che $\mathtt{QUADEQ}$ è $\NP$-completo.
-Inoltre, poiché in $\F_2$ vale l'identità ${u_i}^2 = u_i$,
-possiamo assumere le equazioni non contengano termini lineari e
-rappresentare un'istanza come una matrice di coefficienti
-$A \in \F_2^{m \times n^2}$ e un vettore di termini noti
+Inoltre in $\F_2$ vale l'identità $u_i^2 = u_i$, quindi ogni equazione
+si può sostituire con un'equazione equivalente che non contiene
+termini lineari, cosicché si possa rappresentare un'istanza come una matrice
+di coefficienti $A \in \F_2^{m \times n^2}$ e un vettore di termini noti
 $\bb \in \F_2^m$. Fissata una bigezione $[n^2] \to [n] \times [n]$
 e definendo $(\xx \otimes \yy)_{ij}$ come $x_i y_j$, un
 assegnamento $\uu$ risolve il sistema se e soltanto se
@@ -348,9 +348,9 @@ questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 	base ortonormale detta \emph{base di Fourier}.
 	Ogni $f$ come in ipotesi si scompone quindi come
 	\[
-		f = \sum_{\alpha \subseteq [n]} \hat{f_\alpha} \chi_\alpha.
+		f = \sum_{\alpha \subseteq [n]} \hat{f}_\alpha \chi_\alpha.
 	\]
-	Chiamiamo gli $\hat{f_\alpha}$ \emph{coefficienti di Fourier} e i
+	Chiamiamo gli $\hat{f}_\alpha$ \emph{coefficienti di Fourier} e i
 	$\chi_\alpha$ \emph{caratteri}.
 
 	Scriviamo l'ipotesi in termini di valore atteso. Poiché $f$ assume solo
@@ -369,28 +369,28 @@ questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 		\E[f(\xx \odot \yy)f(\xx)f(\yy)] &=
 			\frac1{4^n} \sum_{\xx, \yy} f(\xx \odot \yy) f(\xx) f(\yy) \\
 		&= \frac1{4^n} \sum_{\xx, \yy} \sum_{\alpha, \beta, \gamma}
-			\hat{f_\alpha} \hat{f_\beta} \hat{f_\gamma}
+			\hat{f}_\alpha \hat{f}_\beta \hat{f}_\gamma
 			\chi_\alpha (\xx \odot \yy) \chi_\beta(\xx) \chi_\gamma(\yy) \\
 		&= \frac1{4^n} \sum_{\xx, \yy} \sum_{\alpha, \beta, \gamma}
-			\hat{f_\alpha} \hat{f_\beta} \hat{f_\gamma}
+			\hat{f}_\alpha \hat{f}_\beta \hat{f}_\gamma
 			\chi_\alpha(\xx) \chi_\alpha(\yy) \chi_\beta(\xx) \chi_\gamma(\yy) \\
 		&= \sum_{\alpha, \beta, \gamma}
-			\hat{f_\alpha} \hat{f_\beta} \hat{f_\gamma}
+			\hat{f}_\alpha \hat{f}_\beta \hat{f}_\gamma
 			\Big( \frac1{2^n} \sum_{\xx} \chi_\alpha(\xx) \chi_\beta(\xx) \Big)
 			\Big( \frac1{2^n} \sum_{\yy} \chi_\alpha(\yy) \chi_\gamma(\yy) \Big) \\
 		&= \sum_{\alpha, \beta, \gamma}
-			\hat{f_\alpha} \hat{f_\beta} \hat{f_\gamma}
+			\hat{f}_\alpha \hat{f}_\beta \hat{f}_\gamma
 			\delta_{\alpha \beta} \delta_{\alpha \gamma} \\
-		&= \sum_{\alpha} \hat{f_\alpha}^3.
+		&= \sum_{\alpha} \hat{f}_\alpha^3.
 	\end{align*}
-	L'ipotesi si traduce in $2 \varepsilon \le \sum_{\alpha} \hat{f_\alpha}^3
-	\le (\max_\alpha \hat{f_\alpha}) \sum_{\alpha} \hat{f_\alpha}^2 =
-	\max_\alpha \hat{f_\alpha}$ poiché $\langle f, f \rangle = 1$ e la
+	L'ipotesi si traduce in $2 \varepsilon \le \sum_{\alpha} \hat{f}_\alpha^3
+	\le (\max_\alpha \hat{f}_\alpha) \sum_{\alpha} \hat{f}_\alpha^2 =
+	\max_\alpha \hat{f}_\alpha$ poiché $\langle f, f \rangle = 1$ e la
 	base di Fourier è ortonormale\footnote{L'identità
-	$\langle f, f \rangle = \sum_\alpha \hat{f_\alpha}^2$ si chiama identità di
+	$\langle f, f \rangle = \sum_\alpha \hat{f}_\alpha^2$ si chiama identità di
 	Parseval.}.
 
-	Se $\hat{f_\alpha} \ge 2 \varepsilon$, allora
+	Se $\hat{f}_\alpha \ge 2 \varepsilon$, allora
 	$\E_{\xx}[f(\xx) \chi_\alpha (\xx)] \ge 2 \varepsilon$, da cui
 	$\Pr_{\xx}[f(\xx) = \chi_\alpha (\xx)] \ge \frac12 + \varepsilon = \rho$.
 \end{proof}
@@ -466,7 +466,7 @@ passaggi algebrici:
 = \sum_{i, j} (\uu \otimes \uu)_{i j} (\rr \otimes \rr')_{i j}.
 \]
 In generale, sia $\ww \in \F_2^{n^2}$ il vettore codificato da $g$.
-Consideriamo le matrici $U = (U_{i j}) = (u_i u_j)$ e $W = (W_{i j}) = (\ww_{i j})$.
+Consideriamo le matrici $U = (U_{i j}) = (u_i u_j)$ e $W = (W_{i j}) = (w_{i j})$.
 Possiamo riscrivere $f(\rr)f(\rr')$ e $g(\rr \otimes \rr')$ come
 $\rr^\top U \rr'$ e $\rr^\top W \rr'$.
 Se $g$ non codifica $\uu \otimes \uu$, cioè se $U \neq W$, allora con
