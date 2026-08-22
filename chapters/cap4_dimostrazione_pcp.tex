@@ -65,7 +65,7 @@ mostrare perché il Teorema PCP segue.
 	non soddisfacibili non è almeno costante. Se $\varphi$ non è soddisfacibile,
 	allora $\val(\varphi) \le 1 - \frac1{m}$ dove $m$ è il numero di vincoli.
 	Poiché a ogni iterazione il gap raddoppia, $\log m$ iterazioni sono
-	sufficienti per raggiungere $\varepsilon_1$ ed ottenere quindi un gap almeno
+	sufficienti per raggiungere $\varepsilon_0$ ed ottenere quindi un gap almeno
 	costante. In virtù del fatto che la trasformazione comporta un aumento di
 	taglia lineare, l'istanza ottenuta dopo $\log m$ applicazioni ha taglia
 	polinomiale nella taglia di $\varphi$, dunque l'intera computazione si svolge
@@ -91,14 +91,13 @@ di due trasformazioni la cui esistenza è garantita dai seguenti lemmi.
 	$2\CSP$ su un qualunque alfabeto a istanze $\psi = h(\varphi)$ di
 	$q_0 \CSP_2$ che soddisfa
 	\[
-		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon / 3.
+		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon / 2.
 	\]
 \end{lemma}
 
 Il Lemma~\ref{thm:gap-amplification} e il Lemma~\ref{thm:alphabet-reduction}
 insieme implicano il Lemma~\ref{thm:pcp-key-lemma} ponendo
-$f = h \circ g_{6, q_0}$, come mostra la
-Tabella~\ref{tab:pcp-composition}.
+$f = h \circ g_{6, q_0}$, come in Tabella~\ref{tab:pcp-composition}.
 
 \begin{table}[htbp]
 	\centering
@@ -152,7 +151,7 @@ del Teorema~\ref{thm:expander-walk}, l'amplificazione è comunque dell'ordine
 di $k$.
 Purtroppo anche in questo modo l'istanza prodotta ha arietà $k q$.
 
-Risolveremo questo problema considereremo vincoli corrispondenti a passeggiate
+Risolveremo questo problema considerando vincoli corrispondenti a passeggiate
 aleatorie su expander i cui nodi corrispondono alle variabili di $\varphi$.
 Espanderemo l'alfabeto in modo tale che ogni variabile esprima un'opinione sui
 valori delle variabili in un suo intorno, cosicché sarà possibile limitare la
@@ -163,8 +162,8 @@ complessità della dimostrazione che segue.
 \subsection{Amplificazione del gap di Dinur}
 
 Le proprietà pseudocasuali degli expander di cui faremo uso si manifestano nel
-Lemma $\ref{thm:Din06Prop2.5}$, dimostrato nel Capitolo~\ref{chap:expander},
-che riportiamo qui per comodità.
+Lemma~\ref{thm:Din06Prop2.5}, dimostrato nel Capitolo~\ref{chap:expander}, che
+riportiamo qui per comodità.
 
 \expanderFwalk*
 
@@ -175,9 +174,9 @@ all'istanza il cui gap intendiamo amplificare. Tenendo a mente l'esempio di
 
 \begin{definition}
 	Data un'istanza $\varphi$ di $2\CSP_\Sigma$ con $n$ variabili
-	$x_1, \dots, x_n$, il suo \emph{grafo soggiacente} $G_\varphi$ è il grafo
-	con vertici $[n]$ e un arco $(i, j)$ per ogni vincolo dipendente da $x_i$ e
-	$x_j$. Definiamo in modo analogo l'ipergrafo soggiacente a un'istanza di
+	$u_1, \dots, u_n$, il suo \emph{grafo soggiacente} $G_\varphi$ è il grafo
+	con vertici $[n]$ e un arco $(i, j)$ per ogni vincolo dipendente da $u_i$ e
+	$u_j$. Definiamo in modo analogo l'ipergrafo soggiacente a un'istanza di
 	$k\CSP$.
 \end{definition}
 
@@ -210,8 +209,8 @@ amplificabili.
 			di cardinalità $W' \le W^{d^{3 t}}$, dove $d$ è il grado del grafo
 			soggiacente a $\varphi$ e $W$ è la cardinalità dell'alfabeto di $\varphi$;
 		\item se $\varphi$ è soddisfacibile, anche $\varphi^t$ lo è;
-		\item per ogni $\varepsilon < \frac1{\sqrt{t}}$,
-			se $\val(\varphi) < 1 - \varepsilon$, allora
+		\item per ogni $\varepsilon \le \frac1{\sqrt{t}}$,
+			se $\val(\varphi) \le 1 - \varepsilon$, allora
 			$\val(\varphi^t) \le 1 - \varepsilon'$, con
 			$\varepsilon' = \frac{\sqrt{t}}{10^3 W^5} \varepsilon$.
 	\end{enumerate}
@@ -232,27 +231,28 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	delle $d^{3 t}$-uple di valori nell'alfabeto originale $[W]$.
 
 	Pensiamo al valore di $y_i$ come a un'opinione riguardo i valori delle variabili
-	originali a distanza al più $t + \sqrt{t} + 1$ da $x_i$ in $G_\varphi$.
+	originali a distanza al più $t + \sqrt{t} + 1$ da $u_i$ in $G_\varphi$.
 	Poiché il grafo è $d$-regolare e ogni nodo ha almeno un cappio, ci sono al
 	più $d^{t + \sqrt{t} + 1} \le d^{3 t}$ siffatti nodi, quindi le opinioni
 	possono essere codificate con alfabeto di taglia $W'$.
-	Indichiamo con $y_{i_1}[i_2]$ l'opinione che il nodo $i_1$ esprime sul nodo
-	$i_2$, posto che questi siano sufficientemente vicini.
+	Indichiamo con $y_{v_1}[v_2]$ l'opinione che il nodo $v_1$ esprime sul nodo
+	$v_2$, posto che questi siano sufficientemente vicini.
 	Osserviamo che non è detto le opinioni siano consistenti.
 
 	I vincoli dell'istanza $\varphi^t$ saranno i seguenti.
-	A ogni percorso $p = \langle i_1, \ldots, i_{2t + 2} \rangle$ di lunghezza
+	A ogni percorso $p = \langle v_1, \ldots, v_{2t + 2} \rangle$ di lunghezza
 	$(2 t + 1)$ in $G_\varphi$,	corrisponde un vincolo $C_p$ di $\varphi^t$,
-	dipendente dai valori di $y_{i_1}$ e $y_{i_{2t + 2}}$.
+	dipendente dai valori di $y_{v_1}$ e $y_{v_{2t + 2}}$.
 	Il vincolo $C_p$ restituisce FALSO se e soltanto se esiste un $j \in [2t + 1]$
 	tale che:
 	\begin{enumerate}
-		\item il nodo $i_j$ è a distanza al più $t + \sqrt{t}$ dal nodo $i_1$;
-		\item il nodo $i_{j + 1}$ è a distanza al più $t + \sqrt{t}$ dal nodo $i_{2t+2}$;
-		\item detti $w$ il valore che $y_1$ attribuisce a $x_{i_j}$ e $w'$
-			il valore che $y_{2 t + 2}$ attribuisce a $x_{i_{j + 1}}$, la
-			coppia $(w, w')$ viola il vincolo in $\varphi$ che connette	$i_j$ a
-			$i_{j + 1}$ in $p$.
+		\item il nodo $v_j$ è a distanza al più $t + \sqrt{t}$ dal nodo $v_1$;
+		\item il nodo $v_{j + 1}$ è a distanza al più $t + \sqrt{t}$ dal nodo
+			$v_{2t+2}$;
+		\item detti $w$ il valore che $y_{v_1}$ attribuisce a $u_{v_j}$ e $w'$
+			il valore che $y_{v_{2 t + 2}}$ attribuisce a $u_{v_{j + 1}}$, la
+			coppia $(w, w')$ viola il vincolo in $\varphi$ che connette	$v_j$ a
+			$v_{j + 1}$ in $p$.
 	\end{enumerate}
 
 	Osserviamo che l'istanza $\varphi^t$ soddisfa per costruzione la proprietà
@@ -265,22 +265,19 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 
 	\subsubsection{Estrarre un assegnamento per $\varphi$}
 	Per dimostrare la proprietà (iii) trasformiamo ogni assegnamento di $\yy$
-	per $\varphi^t$ in un assegnamento di $\xx$ per $\varphi$. Mostreremo
+	per $\varphi^t$ in un assegnamento di $\zz$ per $\varphi$. Mostreremo
 	che se l'assegnamento delle vecchie variabili viola anche solo ``pochi'',
 	cioè una frazione $\varepsilon$, dei vincoli, l'assegnamento delle nuove
 	variabili ne viola necessariamente ``tanti'', cioè una frazione
 	$\Omega(\sqrt{t}\varepsilon)$.
 
-	% capire come chiamare i nodi nel grafo e come chiamare le variabili
-	% nuova proposta: nodi [n], variabili x_1, ..., x_n
-
-	Per ogni variabile $x_j$ di $\varphi$, definiamo la variabile aleatoria
+	Per ogni variabile $u_j$ di $\varphi$, definiamo la variabile aleatoria
 	$Z_j \in [W]$ come il risultato del seguente processo.
-	Partendo dal nodo $i_j$, si fa una passeggiata aleatoria di $t$ passi in
-	$G_\varphi$, questa raggiunge un certo nodo $i_k$ e restituisce l'opinione di $y_k$
-	sulla variabile $x_j$. Detta $z_j$ la moda di $Z_j$, chiamiamo
+	Partendo dal nodo $v_j$, si fa una passeggiata aleatoria di $t$ passi in
+	$G_\varphi$, questa raggiunge un certo nodo $v_k$ e restituisce l'opinione di
+	$y_{v_k}$ sulla variabile $u_j$. Detta $z_j$ la moda di $Z_j$, chiamiamo
 	\emph{assegnamento di maggioranza} quello corrispondente a $z_1, \ldots, z_n$.
-	Informalmente $z_j$ corrisponde all'opinione sul valore di $x_j$ più
+	Informalmente $z_j$ corrisponde all'opinione sul valore di $u_j$ più
 	popolare in un suo intorno.
 	In seguito formalizziamo il seguente ragionamento euristico:
 	poiché l'assegnamento $z_1, \ldots, z_n$ viola abbastanza vincoli e poiché i
@@ -299,12 +296,12 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	\subsubsection{Analisi}
 	Il resto della dimostrazione avviene nello spazio di probabilità uniforme
 	sui cammini di lunghezza $(2t + 1)$ in $G_\varphi$, indicati con
-	$\langle i_1, \dots, i_{2t + 2} \rangle$, o equivalentemente uniforme sui
+	$\langle v_1, \dots, v_{2t + 2} \rangle$, o equivalentemente uniforme sui
 	vincoli di $\varphi^t$ costruita come sopra.
 	
-	Dato $j \in {1, \ldots, 2t + 1}$, diciamo che il $j$-esimo arco del cammino
-	è \emph{consistente} se $y_1$ assegna a $i_j$ il valore di maggioranza e
-	$y_{2t + 2}$ assegna a $i_{j + 1}$ il valore di maggioranza.
+	Dato $j \in \{1, \ldots, 2t + 1\}$, diciamo che il $j$-esimo arco del
+	cammino è \emph{consistente} se $y_{v_1}$ assegna a $v_j$ il valore di maggioranza
+	e $y_{v_{2t + 2}}$ assegna a $v_{j + 1}$ il valore di maggioranza.
 	Osserviamo che se il cammino contiene un arco consistente e in $F$, allora
 	il corrispondente vincolo è violato. Dimostriamo che almeno una frazione
 	$\varepsilon'$ dei cammini ha questa proprietà.
@@ -322,8 +319,8 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 		Per ogni arco $e$ di $G_\varphi$ e indice
 		$j \in \{ t - \delta \sqrt{t}, \ldots, t + \delta \sqrt{t} \}$ vale
 		\[
-			\Pr[\text{il $j$-esimo arco sul cammino è consistente} \mid
-				e \text{ è il $j$-esimo arco}] \ge \frac1{2 W^2}.
+			\Pr[\text{il $(j + 1)$-esimo arco sul cammino è consistente} \mid
+				e \text{ è il $(j + 1)$-esimo arco}] \ge \frac1{2 W^2}.
 		\]
 	\end{lemma}
 
@@ -335,13 +332,13 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 
 		Formalmente, il lemma è dimostrato cambiando punto di vista sul modo in
 		cui il cammino è generato. Un cammino di lunghezza $2t + 1$ che contiene
-		$e = (i_j, i_{j + 1})$ come $j$-esimo arco si può generare concatenando una
-		passeggiata aleatoria di lunghezza $j$ da $i_j$, l'arco $e$ e una 
-		passeggiata di lunghezza $2t - j$ da $i_{j + 1}$ indipendente dalla prima.
-		Basta allora dimostrare
+		$e = (v_{j + 1}, v_{j + 2})$ come $(j + 1)$-esimo arco si può generare
+		concatenando una passeggiata aleatoria di lunghezza $j$ da $v_{j + 1}$,
+		l'arco $e$ e una passeggiata di lunghezza $2t - j$ da $v_{j + 2}$
+		indipendente dalla prima. Basta allora dimostrare
 		\[
-			\Pr[y_{i_1}[ i_j ] = z_{i_j} \land
-				y_{i_{2t + 2}}[ i_{j + 1} ] = z_{i_{j + 1}}]
+			\Pr[y_{v_1}[ v_{j + 1} ] = z_{v_{j + 1}} \land
+				y_{v_{2t + 2}}[ v_{j + 2} ] = z_{v_{j + 2}}]
 				\ge \frac1{2 W^2}.
 		\]
 		Poiché il valore maggioritario è definito tramite passeggiate di lunghezza
@@ -514,8 +511,8 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 		Utilizziamo le proprietà di mescolamento degli expander e che l'insieme
 		$F$ contiene una frazione $\varepsilon$ degli archi.
 		Per $j \in \{ t - \delta \sqrt{t}, \ldots, t + \delta
-		\sqrt{t} \}$ sia $I_j$ l'indicatrice dell'evento ``il $j$-esimo arco è in
-		$F$''.
+		\sqrt{t} \}$ sia $I_j$ l'indicatrice dell'evento ``il $(j + 1)$-esimo arco
+		è in $F$''.
 
 		\begin{lemma} \label{thm:Din06Prop6.5}
 			Siano $i < j$ due indici e $F \subseteq E$ un sottoinsieme degli archi.
@@ -526,7 +523,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			\]
 		\end{lemma}
 		\begin{proof}
-			Per ogni $i$ vale $\Pr[I_i = 1] = \frac{|F|}{|E|}$ per ogni $i$.
+			Per ogni $i$ vale $\Pr[I_i = 1] = \frac{|F|}{|E|}$.
 			Allora,
 			\[
 				\E[I_i I_j] = \Pr[I_i I_j = 1] = \Pr[I_i = 1]\Pr[I_j = 1 \mid I_i = 1]
@@ -550,7 +547,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 		parametri $\delta$, $\lambda$ ed $\varepsilon$.
 		\begin{align*}
 			\E[V'^2] &= \E[ \sum_{i, j} I_i I_j ] \\
-			&= \E[ \sum_{i} I_i^2 ] + \E[ \sum_{i \neq j} I_i I_i ] \\
+			&= \E[ \sum_{i} I_i^2 ] + \E[ \sum_{i \neq j} I_i I_j ] \\
 			&= \varepsilon (2 \delta \sqrt{t} + 1) + \sum_{i \neq j} \E[ I_i I_j ] \\ 
 			&\le 3  \varepsilon \delta \sqrt{t} + 2 \sum_{i < j}
 				\frac{|F|}{|E|} \left( \frac{|F|}{|E|} + \lambda^{j - i - 1} \right) \\
@@ -565,17 +562,17 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 				60 \varepsilon \delta \sqrt{t} \quad (\text{da } \lambda \le 0.9) \\
 			&\le 3 \varepsilon \delta \sqrt{t} + 6 \varepsilon \delta \sqrt{t} +
 				60 \varepsilon \delta \sqrt{t} \quad \Big(\text{da }
-				\varepsilon < \frac1{\sqrt{t}} \text{ e } \delta < 1\Big) \\
+				\varepsilon \le \frac1{\sqrt{t}} \text{ e } \delta < 1\Big) \\
 			&\le 100 \delta \sqrt{t} \varepsilon.
 	\end{align*}
 	\end{proof}
 
-	Nel nostro caso, la stima del Lemma $\ref{thm:cs-estimate}$ diventa
+	Nel nostro caso, la stima del Lemma~\ref{thm:cs-estimate} diventa
 	\[
 		\Pr[V > 0] \ge \left( \frac{\delta \sqrt{t} \varepsilon}{W^2} \right)^2 \cdot
 		\frac1{100 \delta \sqrt{t} \varepsilon}
 		= \frac{\delta \sqrt{t}}{100 W^4} \varepsilon
-		\le \frac{\sqrt{t}}{10^3 W^5} \varepsilon
+		\ge \frac{\sqrt{t}}{10^3 W^5} \varepsilon
 	\]
 	e il Lemma~\ref{thm:powering} è dimostrato.
 	Per dimostrare anche il Lemma~\ref{thm:gap-amplification} di amplificazione
@@ -594,9 +591,9 @@ via più ipotesi, fino a ottenere istanze amplificabili.
 La prima trasformazione mappa istanze di $q\CSP_2$ in istanze di $2\CSP_W$ per
 un opportuno $W$, cosicché si possa parlare di grafo soggiacente e non solo di
 ipergrafo soggiacente.
-La seconda trasformazione rende questo grafo regolare e stimare la perdita di
-gap dovuta a questa trasformazione è la parte più delicata. Anche in questa
-parte di dimostrazione faremo uso di expander.
+La seconda trasformazione rende questo grafo regolare ed è quella più
+delicata da analizzare. Anche in questa parte di dimostrazione faremo uso di
+expander.
 Infine, dato un grafo regolare non è difficile aggiungere archi per renderlo
 un expander con abbastanza cappi a ogni nodo.
 L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
@@ -666,21 +663,21 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 	assegnamento $\yy$ delle variabili di $\psi$ viola almeno
 	$\frac{\varepsilon}{100 W d} m (d + 1) \le \frac{\varepsilon}{50 W} m$ vincoli
 	di $\psi$. A partire da $\yy$, estraiamo un assegnamento
-	$\xx$ per le variabili di $\varphi$ assegnando a $x_i$ il valore di
+	$\uu$ per le variabili di $\varphi$ assegnando a $u_i$ il valore di
 	maggioranza tra $y_i^1, \dots, y_i^k$.
-	L'assegnamento $\xx$, così come ogni altro assegnamento per $\varphi$,
+	L'assegnamento $\uu$, così come ogni altro assegnamento per $\varphi$,
 	viola almeno $\varepsilon m$ vincoli.
 	Intuitivamente, se l'opinione di maggioranza è poco popolare, allora tanti
 	vincoli di uguaglianza sono violati da $\yy$. Se invece l'opinione di
 	maggioranza è molto popolare, abbastanza degli $\varepsilon m$ vincoli
-	violati da $\xx$ sono violati anche da $\yy$.
+	violati da $\uu$ sono violati anche da $\yy$.
 	Sia allora $t_i$ il numero di variabili $y_i^j$ in \emph{disaccordo} con
 	l'assegnamento di maggioranza. Vale	$0 \le t_i \le k(1 - \frac1{W})$.
 	
 	Se $\sum_{i=1}^n t_i \ge \frac{\varepsilon}{2} m$, allora abbastanza vincoli
 	di uguaglianza sono violati per le proprietà di mescolamento degli expander.
 	Posti infatti $S_i$ l'insieme degli $y_i^j$ che concordano con
-	$\xx$ e $\bar{S}_i$ il suo complementare, per il Lemma~\ref{thm:ESbarS}
+	$\uu$ e $\bar{S}_i$ il suo complementare, per il Lemma~\ref{thm:ESbarS}
 	vale $E(S_i, \bar{S}_i) \ge (1 - \lambda) \frac{d}{k} |S_i| |\bar{S}_i|
 	\ge (1 - \lambda)\frac{d}{k} \frac{k}{W} t_i \ge \frac{d}{10 W}t_i
 	\ge \frac{t_i}{10 W}$. Dunque, almeno $\frac1{10 W} \sum_{i = 1}^n t_i
@@ -688,7 +685,7 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 
 	Se invece $\sum_{i=1}^n t_i < \frac{\varepsilon}{2} m$, allora almeno
 	$\frac{\varepsilon}{2} m$ degli $\varepsilon m$ vincoli violati da
-	$\xx$ sono violati anche da $\yy$.
+	$\uu$ sono violati anche da $\yy$.
 \end{proof}
 
 \begin{lemma}
@@ -733,17 +730,22 @@ grande a piacere, l'obiettivo è trasformarla a un'istanza $\psi$ di $q_0\CSP_2$
 per un $q_0$ fissato e indipendente da $W$, il tutto con perdita di gap al più
 costante.
 
-% TBD. Dire, necessariamente in modo vago, che verifichiamo ogni vincolo
-% con un piccolo protocollo PCP, che però può essere anche molto inefficiente,
-% poiché i vincoli sono oggetti di dimensione costante.
-% le variabili della nuova istanza di CSP corrisponderanno ai bit delle
-% dimostrazione per i protocolli PCP.
-% leggendo questa costruzione attraverso la corrispondenza tra sistemi PCP e
-% CSP, otteniamo un'istanza su un alfabeto binario.
+L'idea è sostituire a ogni vincolo l'istanza di CSP corrispondente a un piccolo
+protocollo PCP che verifica che il vincolo sia soddisfatto. Poiché i singoli
+vincoli sono oggetti di taglia costante, questo PCP interno può essere anche
+terribilmente inefficiente, purché interroghi un numero costante di bit della
+dimostrazione, cosicché l'aumento di taglia dell'intera istanza sia solo
+lineare.
+È importante che questa costante sia indipendente dalla dimensione
+dell'alfabeto dell'istanza da trasformare, così da evitare problemi di
+dipendenza circolare tra il Lemma~\ref{thm:gap-amplification} e il
+Lemma~\ref{thm:alphabet-reduction}.
 
-Sarà utile ragionare in termini di circuiti, cioè diagrammi procedurali per
-calcolare un bit di output applicando una sequenza di operazioni logiche ai bit
-di una stringa binaria in input.
+Nel corso della dimostrazione avremo bisogno di esplicitare l'espressione di
+ogni vincolo come istanza di \texttt{QUADEQ}. La naturale riduzione intermedia
+sono i circuiti booleani, cioè diagrammi procedurali per calcolare un bit di
+output applicando una sequenza di operazioni logiche ai bit di una stringa
+binaria in input.
 
 \begin{definition}
 	Un \emph{circuito booleano} è un grafo diretto aciclico i cui nodi
@@ -760,7 +762,7 @@ di una stringa binaria in input.
 	\centering
 	\begin{minipage}[c]{0.52\textwidth}
 		\caption{Un circuito che calcola la funzione $\mathrm{XOR}$
-			($\mathrm{OR}$ esclusivo) su due bit in input $x_1, x_2$.}
+			($\mathrm{OR}$ esclusivo) su due bit in input $b_1, b_2$.}
 		\label{fig:xor-circuit}
 	\end{minipage}%
 	\hfill
@@ -770,12 +772,12 @@ di una stringa binaria in input.
 	\end{minipage}
 \end{figure}
 
-A meno di aggiungere simboli inutilizzati, possiamo supporre $W$ sia una
-potenza di due e identificare i simboli in $W$ con le stringhe in
-$\{0, 1\}^{\log W}$. Un qualunque vincolo $C_s$ dipendente dalle variabili
-$u_i$ e $u_j$ si può pensare come un circuito applicato alle stringhe binarie
-che rappresentano $u_i$ e $u_j$: il vincolo è soddisfatto se e soltanto se
-l'output del circuito è $1$. Sia $\ell$ un limite superiore alla taglia
+A meno di aggiungere simboli inutilizzati, possiamo supporre la dimensione $W$
+dell'alfabeto sia una potenza di due e identificare i simboli in $[W]$ con le
+stringhe in $\{0, 1\}^{\log W}$. Un qualunque vincolo $C_s$ dipendente dalle
+variabili $u_i$ e $u_j$ si può pensare come un circuito applicato alle stringhe
+binarie che rappresentano $u_i$ e $u_j$: il vincolo è soddisfatto se e soltanto
+se l'output del circuito è $1$. Sia $\ell$ un limite superiore alla taglia
 del circuito al variare di tutti i vincoli. Possiamo supporre $\ell \le W^5$,
 semplicemente implementando in ogni circuito la formula $(2 \log W)$CNF che
 rappresenta il vincolo\footnote{Tale formula $(2 \log W)$CNF consta infatti di
@@ -786,9 +788,10 @@ $\ell$ è una costante e che, a costo di aggiungere nodi inutilizzati, possiamo
 supporre tutti i vincoli siano rappresentati da circuiti della stessa taglia.
 
 Useremo come ingrediente fondamentale la dimostrazione del Teorema
-\ref{thm:exppcp}, da cui segue l'esistenza di sistemi PCP in grado di accettare
-con buon probabilità un certificato se e soltanto se questo è \emph{vicino} a
-un certificato valido.
+\ref{thm:exppcp}, da cui segue il seguente corollario.
+Ci accontentiamo di accettare con buona probabilità un certificato se e
+soltanto se questo è \emph{vicino} a un certificato valido, cosicché sia
+possibile eseguire la verifica leggendo $O(1)$ bit.
 
 \begin{corollary}[PCP di prossimità] \label{thm:pcpprox}
 	Esiste un verificatore $V$ che dato un qualunque circuito $C$ con $2 k$ input
@@ -813,7 +816,8 @@ un certificato valido.
 Prima della dimostrazione, vediamo come il corollario è sufficiente per
 la riduzione dell'alfabeto.
 
-\begin{proof}[Dimostrazione del Lemma~\ref{thm:alphabet-reduction} di riduzione dell'alfabeto]
+\begin{proof}[Dimostrazione del Lemma~\ref{thm:alphabet-reduction} dal
+	Corollario~\ref{thm:pcpprox}]
 	Sostituiamo a ogni variabile originale $u_i$ una sequenza
 	$U_i = (U_{i,1}, \dots, U_{i, W})$ di $2^{\log W} = W$ variabili
 	binarie che, in un assegnamento valido, rappresentano la codifica
@@ -821,7 +825,8 @@ la riduzione dell'alfabeto.
 	Per ogni vincolo originale $C_s(u_i, u_j)$, consideriamo il $\CSP$
 	corrispondente al sistema PCP descritto nel Corollario~\ref{thm:pcpprox}
 	applicato al circuito $C_s$ relativo al vincolo, secondo la corrispondenza
-	mostrata nel Capitolo~\ref{chap:inapprox}.
+	mostrata nel Capitolo~\ref{chap:inapprox}
+	(Tabella~\ref{tab:due-punti-di-vista-pcp}).
 	Per ogni vincolo abbiamo un vettore di $2^{\mathrm{poly}(\ell)}$ variabili
 	binarie $\Pi_s$ che rappresentano $\pi_3$, mentre $U_i$ e $U_j$ svolgono il
 	ruolo di $\pi_1$ e $\pi_2$.
@@ -834,16 +839,16 @@ la riduzione dell'alfabeto.
 	L'istanza finale $\psi$ è data dall'unione dei vincoli
 	$\cup_{s = 1}^{m} \mathcal{C}_s$.
 	In virtù del punto 1. del Corollario~\ref{thm:pcpprox}, ogni assegnamento
-	valido per l'istanza originale $\varphi$ si solleva\footnote{Non
-	necessariamente in modo univoco.} a un assegnamento valido per la nuova
-	istanza $\psi$. Dunque se la prima era soddisfacibile, lo è anche la seconda.
+	valido per l'istanza originale $\varphi$ si solleva a un assegnamento valido
+	per la nuova istanza $\psi$. Dunque se la prima era soddisfacibile, lo è
+	anche la seconda.
 
 	Mostriamo che se esiste un assegnamento che viola meno di una frazione
-	$\varepsilon/3$ di vincoli in $\psi$, allora ne esiste uno che viola
+	$\varepsilon/2$ di vincoli in $\psi$, allora ne esiste uno che viola
 	meno di una frazione $\varepsilon$ di vincoli in $\varphi$.
-	Decodifichiamo, ogni insieme di nuove variabili nel seguente modo: se
-	$U_i$ è $0.99$-vicino a una funzione lineare $\WH(a_i)$, allora assegniamo
-	alla variabile originale $u_i$ il valore $a_i$, altrimenti vi assegniamo una
+	Decodifichiamo ogni insieme di nuove variabili nel seguente modo: se $U_i$
+	è $0.99$-vicino a una funzione lineare $\WH(a_i)$, allora assegniamo alla
+	variabile originale $u_i$ il valore $a_i$, altrimenti vi assegniamo una
 	stringa arbitraria.
 
 	Pensiamo ora a quanti dei vincoli originali $C_s (u_i, u_j)$ sono
@@ -913,20 +918,23 @@ Per concludere, manca solo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 	Dal Capitolo~\ref{chap:complessita} sappiamo che per distinguere con
 	probabilità $\frac12$ due vettori è sufficiente confrontarne i prodotti
 	scalari con un terzo vettore casuale.
-	Il verificatore sceglie dunque uniformemente due vettori
-	$\xx, \yy \in \{0, 1\}^k$ e	verifica che
-	$f(\xx \yy \bm{0}) = \pi_1 (\xx) + \pi_2 (\yy)$, dove con $\bm{0}$ indichiamo
-	la stringa di lunghezza $\ell - 2 k$ nulla in tutte le posizioni.
+	Il verificatore sceglie dunque uniformemente a caso due vettori
+	$\bm{r_1}, \bm{r_2} \in \{0, 1\}^k$ e verifica che
+	$f(\bm{r_1 r_2 0}) = \pi_1 (\bm{r_1}) + \pi_2 (\bm{r_2})$, dove con $\bm{0}$
+	indichiamo la stringa di lunghezza $\ell - 2 k$ nulla in tutte le posizioni.
 	Le parti sinistra e destra dell'uguale valgono rispettivamente
-	$\langle (w_1, \dots, w_{2 k}), \bm{x y} \rangle$ e
-	$\langle \bm{u_1 u_2}, \bm{x y} \rangle$, dunque la verifica è quella
+	$\langle (w_1, \dots, w_{2 k}), \bm{r_1 r_2} \rangle$ e
+	$\langle \bm{u_1 u_2}, \bm{r_1 r_2} \rangle$, dunque la verifica è quella
 	desiderata. Come al solito, è sufficiente ripetere il test un numero
-	costante di volte per abbassare a piacere la probabilità di errore. Nel
-	nostro è sufficiente avere probabilità di errore minore di $\frac12$,
-	cosicché che il protocollo di verifica soddisfi le proprietà 2. del
+	costante di volte per abbassare a piacere la probabilità di errore. Per noi
+	è sufficiente tale probabilità di errore sia minore di $\frac12$, cosicché
+	il protocollo di verifica soddisfi la proprietà 2. del
 	Corollario~\ref{thm:pcpapprox}.
 
-	Complessivamente, il verificatore impiega tempo polinomiale in $\ell$, utilizza
-	$\mathrm{poly}(\ell)$ bit casuali e legge un numero costante di bit del
-	certificato.
+	Complessivamente, il verificatore impiega tempo polinomiale in $\ell$,
+	utilizza $\mathrm{poly}(\ell)$ bit casuali e legge un numero costante di bit
+	del certificato.
 \end{proof}
+
+Con questo si concludono la dimostrazione del Teorema~\ref{thm:pcp} e questa
+tesi.
