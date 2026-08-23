@@ -296,7 +296,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	$\langle v_1, \dots, v_{2t + 2} \rangle$, o equivalentemente uniforme sui
 	vincoli di $\varphi^t$ costruita come sopra.
 	
-	Dato $j \in \{1, \ldots, 2t + 1\}$, diciamo che il $j$-esimo arco del
+	Dato $j \in [2t + 1]$, diciamo che il $j$-esimo arco del
 	cammino è \emph{consistente} se $y_{v_1}$ assegna a $v_j$ il valore di maggioranza
 	e $y_{v_{2t + 2}}$ assegna a $v_{j + 1}$ il valore di maggioranza.
 	Osserviamo che se il cammino contiene un arco consistente e in $F$, allora
@@ -306,13 +306,15 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	Osserviamo anzitutto che, poiché ad ogni passo della passeggiata la
 	distribuzione di probabilità sui nodi è uniforme e il grafo $G_\varphi$ è
 	$d$-regolare, per ogni arco $e$ di $G_\varphi$ e ogni
-	$j \in \{ 1, \ldots, 2t + 1 \}$ vale
+	$j \in [2t + 1]$ vale
 		\[
 			\Pr[e \text{ è il $j$-esimo arco sul percorso}] = \frac{1}{|E|}.
 		\]
 
 	\begin{lemma} \label{thm:mid-archi-consistenti}
-		Sia $\delta < \frac{1}{10 W}$ con $\delta \sqrt{t}$ intero.
+		Sia $\frac1{10 W} \le \delta \le \frac1{5 W}$ con $\delta \sqrt{t}$
+		intero\footnote{Poiché $t$ è molto grande rispetto a $W$, non è
+		difficile trovare un tale $\delta$.}.
 		Per ogni arco $e$ di $G_\varphi$ e indice
 		$j \in \{ t - \delta \sqrt{t}, \ldots, t + \delta \sqrt{t} \}$ vale
 		\[
@@ -394,7 +396,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			$\Pr[S_n = \lfloor \frac{n}{2} \rfloor] \le \frac1{\sqrt{n}}$.
 
 			La probabilità in questione vale
-			${n \choose \lfloor \frac{n}{2} \rfloor} 2^{-n}$.
+			$\binom{n}{\lfloor \frac{n}{2} \rfloor} 2^{-n}$.
 			In caso di $n$ pari, cioè quando $n = 2c$, per sole
 			semplificazioni si ottiene
 			\[
@@ -628,7 +630,7 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 \begin{lemma}
 	Esistono una costante $d$ e una CL-trasformazione da istanze $\varphi$ di
 	$2\CSP_W$ a istanze $\psi$ di $2\CSP_W$ tali che il grafo soggiacente a
-	$\psi$ sia $d$-regolare e valga
+	$\psi$ sia $(d + 1)$-regolare e valga
 	\[
 		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi)
 			\le 1 - \varepsilon / (100 W d).
@@ -761,7 +763,7 @@ binaria in input.
 		\caption{Un circuito che calcola la funzione $\mathrm{XOR}$
 			($\mathrm{OR}$ esclusivo) su due bit in input $b_1, b_2$.}
 		\label{fig:xor-circuit}
-	\end{minipage}%
+	\end{minipage}
 	\hfill
 	\begin{minipage}[c]{0.42\textwidth}
 		\centering
@@ -775,12 +777,13 @@ stringhe in $\{0, 1\}^{\log W}$. Un qualunque vincolo $C_s$ dipendente dalle
 variabili $u_i$ e $u_j$ si può pensare come un circuito applicato alle stringhe
 binarie che rappresentano $u_i$ e $u_j$: il vincolo è soddisfatto se e soltanto
 se l'output del circuito è $1$. Sia $\ell$ un limite superiore alla taglia
-del circuito al variare di tutti i vincoli. Possiamo supporre $\ell \le W^5$,
+del circuito al variare di tutti i vincoli. Possiamo supporre $\ell \le W^3$,
 semplicemente implementando in ogni circuito la formula $(2 \log W)$CNF che
 rappresenta il vincolo\footnote{Tale formula $(2 \log W)$CNF consta infatti di
-al più $2^{2 \log W} = W^4$ clausole, il valore di ognuna delle quali si
+al più $2^{2 \log W} = W^2$ clausole, il valore di ognuna delle quali si
 calcola con $2 \log W$ porte logiche aggiuntive, da cui la maggiorazione
-$\ell \le W^5$.}. Per la dimostrazione che segue è importante tenere a mente che
+$\ell \le W^3$, valida per $W$ sufficientemente grandi, come nel nostro caso.}.
+Per la dimostrazione che segue è importante tenere a mente che
 $\ell$ è una costante e che, a costo di aggiungere nodi inutilizzati, possiamo
 supporre tutti i vincoli siano rappresentati da circuiti della stessa taglia.
 
