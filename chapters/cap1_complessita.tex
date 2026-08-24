@@ -22,14 +22,15 @@ Risolvere il problema equivale\footnote{Posto che la codifica sia naturale,
 cioè ragionevole e non artificialmente patologica.} dunque a decidere
 l'appartenenza ad $L$.
 
-Definiamo la classe dei problemi che è possibile risolvere efficientemente,
-cioè in tempo polinomiale rispetto alla dimensione\footnote{La
-lunghezza di una fissata codifica.} dell'istanza in input.
+Definiamo la classe dei problemi che è possibile risolvere
+\emph{efficientemente}, cioè in tempo polinomiale rispetto alla
+dimensione\footnote{La lunghezza di una fissata codifica.} dell'istanza in
+input.
 
 \begin{definition}[Classe $\P$]
-	Un linguaggio $L \subseteq \{0, 1\}^*$ appartiene alla classe $\P$ se è
-	deciso da un algoritmo che, per ogni $n$ e $x \in \{0, 1\}^n$, termina in al
-	più $A n^c$ passi per costanti positive $A$ e $c$.
+	Un linguaggio $L \subseteq \{0, 1\}^*$ appartiene alla classe $\P$ se esiste
+	un algoritmo che, per ogni $n$ e $x \in \{0, 1\}^n$, decide l'appartenenza
+	di $x$ a $L$ in al più $A n^c$ passi per costanti positive $A$ e $c$.
 \end{definition}
 
 La scelta del tempo polinomiale come espressione di efficienza può sembrare
@@ -253,10 +254,10 @@ la parte principale della dimostrazione al Capitolo~\ref{chap:pcpproof}.
 
 \section{Teorema PCP debole}
 
-Dimostriamo qui una versione debole del Teorema~\ref{thm:pcp}. Anche in
-questo caso il verificatore legge un numero costante di bit, tuttavia la
-dimostrazione ha dimensione esponenziale nella dimensione
-dell'input e il verificatore utilizza $\mathrm{poly}(n)$ bit casuali.
+Presentiamo qui la dimostrazione di una versione debole del
+Teorema~\ref{thm:pcp}. Anche in questo caso il verificatore legge un numero
+costante di bit, tuttavia la dimostrazione ha dimensione esponenziale nella
+dimensione dell'input e il verificatore utilizza $\mathrm{poly}(n)$ bit casuali.
 
 \begin{theorem}[PCP esponenziale per $\NP$ \cite{ALMSS98}] \label{thm:exppcp}
 	\[
@@ -450,8 +451,8 @@ valore di $\tilde{f}(\xx)$ ottenuto tramite decodifica locale di $f$.
 Il Passo 1 permette di assumere nei passi successivi che il certificato non
 già rifiutato codifichi davvero due funzioni lineari.
 
-\emph{Passo 2.}
-Il verificatore esegue (diciamo) dieci volte indipendenti il seguente test:
+\emph{Passo 2.} % capire se preferisco "indipendenti"
+Il verificatore esegue (diciamo) dieci volte indipendentemente il seguente test:
 ``scegli due vettori $\rr, \rr' \in \F_2^n$ uniformemente a caso. Se
 $f(\rr)f(\rr') \neq g(\rr \otimes \rr')$, rifiuta il certificato''.
 Verifichiamo innanzitutto che un valido certificato passa sempre il test.
