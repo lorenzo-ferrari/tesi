@@ -13,7 +13,6 @@
 
 \linespread{1.2}
 
-% Comandi di comodo
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -29,9 +28,9 @@
 \pagestyle{empty}
 
 \begin{center}
-%  {\small\scshape Università di Pisa -- Dipartimento di Matematica \par}
-%  {\small Corso di Laurea Triennale in Matematica \par}
-%  \vspace{0.8em}
+  {\small\scshape Università di Pisa -- Dipartimento di Matematica \par}
+  {\small Corso di Laurea Triennale in Matematica \par}
+  \vspace{0.8em}
   {\Large\bfseries Teorema PCP e inapprossimabilità \par}
 \end{center}
 
@@ -66,23 +65,20 @@ in una prima versione nel 1992 da Arora e Safra e completato lo stesso anno da
 Arora, Lund, Motwani, Sudan e Szegedy.
 
 Una dimostrazione si legge tipicamente dall'inizio alla fine per assicurarsi
-che tutti i passaggi logici siano validi, poiché un singolo errore potrebbe
+che tutti i passaggi logici siano validi. Un singolo errore, infatti, potrebbe
 invalidare l'intero argomento.
-Immaginiamo ora ci vengano fornite mille pagine di dimostrazione di un teorema
-molto complicato, per verificare la quale ci piacerebbe adottare la seguente
-procedura molto sbrigativa: lette cento righe scelte a caso, accettiamo la
-dimostrazione come valida se e soltanto se queste non contengono errori.
-Un tale protocollo di verifica è impensabile per dimostrazioni in
-formati classici: nel caso di dimostrazioni fallaci, infatti, non c'è quasi nessuna
-garanzia di correttezza.
-Il Teorema PCP, tuttavia, afferma che esiste un modo di scrivere dimostrazioni
-per cui questa verifica ha successo con alta probabilità.
+Se tuttavia ci venisse fornita la dimostrazione molto lunga di un teorema
+complicato, ci piacerebbe adottare la seguente procedura di verifica: ``lette
+cento righe scelte a caso, accettiamo la dimostrazione come valida se e soltanto
+se questa non contiene errori''.
+Il Teorema PCP afferma che esiste un modo di scrivere dimostrazioni per cui la
+verifica descritta ha successo con alta probabilità.
 Questa tesi intende presentare in maniera precisa il Teorema PCP, analizzarne le
 conseguenze per l'inapprossimabilità di problemi di ottimizzazione combinatoria
-e infine dimostrarlo.
+e infine percorrerne la dimostrazione combinatoria di Irit Dinur.
 
 Nel primo capitolo introduciamo le nozioni base della teoria della
-complessità, a partire dalle classi $\P$ ed $\NP$, rispettivamente la classe
+complessità, a partire dalle classi $\P$ e $\NP$, rispettivamente la classe
 dei problemi che si risolvono efficientemente e la classe dei problemi le cui
 soluzioni si verificano efficientemente.
 Descriviamo i problemi $\NP$-completi $\mathtt{SAT}$, $\mathtt{3SAT}$,
@@ -90,25 +86,32 @@ $\mathtt{3COL}$ e soprattutto $\mathtt{QUADEQ}$: il problema di determinare se
 un sistema di equazioni quadratiche su $\F_2$ ha soluzione.
 Formalizziamo poi il modello di verifica probabilistica di dimostrazioni ed
 enunciamo il Teorema PCP.
-Come primo risultato significativo, dimostriamo una versione debole del
-Teorema PCP, nota come Teorema PCP esponenziale.
+Come primo risultato significativo, presentiamo la dimostrazione di una versione
+debole del Teorema PCP, nota come Teorema PCP esponenziale.
 La dimostrazione fa uso del codice di Walsh-Hadamard per rappresentare
-dimostrazioni come funzioni lineari. Sarà utile il test di linearità di
-Blum-Luby-Rubinfeld, analizzato mediante analisi di Fourier discreta
-sull'ipercubo $(\mathbb{Z} / 2\mathbb{Z})^n$.
+dimostrazioni come funzioni lineari. Sarà in particolare necessario un test di
+linearità per funzioni $\F_2^n \to \F_2$, la cui probabilità di successo si
+stima mediante analisi di Fourier discreta sull'ipercubo
+$(\Z / 2\Z)^n$.
 
-Nel secondo capitolo esploriamo il legame tra la verifica probabilistica
-di dimostrazioni e l'inapprossimabilità di problemi di ottimizzazione
-combinatoria. Generalizziamo $\mathtt{SAT}$, $\mathtt{3SAT}$ e $\mathtt{3COL}$
-introducendo i \emph{Constraint Satisfaction Problems} ($\mathtt{CSP}$) e
-mostriamo che il Teorema PCP ammette una formulazione equivalente
-intrinsecamente legata all'inapprossimabilità di $\CSP$.
+Nel secondo capitolo esploriamo il legame tra verifica probabilistica
+di dimostrazioni e inapprossimabilità di problemi di ottimizzazione
+combinatoria. Generalizziamo $\mathtt{3SAT}$ e $\mathtt{3COL}$ introducendo
+i \emph{Constraint Satisfaction Problems} ($\mathtt{CSP}$) e mostriamo che il
+Teorema PCP ammette una formulazione equivalente intrinsecamente legata
+all'inapprossimabilità di $\CSP$.
 Come conseguenza diretta, non esiste un algoritmo efficiente in grado di
 approssimare il valore di soddisfacibilità di istanze di $\CSP$ oltre una
 certa soglia costante a meno che $\P = \NP$.
-Concludiamo con un risultato di inapprossimabilità per il problema della
-cricca massima: non si può trovare efficientemente neanche una cricca grande
-un miliardesimo della cricca massima, a meno che $\P = \NP$.
+Concludiamo con due risultati di inapprossimabilità storicamente rilevanti.
+Il primo, per il problema della cricca massima, afferma che non si può trovare
+efficientemente neanche una cricca grande un miliardesimo della cricca massima,
+a meno che $\P = \NP$.
+Il secondo, diretta conseguenza del Teorema PCP, afferma che sotto la stessa
+ipotesi non si può approssimare efficientemente \texttt{3SAT} oltre una certa
+soglia costante. Grazie al precedente lavoro di Papadimitriou e Yannakakis,
+ciò sbloccò in un colpo solo risultati di inapprossimabilità per molti altri
+problemi.
 
 Il terzo capitolo è dedicato ai grafi expander e alle loro proprietà
 pseudo-casuali. Per esempio, per ogni nodo $v$ di un expander con $n$ nodi,
@@ -119,6 +122,7 @@ aleatoria di lunghezza $k$ funzionano bene quasi quanto $k$ nodi scelti a caso.
 Ciò permette il cosiddetto ``riciclo di bit casuali'', che incluso nella
 dimostrazione di inapprossimabilità per il problema della cricca massima
 fornisce un risultato ancora migliore.
+Ci interesseremo infine all'esistenza di expander e alla loro costruzione.
 
 Nell'ultimo capitolo percorriamo la dimostrazione combinatoria
 del Teorema PCP proposta da Dinur nel 2006 basandoci sulla trattazione di
