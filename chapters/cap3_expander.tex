@@ -4,44 +4,124 @@
 % "the hay in the haystack"?
 
 In questo capitolo introduciamo i grafi expander e le loro proprietà
-pseudo-casuali. Ci occuperemo di grafi non diretti e regolari, cosicché la
-matrice di transizione delle passeggiata aleatoria sul grafo sia simmetrica.
-I grafi expander saranno un ingrediente fondamentale nel
-capitolo~\ref{chap:pcpproof}.
+pseudo-casuali. L'argomento è estremamente vasto, noi ne copriamo una minima
+parte, quanto basta per dimostrare il Teorema PCP e per migliorare il risultato
+di inapprossimabilità di \texttt{MAX-CLIQUE}.
 
-\section{Cos'è un expander}
+\section{Passeggiate aleatorie su grafi}
 
-Un grafo si dice regolare di grado $d$, o $d$-regolare, se ogni nodo ha
-esattamente $d$ vicini. Sia dunque $G$ un grafo $d$-regolare e $A$ la sua
-matrice di adiacenza rinormalizzata, cioè la matrice di transizione delle
-passeggiate aleatorie su $G$.
-La matrice $A$ è simmetrica, dunque per il teorema spettrale esiste una
-base ortogonale di autovettori.
-Definiamo il parametro $\lambda(G)$.
+Un grafo si dice \emph{regolare di grado $d$}, d'ora in poi $d$-regolare, se
+ogni nodo ha esattamente $d$ vicini. Per comodità, in questo capitolo
+tratteremo solo grafi non diretti e $d$-regolari.
 
-TBD.
+La matrice di adiacenza di un grafo $G$ di $n$ vertici è la matrice
+$n \times n$ che in posizione $(u, v)$ ha il numero di archi di $G$
+da $u$ a $v$.
+Per un grafo non diretto e $d$-regolare $G$, indichiamo con $A = A(G)$ la sua
+matrice di adiacenza rinormalizzata in modo tale che le entrate su ogni riga
+(e colonna) sommino a $1$. Equivalentemente, $A$ è la matrice di adiacenza di
+$G$ moltiplicata per lo scalare $\frac1{d}$, oppure la matrice di transizione
+delle passeggiate aleatorie sul grafo.
+
+Per il teorema spettrale, la matrice $A$, che è simmetrica, ammette una base
+ortogonale di autovettori, i cui corrispondenti autovalori indichiamo con
+$\lambda_1 \ge \lambda_2 \ge \dots \lambda_n$.
+Detto $\one = \big(\frac1{n}, \dots, \frac1{n}\big) \in \R^n$ il vettore costante
+$\frac1{n}$ in tutte le entrate, vale $A \one = \one$, dunque $\one$ è
+autovettore di $A$ relativo all'autovalore $1$.
+Ciò corrisponde al fatto che la distribuzione uniforme sui nodi del grafo è
+invariante per passeggiate aleatorie grazie all'ipotesi di $d$-regolarità.
+Vale inoltre $\lambda_1 = 1$.
+
+Saremo particolarmente interessati al modulo del secondo autovalore di modulo
+massimo.
+
+\begin{definition}
+	Siano $G$ come sopra un grafo $d$-regolare non diretto e $A$ la sua matrice
+	di adiacenza rinormalizzata.
+	Definiamo il parametro
+	$\lambda(G) := \max\{\labs \lambda_2 \rabs, \labs \lambda_n \rabs\}$.
+\end{definition}
+
+Poiché gli autospazi di $A$ sono ortogonali, possiamo definire equivalentemente
+$\lambda(G)$ in modo variazionale.
+
+\begin{proposition}
+	Vale
+	\[
+		\lambda(G) =
+		\max_{\substack{\xx \perp \one \\ \xx \neq 0}}
+		\frac{\norm{A \xx}}{\norm{\xx}},
+	\]
+	dove la norma è quella euclidea.
+\end{proposition}
+
+Questa caratterizzazione sarà senza alcun dubbio la più utile.
 
 \begin{definition}[Grafi expander]
 	Fissato $\lambda < 1$, chiamiamo \emph{$(n, d, \lambda)$-expander} un grafo
 	di $n$ nodi, regolare di grado $d$ e con $\lambda(G) \le \lambda$.
+
+	Definiamo allo stesso modo $(n, \lambda)$-expander e
+	$(d, \lambda)$-expander nei casi in cui non specifichiamo il grado o il
+	numero di vertici.
 \end{definition}
 
 \begin{definition}[Famiglie di expander]
 	Una famiglia di grafi $\{G_n\}_{n \in \N}$ si dice \emph{famiglia di
-	$(n, d)$-expander} se esistono costanti $d \in \N$ e $\lambda < 1$ tali
-	che per ogni $n$ il grafo $G_n$ è un $(n, d, \lambda)$-expander.
+	$(d, \lambda)$-expander} se esistono costanti $d \in \N$ e $\lambda < 1$
+	tali che, per ogni $n$, il grafo $G_n$ è un $(n, d, \lambda)$-expander.
+	
+	Chiameremo famiglia di expander anche una famiglia di grafi $G_n$ come sopra
+	definiti solo per $n \ge n_0$.
 \end{definition}
 
 \section{Esistenza di expander}
 
-Un grafo generato tramite un opportuno processo random è un expander con
-buona probabilità.
+\lorenzo{TBD. Definizione combinatoria ed equivalenza tra le due?}
+
+Un grafo generato tramite un opportuno processo casuale è un expander con
+buona probabilità. In particolare, quindi, esistono expander.
+
+TBD.
 
 \section{Proprietà}
 
+In questa sezione presentiamo alcune delle proprietà pseudo-casuali degli
+expander. Prima tra queste la velocità di convergenza alla distribuzione
+uniforme.
+
+\begin{theorem}{Convergenza alla distribuzione uniforme} \label{thm:expander-conv}
+	Sia $G$ un $(n, \lambda)$-expander e $\pp$ una distribuzione di probabilità
+	sui nodi di $G$. Allora
+	\[
+		\norm{A^\ell \pp - \one} \le \lambda^\ell.
+	\]
+\end{theorem}
+
+% Fissato $\lambda$, ciò significa che partendo da un qualunque nodo ed
+% eseguendo una camminata aleatoria di $O(\log n)$ passi, il nodo di arrivo è
+% distribuito quasi uniformemente. Nello specifico, un expander di $n$ nodi ha
+% diametro\footnote{Cioè massima distanza tra due nodi.} $O(\log n)$.
+% \lorenzo{Lo dico? Magari nomino addirittura il Teorema di Reingold? Sicuramente
+% è interessante, forse però voglio parlare più o meno solo di PCP.}
+
+\begin{proof}[Dimostrazione del Teorema~\ref{thm:expander-conv}]
+	Vale $A^\ell \pp - \one = A^\ell (\pp - \one) = A^\ell \pp^\perp$, dove
+	$\pp^\perp$ è la componente di $\pp$ ortogonale a $\one$. Sia ha dunque
+	$\norm{A^\ell \pp^\perp} \le \lambda^\ell \norm{\pp^\perp}$.
+	Per concludere è sufficiente maggiorare la norma di $\pp^\perp$ con quella
+	di $\pp$ e applicare la disuguaglianza tra norma $2$ e norma $1$ in
+	$\R^n$: $\norm{\pp^\perp} \le \norm{\pp} \le \lvert \pp \rvert_1 = 1$.
+\end{proof}
+
+Il seguente teorema mostra invece che è poco probabile i nodi di una
+passeggiata aleatoria su un expander restino confinati in una piccola regione
+del grafo.
+
 \begin{theorem}[Passeggiate aleatorie su expander] \label{thm:expander-walk}
 	Sia $G$ un $(n, d, \lambda)$-expander e sia $B \subseteq V$ un sottoinsieme
-	dei vertici che soddisfi $|B| \le \beta n$ per $\beta \in (0, 1)$.
+	dei vertici che soddisfa $|B| \le \beta n$ per $\beta \in (0, 1)$.
 	Detti $X_1, \dots, X_k$ i nodi di una passeggiata aleatoria su $G$ con $X_1$
 	scelto uniformemente in $V$, vale
 	\[
@@ -49,8 +129,29 @@ buona probabilità.
 		\le ((1 - \lambda)\sqrt{\beta} + \lambda)^{k - 1}.
 	\]
 \end{theorem}
-\begin{proof}
-	TBD.
+\begin{proof}[Dimostrazione del Teorema~\ref{thm:expander-walk}]
+	Esprimiamo algebricamente la probabilità alla sinistra dell'uguale.
+	Con un abuso di notazione, indichiamo con $B$ la proiezione $\R^n \to \R^n$
+	sulle coordinate in $B \subseteq V$. La probabilità sulla sinistra si
+	scrive come $\lvert (B A)^{k - 1} B \one \rvert_1$, dove
+	$(B A)^{k - 1} B \one$ è il vettore che, nell'entrata $j$, ha la probabilità
+	che una passeggiata aleatoria lunga $k - 1$ termini in $j$ e non esca mai
+	da $B$.
+	L'obiettivo ora è stimare la norma matriciale di $B A$, per cui ci sarà
+	utile il seguente
+	\begin{lemma}
+		Sia $A$ come sopra. Allora
+		\[
+			A = (1 - \lambda) J + \lambda C,
+		\]
+		dove $\norm{C} \le 1$ e $J_{i j} = \frac1{n}$ per ogni $i,j$.
+	\end{lemma}
+	\begin{proof}
+		Affinché la tesi valga, si deve necessariamente avere
+		$C = \frac1{\lambda}\big( A - (1 - \lambda)J \big)$.
+		Applichiamo la definizione variazionale di $\lambda$.
+		TBD.
+	\end{proof}
 \end{proof}
 
 Il Teorema~\ref{thm:expander-walk} sarà di fondamentale importanza per
@@ -68,7 +169,7 @@ Il Teorema~\ref{thm:expander-walk} sarà di fondamentale importanza per
 	$\frac{|F|}{|E|} + \lambda^i$.
 \end{restatable}
 
-\begin{proof} % [Dimostrazione del Lemma~\ref{thm:Din06Prop2.5}]
+\begin{proof}
 	Siano $x$ il vettore distribuzione di $K$, cioè	$x_v = \frac{\deg_F(v)}
 	{2 |F|}$, e $y_v$ la probabilità che un arco incidente a $v$ sia in $F$, cioè
 	$y = \frac{2 |F|}{d} x$.
@@ -79,8 +180,8 @@ Il Teorema~\ref{thm:expander-walk} sarà di fondamentale importanza per
 		  = \langle y, A^i x \rangle.
 	\]
 
-	Osserviamo $\lVert x \rVert ^2 \le \big(\sum_v{\lvert x_v \rvert} \big)
-	\max_v{\lvert x_v \rvert} = \max_v{\lvert x_v \rvert}
+	Osserviamo $\norm{x} ^2 \le \big(\sum_v{\lvert x_v \rvert} \big)
+	\max_v{\norm{x_v}} = \max_v{\norm{x_v}}
 	\le \frac{d}{2 | F |}$ da cui, applicando la disuguaglianza di Cauchy-Schwarz
 	e la definizione variazionale di $\lambda$, otteniamo
 	\[
@@ -98,25 +199,6 @@ Il Teorema~\ref{thm:expander-walk} sarà di fondamentale importanza per
 		\le \frac{2 |F|}{n d} + \lambda^i.
 	\]
 \end{proof}
-
-\iffalse
-\begin{lemma}[Expander mixing lemma] \label{thm:mixing-lemma}
-	Sia $G = (V, E)$ un grafo $(d, \lambda)$-expander e siano $S, T \subseteq V$
-	due sottoinsiemi disgiunti di nodi. Allora, detto $E(S, T)$ il numero di
-	archi tra $S$ e $T$, vale
-	\[
-		\Big| E(S, T) - \frac{d}{n} |S||T| \Big| \le \lambda \sqrt{|S| |T|}.
-	\]
-\end{lemma}
-\begin{proof}
-	% Detta $A$ la matrice di adiacenza rinormalizzata di $G$, considera $B = A - \frac{d}{n}J$, con $J$ la matrice uno in ogni entrata.
-
-	TBD.
-\end{proof}
-
-A volte è utile specializzare il mixing lemma per stimare il numero di archi
-tra un insieme e il suo complementare, come segue.
-\fi
 
 \begin{lemma} \label{thm:ESbarS}
 	Sia $G = (V, E)$ un $(n, d, \lambda)$-expander e $S \subseteq V$ un
@@ -151,7 +233,7 @@ tra un insieme e il suo complementare, come segue.
 	\end{align*}
 \end{proof}
 
-% Significato dell'expander mixing lemma, quello è proprio il valore atteso di archi in un grafo random.
+\lorenzo{TBD. Quello è proprio il valore atteso del numero di archi.}
 
 \section{Prodotto zig-zag}
 
@@ -160,7 +242,7 @@ tra un insieme e il suo complementare, come segue.
 	qualche $d \in \mathbb{N}$ e $\lambda < 1$.
 \end{theorem}
 \begin{proof}
-	TBD.
+	TBD. Anzi no, forse voglio saltarla.
 \end{proof}
 
 Notiamo che grazie all'elevamento a potenza di grafi il Teorema

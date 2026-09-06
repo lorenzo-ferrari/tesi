@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -67,19 +68,22 @@ Arora, Lund, Motwani, Sudan e Szegedy.
 Una dimostrazione si legge tipicamente dall'inizio alla fine per assicurarsi
 che tutti i passaggi logici siano validi. Un singolo errore, infatti, potrebbe
 invalidare l'intero argomento.
-Se tuttavia ci venisse fornita la dimostrazione molto lunga di un teorema
+Se tuttavia ci venisse fornita una dimostrazione molto lunga di un teorema
 complicato, ci piacerebbe adottare la seguente procedura di verifica: ``lette
 cento righe scelte a caso, accettiamo la dimostrazione come valida se e soltanto
 se questa non contiene errori''.
 Il Teorema PCP afferma che esiste un modo di scrivere dimostrazioni per cui la
-verifica descritta ha successo con alta probabilità.
+verifica descritta ha successo con alta probabilità:
+dimostrazioni corrette vengono certamente accettate e, al tempo stesso,
+ogni dimostrazione fallace viene rifiutata con probabilità (diciamo) maggiore
+del 99\%.
 Questa tesi intende presentare in maniera precisa il Teorema PCP, analizzarne le
 conseguenze per l'inapprossimabilità di problemi di ottimizzazione combinatoria
 e infine percorrerne la dimostrazione combinatoria di Irit Dinur.
 
 Nel primo capitolo introduciamo le nozioni base della teoria della
-complessità, a partire dalle classi $\P$ e $\NP$, rispettivamente la classe
-dei problemi che si risolvono efficientemente e la classe dei problemi le cui
+complessità a partire dalle classi $\P$ e $\NP$, che catturano
+rispettivamente i problemi che si risolvono efficientemente e i problemi le cui
 soluzioni si verificano efficientemente.
 Descriviamo i problemi $\NP$-completi $\mathtt{SAT}$, $\mathtt{3SAT}$,
 $\mathtt{3COL}$ e soprattutto $\mathtt{QUADEQ}$: il problema di determinare se
@@ -108,10 +112,10 @@ Il primo, per il problema della cricca massima, afferma che non si può trovare
 efficientemente neanche una cricca grande un miliardesimo della cricca massima,
 a meno che $\P = \NP$.
 Il secondo, diretta conseguenza del Teorema PCP, afferma che sotto la stessa
-ipotesi non si può approssimare efficientemente \texttt{3SAT} oltre una certa
-soglia costante. Grazie al precedente lavoro di Papadimitriou e Yannakakis,
-ciò sbloccò in un colpo solo risultati di inapprossimabilità per molti altri
-problemi.
+ipotesi non si può approssimare efficientemente \texttt{MAX-3SAT} oltre una
+certa soglia costante.
+Grazie ai lavori precedenti, ciò sbloccò in un colpo solo risultati di
+inapprossimabilità per molti altri problemi.
 
 Il terzo capitolo è dedicato ai grafi expander e alle loro proprietà
 pseudo-casuali. Per esempio, per ogni nodo $v$ di un expander con $n$ nodi,
@@ -122,7 +126,7 @@ aleatoria di lunghezza $k$ funzionano bene quasi quanto $k$ nodi scelti a caso.
 Ciò permette il cosiddetto ``riciclo di bit casuali'', che incluso nella
 dimostrazione di inapprossimabilità per il problema della cricca massima
 fornisce un risultato ancora migliore.
-Ci interesseremo infine all'esistenza di expander e alla loro costruzione.
+Ci interessiamo infine all'esistenza di expander e alla loro costruzione.
 
 Nell'ultimo capitolo percorriamo la dimostrazione combinatoria
 del Teorema PCP proposta da Dinur nel 2006 basandoci sulla trattazione di
