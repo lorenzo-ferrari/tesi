@@ -67,25 +67,9 @@ Questa caratterizzazione sarà senza alcun dubbio la più utile.
 	numero di vertici.
 \end{definition}
 
-\begin{definition}[Famiglie di expander]
-	Una famiglia di grafi $\{G_n\}_{n \in \N}$ si dice \emph{famiglia di
-	$(d, \lambda)$-expander} se esistono costanti $d \in \N$ e $\lambda < 1$
-	tali che, per ogni $n$, il grafo $G_n$ è un $(n, d, \lambda)$-expander.
-	
-	Chiameremo famiglia di expander anche una famiglia di grafi $G_n$ come sopra
-	definiti solo per $n \ge n_0$.
-\end{definition}
-
-\section{Esistenza di expander}
-
-\lorenzo{TBD. Definizione combinatoria ed equivalenza tra le due?}
-
-Un grafo generato tramite un opportuno processo casuale è un expander con
-buona probabilità. In particolare, quindi, esistono expander.
-
-TBD.
-
 \section{Proprietà}
+
+\lorenzo{Un expander si comporta come un grafo casuale.}
 
 In questa sezione presentiamo alcune delle proprietà pseudo-casuali degli
 expander. Prima tra queste la velocità di convergenza alla distribuzione
@@ -150,8 +134,11 @@ del grafo.
 		Affinché la tesi valga, si deve necessariamente avere
 		$C = \frac1{\lambda}\big( A - (1 - \lambda)J \big)$.
 		Applichiamo la definizione variazionale di $\lambda$.
-		TBD.
+
+		TBD (vd. quaderno).
 	\end{proof}
+
+	TBD (vd. quaderno).
 \end{proof}
 
 Il Teorema~\ref{thm:expander-walk} sarà di fondamentale importanza per
@@ -233,17 +220,54 @@ Il Teorema~\ref{thm:expander-walk} sarà di fondamentale importanza per
 	\end{align*}
 \end{proof}
 
-\lorenzo{TBD. Quello è proprio il valore atteso del numero di archi.}
+TBD. Quella è sostanzialmente il valore atteso di $\lvert E(S, \bar S) \rvert$.
 
-\section{Prodotto zig-zag}
+\section{Esistenza}
+
+\lorenzo{Cioè, un grafo casuale è, con alta probabilità, un expander.}
+
+È naturale dare una definizione combinatoria di expander.
+Ne dimostreremo l'esistenza con il metodo probabilistico.
+
+\begin{definition}
+	Fissato $\rho > 0$, chiamiamo \emph{$(n, d, \rho)$-expander combinatoriale}
+	un grafo di $n$ nodi, regolare di grado $d$ e tale per cui, per ogni
+	sottoinsieme $S$ di al più $n / 2$ nodi, vale
+	\[
+		\lvert E(S, \bar S) \rvert \ge \rho d \lvert S \rvert.
+	\]
+\end{definition}
+
+\lorenzo{Meglio ``combinatorio'' o ``combinatoriale''? In ogni caso,
+	tralascerei la definizione di costante isoperimetrica del grafo
+	($h(G) \ge \rho$).}
+
+Lo mostriamo per $n$ pari. Si prende $G$ unione di $d$ matching perfetti scelti
+con distribuzione uniforme.
+TBD\footnote{\url{https://lucatrevisan.wordpress.com/2016/04/21/cs294-expansion-of-random-graphs/}.}.
+
+\section{Costruzioni esplicite}
+
+\begin{definition}[Famiglie di expander]
+	Una famiglia di grafi $\{G_n\}_{n \in \N}$ si dice \emph{famiglia di
+	$(d, \lambda)$-expander} se esistono costanti $d \in \N$ e $\lambda < 1$
+	tali che, per ogni $n$, il grafo $G_n$ è un $(n, d, \lambda)$-expander.
+	
+	Chiameremo famiglia di expander anche una famiglia di grafi $G_n$ come sopra
+	definiti solo per $n \ge n_0$.
+\end{definition}
+
+\lorenzo{Lascio Zig-Zag? Forse no, meglio citarlo e basta.}
 
 \begin{theorem} \label{thm:expander-construction}
-	Esiste una famiglia fortemente esplicita di $(\lambda, d)$-expander per
+	Esiste una famiglia fortemente esplicita di $(d, \lambda)$-expander per
 	qualche $d \in \mathbb{N}$ e $\lambda < 1$.
 \end{theorem}
 \begin{proof}
-	TBD. Anzi no, forse voglio saltarla.
+	\lorenzo{Al massimo a grandi linee.}
 \end{proof}
+
+\lorenzo{Voglio definire l'elevamento a potenza?}
 
 Notiamo che grazie all'elevamento a potenza di grafi il Teorema
 \ref{thm:expander-construction} fornisce famiglie fortemente esplicite di
@@ -258,9 +282,7 @@ $\lambda$-expander per ogni $\lambda > 0$ al prezzo di un aumento del grado $d$.
 % citare https://lucatrevisan.github.io/pcp/lecture05.pdf
 
 \begin{proof}
-	TBD.
-
-	In sostanza, la dimostrazione è identica alla dimostrazione
-	dell'inapprossimabilità di \texttt{MAX-CLIQUE} a meno di costante,
-	però ripeto la verifica $O(\log n)$ volte riciclando i bit random.
+	Stessa riduzione del Teorema~\ref{thm:max-clique}, ma stavolta il
+	verificatore PCP si ripete $\log n$ volte.
 \end{proof}
+
