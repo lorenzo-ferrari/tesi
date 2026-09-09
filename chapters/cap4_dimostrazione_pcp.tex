@@ -104,8 +104,8 @@ $f = h \circ g_{6, q_0}$, come in Tabella~\ref{tab:pcp-composition}.
 		\hline
 		Istanza originale & $q_0$ & binario & $m$ & $1 - \varepsilon$ \\
 		& $\Downarrow$ & $\Downarrow$ & $\Downarrow$ & $\Downarrow$ \\
-		Lemma~\ref{thm:gap-amplification} ($\ell = 6, q = q_0$)
-			& $2$ & $W$ & $C m$ & $1 - 6\varepsilon$ \\
+		Lemma~\ref{thm:gap-amplification} ($\ell = 4, q = q_0$)
+			& $2$ & $W$ & $C m$ & $1 - 4\varepsilon$ \\
 		& $\Downarrow$ & $\Downarrow$ & $\Downarrow$ & $\Downarrow$ \\
 		Lemma~\ref{thm:alphabet-reduction} & $q_0$ & binario & $C' C m$
 			& $1 - 2\varepsilon$ \\
@@ -583,11 +583,11 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 \subsection{Ottenere istanze amplificabili} \label{subsec:istanze-amplificabili}
 
 Il Lemma~\ref{thm:powering} si applica a istanze di $\CSP$ con determinate
-caratteristiche. Dunque è necessario mostrare che, a meno di una perdita di gap,
+caratteristiche, dunque è necessario mostrare che, a meno di una perdita di gap,
 è possibile supporre che l'istanza da amplificare le soddisfi.
 Anche in questo caso, la chiave è comporre trasformazioni.
 Ogni trasformazione perde un po' di gap, ma produce istanze che soddisfano via
-via più ipotesi, fino a ottenere istanze amplificabili.
+via più proprietà, fino a ottenere istanze amplificabili.
 La prima trasformazione mappa istanze di $q\CSP_2$ in istanze di $2\CSP_W$ per
 un opportuno $W$, cosicché si possa parlare di grafo soggiacente e non solo di
 ipergrafo soggiacente.
@@ -733,13 +733,13 @@ costante.
 L'idea è sostituire a ogni vincolo l'istanza di CSP corrispondente a un piccolo
 protocollo PCP che verifica che il vincolo sia soddisfatto. Poiché i singoli
 vincoli sono oggetti di taglia costante, questo PCP interno può essere anche
-terribilmente inefficiente, purché interroghi un numero costante di bit della
-dimostrazione, cosicché l'aumento di taglia dell'intera istanza sia solo
-lineare.
+terribilmente inefficiente, purché interroghi un numero costante $q_0$ di bit
+della dimostrazione, cosicché ogni vincolo dell'istanza ottenuta dipenda da
+sole $q_0$ variabili.
 È importante che questa costante sia indipendente dalla dimensione
 dell'alfabeto dell'istanza da trasformare, così da evitare problemi di
-dipendenza circolare tra il Lemma~\ref{thm:gap-amplification} e il
-Lemma~\ref{thm:alphabet-reduction}.
+dipendenza circolare per la scelta delle costanti del
+Lemma~\ref{thm:gap-amplification} e del Lemma~\ref{thm:alphabet-reduction}.
 
 Nel corso della dimostrazione avremo bisogno di esplicitare l'espressione di
 ogni vincolo come istanza di \texttt{QUADEQ}. La naturale riduzione intermedia
@@ -900,7 +900,7 @@ Per concludere, manca solo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 
 	Per ogni input $\bm{u_1 u_2}$ accettato dal circuito $C$, una valida
 	dimostrazione è data da	$\pi_1 = \WH(\bm{u_1})$,
-	$\pi_2 = \WH(\bm{u_2})$ e le codifiche relative a un vettore
+	$\pi_2 = \WH(\bm{u_2})$ e le codifiche relative al vettore
 	$\ww \in \{0, 1\}^\ell$ che rappresenta i valori degli $\ell$ nodi del
 	circuito quando questo ha input $\bm{u_1 u_2}$.
 
