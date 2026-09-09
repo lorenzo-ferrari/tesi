@@ -4,4 +4,100 @@
 % Il 7 aprile 1992 la prima pagina della sezione scientifica del New York Times recita: ``New Short Cut Found For Long Math Proofs''.
 % Sottolineare il ruolo degli expander e le tecniche impiegate.
 
-Un'introduzione scritta bene, esplicativa.
+% Un'introduzione scritta bene, esplicativa.
+
+Lo scopo di questa tesi è lo studio del Teorema PCP (\emph{Probabilistically
+Checkable Proofs}), risultato fondamentale in informatica teorica, dimostrato
+in una prima versione nel 1992 da Arora e Safra e completato lo stesso anno da
+Arora, Lund, Motwani, Sudan e Szegedy.
+
+Una dimostrazione si legge tipicamente dall'inizio alla fine per assicurarsi
+che tutti i passaggi logici siano validi. Un singolo errore, infatti, potrebbe
+invalidare l'intero argomento.
+Se tuttavia ci venisse fornita una dimostrazione molto lunga di un teorema
+complicato, ci piacerebbe adottare la seguente procedura di verifica: ``lette
+cento righe scelte a caso, accettiamo la dimostrazione come valida se e soltanto
+se queste non contengono errori''.
+Il Teorema PCP afferma che esiste un modo di scrivere dimostrazioni per cui la
+verifica descritta ha successo con alta probabilità:
+dimostrazioni corrette vengono certamente accettate e, al tempo stesso,
+ogni dimostrazione fallace viene rifiutata con probabilità (diciamo) maggiore
+del 99\%.
+Questa tesi intende presentare in maniera precisa il Teorema PCP, analizzarne le
+conseguenze per l'inapprossimabilità di problemi di ottimizzazione combinatoria
+e infine percorrerne la dimostrazione combinatoria di Irit Dinur.
+
+Nel primo capitolo introduciamo le nozioni base della teoria della
+complessità a partire dalle classi $\P$ e $\NP$, che catturano
+rispettivamente i problemi che si risolvono efficientemente e i problemi le cui
+soluzioni si verificano efficientemente.
+Descriviamo i problemi $\NP$-completi $\mathtt{SAT}$, $\mathtt{3SAT}$,
+$\mathtt{3COL}$ e soprattutto $\mathtt{QUADEQ}$: il problema di determinare se
+un sistema di equazioni quadratiche su $\F_2$ ha soluzione.
+Formalizziamo poi il modello di verifica probabilistica di dimostrazioni ed
+enunciamo in maniera precisa il Teorema PCP:
+{\color{magenta}
+per ogni problema in $\NP$ esiste un formato di soluzione che
+può essere verificato con alta probabilità di successo avendo a disposizione
+$O(\log n)$ bit casuali e leggendo solo $O(1)$ bit della soluzione.
+Gli $O(1)$ bit corrispondono alle cento righe di dimostrazione lette, mentre
+gli $O(\log n)$ bit casuali corrispondono agli esiti di $O(\log n)$ lanci di
+moneta, che il verificatore utilizza come fonte di aleatorietà per scegliere
+le cento righe in questione.
+}
+
+Come primo risultato significativo, presentiamo la dimostrazione di una versione
+debole del Teorema PCP detto Teorema PCP esponenziale.
+La dimostrazione fa uso del codice di Walsh-Hadamard per rappresentare
+dimostrazioni come funzioni lineari. Sarà dunque necessario un test di
+linearità per funzioni $\F_2^n \to \F_2$, la cui probabilità di successo si
+stima mediante analisi di Fourier discreta sull'ipercubo
+$(\Z / 2\Z)^n$.
+
+Nel secondo capitolo esploriamo il legame tra verifica probabilistica
+di dimostrazioni e inapprossimabilità di problemi di ottimizzazione
+combinatoria. Generalizziamo $\mathtt{3SAT}$ e $\mathtt{3COL}$ introducendo
+i \emph{Constraint Satisfaction Problems} ($\mathtt{CSP}$) e mostriamo che il
+Teorema PCP ammette una formulazione equivalente intrinsecamente legata
+all'inapprossimabilità di $\CSP$.
+Come conseguenza diretta, non esiste un algoritmo efficiente in grado di
+approssimare il valore di soddisfacibilità di istanze di $\CSP$ oltre una
+certa soglia costante a meno che $\P = \NP$.
+Concludiamo con due risultati di inapprossimabilità storicamente rilevanti.
+{\color{magenta}
+Il primo, per il problema della cricca massima, afferma che per ogni
+$\varepsilon > 0$ non esiste un algoritmo efficiente che trova una cricca
+grande anche solo una frazione $\varepsilon$ della cricca massima, a meno che
+$\P = \NP$.
+In altre parole, trovare una cricca grande un miliardesimo della cricca massima
+è in un certo senso difficile tanto quanto trovare cricca la massima.
+Il secondo, diretta conseguenza del Teorema PCP, afferma che sotto l'ipotesi
+$\P \neq \NP$ non si può approssimare efficientemente \texttt{MAX-3SAT} oltre
+una certa soglia costante.
+Grazie ai lavori precedenti, entrambi i risultati sbloccarono in un colpo solo
+i primi risultati di inapprossimabilità per molti altri problemi.
+
+Il terzo capitolo è dedicato ai grafi expander e alle loro proprietà
+pseudo-casuali, catturate dallo spettro della matrice adiacenza del grafo.
+Per esempio, per ogni nodo $v$ di un expander con $n$ nodi,
+la distribuzione del $k$-esimo nodo di una passeggiata aleatoria che parte da
+$v$ è molto vicina a quella uniforme per $k = O(\log n)$.
+Mostriamo inoltre che, per molte applicazioni, i nodi di una passeggiata
+aleatoria di lunghezza $k$ funzionano bene quasi quanto $k$ nodi scelti a caso.
+Ciò permette il cosiddetto ``riciclo di bit casuali'', che incluso nella
+dimostrazione di inapprossimabilità per il problema della cricca massima
+fornisce un risultato ancora migliore.
+Ci interessiamo infine all'esistenza di expander, dimostrata con il metodo
+probabilistico: un grafo generato tramite un opportuno processo casuale è,
+effettivamente, un expander. Sebbene quasi tutti i grafi siano expander,
+la loro costruzione esplicita e deterministica è un compito tutt'altro che
+banale. Concludiamo presentando brevemente gli approcci più comuni.
+}
+
+Nell'ultimo capitolo percorriamo la dimostrazione combinatoria
+del Teorema PCP proposta da Dinur nel 2006 basandoci sulla trattazione di
+Arora e Barak.
+La dimostrazione si basa sull'\emph{amplificazione del gap}, ottenuta grazie
+all'impiego degli expander e alle loro proprietà pseudo-casuali.
+Tra gli ingredienti della dimostrazione figura anche il Teorema PCP
+esponenziale, dimostrato nel primo capitolo.
