@@ -5,14 +5,14 @@
 
 In questo capitolo introduciamo i grafi expander e le loro proprietà
 pseudo-casuali. L'argomento è estremamente vasto, noi ne copriamo una minima
-parte, quanto basta per dimostrare il Teorema PCP e per migliorare il risultato
-di inapprossimabilità di \texttt{MAX-CLIQUE}.
+parte: poco più di quanto basta per dimostrare il Teorema PCP e per migliorare
+il risultato di inapprossimabilità di \texttt{MAX-CLIQUE}.
 
 \section{Passeggiate aleatorie su grafi}
 
 Un grafo si dice \emph{regolare di grado $d$}, d'ora in poi $d$-regolare, se
-ogni nodo ha esattamente $d$ vicini. Per comodità, in questo capitolo
-tratteremo solo grafi non diretti e $d$-regolari.
+ogni nodo ha esattamente $d$ vicini. Per comodità, questo capitolo tratterà
+esclusivamente grafi non diretti e $d$-regolari.
 
 La matrice di adiacenza di un grafo $G$ di $n$ vertici è la matrice
 $n \times n$ che in posizione $(u, v)$ ha il numero di archi di $G$
@@ -25,13 +25,14 @@ delle passeggiate aleatorie sul grafo.
 
 Per il teorema spettrale, la matrice $A$, che è simmetrica, ammette una base
 ortogonale di autovettori, i cui corrispondenti autovalori indichiamo con
-$\lambda_1 \ge \lambda_2 \ge \dots \lambda_n$.
+$\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_n$.
 Detto $\one = \big(\frac1{n}, \dots, \frac1{n}\big) \in \R^n$ il vettore costante
 $\frac1{n}$ in tutte le entrate, vale $A \one = \one$, dunque $\one$ è
 autovettore di $A$ relativo all'autovalore $1$.
 Ciò corrisponde al fatto che la distribuzione uniforme sui nodi del grafo è
 invariante per passeggiate aleatorie grazie all'ipotesi di $d$-regolarità.
-Vale inoltre $\lambda_1 = 1$.
+Valgono inoltre\footnote{Per il primo teorema di Ger\v{s}gorin.} $\lambda_1 = 1$
+e $\lambda_n \ge -1$.
 
 Saremo particolarmente interessati al modulo del secondo autovalore di modulo
 massimo.
@@ -43,8 +44,8 @@ massimo.
 	$\lambda(G) := \max\{\labs \lambda_2 \rabs, \labs \lambda_n \rabs\}$.
 \end{definition}
 
-Poiché gli autospazi di $A$ sono ortogonali, possiamo definire equivalentemente
-$\lambda(G)$ in modo variazionale.
+Il modulo del secondo autovalore massimo in modulo di una matrice $A$ come
+la nostra ammette un'equivalente definizione variazionale.
 
 \begin{proposition}
 	Vale
@@ -61,7 +62,6 @@ Questa caratterizzazione sarà senza alcun dubbio la più utile.
 \begin{definition}[Grafi expander]
 	Fissato $\lambda < 1$, chiamiamo \emph{$(n, d, \lambda)$-expander} un grafo
 	di $n$ nodi, regolare di grado $d$ e con $\lambda(G) \le \lambda$.
-
 	Definiamo allo stesso modo $(n, \lambda)$-expander e
 	$(d, \lambda)$-expander nei casi in cui non specifichiamo il grado o il
 	numero di vertici.
@@ -69,13 +69,13 @@ Questa caratterizzazione sarà senza alcun dubbio la più utile.
 
 \section{Un expander si comporta come un grafo casuale}
 
-% \lorenzo{Un expander si comporta come un grafo casuale.}
-
 In questa sezione presentiamo alcune delle proprietà pseudo-casuali degli
-expander. Prima tra queste la velocità di convergenza alla distribuzione
-uniforme.
+expander. I seguenti risultati confermano la bontà della scelta di $\lambda(G)$
+come misura del comportamento pseudo-casuale del grafo.
+Il primo tra questi mostra che l'estremo di una passeggiata aleatoria su un
+expander converge molto velocemente alla distribuzione uniforme.
 
-\begin{theorem}{Convergenza alla distribuzione uniforme} \label{thm:expander-conv}
+\begin{theorem} \label{thm:expander-conv}
 	Sia $G$ un $(n, \lambda)$-expander e $\pp$ una distribuzione di probabilità
 	sui nodi di $G$. Allora
 	\[
@@ -83,14 +83,15 @@ uniforme.
 	\]
 \end{theorem}
 
-% Fissato $\lambda$, ciò significa che partendo da un qualunque nodo ed
-% eseguendo una camminata aleatoria di $O(\log n)$ passi, il nodo di arrivo è
-% distribuito quasi uniformemente. Nello specifico, un expander di $n$ nodi ha
-% diametro\footnote{Cioè massima distanza tra due nodi.} $O(\log n)$.
-% \lorenzo{Lo dico? Magari nomino addirittura il Teorema di Reingold? Sicuramente
-% è interessante, forse però voglio parlare più o meno solo di PCP.}
+In particolare, il Teorema \ref{thm:expander-conv} implica che l'estremo di una
+passeggiata aleatoria di $\ell$ passi su un expander è distribuito quasi
+uniformemente già per $\ell = O(\log n)$.
+Avremmo potuto definire equivalentemente gli expander come i grafi per cui
+vale la conclusione del Teorema~\ref{thm:expander-conv}\footnote{A priori non
+è ovvio, poiché il vettore $\pp$ deve essere una distribuzione. Lasciamo la
+dimostrazione come esercizio per il lettore.}.
 
-\begin{proof}[Dimostrazione del Teorema~\ref{thm:expander-conv}]
+\begin{proof}
 	Vale $A^\ell \pp - \one = A^\ell (\pp - \one) = A^\ell \pp^\perp$, dove
 	$\pp^\perp$ è la componente di $\pp$ ortogonale a $\one$. Sia ha dunque
 	$\norm{A^\ell \pp^\perp} \le \lambda^\ell \norm{\pp^\perp}$.
