@@ -44,8 +44,8 @@ massimo.
 	$\lambda(G) := \max\{\labs \lambda_2 \rabs, \labs \lambda_n \rabs\}$.
 \end{definition}
 
-Il modulo del secondo autovalore massimo in modulo di una matrice $A$ come
-la nostra ammette un'equivalente definizione variazionale.
+Poiché la matrice $A$ è simmetrica, il modulo del secondo autovalore massimo
+in modulo ammette un'equivalente definizione variazionale.
 
 \begin{proposition}
 	Vale
@@ -118,7 +118,7 @@ del grafo.
 	Esprimiamo algebricamente la probabilità alla sinistra dell'uguale.
 	Con un abuso di notazione, indichiamo con $B$ la proiezione $\R^n \to \R^n$
 	sulle coordinate in $B \subseteq V$. La probabilità sulla sinistra si
-	scrive come $\lvert (B A)^{k - 1} B \one \rvert_1$, dove
+	scrive allora come $\lvert (B A)^{k - 1} B \one \rvert_1$, dove
 	$(B A)^{k - 1} B \one$ è il vettore che, nell'entrata $j$, ha la probabilità
 	che una passeggiata aleatoria lunga $k - 1$ termini in $j$ e non esca mai
 	da $B$.
@@ -129,14 +129,18 @@ del grafo.
 		\[
 			A = (1 - \lambda) J + \lambda C,
 		\]
-		dove $\norm{C} \le 1$ e $J_{i j} = \frac1{n}$ per ogni $i,j$.
+		con $\norm{C} \le 1$ e $J_{i j} = \frac1{n}$ per ogni $i,j$.
 	\end{lemma}
 	\begin{proof}
-		Affinché la tesi valga, si deve necessariamente avere
+		La matrice $C$ è interamente determinata da $A$, nello specifico vale
 		$C = \frac1{\lambda}\big( A - (1 - \lambda)J \big)$.
-		Applichiamo la definizione variazionale di $\lambda$.
-
-		TBD (vd. quaderno).
+		Per stimare la norma matriciale di $C$, come abbiamo già fatto,
+		scomponiamo un generico vettore $\vv \in \R^n$ nelle componenti
+		parallela e perpendicolare a $\one$.
+		Vale $C \vv = C (\vv^\parallel + \vv^\perp)
+		= \vv^\parallel + \frac1{\lambda} A \vv^\perp$.
+		Ancora una volta applichiamo la definizione variazionale di $\lambda$
+		e concludiamo.
 	\end{proof}
 
 	TBD (vd. quaderno).
