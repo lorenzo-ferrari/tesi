@@ -122,8 +122,17 @@ del grafo.
 	$(B A)^{k - 1} B \one$ è il vettore che, nell'entrata $j$, ha la probabilità
 	che una passeggiata aleatoria lunga $k - 1$ termini in $j$ e non esca mai
 	da $B$.
-	L'obiettivo ora è stimare la norma matriciale di $B A$, per cui ci sarà
-	utile il seguente
+	Vale dunque
+	\begin{align*}
+		\Pr[\forall 1 \le i \le k \ X_i \in B] &=
+			\lvert (B A)^{k - 1} B \one \rvert_1 \\
+		&\le \sqrt{n} \norm{(B A)^{k - 1} B \one} \\
+		&\le \sqrt{n} \norm{(B A)^{k - 1}} \norm{B \one} \\
+		&= \sqrt{n} \norm{(B A)^{k - 1}} \sqrt{\beta} / \sqrt{n} \\
+		&\le \norm{B A}^{k - 1}.
+	\end{align*}
+	L'obiettivo ora è maggiorare la norma matriciale di $B A$ con la quantità
+	$(1 - \lambda)\sqrt{\beta} + \lambda$, per cui sarà	utile il seguente
 	\begin{lemma}
 		Sia $A$ come sopra. Allora
 		\[
@@ -143,12 +152,20 @@ del grafo.
 		e concludiamo.
 	\end{proof}
 
-	TBD (vd. quaderno).
+	È sufficiente scrivere la matrice $A$ come nella tesi del lemma appena
+	dimostrato, notare $\norm{B J} = \sqrt{\beta}$ e concludere per
+	subadditività della norma:
+	\begin{align*}
+		\norm{B A} &= \big\lVert B \big( (1 - \lambda) J
+			+ \lambda C \big) \big\rVert \\
+		&\le (1 - \lambda) \norm{B J} + \lambda \norm C \\
+		&\le (1 - \lambda) \sqrt{\beta} + \lambda.
+	\end{align*}
 \end{proof}
 
-Il Teorema~\ref{thm:expander-walk} sarà di fondamentale importanza per
-``riciclare bit random'', come nella dimostrazione del Corollario
-\ref{thm:maxclique-inapprox-nc}.
+Il Teorema~\ref{thm:expander-walk} è di fondamentale importanza per il
+``riciclo di bit casuali'', che vedremo applicato nella dimostrazione del
+Corollario \ref{thm:maxclique-inapprox-nc}.
 
 
 \begin{restatable}{lemma}{expanderFwalk} \label{thm:Din06Prop2.5}
@@ -162,33 +179,33 @@ Il Teorema~\ref{thm:expander-walk} sarà di fondamentale importanza per
 \end{restatable}
 
 \begin{proof}
-	Siano $x$ il vettore distribuzione di $K$, cioè	$x_v = \frac{\deg_F(v)}
+	Siano $\xx$ il vettore distribuzione di $K$, cioè $x_v = \frac{\deg_F(v)}
 	{2 |F|}$, e $y_v$ la probabilità che un arco incidente a $v$ sia in $F$, cioè
-	$y = \frac{2 |F|}{d} x$.
-	Scomponiamo $x = x^\parallel + x^\perp$ con
-	$x^\parallel := \frac1n \bm{1}$. Vale per definizione
+	$\yy = \frac{2 |F|}{d} \xx$.
+	Scomponiamo $\xx = \xx^\parallel + \xx^\perp$ con
+	$\xx^\parallel := \frac1n \one$. Vale per definizione
 	\[
-		p = \sum_{v \in V}{ y_v (A^i x)_v }
-		  = \langle y, A^i x \rangle.
+		p = \sum_{v \in V}{ y_v (A^i \xx)_v }
+		  = \langle \yy, A^i \xx \rangle.
 	\]
 
-	Osserviamo $\norm{x} ^2 \le \big(\sum_v{\lvert x_v \rvert} \big)
-	\max_v{\norm{x_v}} = \max_v{\norm{x_v}}
+	Osserviamo $\norm{\xx} ^2 \le \big(\sum_v{\lvert x_v \rvert} \big)
+	\max_v{ \lvert x_v \lvert } = \max_v{ \lvert x_v \rvert }
 	\le \frac{d}{2 | F |}$ da cui, applicando la disuguaglianza di Cauchy-Schwarz
 	e la definizione variazionale di $\lambda$, otteniamo
 	\[
-		\big\langle y, A^i x^\perp \big\rangle
-		\le \lVert y \rVert \cdot \lVert A^i x^\perp \rVert
-		\le \frac{2 |F|}{d} \lVert x \rVert \cdot \lambda^i \lVert x \rVert
+		\big\langle \yy, A^i \xx^\perp \big\rangle
+		\le \norm{\yy} \cdot \norm{A^i \xx^\perp}
+		\le \frac{2 |F|}{d} \norm{\xx} \cdot \lambda^i \norm{x}
 		\le \lambda^i.
 	\]
 
 	In conclusione,
 	\[
-		\langle y, A^i x \rangle
-		= \big\langle y, A^i x^\parallel \big\rangle
-		+ \big\langle y, A^i x^\perp \big\rangle
-		\le \frac{2 |F|}{n d} + \lambda^i.
+		\langle \yy, A^i \xx \rangle
+		= \big\langle \yy, A^i \xx^\parallel \big\rangle
+		+ \big\langle \yy, A^i \xx^\perp \big\rangle
+		\le \frac{2 \lvert F \rvert}{n d} + \lambda^i.
 	\]
 \end{proof}
 
