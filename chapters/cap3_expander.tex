@@ -4,11 +4,17 @@
 % "the hay in the haystack"?
 
 In questo capitolo introduciamo i grafi expander e le loro proprietà
-pseudo-casuali. L'argomento è estremamente vasto, noi ne copriamo una minima
-parte: poco più di quanto basta per dimostrare il Teorema PCP e per migliorare
-il risultato di inapprossimabilità di \texttt{MAX-CLIQUE}.
+pseudo-casuali. L'argomento è estremamente vasto, noi ne copriamo poco più di
+quanto basta per dimostrare il Teorema PCP e per migliorare il risultato di
+inapprossimabilità di \texttt{MAX-CLIQUE}.
+Questo è l'unico capitolo in cui non presentiamo tutte le dimostrazioni dei
+risultati che esulano da un tipico programma triennale di matematica o
+informatica, per le quali si rimanda per esempio a \cite{Tre16, ABbook}.
+L'unico fatto che nel Capitolo~\ref{chap:pcpproof} useremo come scatola nera è
+l'esistenza di un algoritmo che per ogni $n$ costruisce un expander di $n$ nodi
+in tempo polinomiale in $n$.
 
-\section{Passeggiate aleatorie su grafi}
+\section{Grafi e autovalori}
 
 Un grafo si dice \emph{regolare di grado $d$}, d'ora in poi $d$-regolare, se
 ogni nodo ha esattamente $d$ vicini. Per comodità, questo capitolo tratterà
@@ -31,8 +37,8 @@ $\frac1{n}$ in tutte le entrate, vale $A \one = \one$, dunque $\one$ è
 autovettore di $A$ relativo all'autovalore $1$.
 Ciò corrisponde al fatto che la distribuzione uniforme sui nodi del grafo è
 invariante per passeggiate aleatorie grazie all'ipotesi di $d$-regolarità.
-Valgono inoltre\footnote{Per il primo teorema di Ger\v{s}gorin.} $\lambda_1 = 1$
-e $\lambda_n \ge -1$.
+Valgono inoltre\footnote{Per esempio per il primo teorema di Ger\v{s}gorin.}
+$\lambda_1 = 1$ e $\lambda_n \ge -1$.
 
 Saremo particolarmente interessati al modulo del secondo autovalore di modulo
 massimo.
@@ -58,6 +64,8 @@ in modulo ammette un'equivalente definizione variazionale.
 \end{proposition}
 
 Questa caratterizzazione sarà senza alcun dubbio la più utile.
+Siamo pronti per introdurre finalmente gli expander. La definizione che segue
+non è l'unica possibile, come vedremo nel corso del capitolo.
 
 \begin{definition}[Grafi expander]
 	Fissato $\lambda < 1$, chiamiamo \emph{$(n, d, \lambda)$-expander} un grafo
@@ -163,10 +171,13 @@ del grafo.
 	\end{align*}
 \end{proof}
 
-Il Teorema~\ref{thm:expander-walk} è di fondamentale importanza per il
-``riciclo di bit casuali'', che vedremo applicato nella dimostrazione del
-Corollario \ref{thm:maxclique-inapprox-nc}.
+Il Teorema~\ref{thm:expander-walk} è alla base del ``riciclo di bit casuali'',
+che vedremo applicato nella dimostrazione del
+Corollario~\ref{thm:maxclique-inapprox-nc}.
 
+I seguenti due lemmi, invece, saranno le espressioni di pseudocasualità degli
+expander di cui faremo uso nel Capitolo~\ref{chap:pcpproof} per la
+dimostrazione del Teorema~\ref{thm:pcp}.
 
 \begin{restatable}{lemma}{expanderFwalk} \label{thm:Din06Prop2.5}
 	% serve without self-loops? No, purché un cappio abbia contributo 2 al grado
@@ -213,12 +224,14 @@ Corollario \ref{thm:maxclique-inapprox-nc}.
 	Sia $G = (V, E)$ un $(n, d, \lambda)$-expander e $S \subseteq V$ un
 	sottoinsieme dei vertici. Allora
 	\[
-		E(S, \bar{S}) \ge (1 - \lambda)\frac{d}{n}|S||\bar{S}|.
+		\lvert E(S, \bar{S}) \rvert \ge (1 - \lambda)\frac{d}{n}|S||\bar{S}|,
 	\]
+	dove con $E(S, \bar S)$ indichiamo l'insieme degli archi tra $S$ e $\bar S$.
 \end{lemma}
 \begin{proof}
-	Esprimiamo $E(S, \bar S)$ come un opportuno prodotto scalare e analizziamo
-	separatamente componente parallela e perpendicolare al vettore costante.
+	Esprimiamo $\lvert E(S, \bar S) \rvert$ come un opportuno prodotto scalare e
+	analizziamo separatamente componente parallela e perpendicolare al vettore
+	costante.
 	Detta $A$ la matrice di adiacenza rinormalizzata, siano $\bm{1}_S$ e
 	$\bm{1}_{\bar{S}}$ i vettori indicatori di $S$ e del suo complementare.
 	Siano anche $\bm{1}_S^\parallel = \frac{|S|}{n} \bm{1}$ e
@@ -226,7 +239,8 @@ Corollario \ref{thm:maxclique-inapprox-nc}.
 	di $\bm{1}_S$ parallela e perpendicolare a $\bm{1}$.
 	Vale
 	\begin{align*}
-		\frac{1}{d} E(S, \bar{S}) &= \langle \bm{1}_S, A \bm{1}_{\bar S} \rangle \\
+		\frac{1}{d} \lvert E(S, \bar S) \rvert
+			&= \langle \bm{1}_S, A \bm{1}_{\bar S} \rangle \\
 		&= \langle \bm{1}_S, A (\bm{1} - \bm{1}_{\bar S}) \rangle \\
 		&= \langle \bm{1}_S, \bm{1} \rangle
 			- \langle \bm{1}_S, A \bm{1}_S \rangle \\
@@ -242,17 +256,36 @@ Corollario \ref{thm:maxclique-inapprox-nc}.
 	\end{align*}
 \end{proof}
 
-TBD. Quella è sostanzialmente il valore atteso di $\lvert E(S, \bar S) \rvert$.
+Osserviamo che la quantità $\frac{d}{n}|S| |\bar S|$ corrisponde essenzialmente
+al valore atteso del numero di archi tra $S$ e $\bar S$ in un grafo
+$d$-regolare scelto uniformemente a caso.
+Ignorando per semplicità i cappi, su $\binom{n}{2}$ possibili archi esattamente
+$|S| |\bar S|$ contengono un estremo in $S$ e l'altro in $\bar S$.
+Poiché un grafo $d$-regolare ha $\frac{n d}{2}$ archi, per simmetria ognuno di
+questi appare in una frazione
+$\frac{n d}{2} {\binom{n}{2}}^{-1} = \frac{d}{n - 1}$ dei grafi $d$-regolari su
+$n$ nodi, da cui $\E[\lvert E(S, \bar S) \rvert]
+\approx \frac{d}{n} |S| |\bar S|$.
+Il Lemma~\ref{thm:ESbarS} garantisce che il numero di archi tra $S$ ed $\bar S$
+in un expander $G$ non è molto minore del numero di archi tra $S$ ed $\bar S$
+in un grafo casuale.
 
 \section{Un grafo casuale è con alta probabilità un expander}
 
-\lorenzo{Cioè, un grafo casuale è, con alta probabilità, un expander.}
+Fin'ora abbiamo osservato che, se il parametro $\lambda(G)$ di un grafo
+$d$-regolare è distante da $1$ almeno una costante indipendente dalla
+dimensione del grafo, allora questo somiglia a un grafo casuale.
+In questa sezione verifichiamo che un grafo generato tramite un opportuno
+processo probabilistico è con alta probabilità un expander.
+Ciò dimostrerà l'esistenza di expander, che fino a questo punto non è
+scontata.
 
-È naturale dare una definizione combinatoria di expander.
-Ne dimostreremo l'esistenza con il metodo probabilistico.
+Per percorrere questa strada è conveniente dare una terza definizione
+equivalente di expander come, a meno di cambiare nome ai parametri, i grafi per
+cui vale il Lemma~\ref{thm:ESbarS}.
 
 \begin{definition}
-	Fissato $\rho > 0$, chiamiamo \emph{$(n, d, \rho)$-expander combinatoriale}
+	Fissato $\rho > 0$, chiamiamo \emph{$(n, d, \rho)$-expander combinatorio}
 	un grafo di $n$ nodi, regolare di grado $d$ e tale per cui, per ogni
 	sottoinsieme $S$ di al più $n / 2$ nodi, vale
 	\[
@@ -260,13 +293,21 @@ Ne dimostreremo l'esistenza con il metodo probabilistico.
 	\]
 \end{definition}
 
-\lorenzo{Meglio ``combinatorio'' o ``combinatoriale''? In ogni caso,
-	tralascerei la definizione di costante isoperimetrica del grafo
-	($h(G) \ge \rho$).}
+Il Lemma~\ref{thm:ESbarS} garantisce che un $(n, d, \lambda)$-expander è un
+$(n, d, \rho)$-expander combinatorio per $\rho = \frac{1 - \lambda}{2}$.
+Vale anche che un expander combinatorio è un expander, ma la dimostrazione
+richiede un po' più di lavoro. Rimandiamo al Capitolo 21 di \cite{ABbook}.
+
+Siamo pronti per descrivere un processo casuale che, con alta probabilità,
+produce un expander.
+
+% HERE
+\lorenzo{TBD, vd Trevisan.}
 
 Lo mostriamo per $n$ pari. Si prende $G$ unione di $d$ matching perfetti scelti
-con distribuzione uniforme.
-TBD\footnote{\url{https://lucatrevisan.wordpress.com/2016/04/21/cs294-expansion-of-random-graphs/}.}.
+con distribuzione uniforme\footnote{Vedi \url{https://lucatrevisan.wordpress.com/2016/04/21/cs294-expansion-of-random-graphs/}.}.
+
+% STOP HERE
 
 \section{Costruzioni esplicite}
 
