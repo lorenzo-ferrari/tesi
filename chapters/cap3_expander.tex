@@ -275,10 +275,10 @@ in un grafo casuale.
 Fin'ora abbiamo osservato che, se il parametro $\lambda(G)$ di un grafo
 $d$-regolare è distante da $1$ almeno una costante indipendente dalla
 dimensione del grafo, allora questo somiglia a un grafo casuale.
-In questa sezione verifichiamo che un grafo generato tramite un opportuno
-processo probabilistico è con alta probabilità un expander.
-Ciò dimostrerà l'esistenza di expander, che fino a questo punto non è
-scontata.
+In questa sezione ci occupiamo del viceversa: mostriamo in particolare che un
+grafo generato tramite un opportuno processo probabilistico è, con alta
+probabilità, un expander.
+Ciò dimostrerà l'esistenza di expander, che a priori non scontata.
 
 Per percorrere questa strada è conveniente dare una terza definizione
 equivalente di expander come, a meno di cambiare nome ai parametri, i grafi per
@@ -296,18 +296,184 @@ cui vale il Lemma~\ref{thm:ESbarS}.
 Il Lemma~\ref{thm:ESbarS} garantisce che un $(n, d, \lambda)$-expander è un
 $(n, d, \rho)$-expander combinatorio per $\rho = \frac{1 - \lambda}{2}$.
 Vale anche che un expander combinatorio è un expander, ma la dimostrazione
-richiede un po' più di lavoro. Rimandiamo al Capitolo 21 di \cite{ABbook}.
+richiede un po' più di lavoro. Rimandiamo per esempio al Capitolo 21 di
+\cite{ABbook}.
 
 Siamo pronti per descrivere un processo casuale che, con alta probabilità,
-produce un expander.
+produce un expander combinatorio, quindi un expander.
 
-% HERE
-\lorenzo{TBD, vd Trevisan.}
+Supponiamo per semplicità $n$ pari e, per $d \in \N$, consideriamo un grafo
+$d$-regolare generato dal seguente processo.
+Fissato l'insieme di vertici $V$ con $|V| = n$, siano $M_1, \dots, M_d$
+matching perfetti scelti uniformemente a caso.
+Definiamo il grafo casuale $G = (V, E)$ come l'unione dei $d$ matching:
+\[
+	E = M_1 \cup \dots \cup M_d.
+\]
+Il grafo $G$ è regolare di grado $d$ e privo di cappi.
 
-Lo mostriamo per $n$ pari. Si prende $G$ unione di $d$ matching perfetti scelti
-con distribuzione uniforme\footnote{Vedi \url{https://lucatrevisan.wordpress.com/2016/04/21/cs294-expansion-of-random-graphs/}.}.
+È utile pensare a un matching distribuito uniformemente come generato tramite
+il seguente processo\footnote{La costruzione e la dimostrazione che seguono
+ricalcano le lezioni di Trevisan \cite{Tre16}.}.
+Fissiamo un ordinamento arbitrario dei vertici. A ogni passo, consideriamo
+il primo vertice $v$ non ancora accoppiato e scegliamo il suo compagno $w$
+uniformemente a caso tra i vertici rimanenti. Il processo termina quando
+tutti i vertici sono stati accoppiati.
+È facile verificare che questo algoritmo produce un matching distribuito
+uniformemente tra gli $(n - 1) \cdot (n - 3) \cdots \cdot 1$ matching perfetti
+su $V$.
 
-% STOP HERE
+
+\begin{theorem} \label{thm:random-expander}
+	Siano $n$ un intero pari e $G$ il grafo su $n$ vertici ottenuto dall'unione
+	di $d = 25$ matching perfetti, scelti in modo indipendente e con
+	distribuzione uniforme.
+	Allora, con probabilità $1 - O\big(\frac{1}{n^4}\big)$, il grafo $G$ è un
+	$\big(n, 25, \frac{1}{150}\big)$-expander combinatorio.
+\end{theorem}
+
+\begin{proof}
+	Mostriamo che, con alta probabilità, ogni sottoinsieme $S \subseteq V$ con
+	$|S| \le n / 2$ soddisfa $|E(S, \bar S)| \ge \rho d |S|$ per $d = 25$ e
+	$\rho = \frac{1}{150}$. Questo equivale a richiedere
+	\[
+		|E(S, \bar S)| \ge \frac{|S|}{6}.
+	\]
+	Indichiamo con $\Gamma(S)$ l'insieme dei vertici adiacenti ad almeno un
+	nodo di $S$ in $G$. Poiché ogni nodo in $\Gamma(S) \setminus S$ è
+	raggiunto da almeno un arco con un estremo in $S$, si ha
+	$|E(S, \bar S)| \ge |\Gamma(S) \setminus S|$.
+	Di conseguenza, se un insieme $S$ non soddisfa la proprietà di espansione,
+	allora $|\Gamma(S) \setminus S| < |S| / 6$.
+	In tal caso, deve esistere un sottoinsieme $T \subseteq \bar S$ di cardinalità
+	$|T| \le |S|/6$ tale che $\Gamma(S) \setminus S \subseteq T$, ovvero tale per cui
+	$\Gamma(S) \subseteq S \cup T$.
+	Mostreremo che, per ogni $T$ fissato, ciò è molto improbabile, poi
+	concluderemo con due limiti per l'unione.
+	% TBD. Meglio union bound?
+	
+	Fissiamo allora un sottoinsieme $S$ di cardinalità $|S| = k \le n/2$ e un
+	sottoinsieme $T \subseteq \bar S$ di cardinalità al più $k/6$ (possiamo supporre,
+	senza perdita di generalità, $|T| = \lfloor k/6 \rfloor$).
+	Maggioriamo la probabilità che in un singolo matching perfetto $M$ si verifichi
+	$\Gamma_M(S) \subseteq S \cup T$.
+	Possiamo supporre il matching $M$ sia generato dal processo iterativo
+	descritto sopra fissato un'ordinamento dei vertici in cui gli elementi di
+	$S$ precedono tutti gli altri.
+	Finché ci sono nodi di $S$ da accoppiare, il vertice $v$ estratto
+	per trovare un compagno appartiene a $S$. Poiché in una singola iterazione
+	al massimo due nodi di $S$ vengono accoppiati, sono necessarie almeno $k/2$
+	iterazioni per accoppiare l'intero insieme $S$.
+	La condizione $\Gamma_M(S) \subseteq S \cup T$ implica che, in ciascuna di
+	queste prime iterazioni, il compagno $w$ selezionato per un nodo di $S$ deve
+	necessariamente appartenere all'insieme $S \cup T$.
+	
+{\color{magenta}
+	Consideriamo l'$i$-esima iterazione ($1 \le i \le k/2$) e condizioniamo al
+	fatto che, nei passi precedenti, siano stati scelti esclusivamente nodi in
+	$S \cup T$. In questo momento sono già stati accoppiati $2(i - 1)$ vertici,
+	tutti appartenenti a $S \cup T$.
+	Di conseguenza, i nodi di $S \cup T$ ancora disponibili come potenziali
+	partner sono al più
+	\[
+		|S \cup T| - (2i - 1) \le \frac{7}{6}k - 2i + 1.
+	\]
+	D'altro canto, il numero totale di vertici liberi nel grafo è $n - 2i + 1$.
+	Pertanto, la probabilità che all'$i$-esimo passo si scelga un partner $w \in S \cup T$
+	è limitata da
+	\[
+		\frac{\frac{7}{6}k - 2i + 1}{n - 2i + 1}.
+	\]
+	Il verificarsi dell'evento $\Gamma_M(S) \subseteq S \cup T$ richiede che questa
+	condizione valga per ciascuna delle prime $k/2$ iterazioni. Moltiplicando le
+	rispettive probabilità condizionate, otteniamo
+	\[
+		\Pr[\Gamma_M(S) \subseteq S \cup T] \le \prod_{i=1}^{k/2} \frac{\frac{7}{6}k - 2i + 1}{n - 2i + 1}.
+	\]
+	Per maggiorare questo prodotto in modo maneggevole, dividiamo i fattori in due gruppi.
+	Per $i > k/3$, il numeratore soddisfa
+	\[
+		\frac{7}{6}k - 2i + 1 \le \frac{7}{6}k - \frac{2}{3}k = \frac{1}{2}k.
+	\]
+	Al contempo, essendo $k \le n/2$ e $i \le k/2$, il denominatore è limitato inferiormente da
+	\[
+		n - 2i + 1 > n - k \ge n - \frac{n}{2} = \frac{1}{2}n.
+	\]
+	Ne consegue che, per ciascuno degli ultimi $k/2 - k/3 = k/6$ fattori, il rapporto
+	è maggiorato da $\frac{k/2}{n/2} = \frac{k}{n}$. Maggiorando per semplicità con $1$ i
+	primi $k/3$ fattori della produttoria, otteniamo
+	\[
+		\Pr[\Gamma_M(S) \subseteq S \cup T] \le \left(\frac{k}{n}\right)^{k/6}.
+	\]
+	Passando ora all'intero grafo $G$, poiché i $d$ matching $M_1, \dots, M_d$ sono estratti
+	in modo indipendente, l'evento $\Gamma(S) \subseteq S \cup T$ si realizza solo se esso si
+	verifica in tutti i $d$ matching. Pertanto,
+	\[
+		\Pr[\Gamma(S) \subseteq S \cup T] = \big(\Pr[\Gamma_M(S) \subseteq S \cup T]\big)^d \le \left(\frac{k}{n}\right)^{\frac{dk}{6}}.
+	\]
+	Dobbiamo ora fare un \emph{union bound} su tutte le possibili scelte per gli insiemi
+	$S$ e $T$. Ricordando la disuguaglianza $\binom{n}{m} \le \big(\frac{en}{m}\big)^m$, valida
+	per ogni $1 \le m \le n$, limitiamo il numero di scelte:
+	\[
+		\binom{n}{k} \le \left(\frac{en}{k}\right)^k, \qquad
+		\binom{n}{\lfloor k/6 \rfloor} \le \left(\frac{6en}{k}\right)^{k/6}.
+	\]
+	Così, il numero di possibili coppie $(S, T)$ per un fissato $k$ è
+	maggiorato da
+	\[
+		\binom{n}{k} \binom{n}{\lfloor k/6 \rfloor}
+		\le e^k (6e)^{k/6} \left(\frac{n}{k}\right)^{\frac{7k}{6}}.
+	\]
+	Definiamo la costante $C := e (6e)^{1/6} \approx 4.33$. La probabilità che
+	esista \emph{almeno} una coppia $(S, T)$ della dimensione considerata per cui fallisce
+	l'espansione è
+	\begin{align*}
+		\Pr\big[\exists S, T : |S|=k, |T| \le k/6, \Gamma(S) \subseteq S \cup T\big]
+		&\le e^k (6e)^{k/6} \left(\frac{n}{k}\right)^{\frac{7k}{6}} \left(\frac{k}{n}\right)^{\frac{dk}{6}} \\
+		&= \left[ C \left(\frac{k}{n}\right)^{\frac{d - 7}{6}} \right]^k.
+	\end{align*}
+	Sostituendo $d = 25$, l'esponente all'interno della parentesi diventa $\frac{25 - 7}{6} = 3$.
+	Poiché abbiamo assunto $k \le n/2$, segue che $\frac{k}{n} \le \frac{1}{2}$. Questo garantisce che
+	la base della potenza sia strettamente minore di $1$:
+	\[
+		C \left(\frac{k}{n}\right)^3 \le 4.33 \cdot \left(\frac{1}{2}\right)^3 = \frac{4.33}{8} < 0.55 < 1.
+	\]
+	Rimane da sommare questa probabilità di fallimento su tutte le possibili dimensioni di $S$,
+	ossia per $1 \le k \le n/2$:
+	\begin{itemize}
+		\item Per $k = 1$, il grafo è per costruzione regolare di grado $d = 25$ e privo di
+		cappi. L'unico vertice $v \in S$ deve quindi avere $25$ archi incidenti verso $\bar S$,
+		perciò $|E(S, \bar S)| = 25 > \frac{1}{6} \cdot 1$. La condizione di espansione per insiemi
+		di taglia $1$ è dunque soddisfatta con certezza.
+		\item Per $k = 2$, la probabilità di fallimento è limitata da
+		\[
+			\left[ C \left(\frac{2}{n}\right)^3 \right]^2 = \frac{64 C^2}{n^6} = O\left(\frac{1}{n^6}\right).
+		\]
+		\item Per $3 \le k \le \lfloor\sqrt{n}\rfloor$, sfruttando l'ipotesi $\frac{k}{n} \le \frac{1}{\sqrt{n}}$,
+		la base risulta maggiorata da $C(k/n)^3 \le C n^{-3/2}$, da cui
+		\[
+			\sum_{k=3}^{\lfloor\sqrt{n}\rfloor} \left[ C \left(\frac{k}{n}\right)^3 \right]^k
+			\le \sum_{k=3}^{\lfloor\sqrt{n}\rfloor} \left(\frac{C}{n^{3/2}}\right)^k
+			\le \sum_{k=3}^{\lfloor\sqrt{n}\rfloor} \frac{C^k}{n^{3k/2}}
+			= O\left(\frac{1}{n^{9/2}}\right).
+		\]
+		\item Per $\lfloor\sqrt{n}\rfloor < k \le n/2$, la base è uniformemente
+		maggiorata dalla costante $0.55$, per cui
+		\[
+			\sum_{k = \lfloor\sqrt{n}\rfloor + 1}^{n/2} \left[ C \left(\frac{k}{n}\right)^3 \right]^k
+			\le \sum_{k > \sqrt{n}} (0.55)^k
+			= O\big(0.55^{\sqrt{n}}\big) = o\left(\frac{1}{n^c}\right) \quad \text{per ogni } c > 0.
+		\]
+	\end{itemize}
+	Combinando queste disuguaglianze, la probabilità complessiva che esista un insieme che viola
+	l'espansione è dominata asintoticamente dal termine per $k=2$, e vale pertanto
+	$O(1/n^6) + O(1/n^{4.5}) + o(1/n^c) = O(1/n^4)$.
+	
+	Concludiamo che, con probabilità perlomeno $1 - O(1/n^4)$, ogni insieme $S$ con
+	$1 \le |S| \le n/2$ soddisfa il bound $|E(S, \bar S)| \ge \frac{1}{6}|S| = \frac{1}{150} \cdot 25 |S|$.
+	Questo prova che $G$ è un $\big(n, 25, \frac{1}{150}\big)$-expander combinatorio.
+}
+\end{proof}
 
 \section{Costruzioni esplicite}
 
