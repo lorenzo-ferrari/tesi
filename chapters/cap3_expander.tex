@@ -279,6 +279,8 @@ In questa sezione ci occupiamo del viceversa: mostriamo in particolare che un
 grafo generato tramite un opportuno processo probabilistico è, con alta
 probabilità, un expander.
 Ciò dimostrerà l'esistenza di expander, che a priori non scontata.
+Come sarà evidente nel corso della sezione, le stime saranno molto lasche per
+semplificare al massimo la presentazione.
 
 Per percorrere questa strada è conveniente dare una terza definizione
 equivalente di expander come, a meno di cambiare nome ai parametri, i grafi per
@@ -306,19 +308,17 @@ Supponiamo per semplicità $n$ pari e, per $d \in \N$, consideriamo un grafo
 $d$-regolare generato dal seguente processo.
 Fissato l'insieme di vertici $V$ con $|V| = n$, siano $M_1, \dots, M_d$
 matching perfetti scelti uniformemente a caso.
-Definiamo il grafo casuale $G = (V, E)$ come l'unione dei $d$ matching:
-\[
-	E = M_1 \cup \dots \cup M_d.
-\]
+Definiamo il grafo casuale $G = (V, E)$ come l'unione dei $d$ matching, cioè
+il grafo il cui insieme degli archi è dato da $E = M_1 \cup \dots \cup M_d$.
 Il grafo $G$ è regolare di grado $d$ e privo di cappi.
 
 È utile pensare a un matching distribuito uniformemente come generato tramite
 il seguente processo\footnote{La costruzione e la dimostrazione che seguono
 ricalcano le lezioni di Trevisan \cite{Tre16}.}.
-Fissiamo un ordinamento arbitrario dei vertici. A ogni passo, consideriamo
-il primo vertice $v$ non ancora accoppiato e scegliamo il suo compagno $w$
-uniformemente a caso tra i vertici rimanenti. Il processo termina quando
-tutti i vertici sono stati accoppiati.
+Fissiamo un ordinamento \emph{arbitrario} dei vertici. A ogni passo,
+consideriamo il primo vertice $v$ non ancora accoppiato e scegliamo il suo
+compagno $w$ uniformemente a caso tra i vertici rimanenti.
+Il processo termina quando tutti i vertici sono accoppiati.
 È facile verificare che questo algoritmo produce un matching distribuito
 uniformemente tra gli $(n - 1) \cdot (n - 3) \cdots \cdot 1$ matching perfetti
 su $V$.
@@ -335,7 +335,7 @@ su $V$.
 \begin{proof}
 	Mostriamo che, con alta probabilità, ogni sottoinsieme $S \subseteq V$ con
 	$|S| \le n / 2$ soddisfa $|E(S, \bar S)| \ge \rho d |S|$ per $d = 25$ e
-	$\rho = \frac{1}{150}$. Questo equivale a richiedere
+	$\rho = \frac{1}{150}$. Questo equivale a chiedere
 	\[
 		|E(S, \bar S)| \ge \frac{|S|}{6}.
 	\]
@@ -349,8 +349,8 @@ su $V$.
 	$|T| \le |S|/6$ tale che $\Gamma(S) \setminus S \subseteq T$, ovvero tale per cui
 	$\Gamma(S) \subseteq S \cup T$.
 	Mostreremo che, per ogni $T$ fissato, ciò è molto improbabile, poi
-	concluderemo con due limiti per l'unione.
-	% TBD. Meglio union bound?
+	concluderemo con due union bound\footnote{Cioè applicando due volte la
+	subadditività della probabilità.}.
 	
 	Fissiamo allora un sottoinsieme $S$ di cardinalità $|S| = k \le n/2$ e un
 	sottoinsieme $T \subseteq \bar S$ di cardinalità al più $k/6$ (possiamo supporre,
@@ -358,59 +358,63 @@ su $V$.
 	Maggioriamo la probabilità che in un singolo matching perfetto $M$ si verifichi
 	$\Gamma_M(S) \subseteq S \cup T$.
 	Possiamo supporre il matching $M$ sia generato dal processo iterativo
-	descritto sopra fissato un'ordinamento dei vertici in cui gli elementi di
-	$S$ precedono tutti gli altri.
-	Finché ci sono nodi di $S$ da accoppiare, il vertice $v$ estratto
-	per trovare un compagno appartiene a $S$. Poiché in una singola iterazione
-	al massimo due nodi di $S$ vengono accoppiati, sono necessarie almeno $k/2$
-	iterazioni per accoppiare l'intero insieme $S$.
+	descritto sopra dove l'ordinamento dei vertici pone gli elementi di	$S$
+	prima di tutti gli altri.
+	Finché ci sono nodi in $S$ da accoppiare, il vertice $v$ estratto
+	per trovare un compagno appartiene a $S$ e, poiché in una singola iterazione
+	al più due nodi di $S$ vengono accoppiati, sono necessarie almeno $k/2$
+	iterazioni per trovare un compagno a ogni elemento di $S$.
 	La condizione $\Gamma_M(S) \subseteq S \cup T$ implica che, in ciascuna di
 	queste prime iterazioni, il compagno $w$ selezionato per un nodo di $S$ deve
 	necessariamente appartenere all'insieme $S \cup T$.
 	
-{\color{magenta}
-	Consideriamo l'$i$-esima iterazione ($1 \le i \le k/2$) e condizioniamo al
-	fatto che, nei passi precedenti, siano stati scelti esclusivamente nodi in
-	$S \cup T$. In questo momento sono già stati accoppiati $2(i - 1)$ vertici,
-	tutti appartenenti a $S \cup T$.
+	Consideriamo l'$i$-esima iterazione per $1 \le i \le k/2$ e condizioniamo le
+	probabilità supponendo che, nei passi precedenti, siano stati scelti
+	esclusivamente nodi in $S \cup T$.
+	Prima della $i$-esima iterazione sono stati accoppiati esattamente
+	$2(i - 1)$ vertici, tutti appartenenti a $S \cup T$.
 	Di conseguenza, i nodi di $S \cup T$ ancora disponibili come potenziali
-	partner sono al più
+	compagni sono al più
 	\[
 		|S \cup T| - (2i - 1) \le \frac{7}{6}k - 2i + 1.
 	\]
 	D'altro canto, il numero totale di vertici liberi nel grafo è $n - 2i + 1$.
-	Pertanto, la probabilità che all'$i$-esimo passo si scelga un partner $w \in S \cup T$
-	è limitata da
+	Pertanto, la probabilità che all'$i$-esimo passo si scelga un compagno
+	$w \in S \cup T$ è maggiorata da
 	\[
 		\frac{\frac{7}{6}k - 2i + 1}{n - 2i + 1}.
 	\]
-	Il verificarsi dell'evento $\Gamma_M(S) \subseteq S \cup T$ richiede che questa
-	condizione valga per ciascuna delle prime $k/2$ iterazioni. Moltiplicando le
-	rispettive probabilità condizionate, otteniamo
+	L'evento $\Gamma_M(S) \subseteq S \cup T$ richiede che questa
+	condizione valga per ciascuna delle prime $k/2$ iterazioni, da cui,
+	moltiplicando le rispettive probabilità condizionate, otteniamo
 	\[
 		\Pr[\Gamma_M(S) \subseteq S \cup T] \le \prod_{i=1}^{k/2} \frac{\frac{7}{6}k - 2i + 1}{n - 2i + 1}.
 	\]
-	Per maggiorare questo prodotto in modo maneggevole, dividiamo i fattori in due gruppi.
-	Per $i > k/3$, il numeratore soddisfa
+	Maggioriamo questo prodotto considerando i soli termini con
+	$k / 3 \le i < k / 2$. Per $i < k / 3$ il numeratore soddisfa
 	\[
-		\frac{7}{6}k - 2i + 1 \le \frac{7}{6}k - \frac{2}{3}k = \frac{1}{2}k.
+		\frac{7}{6}k - 2i + 1 \le \frac{7}{6}k - \frac{2}{3}k = \frac{k}{2}.
 	\]
-	Al contempo, essendo $k \le n/2$ e $i \le k/2$, il denominatore è limitato inferiormente da
+	Al tempo stesso, da $k \le n/2$ e $i \le k/2$, il denominatore è limitato
+	inferiormente da
 	\[
-		n - 2i + 1 > n - k \ge n - \frac{n}{2} = \frac{1}{2}n.
+		n - 2i + 1 > n - k \ge n - \frac{n}{2} = \frac{n}{2}.
 	\]
-	Ne consegue che, per ciascuno degli ultimi $k/2 - k/3 = k/6$ fattori, il rapporto
-	è maggiorato da $\frac{k/2}{n/2} = \frac{k}{n}$. Maggiorando per semplicità con $1$ i
-	primi $k/3$ fattori della produttoria, otteniamo
+	Segue che, per ciascuno dei $k/2 - k/3 = k/6$ fattori nell'intervallo
+	considerato, il rapporto è maggiorato da $\frac{k/2}{n/2} = \frac{k}{n}$.
+	Otteniamo
 	\[
-		\Pr[\Gamma_M(S) \subseteq S \cup T] \le \left(\frac{k}{n}\right)^{k/6}.
+		\Pr[\Gamma_M(S) \subseteq S \cup T] \le \bigg(\frac{k}{n}\bigg)^{k/6}.
 	\]
-	Passando ora all'intero grafo $G$, poiché i $d$ matching $M_1, \dots, M_d$ sono estratti
-	in modo indipendente, l'evento $\Gamma(S) \subseteq S \cup T$ si realizza solo se esso si
-	verifica in tutti i $d$ matching. Pertanto,
+	Passando all'intero grafo $G$, poiché i $d$ matching $M_1, \dots, M_d$ sono
+	estratti in modo indipendente, l'evento $\Gamma(S) \subseteq S \cup T$ si
+	realizza con probabilità
 	\[
-		\Pr[\Gamma(S) \subseteq S \cup T] = \big(\Pr[\Gamma_M(S) \subseteq S \cup T]\big)^d \le \left(\frac{k}{n}\right)^{\frac{dk}{6}}.
+		\Pr[\Gamma(S) \subseteq S \cup T]
+			= \big(\Pr[\Gamma_M(S) \subseteq S \cup T]\big)^d
+			\le \bigg(\frac{k}{n}\bigg)^{\frac{dk}{6}}.
 	\]
+{\color{magenta}
 	Dobbiamo ora fare un \emph{union bound} su tutte le possibili scelte per gli insiemi
 	$S$ e $T$. Ricordando la disuguaglianza $\binom{n}{m} \le \big(\frac{en}{m}\big)^m$, valida
 	per ogni $1 \le m \le n$, limitiamo il numero di scelte:
