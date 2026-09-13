@@ -148,7 +148,13 @@ del grafo.
 		\le ((1 - \lambda)\sqrt{\beta} + \lambda)^{k - 1}.
 	\]
 \end{theorem}
-\begin{proof}[Dimostrazione del Teorema~\ref{thm:expander-walk}]
+
+Notiamo che, se $\lambda < 1$, la base $(1 - \lambda) \sqrt{\beta} + \lambda$ è
+essa stessa minore di $1$, dunque la probabilità che i nodi $X_1, \dots, X_k$
+appartengano tutti a $B$ decade esponenzialmente con $k$, così come succede
+per $k$ nodi veramente casuali.
+
+\begin{proof}
 	Esprimiamo algebricamente la probabilità alla sinistra dell'uguale.
 	Con un abuso di notazione, indichiamo con $B$ la proiezione $\R^n \to \R^n$
 	sulle coordinate in $B \subseteq V$. La probabilità sulla sinistra si
@@ -198,22 +204,82 @@ del grafo.
 \end{proof}
 
 Il Teorema~\ref{thm:expander-walk} è alla base del ``riciclo di bit casuali'',
-che vediamo applicato nel seguente Corollario~\ref{thm:maxclique-inapprox-nc}.
+introdotto da Impagliazzo e Zuckerman nel 1989 \cite{IZ89}.
+L'idea è la seguente e la vediamo applicata nel prossimo corollario: supponiamo
+un algoritmo (di decisione) probabilistico utilizzi $c \log n$ bit casuali,
+risponda sempre ``sì'' quando la risposta è ``sì'' e sbagli al più (diciamo)
+metà delle volte quando la risposta è ``no''.
+Per ridurre la probabilità di errore è naturale ripetere
+indipendentemente l'algoritmo un certo numero $k$ di volte e restituire ``sì''
+se e soltanto se tutte le esecuzioni restituiscono ``sì''.
+Un tale processo di decisione utilizza $k \cdot c \log n = O(k \log n)$ bit
+casuali e restituisce la risposta sbagliata con probabilità limitata da $1/2^k$.
+Ci si chiede se utilizzare ogni volta nuovi bit casuali per ognuna delle $k$
+esecuzioni sia davvero necessario e se non sia invece possibile dare in pasto
+all'algoritmo probabilistico $k$ stringhe di bit \emph{pseudo-casuali}, cioè
+correlate, ma sostanzialmente indistinguibili da stringhe casuali agli occhi
+dell'algoritmo\footnote{\emph{Randomness is in the eye of the beholder}, come
+dice Avi Wigderson.}.
+
+Un modo per produrre stringhe pseudo-casuali è il seguente. Per qualche coppia
+di costanti $d$ e $\lambda$, costruiamo un $(d, \lambda)$-expander i cui nodi
+sono indicizzati dalle $2^{c \log n} = n^c$ stringhe casuali di $c \log n$ bit.
+La prima stringa $X_1$ è scelta veramente a caso, cioè con distribuzione
+uniforme sui nodi del grafo. Le successive stringhe $X_2, \dots, X_k$ si
+selezionano invece con una passeggiata aleatoria sull'expander, scegliendo ogni
+volta uno tra i $d$ possibili vicini della stringa corrente.
+In questo caso l'insieme $B$ nelle ipotesi del Teorema~\ref{thm:expander-walk}
+corrisponde alle $\beta n^c$ stringhe casuali per cui l'algoritmo probabilistico
+sbaglia. In virtù del teorema, la probabilità di errore decade comunque
+esponenzialmente in $k$, ma si utilizzano solamente
+$c \log n + k \log d = O(\log n + k)$ bit veramente casuali.
+Ponendo $k = \log n$ si ottiene una probabilità di errore che decade
+polinomialmente in $n$ utilizzando comunque $O(\log n)$ bit casuali, solo un
+multiplo costante del numero di bit casuali per una singola esecuzione!
+Enfatizziamo il fatto che una probabilità di errore che decade polinomialmente
+in $n$ è meglio di una probabilità di errore piccola a piacere ma pur sempre
+costante. Sottolineamo anche che questo miglioramento si ottiene senza sapere
+nulla del funzionamento interno dell'algoritmo.
+
+L'idea si applica anche alla verifica probabilistica di certificati PCP.
+Vista attraverso la riduzione del Teorema~\ref{thm:max-clique}, la minore
+probabilità di errore minore si traduce in un migliore risultato di
+inapprossimabilità per \texttt{MAX-CLIQUE}.
 
 \begin{corollary} \label{thm:maxclique-inapprox-nc}
-	Esiste una costante $c > 0$ tale che non esiste una
-	$\frac1{n^c}$-approssimazione polinomiale di \texttt{MAX-CLIQUE}, a meno
-	che $\P = \NP$.
+	Esiste una costante $\alpha > 0$ tale che non esiste una
+	$\frac1{{|V|}^\alpha}$-approssimazione polinomiale di \texttt{MAX-CLIQUE}, a
+	meno che $\P = \NP$.
 \end{corollary}
 
 \begin{proof}
-	\lorenzo{TBD.}
+	Applicato il riciclo di bit casuali, la dimostrazione è identica a quella
+	del Teorema~\ref{thm:max-clique}.
+	Per un dato linguaggio $L \in \NP$, fissiamo un verificatore PCP per $L$
+	con parametro di robustezza $1 / 2$ e che, su input
+	$x \in \{0, 1\}^n$, utilizza $c \log n$ bit casuali e legge $q$ bit del
+	certificato.
+	Ripetiamo la verifica $O(\log n)$ volte riciclando la casualità tra le
+	esecuzioni per ottenere un verificatore che usa $c' \log n$ bit casuali,
+	legge $q' \log n$ bit del certificato e sbaglia al più una frazione
+	$1 / n$ delle volte.
 
-	Stessa riduzione del Teorema~\ref{thm:max-clique}, ma stavolta il
-	verificatore PCP si ripete $\log n$ volte.
+	Poiché il numero di bit casuali e bit del certificato letti
+	durante la verifica è ancora logaritmico, è possibile costruire il
+	corrispondente grafo FGLSS $G_x$, il cui insieme $V$ di nodi corrisponde
+	agli al più $n^{c' + q'}$ scenari di verifica accettati.
+	Come nel Teorema~\ref{thm:max-clique}, se $x \in L$, allora
+	$\omega(G_x) = n^{c'}$. Se invece $x \notin L$, vale
+	$\omega(G_x) < \frac1{n} n^{c'}$. Un algoritmo efficiente con fattore di
+	approssimazione $\frac1{n}$, cioè $\frac1{|V|^\alpha}$ per
+	$\alpha = \frac1{c' + q'}$, sarebbe sufficiente a distinguere gli scenari
+	``$x \in L$'' e ``$x \notin L$'' e quindi a decidere efficientemente
+	l'appartenenza a $L$.
+	Segue che un tale algoritmo di approssimazione non può esistere, a meno che
+	$\P = \NP$.
 \end{proof}
 
-I seguenti due lemmi, invece, saranno le espressioni di pseudocasualità degli
+I seguenti due lemmi sono invece le espressioni di pseudocasualità degli
 expander di cui faremo uso nel Capitolo~\ref{chap:pcpproof} per la
 dimostrazione del Teorema~\ref{thm:pcp}.
 
@@ -337,7 +403,8 @@ conclusione simile a quella del Lemma~\ref{thm:ESbarS}.
 
 Il Lemma~\ref{thm:ESbarS} garantisce che un $(n, d, \lambda)$-expander è un
 $(n, d, \rho)$-expander combinatorio per $\rho = \frac{1 - \lambda}{2}$.
-Vale anche che un expander combinatorio è un expander, ma la dimostrazione
+Vale anche che un expander combinatorio\footnote{Con almeno un cappio per ogni
+nodo, per evitare il caso di grafi bipartiti.} è un expander, ma la dimostrazione
 richiede un po' più di lavoro. Rimandiamo per esempio al Capitolo 21 di
 \cite{ABbook}.
 
