@@ -48,7 +48,7 @@ massimo.
 \end{definition}
 
 Poiché la matrice $A$ è simmetrica, il modulo del secondo autovalore massimo
-in modulo ammette un'equivalente definizione variazionale, che come vedremo,
+in modulo ammette un'equivalente definizione variazionale, che, come vedremo,
 si rivelerà senza alcun dubbio la più utile.
 
 \begin{proposition}
@@ -68,7 +68,7 @@ una definizione probabilistica e una combinatoria.
 \begin{definition}[Grafi expander]
 	Fissato $\lambda < 1$, chiamiamo \emph{$(n, d, \lambda)$-expander} un grafo
 	di $n$ nodi, $d$-regolare e con $\lambda(G) \le \lambda$.
-	Definiamo allo stesso modo $(n, \lambda)$-expander,	$(d, \lambda)$-expander
+	Definiamo allo stesso modo $(n, \lambda)$-expander, $(d, \lambda)$-expander
 	e $\lambda$-expander nei casi in cui non specifichiamo il grado e/o il
 	numero di vertici.
 \end{definition}
@@ -76,7 +76,7 @@ una definizione probabilistica e una combinatoria.
 Quando si parla di expander anche senza specificare i parametri ci si riferisce
 sempre a $\lambda$-expander per una costante $\lambda$ \emph{indipendente} dalla
 dimensione del grafo.
-In questo senso, l'essere expander è una prorietà di insiemi infiniti di grafi
+In questo senso, l'essere expander è una proprietà di insiemi infiniti di grafi
 più che del singolo grafo.
 
 \begin{definition}[Famiglie di expander]
@@ -117,7 +117,7 @@ su un expander converge molto velocemente alla distribuzione uniforme.
 	\]
 \end{theorem}
 
-In particolare, il Teorema \ref{thm:expander-conv} implica che l'estremo di una
+In particolare, il Teorema~\ref{thm:expander-conv} implica che l'estremo di una
 passeggiata aleatoria di $\ell$ passi su un expander è distribuito quasi
 uniformemente già per $\ell = O(\log n)$.
 Avremmo potuto definire equivalentemente gli expander come i grafi per cui
@@ -127,7 +127,7 @@ dimostrazione come esercizio per il lettore.}.
 
 \begin{proof}
 	Vale $A^\ell \pp - \one = A^\ell (\pp - \one) = A^\ell \pp^\perp$, dove
-	$\pp^\perp$ è la componente di $\pp$ ortogonale a $\one$. Sia ha dunque
+	$\pp^\perp$ è la componente di $\pp$ ortogonale a $\one$. Si ha dunque
 	$\norm{A^\ell \pp^\perp} \le \lambda^\ell \norm{\pp^\perp}$.
 	Per concludere è sufficiente maggiorare la norma di $\pp^\perp$ con quella
 	di $\pp$ e applicare la disuguaglianza tra norma $2$ e norma $1$ in
@@ -168,11 +168,11 @@ per $k$ nodi veramente casuali.
 			\lvert (B A)^{k - 1} B \one \rvert_1 \\
 		&\le \sqrt{n} \norm{(B A)^{k - 1} B \one} \\
 		&\le \sqrt{n} \norm{(B A)^{k - 1}} \norm{B \one} \\
-		&= \sqrt{n} \norm{(B A)^{k - 1}} \sqrt{\beta} / \sqrt{n} \\
+		&= \sqrt{n} \norm{(B A)^{k - 1}} \frac{\sqrt{\beta}}{\sqrt{n}} \\
 		&\le \norm{B A}^{k - 1}.
 	\end{align*}
 	L'obiettivo ora è maggiorare la norma matriciale di $B A$ con la quantità
-	$(1 - \lambda)\sqrt{\beta} + \lambda$, per cui sarà	utile il seguente
+	$(1 - \lambda)\sqrt{\beta} + \lambda$, per cui sarà utile il seguente
 	\begin{lemma}
 		Sia $A$ come sopra. Allora
 		\[
@@ -238,13 +238,13 @@ polinomialmente in $n$ utilizzando comunque $O(\log n)$ bit casuali, solo un
 multiplo costante del numero di bit casuali per una singola esecuzione!
 Enfatizziamo il fatto che una probabilità di errore che decade polinomialmente
 in $n$ è meglio di una probabilità di errore piccola a piacere ma pur sempre
-costante. Sottolineamo anche che questo miglioramento si ottiene senza sapere
+costante. Sottolineiamo anche che questo miglioramento si ottiene senza sapere
 nulla del funzionamento interno dell'algoritmo.
 
 L'idea si applica anche alla verifica probabilistica di certificati PCP.
 Vista attraverso la riduzione del Teorema~\ref{thm:max-clique}, la minore
-probabilità di errore minore si traduce in un migliore risultato di
-inapprossimabilità per \texttt{MAX-CLIQUE}.
+probabilità di errore si traduce in un migliore risultato di inapprossimabilità
+per \texttt{MAX-CLIQUE}.
 
 \begin{corollary} \label{thm:maxclique-inapprox-nc}
 	Esiste una costante $\alpha > 0$ tale che non esiste una
@@ -456,8 +456,8 @@ su $V$.
 	$|T| \le |S|/6$ tale che $\Gamma(S) \setminus S \subseteq T$, ovvero tale per cui
 	$\Gamma(S) \subseteq S \cup T$.
 	Mostreremo che, per ogni $T$ fissato, ciò è molto improbabile, poi
-	concluderemo con un union bound\footnote{Cioè applicando la	subadditività
-	della probabilità.} sulle possibli scelte di $S$ e $T$.
+	concluderemo con un union bound\footnote{Cioè applicando la subadditività
+	della probabilità.} sulle possibili scelte di $S$ e $T$.
 	
 	Fissiamo allora un sottoinsieme $S$ di cardinalità $|S| = k \le n/2$ e un
 	sottoinsieme $T \subseteq \bar S$ di cardinalità al più $k/6$ (senza perdita
@@ -465,7 +465,7 @@ su $V$.
 	Maggioriamo la probabilità che in un singolo matching perfetto $M$ si verifichi
 	$\Gamma_M(S) \subseteq S \cup T$.
 	Possiamo supporre il matching $M$ sia generato dal processo iterativo
-	descritto sopra dove l'ordinamento dei vertici pone gli elementi di	$S$
+	descritto sopra dove l'ordinamento dei vertici pone gli elementi di $S$
 	prima di tutti gli altri.
 	Finché ci sono nodi in $S$ da accoppiare, il vertice $v$ estratto
 	per trovare un compagno appartiene a $S$ e, poiché in una singola iterazione
@@ -522,10 +522,10 @@ su $V$.
 			\le \bigg(\frac{k}{n}\bigg)^{\frac{dk}{6}}.
 	\]
 
-	Applichiamo l'union bound su tutte le possibli scelte di $S$ e $T$ per
+	Applichiamo l'union bound su tutte le possibili scelte di $S$ e $T$ per
 	maggiorare la probabilità che \emph{esistano} $S$ e $T$ che violano la
 	proprietà di espansione.
-	Ci sarà utile la disuaguaglianza
+	Ci sarà utile la disuguaglianza
 	$\binom{n}{m} \le \big(\frac{en}{m}\big)^m$.
 	Per un fissato $k = |S|$, il numero di possibili coppie $(S, T)$ è al più:
 	\[
@@ -543,7 +543,7 @@ su $V$.
 	\]
 	Sostituendo $d = 25$, la base della potenza diventa $C (k/n)^3$.
 	Notiamo che, per $k = 1$, la proprietà di espansione è banalmente
-	verificata.	Sommiamo dunque le probabilità di fallimento per
+	verificata. Sommiamo dunque le probabilità di fallimento per
 	$2 \le k \le n/2$ e maggioriamo con le nostre stime.
 	Detta $f(k) := \big[ C (k/n)^3 \big]^k$ la funzione che maggiora i singoli
 	addendi, il nostro obiettivo è dimostrare
@@ -553,7 +553,7 @@ su $V$.
 
 	È immediato verificare che la funzione $f$ è ($\log$-)convessa, dunque assume
 	il valore massimo agli estremi dell'intervallo $[2, n / 2]$. Valutando la
-	funzione agli estremi otteniamo	$f(2) = O(1 / n^6)$ e
+	funzione agli estremi otteniamo $f(2) = O(1 / n^6)$ e
 	$f(n / 2) = (C / 8)^{n / 2} = O(0.55^{n / 2})$.
 	La somma delle singole probabilità è dunque maggiorata da
 	$\frac{n}{2} \max\{ f(2), f(n / 2) \} = O(1 / n^5)$.
@@ -567,8 +567,8 @@ su $V$.
 \lorenzo{TBD.}
 \begin{itemize}
 	\item dire che, sebbene, come mostra il Teorema ... la maggior parte dei grafi
-		sono expander, costruirne esplicitamente è un compito difficile
-	\item citare il fatto che, ci sono costruzioni esplicite basate su prodotti di
+		siano expander, costruirne esplicitamente è un compito difficile
+	\item citare il fatto che ci sono costruzioni esplicite basate su prodotti di
 		grafi, la più celebre delle quali è quella basata sul cosiddetto
 		prodotto zig-zag ideato da RVW \cite{RVW02}.
 		Queste costruzioni partono da un expander di taglia costante, la cui
@@ -576,6 +576,6 @@ su $V$.
 		sempre più grandi applicando iterativamente opportuni prodotti. È garantito
 		che, se i fattori sono expander abbastanza buoni, allora anche il prodotto è
 		un expander abbastanza buono.
-	\item citare il fatto che, le prime costruzioni, erano algebriche. Vedere chi citare.
+	\item citare il fatto che le prime costruzioni erano algebriche. Vedere chi citare.
 	\item magari, citare qualche costruzione algebrica.
 \end{itemize}
