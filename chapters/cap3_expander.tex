@@ -1,18 +1,16 @@
 \chapter{Grafi expander} \label{chap:expander}
 
-% mi piacerebbe mettere una citazione all'inizio di ogni capitolo
-% "the hay in the haystack"?
-
 In questo capitolo introduciamo i grafi expander e le loro proprietà
 pseudo-casuali. L'argomento è estremamente vasto, noi ne copriamo poco più di
-quanto basta per dimostrare il Teorema PCP e per migliorare il risultato di
+quanto basta per il Teorema PCP e per migliorare il risultato di
 inapprossimabilità di \texttt{MAX-CLIQUE}.
 Questo è l'unico capitolo in cui non presentiamo tutte le dimostrazioni dei
 risultati che esulano da un tipico programma triennale di matematica o
-informatica, per le quali si rimanda per esempio a \cite{Tre16, ABbook}.
+informatica, per le quali rimandiamo per esempio a \cite{ABbook}.
+Rimandiamo invece a \cite{Tre16, HLW06} per una trattazione più ampia.
 L'unico fatto che nel Capitolo~\ref{chap:pcpproof} useremo come scatola nera è
-l'esistenza di un algoritmo che per ogni $n$ costruisce un expander di $n$ nodi
-in tempo polinomiale in $n$.
+l'esistenza di un algoritmo che, per ogni $n$, costruisce un expander di $n$
+nodi in tempo polinomiale in $n$.
 
 \section{Grafi e autovalori}
 
@@ -37,21 +35,21 @@ $\frac1{n}$ in tutte le entrate, vale $A \one = \one$, dunque $\one$ è
 autovettore di $A$ relativo all'autovalore $1$.
 Ciò corrisponde al fatto che la distribuzione uniforme sui nodi del grafo è
 invariante per passeggiate aleatorie grazie all'ipotesi di $d$-regolarità.
-Valgono inoltre\footnote{Per esempio per il primo teorema di Ger\v{s}gorin.}
-$\lambda_1 = 1$ e $\lambda_n \ge -1$.
+Valgono inoltre $\lambda_1 = 1$ e $\lambda_n \ge -1$, per esempio per il primo
+teorema di Ger\v{s}gorin.
 
 Saremo particolarmente interessati al modulo del secondo autovalore di modulo
 massimo.
 
 \begin{definition}
-	Siano $G$ come sopra un grafo $d$-regolare non diretto e $A$ la sua matrice
-	di adiacenza rinormalizzata.
-	Definiamo il parametro
+	Siano $G$ come sopra un grafo non diretto $d$-regolare e $A$ la sua matrice
+	di adiacenza rinormalizzata. Definiamo il parametro
 	$\lambda(G) := \max\{\labs \lambda_2 \rabs, \labs \lambda_n \rabs\}$.
 \end{definition}
 
 Poiché la matrice $A$ è simmetrica, il modulo del secondo autovalore massimo
-in modulo ammette un'equivalente definizione variazionale.
+in modulo ammette un'equivalente definizione variazionale, che come vedremo,
+si rivelerà senza alcun dubbio la più utile.
 
 \begin{proposition}
 	Vale
@@ -63,25 +61,53 @@ in modulo ammette un'equivalente definizione variazionale.
 	dove la norma è quella euclidea.
 \end{proposition}
 
-Questa caratterizzazione sarà senza alcun dubbio la più utile.
-Siamo pronti per introdurre finalmente gli expander. La definizione che segue
-non è l'unica possibile, come vedremo nel corso del capitolo.
+Siamo finalmente pronti per introdurre gli expander. La seguente definizione,
+algebrica, non è l'unica possibile. Nel corso del capitolo incontreremo anche
+una definizione probabilistica e una combinatoria.
 
 \begin{definition}[Grafi expander]
 	Fissato $\lambda < 1$, chiamiamo \emph{$(n, d, \lambda)$-expander} un grafo
-	di $n$ nodi, regolare di grado $d$ e con $\lambda(G) \le \lambda$.
-	Definiamo allo stesso modo $(n, \lambda)$-expander e
-	$(d, \lambda)$-expander nei casi in cui non specifichiamo il grado o il
+	di $n$ nodi, $d$-regolare e con $\lambda(G) \le \lambda$.
+	Definiamo allo stesso modo $(n, \lambda)$-expander,	$(d, \lambda)$-expander
+	e $\lambda$-expander nei casi in cui non specifichiamo il grado e/o il
 	numero di vertici.
 \end{definition}
 
+Quando si parla di expander anche senza specificare i parametri ci si riferisce
+sempre a $\lambda$-expander per una costante $\lambda$ \emph{indipendente} dalla
+dimensione del grafo.
+In questo senso, l'essere expander è una prorietà di insiemi infiniti di grafi
+più che del singolo grafo.
+
+\begin{definition}[Famiglie di expander]
+	Una famiglia di grafi $\{G_n\}_{n \in \N}$ si dice \emph{famiglia di
+	$(d, \lambda)$-expander} se esistono costanti $d \in \N$ e $\lambda < 1$
+	tali che, per ogni $n$, il grafo $G_n$ è un $(n, d, \lambda)$-expander.
+\end{definition}
+
+Il seguente teorema garantisce che esistono famiglie di expander computabili
+efficientemente.
+
+\begin{theorem} \label{thm:explicitexpander}
+	Per ogni $\lambda \in (0, 1)$ esistono $d \in \N$ e un algoritmo che, su input
+	$n \in \N$, produce un $(n, d, \lambda)$-expander in tempo polinomiale in $n$.
+\end{theorem}
+
+La dimostrazione del Teorema~\ref{thm:explicitexpander} è al di fuori degli
+obiettivi di questa tesi. Rimandiamo a \cite{ABbook} per una dimostrazione il
+più possibile autocontenuta e a \cite{RVW02} per una dimostrazione combinatoria
+particolarmente rilevante in informatica teorica.
+
+Nella Sezione~\ref{sec:randomexpansion}, tuttavia, descriveremo e analizzeremo
+un algoritmo probabilistico per produrre expander arbitrariamente grandi.
+
 \section{Un expander si comporta come un grafo casuale}
 
-In questa sezione presentiamo alcune delle proprietà pseudo-casuali degli
-expander. I seguenti risultati confermano la bontà della scelta di $\lambda(G)$
-come misura del comportamento pseudo-casuale del grafo.
-Il primo tra questi mostra che l'estremo di una passeggiata aleatoria su un
-expander converge molto velocemente alla distribuzione uniforme.
+In questa sezione ci occupiamo di alcune delle proprietà pseudo-casuali degli
+expander, le quali ci convincono della bontà della scelta di $\lambda(G)$ come
+misura del comportamento pseudo-casuale del grafo.
+Il primo tra questi risultati mostra che l'estremo di una passeggiata aleatoria
+su un expander converge molto velocemente alla distribuzione uniforme.
 
 \begin{theorem} \label{thm:expander-conv}
 	Sia $G$ un $(n, \lambda)$-expander e $\pp$ una distribuzione di probabilità
@@ -172,8 +198,20 @@ del grafo.
 \end{proof}
 
 Il Teorema~\ref{thm:expander-walk} è alla base del ``riciclo di bit casuali'',
-che vedremo applicato nella dimostrazione del
-Corollario~\ref{thm:maxclique-inapprox-nc}.
+che vediamo applicato nel seguente Corollario~\ref{thm:maxclique-inapprox-nc}.
+
+\begin{corollary} \label{thm:maxclique-inapprox-nc}
+	Esiste una costante $c > 0$ tale che non esiste una
+	$\frac1{n^c}$-approssimazione polinomiale di \texttt{MAX-CLIQUE}, a meno
+	che $\P = \NP$.
+\end{corollary}
+
+\begin{proof}
+	\lorenzo{TBD.}
+
+	Stessa riduzione del Teorema~\ref{thm:max-clique}, ma stavolta il
+	verificatore PCP si ripete $\log n$ volte.
+\end{proof}
 
 I seguenti due lemmi, invece, saranno le espressioni di pseudocasualità degli
 expander di cui faremo uso nel Capitolo~\ref{chap:pcpproof} per la
@@ -270,21 +308,23 @@ Il Lemma~\ref{thm:ESbarS} garantisce che il numero di archi tra $S$ ed $\bar S$
 in un expander $G$ non è molto minore del numero di archi tra $S$ ed $\bar S$
 in un grafo casuale.
 
-\section{Un grafo casuale è con alta probabilità un expander}
+\section{Un grafo casuale è con alta probabilità un expander} \label{sec:randomexpansion}
 
-Fin'ora abbiamo osservato che, se il parametro $\lambda(G)$ di un grafo
-$d$-regolare è distante da $1$ almeno una costante indipendente dalla
+Nella scorsa sezione abbiamo osservato che, se il parametro $\lambda(G)$ di un
+grafo $d$-regolare è distante da $1$ almeno una costante indipendente dalla
 dimensione del grafo, allora questo somiglia a un grafo casuale.
-In questa sezione ci occupiamo del viceversa: mostriamo in particolare che un
-grafo generato tramite un opportuno processo probabilistico è, con alta
-probabilità, un expander.
-Ciò dimostrerà l'esistenza di expander, che a priori non scontata.
+Per completezza, qui ci occupiamo del viceversa, cioè mostriamo che un grafo
+generato tramite un opportuno processo probabilistico è, con alta probabilità,
+un expander.
+Ciò dimostrerà l'esistenza di expander, a priori non scontata.
 Come sarà evidente nel corso della sezione, le stime saranno molto lasche per
 semplificare al massimo la presentazione.
 
-Per percorrere questa strada è conveniente dare una terza definizione
-equivalente di expander come, a meno di cambiare nome ai parametri, i grafi per
-cui vale il Lemma~\ref{thm:ESbarS}.
+Prima di percorrere questa strada è conveniente avere in mente una terza
+caratterizzazione di expander. Ancora una volta, una proprietà pseudo-casuale
+che segue dalla definizione algebrica di expander si rivela, in realtà, una
+caratterizzazione equivalente: un expander è un grafo per cui vale una
+conclusione simile a quella del Lemma~\ref{thm:ESbarS}.
 
 \begin{definition}
 	Fissato $\rho > 0$, chiamiamo \emph{$(n, d, \rho)$-expander combinatorio}
@@ -302,7 +342,8 @@ richiede un po' più di lavoro. Rimandiamo per esempio al Capitolo 21 di
 \cite{ABbook}.
 
 Siamo pronti per descrivere un processo casuale che, con alta probabilità,
-produce un expander combinatorio, quindi un expander.
+produce un expander combinatorio, quindi un expander. Riportiamo la costruzione
+e (grossomodo) la dimostrazione contenute nelle lezioni di Trevisan~\cite{Tre16}.
 
 Supponiamo per semplicità $n$ pari e, per $d \in \N$, consideriamo un grafo
 $d$-regolare generato dal seguente processo.
@@ -313,8 +354,7 @@ il grafo il cui insieme degli archi è dato da $E = M_1 \cup \dots \cup M_d$.
 Il grafo $G$ è regolare di grado $d$ e privo di cappi.
 
 È utile pensare a un matching distribuito uniformemente come generato tramite
-il seguente processo\footnote{La costruzione e la dimostrazione che seguono
-ricalcano le lezioni di Trevisan \cite{Tre16}.}.
+il seguente processo.
 Fissiamo un ordinamento \emph{arbitrario} dei vertici. A ogni passo,
 consideriamo il primo vertice $v$ non ancora accoppiato e scegliamo il suo
 compagno $w$ uniformemente a caso tra i vertici rimanenti.
@@ -326,22 +366,22 @@ su $V$.
 
 \begin{theorem} \label{thm:random-expander}
 	Siano $n$ un intero pari e $G$ il grafo su $n$ vertici ottenuto dall'unione
-	di $d = 25$ matching perfetti, scelti in modo indipendente e con
+	di $d = 25$ matching perfetti scelti in modo indipendente e con
 	distribuzione uniforme.
-	Allora, con probabilità $1 - O\big(\frac{1}{n^4}\big)$, il grafo $G$ è un
-	$\big(n, 25, \frac{1}{150}\big)$-expander combinatorio.
+	Allora, con probabilità $1 - O(1 / n^5)$, il grafo $G$ è un
+	$(n, 25, 1 / 150)$-expander combinatorio.
 \end{theorem}
 
 \begin{proof}
 	Mostriamo che, con alta probabilità, ogni sottoinsieme $S \subseteq V$ con
 	$|S| \le n / 2$ soddisfa $|E(S, \bar S)| \ge \rho d |S|$ per $d = 25$ e
-	$\rho = \frac{1}{150}$. Questo equivale a chiedere
+	$\rho = 1 / 150$. Questo equivale a chiedere
 	\[
 		|E(S, \bar S)| \ge \frac{|S|}{6}.
 	\]
 	Indichiamo con $\Gamma(S)$ l'insieme dei vertici adiacenti ad almeno un
 	nodo di $S$ in $G$. Poiché ogni nodo in $\Gamma(S) \setminus S$ è
-	raggiunto da almeno un arco con un estremo in $S$, si ha
+	raggiunto da almeno un arco con un estremo in $S$, vale
 	$|E(S, \bar S)| \ge |\Gamma(S) \setminus S|$.
 	Di conseguenza, se un insieme $S$ non soddisfa la proprietà di espansione,
 	allora $|\Gamma(S) \setminus S| < |S| / 6$.
@@ -349,12 +389,12 @@ su $V$.
 	$|T| \le |S|/6$ tale che $\Gamma(S) \setminus S \subseteq T$, ovvero tale per cui
 	$\Gamma(S) \subseteq S \cup T$.
 	Mostreremo che, per ogni $T$ fissato, ciò è molto improbabile, poi
-	concluderemo con due union bound\footnote{Cioè applicando due volte la
-	subadditività della probabilità.}.
+	concluderemo con un union bound\footnote{Cioè applicando la	subadditività
+	della probabilità.} sulle possibli scelte di $S$ e $T$.
 	
 	Fissiamo allora un sottoinsieme $S$ di cardinalità $|S| = k \le n/2$ e un
-	sottoinsieme $T \subseteq \bar S$ di cardinalità al più $k/6$ (possiamo supporre,
-	senza perdita di generalità, $|T| = \lfloor k/6 \rfloor$).
+	sottoinsieme $T \subseteq \bar S$ di cardinalità al più $k/6$ (senza perdita
+	di generalità, $|T| = \lfloor k/6 \rfloor$).
 	Maggioriamo la probabilità che in un singolo matching perfetto $M$ si verifichi
 	$\Gamma_M(S) \subseteq S \cup T$.
 	Possiamo supporre il matching $M$ sia generato dal processo iterativo
@@ -414,108 +454,61 @@ su $V$.
 			= \big(\Pr[\Gamma_M(S) \subseteq S \cup T]\big)^d
 			\le \bigg(\frac{k}{n}\bigg)^{\frac{dk}{6}}.
 	\]
-{\color{magenta}
-	Dobbiamo ora fare un \emph{union bound} su tutte le possibili scelte per gli insiemi
-	$S$ e $T$. Ricordando la disuguaglianza $\binom{n}{m} \le \big(\frac{en}{m}\big)^m$, valida
-	per ogni $1 \le m \le n$, limitiamo il numero di scelte:
-	\[
-		\binom{n}{k} \le \left(\frac{en}{k}\right)^k, \qquad
-		\binom{n}{\lfloor k/6 \rfloor} \le \left(\frac{6en}{k}\right)^{k/6}.
-	\]
-	Così, il numero di possibili coppie $(S, T)$ per un fissato $k$ è
-	maggiorato da
+
+	Applichiamo l'union bound su tutte le possibli scelte di $S$ e $T$ per
+	maggiorare la probabilità che \emph{esistano} $S$ e $T$ che violano la
+	proprietà di espansione.
+	Ci sarà utile la disuaguaglianza
+	$\binom{n}{m} \le \big(\frac{en}{m}\big)^m$.
+	Per un fissato $k = |S|$, il numero di possibili coppie $(S, T)$ è al più:
 	\[
 		\binom{n}{k} \binom{n}{\lfloor k/6 \rfloor}
-		\le e^k (6e)^{k/6} \left(\frac{n}{k}\right)^{\frac{7k}{6}}.
+		\le \Big(\frac{en}{k}\Big)^k \bigg(\frac{6en}{k}\bigg)^{k/6}
+		\le e^k (6e)^{k/6} \Big(\frac{n}{k}\Big)^{\frac{7k}{6}}.
 	\]
-	Definiamo la costante $C := e (6e)^{1/6} \approx 4.33$. La probabilità che
-	esista \emph{almeno} una coppia $(S, T)$ della dimensione considerata per cui fallisce
-	l'espansione è
-	\begin{align*}
-		\Pr\big[\exists S, T : |S|=k, |T| \le k/6, \Gamma(S) \subseteq S \cup T\big]
-		&\le e^k (6e)^{k/6} \left(\frac{n}{k}\right)^{\frac{7k}{6}} \left(\frac{k}{n}\right)^{\frac{dk}{6}} \\
-		&= \left[ C \left(\frac{k}{n}\right)^{\frac{d - 7}{6}} \right]^k.
-	\end{align*}
-	Sostituendo $d = 25$, l'esponente all'interno della parentesi diventa $\frac{25 - 7}{6} = 3$.
-	Poiché abbiamo assunto $k \le n/2$, segue che $\frac{k}{n} \le \frac{1}{2}$. Questo garantisce che
-	la base della potenza sia strettamente minore di $1$:
+	Definendo la costante $C := e (6e)^{1/6} \approx 4.33$, la probabilità che
+	esista una coppia $(S, T)$ per cui l'espansione fallisce è maggiorata da:
 	\[
-		C \left(\frac{k}{n}\right)^3 \le 4.33 \cdot \left(\frac{1}{2}\right)^3 = \frac{4.33}{8} < 0.55 < 1.
+		\Pr\big[\exists S, T : |S|=k, |T| \le k/6, \Gamma(S) \subseteq S \cup T\big]
+		\le C^k \Big(\frac{n}{k}\Big)^{\frac{7k}{6}}
+			\Big(\frac{k}{n}\Big)^{\frac{dk}{6}}
+		= \bigg[ C \Big(\frac{k}{n}\Big)^{\frac{d - 7}{6}} \bigg]^k.
 	\]
-	Rimane da sommare questa probabilità di fallimento su tutte le possibili dimensioni di $S$,
-	ossia per $1 \le k \le n/2$:
-	\begin{itemize}
-		\item Per $k = 1$, il grafo è per costruzione regolare di grado $d = 25$ e privo di
-		cappi. L'unico vertice $v \in S$ deve quindi avere $25$ archi incidenti verso $\bar S$,
-		perciò $|E(S, \bar S)| = 25 > \frac{1}{6} \cdot 1$. La condizione di espansione per insiemi
-		di taglia $1$ è dunque soddisfatta con certezza.
-		\item Per $k = 2$, la probabilità di fallimento è limitata da
-		\[
-			\left[ C \left(\frac{2}{n}\right)^3 \right]^2 = \frac{64 C^2}{n^6} = O\left(\frac{1}{n^6}\right).
-		\]
-		\item Per $3 \le k \le \lfloor\sqrt{n}\rfloor$, sfruttando l'ipotesi $\frac{k}{n} \le \frac{1}{\sqrt{n}}$,
-		la base risulta maggiorata da $C(k/n)^3 \le C n^{-3/2}$, da cui
-		\[
-			\sum_{k=3}^{\lfloor\sqrt{n}\rfloor} \left[ C \left(\frac{k}{n}\right)^3 \right]^k
-			\le \sum_{k=3}^{\lfloor\sqrt{n}\rfloor} \left(\frac{C}{n^{3/2}}\right)^k
-			\le \sum_{k=3}^{\lfloor\sqrt{n}\rfloor} \frac{C^k}{n^{3k/2}}
-			= O\left(\frac{1}{n^{9/2}}\right).
-		\]
-		\item Per $\lfloor\sqrt{n}\rfloor < k \le n/2$, la base è uniformemente
-		maggiorata dalla costante $0.55$, per cui
-		\[
-			\sum_{k = \lfloor\sqrt{n}\rfloor + 1}^{n/2} \left[ C \left(\frac{k}{n}\right)^3 \right]^k
-			\le \sum_{k > \sqrt{n}} (0.55)^k
-			= O\big(0.55^{\sqrt{n}}\big) = o\left(\frac{1}{n^c}\right) \quad \text{per ogni } c > 0.
-		\]
-	\end{itemize}
-	Combinando queste disuguaglianze, la probabilità complessiva che esista un insieme che viola
-	l'espansione è dominata asintoticamente dal termine per $k=2$, e vale pertanto
-	$O(1/n^6) + O(1/n^{4.5}) + o(1/n^c) = O(1/n^4)$.
-	
-	Concludiamo che, con probabilità perlomeno $1 - O(1/n^4)$, ogni insieme $S$ con
-	$1 \le |S| \le n/2$ soddisfa il bound $|E(S, \bar S)| \ge \frac{1}{6}|S| = \frac{1}{150} \cdot 25 |S|$.
-	Questo prova che $G$ è un $\big(n, 25, \frac{1}{150}\big)$-expander combinatorio.
-}
+	Sostituendo $d = 25$, la base della potenza diventa $C (k/n)^3$.
+	Notiamo che, per $k = 1$, la proprietà di espansione è banalmente
+	verificata.	Sommiamo dunque le probabilità di fallimento per
+	$2 \le k \le n/2$ e maggioriamo con le nostre stime.
+	Detta $f(k) := \big[ C (k/n)^3 \big]^k$ la funzione che maggiora i singoli
+	addendi, il nostro obiettivo è dimostrare
+	\[
+		\sum_{k = 2}^{n / 2} f(k) = O\Big(\frac{1}{n^5}\Big).
+	\]
+
+	È immediato verificare che la funzione $f$ è ($\log$-)convessa, dunque assume
+	il valore massimo agli estremi dell'intervallo $[2, n / 2]$. Valutando la
+	funzione agli estremi otteniamo	$f(2) = O(1 / n^6)$ e
+	$f(n / 2) = (C / 8)^{n / 2} = O(0.55^{n / 2})$.
+	La somma delle singole probabilità è dunque maggiorata da
+	$\frac{n}{2} \max\{ f(2), f(n / 2) \} = O(1 / n^5)$.
+	Passando al complementare, otteniamo che con
+	probabilità almeno $1 - O(1 / n^5)$ il grafo $G$ è un
+	$(n, 25, 1 / 150)$-expander combinatorio.
 \end{proof}
 
-\section{Costruzioni esplicite}
+\subsection{Costruzioni esplicite}
 
-\begin{definition}[Famiglie di expander]
-	Una famiglia di grafi $\{G_n\}_{n \in \N}$ si dice \emph{famiglia di
-	$(d, \lambda)$-expander} se esistono costanti $d \in \N$ e $\lambda < 1$
-	tali che, per ogni $n$, il grafo $G_n$ è un $(n, d, \lambda)$-expander.
-	
-	Chiameremo famiglia di expander anche una famiglia di grafi $G_n$ come sopra
-	definiti solo per $n \ge n_0$.
-\end{definition}
-
-\lorenzo{Lascio Zig-Zag? Forse no, meglio citarlo e basta.}
-
-\begin{theorem} \label{thm:expander-construction}
-	Esiste una famiglia fortemente esplicita di $(d, \lambda)$-expander per
-	qualche $d \in \mathbb{N}$ e $\lambda < 1$.
-\end{theorem}
-\begin{proof}
-	\lorenzo{Al massimo a grandi linee.}
-\end{proof}
-
-\lorenzo{Voglio definire l'elevamento a potenza?}
-
-Notiamo che grazie all'elevamento a potenza di grafi il Teorema
-\ref{thm:expander-construction} fornisce famiglie fortemente esplicite di
-$\lambda$-expander per ogni $\lambda > 0$ al prezzo di un aumento del grado $d$.
-
-\begin{corollary} \label{thm:maxclique-inapprox-nc}
-	Esiste una costante $c > 0$ tale che non esiste una
-	$\frac1{n^c}$-approssimazione polinomiale di \texttt{MAX-CLIQUE}, a meno
-	che $\P = \NP$.
-\end{corollary}
-
-% citare https://lucatrevisan.github.io/pcp/lecture05.pdf
-
-\begin{proof}
-	Stessa riduzione del Teorema~\ref{thm:max-clique}, ma stavolta il
-	verificatore PCP si ripete $\log n$ volte.
-\end{proof}
-
+\lorenzo{TBD.}
+\begin{itemize}
+	\item dire che, sebbene, come mostra il Teorema ... la maggior parte dei grafi
+		sono expander, costruirne esplicitamente è un compito difficile
+	\item citare il fatto che, ci sono costruzioni esplicite basate su prodotti di
+		grafi, la più celebre delle quali è quella basata sul cosiddetto
+		prodotto zig-zag ideato da RVW \cite{RVW02}.
+		Queste costruzioni partono da un expander di taglia costante, la cui
+		esistenza è garantita dal Teorema ..., e ottengono una sequenza di grafi
+		sempre più grandi applicando iterativamente opportuni prodotti. È garantito
+		che, se i fattori sono expander abbastanza buoni, allora anche il prodotto è
+		un expander abbastanza buono.
+	\item citare il fatto che, le prime costruzioni, erano algebriche. Vedere chi citare.
+	\item magari, citare qualche costruzione algebrica.
+\end{itemize}
