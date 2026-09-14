@@ -95,7 +95,7 @@ generalizza naturalmente \texttt{3SAT} e i problemi di colorazione di grafi.
 
 Secondo la notazione appena introdotta, \texttt{3COL}
 corrisponde alla restrizione di $2\CSP_3$ alle istanze i cui vincoli sono
-espressi da $R_{\text{3col}} = \{(1, 2), (1, 3), (2, 3)\}$.
+espressi da $R_{\text{3col}} = \{(1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)\}$.
 Ogni variabile corrisponde a un nodo e assume un valore in $\{1, 2, 3\}$ e per
 ogni coppia di nodi adiacenti si impone la relazione binaria ``$a \neq b$'' tra
 le corrispondenti variabili.
@@ -218,7 +218,7 @@ computabile efficientemente.
 
 I risultati che dimostriamo in questa sezione hanno segnato l'inizio della
 teoria dell'inapprossimabilità per come la conosciamo oggi.
-Il primo, una risultato di inapprossimabilità per \texttt{MAX-CLIQUE} dimostrato
+Il primo, un risultato di inapprossimabilità per \texttt{MAX-CLIQUE} dimostrato
 da Feige, Goldwasser, Lovász, Safra e Szegedy nel 1991, mostrò il legame tra
 approssimazione e verifiche probabilistiche.
 Il secondo, diretta conseguenza del Teorema PCP, mostra che non si può
