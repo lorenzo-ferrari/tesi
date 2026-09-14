@@ -20,7 +20,7 @@ massimizza (o minimizza) una determinata funzione obiettivo.
 Ad ogni problema di ottimizzazione è naturalmente associata una versione
 decisionale del tipo: ``esiste una soluzione di valore almeno $k$?''.
 Se il problema di decisione associato a un problema di ottimizzazione
-è $\NP$-completo\footnote{O in generale, non si può risolvere
+è $\NP$-completo\footnote{O, più in generale, non si può risolvere
 efficientemente a meno che $\P = \NP$.}, allora calcolare la soluzione ottima
 in tempo polinomiale è impossibile, a meno che $\P = \NP$.
 È naturale chiedersi se esistono algoritmi efficienti in grado di
@@ -50,8 +50,11 @@ ragione, metà delle clausole soddisfatte da una soluzione ottima, quindi
 Se ci restringiamo a \texttt{MAX-E3SAT}, cioè alle istanze di \texttt{MAX-SAT}
 in cui ogni clausola ha esattamente tre letterali distinti, con lo
 stesso ragionamento si ottiene una $\frac78$-approssimazione.
-È naturale chiedersi se esistono approssimazioni migliori, magari
-arbitrariamente buone, come nel caso di altri problemi.
+Gli algoritmi di approssimazione, ovviamente, possono essere anche molto più
+sofisticati di così, si veda per esempio \cite{WS11}.
+È quindi naturale chiedersi se esistono approssimazioni migliori per
+\texttt{MAX-SAT} e \texttt{MAX-3SAT}, magari arbitrariamente buone, come nel
+caso di altri problemi.
 
 Si parla di \emph{inapprossimabilità} quando, per un dato problema di
 ottimizzazione, esiste un limite intrinseco al fattore di approssimazione che
@@ -215,15 +218,17 @@ computabile efficientemente.
 
 I risultati che dimostriamo in questa sezione hanno segnato l'inizio della
 teoria dell'inapprossimabilità per come la conosciamo oggi.
-Il primo, dimostrato da Feige, Goldwasser, Lovász, Safra e Szegedy nel 1991,
-mostra il legame tra approssimazione e verifiche probabilistiche.
+Il primo, una risultato di inapprossimabilità per \texttt{MAX-CLIQUE} dimostrato
+da Feige, Goldwasser, Lovász, Safra e Szegedy nel 1991, mostrò il legame tra
+approssimazione e verifiche probabilistiche.
 Il secondo, diretta conseguenza del Teorema PCP, mostra che non si può
 approssimare \texttt{MAX-3SAT} oltre un certo valore costante a meno che
 $\P = \NP$.
-Grazie al lavoro di Papadimitriou e Yannakakis \cite{PY91}, ciò implica
-che la stessa conclusione vale per molti altri problemi di ottimizzazione
-combinatoria, per i quali, prima del Teorema PCP, nessun limite
-all'approssimabilità era conosciuto.
+Grazie ai lavori precedenti, per esempio \cite{PY91, BS92, PR93},
+i risultati di inapprossimabilità per \texttt{MAX-CLIQUE} e \texttt{MAX-3SAT}
+sbloccarono analoghi risultati di inapprossimabilità per molti altri problemi
+per i quali, prima del Teorema PCP, nessun limite all'approssimabilità era
+conosciuto.
 
 \subsection{Inapprossimabilità di \texttt{MAX-CLIQUE}}
 
@@ -354,8 +359,9 @@ Ci sono pessime notizie.
 \end{proof}
 
 Il grafo $G_x$ costruito nella dimostrazione si chiama tipicamente
-``grafo FGLSS'', dalle iniziali degli autori. Nel prossimo capitolo dimostreremo
-un risultato di inapprossimabilità ancora più forte per \texttt{MAX-CLIQUE}.
+``grafo FGLSS'', dalle iniziali degli autori.
+Nel prossimo capitolo dimostreremo un risultato di inapprossimabilità per
+\texttt{MAX-CLIQUE} ancora più forte.
 
 \subsection{Inapprossimabilità di \texttt{MAX-3SAT}}
 
@@ -365,8 +371,8 @@ seguente.
 Prima del Teorema PCP, per diversi problemi di ottimizzazione combinatoria non
 si riuscivano né a trovare algoritmi di approssimazione arbitrariamente buoni,
 né a dimostrare risultati di inapprossimabilità.
-Nel 1988 Papadimitriou e Yannakakis \cite{PY91} diedero un senso a questa
-situazione di stallo mostrando che \texttt{MAX-3SAT} e molti altri
+Lavori come quello di Papadimitriou e Yannakakis \cite{PY91} diedero un senso a
+questa situazione di stallo mostrando che \texttt{MAX-3SAT} e molti altri
 problemi\footnote{Per citarne alcuni, \texttt{MAX-2SAT}, \texttt{MAX-CUT} e
 restrizioni di \texttt{MIN-VERTEX-COVER} e \texttt{MAX-CLIQUE} a determinate
 classi di istanze.} condividono la stessa difficoltà di approssimazione:
