@@ -564,18 +564,39 @@ su $V$.
 
 \subsection{Costruzioni esplicite}
 
-\lorenzo{TBD.}
-\begin{itemize}
-	\item dire che, sebbene, come mostra il Teorema ... la maggior parte dei grafi
-		siano expander, costruirne esplicitamente è un compito difficile
-	\item citare il fatto che ci sono costruzioni esplicite basate su prodotti di
-		grafi, la più celebre delle quali è quella basata sul cosiddetto
-		prodotto zig-zag ideato da RVW \cite{RVW02}.
-		Queste costruzioni partono da un expander di taglia costante, la cui
-		esistenza è garantita dal Teorema ..., e ottengono una sequenza di grafi
-		sempre più grandi applicando iterativamente opportuni prodotti. È garantito
-		che, se i fattori sono expander abbastanza buoni, allora anche il prodotto è
-		un expander abbastanza buono.
-	\item citare il fatto che le prime costruzioni erano algebriche. Vedere chi citare.
-	\item magari, citare qualche costruzione algebrica.
-\end{itemize}
+Sebbene un grafo estratto a caso è con alta probabilità un expander,
+costruire \emph{deterministicamente} una famiglia di expander è un problema
+tutt'altro che banale.
+Tipicamente, ci si procura innanzitutto una famiglia di grafi
+$\{G_i\}_{i \in \N}$ con $n_i$ vertici per una sequenza $n_i$ che cresce non
+troppo velocemente. Se una tale famiglia ha $\lambda(G_i)$ uniformemente
+limitato da una costante minore di $1$, è possibile ottenere un expander di
+$n$ vertici per ogni $n \in \N$ collassando alcuni nodi di un $G_i$ in un'unico
+nodo. L'espansione peggiora, ma in modo controllato.
+
+La prima costruzione esplicita si deve a Margulis \cite{Mar73}, che esibì, per
+ogni $n$, un expander $8$-regolare $G_n$ sull'insieme di vertici $(\Z/n\Z)^2$,
+nello specifico il grafo in cui ogni nodo $(x, y) \in (\Z/n\Z)^2$ è connesso ai
+nodi $(x \pm 1, y), (x, y \pm 1), (x \pm y, y)$ e $(x, y \pm x)$.
+La dimostrazione originale di Margulis è esistenziale, basata su teoria delle
+rappresentazioni, e non dà nessun limite esplicito all'espansione di $G_n$.
+Successivamente Gabber e Galil \cite{GG81} dimostrarono
+$\lambda(G_n) \le \frac{5 \sqrt{2}}{8} (< 1)$ utilizzando analisi armonica.
+
+Un'altra celebre costruzione fornisce expander $3$-regolari $G_p$ con $p$
+vertici per ogni primo $p$. In questo caso l'insieme dei vertici è $\F_p$
+e ogni nodo $x \in \F_p$ è connesso a $x + 1$, $x - 1$ e al suo inverso
+$x^{-1}$ (dove $0$ si definisce artificialmente come inverso di se stesso).
+La dimostrazione del fatto che i $\lambda(G_p)$ sono uniformemente limitati da
+una costante minore di $1$ si basa sul Teorema dei $3/16$ di Selberg, un
+risultato profondo di teoria dei numeri.
+
+Nel 2000 Reingold, Vadhan e Wigderson \cite{RVW02} descrissero una costruzione
+esplicita di natura puramente combinatoria basata sul \emph{prodotto zig-zag},
+da loro introdotto.
+Si parte da un expander di taglia costante (che, abbiamo dimostrato, esiste) e
+si costruiscono iterativamente grafi sempre più grandi applicando opportuni
+prodotti tra grafi con la proprietà che, se i fattori sono expander abbastanza
+buoni, allora il grafo risultato è un expander abbastanza buono.
+La sfida è mantenere simultaneamente grado costante e parametro $\lambda(G)$
+uniformemente limitato al crescere del numero dei vertici.

@@ -6,7 +6,8 @@ In seguito ci interessiamo alla verifica probabilistica di dimostrazioni
 e formalizziamo questo processo tramite le classi $\PCP$.
 Enunciamo infine il Teorema PCP, risultato sorprendente e ormai fondamentale in
 informatica teorica, nonché principe di questa tesi; in questo capitolo
-presentiamo la dimostrazione di una versione più debole.
+presentiamo la dimostrazione di una versione più debole, detta
+Teorema PCP esponenziale.
 
 \section{Classi $\P$ ed $\NP$}
 
@@ -72,7 +73,7 @@ Lo stesso vale per migliaia di altri problemi: definiamo dunque la classe $\NP$.
 \begin{definition}[Classe $\NP$]
 	Un linguaggio $L \subseteq \{0,1\}^*$ appartiene alla classe $\NP$ se
 	esistono costanti positive $A$ e $c$ e un algoritmo polinomiale $V$,
-	detto \emph{verificatore}, tale che per ogni $n$ e ogni $x \in \{0,1\}^n$
+	detto \emph{verificatore}, tale che, per ogni $n$ e ogni $x \in \{0,1\}^n$,
 	vale
 	\[
 		x \in L \iff \exists y \in \{0,1\}^{A n^c} \ \text{tale che } V(x, y) = 1.
@@ -254,7 +255,7 @@ la parte principale della dimostrazione al Capitolo~\ref{chap:pcpproof}.
 \end{proof}
 
 
-\section{Teorema PCP debole}
+\section{Teorema PCP esponenziale}
 
 Presentiamo qui la dimostrazione di una versione debole del
 Teorema~\ref{thm:pcp}. Anche in questo caso il verificatore legge un numero
@@ -399,7 +400,7 @@ questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 \end{proof}
 
 Introduciamo l'ultimo strumento necessario per la dimostrazione del Teorema PCP
-debole. Supponiamo una funzione $f\colon \F_2^n \to \F_2$ sia
+esponenziale. Supponiamo una funzione $f\colon \F_2^n \to \F_2$ sia
 $(1 - \delta)$-vicina a una funzione lineare $\tilde{f}$ per $\delta < \frac14$.
 Dato un qualunque $\xx \in \F_2^n$, vorremmo ottenere con alta probabilità il
 valore di $\tilde{f}(\xx)$.
@@ -420,7 +421,7 @@ con probabilità almeno $1 - 2 \delta > \frac12$.
 Chiamiamo questo metodo per ottenere $\tilde{f}(\xx)$ ``decodifica locale''
 di codici di Walsh-Hadamard.
 
-\subsection{Dimostrazione del Teorema PCP debole}
+\subsection{Dimostrazione del Teorema PCP esponenziale}
 
 Siamo pronti per la dimostrazione principale di questo capitolo.
 Descriviamo quindi il sistema di verifica per $\mathtt{QUADEQ}$.

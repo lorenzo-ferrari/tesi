@@ -33,15 +33,15 @@ soluzioni si verificano efficientemente.
 Descriviamo i problemi $\NP$-completi $\mathtt{SAT}$, $\mathtt{3SAT}$,
 $\mathtt{3COL}$ e soprattutto $\mathtt{QUADEQ}$: il problema di determinare se
 un sistema di equazioni quadratiche su $\F_2$ ha soluzione.
-Formalizziamo poi il modello di verifica probabilistica di dimostrazioni ed
-enunciamo in maniera precisa il Teorema PCP:
+Formalizziamo in seguito il modello di verifica probabilistica di dimostrazioni
+ed enunciamo in maniera precisa il Teorema PCP:
 per ogni problema in $\NP$ esiste un formato di soluzione che
 può essere verificato con alta probabilità di successo avendo a disposizione
 $O(\log n)$ bit casuali e leggendo solo $O(1)$ bit della soluzione.
-Gli $O(1)$ bit corrispondono alle cento righe di dimostrazione lette, mentre
-gli $O(\log n)$ bit casuali corrispondono agli esiti di $O(\log n)$ lanci di
-moneta che il verificatore utilizza come fonte di aleatorietà per scegliere
-le cento righe in questione.
+Gli $O(1)$ bit e gli $O(\log n)$ bit casuali corrispondono
+rispettivamente alle cento righe di dimostrazione lette e agli esiti di
+$O(\log n)$ lanci di moneta che il verificatore utilizza come fonte di
+aleatorietà per scegliere le cento righe in questione.
 
 Come primo risultato significativo, presentiamo la dimostrazione di una versione
 debole del Teorema PCP detta Teorema PCP esponenziale.
@@ -77,7 +77,7 @@ Il terzo capitolo è dedicato ai grafi expander e alle loro proprietà
 pseudo-casuali, catturate dallo spettro della matrice adiacenza del grafo.
 Per esempio, per ogni nodo $v$ di un expander con $n$ nodi,
 la distribuzione del $k$-esimo nodo di una passeggiata aleatoria che parte da
-$v$ è molto vicina a quella uniforme per $k = O(\log n)$.
+$v$ è molto vicina a quella uniforme già per $k = O(\log n)$.
 Mostriamo inoltre che, per molte applicazioni, i nodi di una passeggiata
 aleatoria di lunghezza $k$ funzionano bene quasi quanto $k$ nodi scelti a caso.
 Ciò permette il cosiddetto ``riciclo di bit casuali'', che incluso nella
@@ -87,12 +87,13 @@ Ci interessiamo infine all'esistenza di expander, dimostrata con il metodo
 probabilistico: un grafo generato tramite un opportuno processo casuale è,
 effettivamente, un expander. Sebbene quasi tutti i grafi siano expander,
 la loro costruzione esplicita e deterministica è un compito tutt'altro che
-banale. Concludiamo il capitolo presentando brevemente gli approcci più comuni.
+banale. Concludiamo il capitolo presentando brevemente alcune costruzioni
+rilevanti.
 
-Nell'ultimo capitolo percorriamo la dimostrazione combinatoria
+Nell'ultimo capitolo, il più tecnico, percorriamo la dimostrazione combinatoria
 del Teorema PCP proposta da Dinur nel 2006 basandoci sulla trattazione di
 Arora e Barak.
-La dimostrazione si basa sull'\emph{amplificazione del gap}, ottenuta grazie
-all'impiego degli expander e alle loro proprietà pseudo-casuali.
-Tra gli ingredienti della dimostrazione figura anche il Teorema PCP
-esponenziale, dimostrato nel primo capitolo.
+La dimostrazione è costruita attorno all'\emph{amplificazione del gap},
+ottenuta grazie all'impiego degli expander e alle loro proprietà
+pseudo-casuali. Tra gli ingredienti della dimostrazione figura anche il
+Teorema PCP esponenziale, dimostrato nel primo capitolo.
