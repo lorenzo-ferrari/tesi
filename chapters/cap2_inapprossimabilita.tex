@@ -24,7 +24,7 @@ Se il problema di decisione associato a un problema di ottimizzazione
 efficientemente a meno che $\P = \NP$.}, allora calcolare la soluzione ottima
 in tempo polinomiale è impossibile, a meno che $\P = \NP$.
 È naturale chiedersi se esistono algoritmi efficienti in grado di
-trovare una soluzione abbastanza buona, entro un certo fattore dell'ottimo.
+trovare una soluzione abbastanza buona, entro un certo fattore dall'ottimo.
 
 \begin{definition}
 	Fissato un problema di ottimizzazione, un algoritmo che restituisce sempre
@@ -61,7 +61,7 @@ ottimizzazione, esiste un limite intrinseco al fattore di approssimazione che
 un algoritmo efficiente può garantire, tipicamente a meno che $\P = \NP$.
 
 È bene osservare che la sola $\NP$-completezza non esclude la possibilità di
-approssimare molto, magari arbitrariamente, bene la soluzione ottima.
+approssimare molto bene, magari arbitrariamente bene, la soluzione ottima.
 Quasi tutte le dimostrazioni di $\NP$-completezza, infatti, passano per il
 Teorema di Cook-Levin e allo stesso tempo è molto facile trovare assegnamenti
 che soddisfano tutte le clausole meno una per le istanze di \texttt{SAT}
@@ -167,8 +167,9 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 	$(\impliedby)$
 	Viceversa, mostriamo come costruire un valido verificatore $\PCP$ a partire
 	dalla trasformazione del Teorema~\ref{thm:pcpapprox}.
-	Dato input $x$ per un problema $L$, il verificatore lo trasforma nell'istanza
-	$f(x)$ di $q\CSP_2$. Dimostrazioni di ``$x \in L$'' corrispondono a validi
+	Dato un input $x$ per un problema $L$, il verificatore lo trasforma
+	nell'istanza $f(x)$ di $q\CSP_2$.
+	Dimostrazioni di ``$x \in L$'' corrispondono a validi
 	assegnamenti per $f(x)$. Per verificare una dimostrazione, il verificatore
 	sceglie un vincolo uniformemente a caso impiegando $O(\log n)$ bit casuali,
 	dopodiché legge le $q$ variabili da cui dipende il vincolo e accetta se e
@@ -220,8 +221,8 @@ teoria dell'inapprossimabilità per come la conosciamo oggi.
 Il primo, un risultato di inapprossimabilità per \texttt{MAX-CLIQUE} dimostrato
 da Feige, Goldwasser, Lovász, Safra e Szegedy nel 1991, mostrò il legame tra
 approssimazione e verifiche probabilistiche.
-Il secondo, diretta conseguenza del Teorema PCP, mostra che non si può
-approssimare \texttt{MAX-3SAT} oltre un certo valore costante a meno che
+Il secondo, diretta conseguenza del Teorema PCP, afferma che non si può
+approssimare \texttt{MAX-3SAT} oltre un certo fattore costante a meno che
 $\P = \NP$.
 Grazie ai lavori precedenti, per esempio \cite{PY91, BS92, PR93},
 i risultati di inapprossimabilità per \texttt{MAX-CLIQUE} e \texttt{MAX-3SAT}
@@ -364,7 +365,7 @@ Mostriamo ora come dal Teorema PCP segue un risultato di inapprossimabilità
 per \texttt{MAX-3SAT}. Il contesto in cui si inserisce questo risultato è il
 seguente.
 Prima del Teorema PCP, per diversi problemi di ottimizzazione combinatoria non
-si riuscivano né a trovare algoritmi di approssimazione arbitrariamente buoni,
+si riusciva né a trovare algoritmi di approssimazione arbitrariamente buoni,
 né a dimostrare risultati di inapprossimabilità.
 Lavori come quello di Papadimitriou e Yannakakis \cite{PY91} diedero un senso a
 questa situazione di stallo mostrando che \texttt{MAX-3SAT} e molti altri

@@ -3,7 +3,7 @@
 In questo capitolo presentiamo la dimostrazione del Teorema PCP nella sua
 versione di inapprossimabilità (Teorema~\ref{thm:pcpapprox}), che sappiamo
 già essere equivalente alla formulazione classica.
-Ci interessiamo nello specifico alla dimostrazione di Dinur \cite{Din06}, in
+Ci concentriamo nello specifico sulla dimostrazione di Dinur \cite{Din06}, in
 cui il ruolo degli expander è cruciale. La nostra è una rielaborazione della
 dimostrazione contenuta nel libro di Arora e Barak \cite{ABbook}.
 
@@ -119,8 +119,8 @@ $2\CSP_W$ con $W$ sufficientemente grande e tale che la minima frazione di
 vincoli violati aumenta.
 
 Se fossero consentiti un aumento polinomiale nella taglia dell'istanza
-e arietà maggiore di $2$ basterebbe, per un qualche intero $k$, trasformare
-$\varphi$ in un'istanza di $k q \CSP_2$ con le stesse variabili e un
+e un arietà maggiore di $2$ basterebbe, per un qualche intero $k$, trasformare
+$\varphi$ in un'istanza di $kq \CSP_2$ con le stesse variabili e un
 vincolo per ogni $k$-upla di vincoli in $\varphi$, soddisfatto se e soltanto se
 tutti i $k$ vincoli corrispondenti sono soddisfatti.
 In questo modo, la minima frazione di vincoli violata sale a
@@ -221,7 +221,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	saranno in un alfabeto di taglia $W' = W^{d^3 t}$ corrispondente all'insieme
 	delle $d^{3 t}$-uple di valori nell'alfabeto originale $[W]$.
 
-	Pensiamo al valore di $y_i$ come a un'opinione riguardo i valori delle
+	Pensiamo al valore di $y_i$ come a un'opinione riguardo ai valori delle
 	variabili originali a distanza al più $t + \sqrt{t} + 1$ da $u_i$ in
 	$G_\varphi$.
 	Poiché il grafo è $d$-regolare e ogni nodo ha almeno un cappio, ci sono al
@@ -292,8 +292,9 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	vincoli di $\varphi^t$ costruita come sopra.
 	
 	Dato $j \in [2t + 1]$, diciamo che il $j$-esimo arco del
-	cammino è \emph{consistente} se $y_{v_1}$ assegna a $v_j$ il valore di maggioranza
-	e $y_{v_{2t + 2}}$ assegna a $v_{j + 1}$ il valore di maggioranza.
+	cammino è \emph{consistente} se $y_{v_1}$ assegna a $u_{v_j}$ il valore di
+	maggioranza e $y_{v_{2t + 2}}$ assegna a $u_{v_{j + 1}}$ il valore di
+	maggioranza.
 	Osserviamo che se il cammino contiene un arco consistente e in $F$, allora
 	il corrispondente vincolo è violato. Dimostriamo che almeno una frazione
 	$\varepsilon'$ dei cammini ha questa proprietà.
@@ -455,7 +456,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	$2 \delta \sqrt{t} + 1$	archi centrali considerati sono consistenti e in
 	$F$. Il nostro obiettivo è dimostrare $\Pr[V > 0] \ge \varepsilon'$.
 
-	Il lemma appena dimostrato implica per linearità del valore atteso
+	Il lemma appena dimostrato implica, per linearità del valore atteso,
 	\[
 		\E[V] \ge 2 \delta \sqrt{t} \cdot \frac{|F|}{|E|} \cdot \frac1{2 W^2}
 			  	= \frac{\delta \sqrt{t} \varepsilon}{W^2}.
@@ -553,12 +554,12 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			&\le 3 \varepsilon \delta \sqrt{t} +
 				6 \varepsilon^2 \delta^2 t +
 				6 \varepsilon \delta \sqrt{t} \sum_{k \geq 0} \lambda^k \\
-			&\le 3 \varepsilon\delta \sqrt{t} +
+			&\le 3 \varepsilon \delta \sqrt{t} +
 				6 \varepsilon^2 \delta^2 t +
 				60 \varepsilon \delta \sqrt{t} \quad (\text{da } \lambda \le 0.9) \\
 			&\le 3 \varepsilon \delta \sqrt{t} + 6 \varepsilon \delta \sqrt{t} +
-				60 \varepsilon \delta \sqrt{t} \quad \Big(\text{da }
-				\varepsilon \le \frac1{\sqrt{t}} \text{ e } \delta < 1\Big) \\
+				60 \varepsilon \delta \sqrt{t} \quad \Bigl(\text{da }
+				\varepsilon \le \frac1{\sqrt{t}} \text{ e } \delta < 1\Bigr) \\
 			&\le 100 \delta \sqrt{t} \varepsilon.
 	\end{align*}
 	\end{proof}

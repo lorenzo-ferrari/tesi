@@ -86,7 +86,7 @@ Dalle definizioni segue $\P \subseteq \NP$: per ogni problema in $\P$ esiste
 un verificatore $V$ che semplicemente ignora il certificato.
 Il problema del millennio ``$\P$ contro $\NP$'' \cite{Cook06} chiede se questo
 contenimento è stretto.
-Secondo l'opinione di gran lunga più condivisa $\P$ è diverso da $\NP$:
+Secondo l'opinione di gran lunga più condivisa, $\P$ è diverso da $\NP$:
 verificare una dimostrazione è facile, trovarla è un altro paio di maniche.
 Il problema è tuttavia aperto.
 
@@ -231,7 +231,7 @@ Siamo pronti per enunciare il Teorema PCP.
 In altre parole, il Teorema PCP afferma che è possibile verificare
 dimostrazioni con alta probabilità di successo leggendone solo una
 piccolissima parte.
-In questo capitolo dimostriamo il contenimento facile dei due. Rimandiamo
+In questo capitolo dimostriamo l'inclusione facile delle due. Rimandiamo
 la parte principale della dimostrazione al Capitolo~\ref{chap:pcpproof}.
 
 \begin{proof}[Dimostrazione di $\PCP(\log n, 1) \subseteq \NP$]
@@ -339,7 +339,7 @@ questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 	$(\Z/2\Z)^n$.
 	Identifichiamo $\F_2^n$ con l'ipercubo $\{\pm 1\}^n$ e definiamo per
 	$\alpha \subseteq [n]$ la funzione $\chi_\alpha\colon \{\pm 1\}^n \to \{\pm 1\}$
-	come $\chi_\alpha(\xx) := \prod_{i \in \alpha}{x_i}$.
+	come $\chi_\alpha(\xx) := \prod_{i \in \alpha} x_i$.
 	La somma $\xx + \yy$ su $\F_2^n$ si legge come il prodotto
 	puntuale $\xx \odot \yy$ sull'ipercubo e, poiché vale
 	$\chi_\alpha(\xx \odot \yy) = \chi_\alpha(\xx) \chi_\alpha(\yy)$, i
@@ -495,7 +495,9 @@ Nello specifico, sia $\ss \in \F_2^m$ uniformemente random e $S \subseteq [m]$
 il sottoinsieme dei $k$ per cui la $k$-esima coordinata di $\ss$ è $1$.
 Possiamo calcolare $\langle A(\uu \otimes \uu), \ss \rangle$ come un singolo
 valore di $g$ dato da
-$\sum_{k \in S}{g(\zz^{(k)})} = g\big(\sum_{k \in S}{\zz^{(k)}}\big)$.
+\[
+	\sum_{k \in S} g(\zz^{(k)}) = g\Bigr(\sum_{k \in S} \zz^{(k)}\Bigl).
+\]
 Confrontiamo questo valore con $\langle \bb, \ss \rangle$: se $\uu$ non risolve
 il sistema in input, il certificato è rifiutato con probabilità almeno
 $\frac12$.
