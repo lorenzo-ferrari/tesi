@@ -1,12 +1,40 @@
+% 1. Lingua e codifica font
 \usepackage[italian]{babel}
-\usepackage{vmargin}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% 2. Geometria pagina
+\usepackage[
+	a4paper,
+	scale=0.7143,
+	centering,
+% 	top=40mm,
+% 	bottom=50mm,
+% 	left=30mm,
+% 	right=30mm,
+% 	bindingoffset=6mm,
+% 	headheight=0mm,
+% 	headsep=10mm,
+% 	footskip=12mm,
+heightrounded,
+]{geometry}
+
+% 3. Grafica e utility
 \usepackage{tikz}
 \usepackage{chngcntr}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{etoolbox}
 \usepackage{enumitem}
+\setlist{
+	topsep=\medskipamount,
+	itemsep=\smallskipamount,
+}
+
 \usepackage{xspace}
+
+% 4. Matematica
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -15,11 +43,9 @@
 \usepackage{thmtools}
 \usepackage{thm-restate}
 \usepackage{mathtools}
-% \usepackage{marginnote}
-\usepackage[colorlinks,allcolors=black]{hyperref}
 
-% Figures numbered by section
+% 5. Numerazione figure
 \counterwithin{figure}{section}
 
-% Margins
-\setmarginsrb{33mm}{30mm}{33mm}{40mm} {0mm}{10mm}{0mm}{10mm}
+% 6. Hyperref
+\usepackage[colorlinks,allcolors=black]{hyperref}

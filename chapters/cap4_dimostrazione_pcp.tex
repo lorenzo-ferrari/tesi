@@ -20,14 +20,9 @@ le quali soddisferanno proprietà desiderabili.
 	Fissati due $\CSP$ $A$ e $B$, diciamo che $f$ è una
 	\emph{CL-trasformazione}\footnote{Per \emph{Complete Linear-blowup}.} da
 	istanze di $A$ a istanze di $B$ se è computabile in tempo polinomiale e,
-	per ogni istanza $\varphi$ di $A$, valgono:
-	\begin{itemize}
-		\item l'istanza $f(\varphi)$ è soddisfacibile se e solo se lo è
-			$\varphi$;
-		\item l'istanza $f(\varphi)$ ha taglia lineare nella taglia di
-			$\varphi$, cioè un numero di vincoli lineare nel numero di vincoli
-			di $\varphi$.
-	\end{itemize}
+	per ogni istanza $\varphi$ di $A$, l'istanza $f(\varphi)$ è soddisfacibile
+	se e solo se lo è $\varphi$ e ha taglia lineare nella taglia di	$\varphi$,
+	cioè un numero di vincoli lineare nel numero di vincoli	di $\varphi$.
 \end{definition}
 
 Saranno particolarmente utili le CL-trasformazioni che permettono di
@@ -360,7 +355,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			aleatorie $S_t$ e $S_{t'}$ sono a distanza statistica al più $\delta$.
 			In altre parole,
 			\[
-				\frac12 \sum_{m}{ \big| \Pr[S_t = m] - \Pr[S_{t'} = m]	\big| }
+				\frac12 \sum_{m}{ \bigl| \Pr[S_t = m] - \Pr[S_{t'} = m]	\bigr| }
 				\le \delta.
 			\]
 		\end{lemma}
@@ -375,9 +370,9 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			\begin{equation} \label{eq:sdist}
 			\begin{aligned}
 				d(S_n, S_{n + 1}) &= \frac12 \sum_{m = 0}^{n + 1}
-					\big| \Pr[S_n = m] - \Pr[S_{n + 1} = m] \big| \\
+					\bigl| \Pr[S_n = m] - \Pr[S_{n + 1} = m] \bigr| \\
 				&= \frac12 \sum_{m = 0}^{n + 1}
-					\frac12 \big| \Pr[S_n = m] - \Pr[S_n = m - 1] \big|.
+					\frac12 \bigl| \Pr[S_n = m] - \Pr[S_n = m - 1] \bigr|.
 			\end{aligned}
 			\end{equation}
 			Detta $M = \lfloor \frac{n}{2} \rfloor$ la moda di $S_n$, la probabilità
@@ -386,8 +381,10 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			Possiamo riscrivere la \eqref{eq:sdist} eliminando i valori assoluti:
 			\[
 				d(S_n, S_{n + 1}) =
-				\frac14 \sum_{m = 0}^{M}\big(\Pr[S_n = m] - \Pr[S_n = m - 1]\big) +
-				\frac14 \sum_{m = M + 1}^{n + 1}\big(\Pr[S_n = m - 1] - \Pr[S_n = m]\big).
+				\frac14 \sum_{m = 0}^{M}
+					\bigl(\Pr[S_n = m] - \Pr[S_n = m - 1]\bigr) +
+				\frac14 \sum_{m = M + 1}^{n + 1}
+					\bigl(\Pr[S_n = m - 1] - \Pr[S_n = m]\bigr).
 			\]
 			Entrambe le somme si telescopizzano e valgono $\Pr[S_n = M]$, quindi la
 			distanza statistica vale esattamente
@@ -417,8 +414,8 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			per esempio
 			\[
 				d(S_t, S_{t + \delta\sqrt{t}})
-				\le \frac12 \Big(\frac1{\sqrt{t}} + \dots +
-					\frac1{\sqrt{t + \delta \sqrt{t} - 1}} \Big)
+				\le \frac12 \biggl(\frac1{\sqrt{t}} + \dots +
+					\frac1{\sqrt{t + \delta \sqrt{t} - 1}} \biggr)
 				\le \frac12 \frac{\delta \sqrt{t}}{\sqrt{t}}
 				= \frac{\delta}{2}.
 			\]
@@ -439,8 +436,8 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 		\begin{align*}
 			\frac1W &\le \Pr[\text{il $t$-estremo concorda}] \\
 			&= \sum_m {\Pr[S_t = m]\Pr[\text{il vero $m$-estremo concorda}]} \\
-			&= \sum_m {\left( \Pr[S_{t + \delta \sqrt{t}} = m] + \Pr[S_t = m]
-			- \Pr[S_{t + \delta \sqrt{t}} = m] \right) \Pr[\text{il vero $m$-estremo
+			&= \sum_m {\bigl( \Pr[S_{t + \delta \sqrt{t}} = m] + \Pr[S_t = m]
+			- \Pr[S_{t + \delta \sqrt{t}} = m] \bigr) \Pr[\text{il vero $m$-estremo
 			concorda}]} \\
 			&\le \sum_m { \Pr[S_{t + \delta \sqrt{t}} = m] \Pr[\text{il vero
 			$m$-estremo concorda}]} + \delta \\
@@ -699,7 +696,7 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 	\]
 \end{lemma}
 \begin{proof}
-	Per il Teorema~\ref{thm:expander-construction} esiste una costante $d$ e
+	Per il Teorema~\ref{thm:explicitexpander} esiste una costante $d$ e
 	una famiglia esplicita di $(0.1, d)$-expander $\{G_n\}_{n \in \mathbb{N}}$.
 
 	Siano allora $\varphi$ un'istanza di $2\CSP_W$ come da ipotesi e $n$ il

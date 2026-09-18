@@ -19,6 +19,7 @@
 \def\theHdefinition{\theHtheorem}
 \def\theHexample{\theHtheorem}
 \def\theHremark{\theHtheorem}
+\def\theHfigure{\theHsection.\arabic{figure}}
 
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
@@ -55,5 +56,5 @@
 \renewcommand{\impliedby}{\Leftarrow}
 \renewcommand{\iff}{\Leftrightarrow}
 
-\newcommand{\lorenzo}[1]{\textcolor{teal}{(LF\ifstrempty{#1}{}{: #1})}}
-\newcommand{\todo}[1]{\textcolor{red}{(TODO\ifstrempty{#1}{}{: #1})}}
+% \newcommand{\lorenzo}[1]{\textcolor{teal}{(LF\ifstrempty{#1}{}{: #1})}}
+% \newcommand{\todo}[1]{\textcolor{red}{(TODO\ifstrempty{#1}{}{: #1})}}

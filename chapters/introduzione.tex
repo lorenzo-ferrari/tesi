@@ -35,9 +35,9 @@ $\mathtt{3COL}$ e soprattutto $\mathtt{QUADEQ}$: il problema di determinare se
 un sistema di equazioni quadratiche su $\F_2$ ha soluzione.
 Formalizziamo in seguito il modello di verifica probabilistica di dimostrazioni
 ed enunciamo in maniera precisa il Teorema PCP:
-per ogni problema in $\NP$ esiste un formato di soluzione che
+per ogni problema in $\NP$ esiste un formato di dimostrazione che
 può essere verificato con alta probabilità di successo avendo a disposizione
-$O(\log n)$ bit casuali e leggendo solo $O(1)$ bit della soluzione.
+$O(\log n)$ bit casuali e leggendo solo $O(1)$ bit della dimostrazione.
 Gli $O(1)$ bit e gli $O(\log n)$ bit casuali corrispondono
 rispettivamente alle cento righe di dimostrazione lette e agli esiti di
 $O(\log n)$ lanci di moneta che il verificatore utilizza come fonte di
@@ -48,8 +48,7 @@ debole del Teorema PCP detta Teorema PCP esponenziale.
 La dimostrazione fa uso del codice di Walsh-Hadamard per rappresentare
 dimostrazioni come funzioni lineari, motivo per cui sarà necessario un test di
 linearità per funzioni $\F_2^n \to \F_2$, la cui probabilità di successo si
-stima mediante analisi di Fourier discreta sull'ipercubo
-$(\Z / 2\Z)^n$.
+stima mediante analisi di Fourier discreta sull'ipercubo~$(\Z / 2\Z)^n$.
 
 Nel secondo capitolo esploriamo il legame tra verifica probabilistica
 di dimostrazioni e inapprossimabilità di problemi di ottimizzazione
@@ -74,7 +73,7 @@ Grazie ai lavori precedenti, entrambi i risultati sbloccarono in un colpo solo
 i primi risultati di inapprossimabilità per molti altri problemi.
 
 Il terzo capitolo è dedicato ai grafi expander e alle loro proprietà
-pseudo-casuali, catturate dallo spettro della matrice adiacenza del grafo.
+pseudo-casuali, catturate dallo spettro della matrice di adiacenza del grafo.
 Per esempio, per ogni nodo $v$ di un expander con $n$ nodi,
 la distribuzione del $k$-esimo nodo di una passeggiata aleatoria che parte da
 $v$ è molto vicina a quella uniforme già per $k = O(\log n)$.

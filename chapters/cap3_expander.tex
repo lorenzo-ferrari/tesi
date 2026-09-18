@@ -30,7 +30,7 @@ delle passeggiate aleatorie sul grafo.
 Per il teorema spettrale, la matrice $A$, che è simmetrica, ammette una base
 ortogonale di autovettori, i cui corrispondenti autovalori indichiamo con
 $\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_n$.
-Detto $\one = \big(\frac1{n}, \dots, \frac1{n}\big) \in \R^n$ il vettore costante
+Detto $\one = \bigl(\frac1{n}, \dots, \frac1{n}\bigr) \in \R^n$ il vettore costante
 $\frac1{n}$ in tutte le entrate, vale $A \one = \one$, dunque $\one$ è
 autovettore di $A$ relativo all'autovalore $1$.
 Ciò corrisponde al fatto che la distribuzione uniforme sui nodi del grafo è
@@ -182,7 +182,7 @@ per $k$ nodi veramente casuali.
 	\end{lemma}
 	\begin{proof}
 		La matrice $C$ è interamente determinata da $A$, nello specifico vale
-		$C = \frac1{\lambda}\big( A - (1 - \lambda)J \big)$.
+		$C = \frac1{\lambda}\bigl( A - (1 - \lambda)J \bigr)$.
 		Per stimare la norma matriciale di $C$, come abbiamo già fatto,
 		scomponiamo un generico vettore $\vv \in \R^n$ nelle componenti
 		parallela e perpendicolare a $\one$.
@@ -196,8 +196,8 @@ per $k$ nodi veramente casuali.
 	dimostrato, notare $\norm{B J} = \sqrt{\beta}$ e concludere per
 	subadditività della norma:
 	\begin{align*}
-		\norm{B A} &= \big\lVert B \big( (1 - \lambda) J
-			+ \lambda C \big) \big\rVert \\
+		\norm{B A} &= \big\lVert B \bigl( (1 - \lambda) J
+			+ \lambda C \bigr) \big\rVert \\
 		&\le (1 - \lambda) \norm{B J} + \lambda \norm C \\
 		&\le (1 - \lambda) \sqrt{\beta} + \lambda.
 	\end{align*}
@@ -218,8 +218,8 @@ Ci si chiede se utilizzare ogni volta nuovi bit casuali per ognuna delle $k$
 esecuzioni sia davvero necessario e se non sia invece possibile dare in pasto
 all'algoritmo probabilistico $k$ stringhe di bit \emph{pseudo-casuali}, cioè
 correlate, ma sostanzialmente indistinguibili da stringhe casuali agli occhi
-dell'algoritmo\footnote{\emph{Randomness is in the eye of the beholder}, come
-dice Avi Wigderson.}.
+dell'algoritmo\footnote{Citando Avi Wigderson, \emph{Randomness is in the eye of
+the beholder}.}.
 
 Un modo per produrre stringhe pseudo-casuali è il seguente. Per qualche coppia
 di costanti $d$ e $\lambda$, costruiamo un $(d, \lambda)$-expander i cui nodi
@@ -304,14 +304,14 @@ dimostrazione del Teorema~\ref{thm:pcp}.
 		  = \langle \yy, A^i \xx \rangle.
 	\]
 
-	Osserviamo $\norm{\xx} ^2 \le \big(\sum_v{\lvert x_v \rvert} \big)
-	\max_v{ \lvert x_v \lvert } = \max_v{ \lvert x_v \rvert }
+	Osserviamo $\norm{\xx} ^2 \le \bigl(\sum_v{\lvert x_v \rvert} \bigr)
+	\max_v{ \lvert x_v \rvert } = \max_v{ \lvert x_v \rvert }
 	\le \frac{d}{2 | F |}$ da cui, applicando la disuguaglianza di Cauchy-Schwarz
 	e la definizione variazionale di $\lambda$, otteniamo
 	\[
 		\big\langle \yy, A^i \xx^\perp \big\rangle
 		\le \norm{\yy} \cdot \norm{A^i \xx^\perp}
-		\le \frac{2 |F|}{d} \norm{\xx} \cdot \lambda^i \norm{x}
+		\le \frac{2 |F|}{d} \norm{\xx} \cdot \lambda^i \norm{\xx}
 		\le \lambda^i.
 	\]
 
@@ -355,7 +355,7 @@ dimostrazione del Teorema~\ref{thm:pcp}.
 			- 2 \big\langle \bm{1}_S^\parallel, \bm{1}_S^\perp \big\rangle \\
 		&\ge |S| - \big\langle \bm{1}_S^\parallel, \bm{1}_S^\parallel \big\rangle
 			- \lambda \big\langle \bm{1}_S^\perp, \bm{1}_S^\perp \big\rangle \\
-		&= |S| - \frac{|S|^2}{n} - \lambda\bigg(|S| - \frac{|S|^2}{n}\bigg) \\
+		&= |S| - \frac{|S|^2}{n} - \lambda\biggl(|S| - \frac{|S|^2}{n}\biggr) \\
 		&= (1 - \lambda)\frac{|S|}{n}(n - |S|) = (1 - \lambda) \frac1{n} |S| |\bar S|.
 	\end{align*}
 \end{proof}
@@ -367,8 +367,10 @@ Ignorando per semplicità i cappi, su $\binom{n}{2}$ possibili archi esattamente
 $|S| |\bar S|$ contengono un estremo in $S$ e l'altro in $\bar S$.
 Poiché un grafo $d$-regolare ha $\frac{n d}{2}$ archi, per simmetria ognuno di
 questi appare in una frazione
-$\frac{n d}{2} {\binom{n}{2}}^{-1} = \frac{d}{n - 1}$ dei grafi $d$-regolari su
-$n$ nodi, da cui $\E[\lvert E(S, \bar S) \rvert]
+\[
+	\frac{n d}{2} {\binom{n}{2}}^{-1} = \frac{d}{n - 1}
+\]
+dei grafi $d$-regolari su $n$ nodi, da cui $\E[\lvert E(S, \bar S) \rvert]
 \approx \frac{d}{n} |S| |\bar S|$.
 Il Lemma~\ref{thm:ESbarS} garantisce che il numero di archi tra $S$ ed $\bar S$
 in un expander $G$ non è molto minore del numero di archi tra $S$ ed $\bar S$
@@ -427,7 +429,7 @@ consideriamo il primo vertice $v$ non ancora accoppiato e scegliamo il suo
 compagno $w$ uniformemente a caso tra i vertici rimanenti.
 Il processo termina quando tutti i vertici sono accoppiati.
 È facile verificare che questo algoritmo produce un matching distribuito
-uniformemente tra gli $(n - 1) \cdot (n - 3) \cdots \cdot 1$ matching perfetti
+uniformemente tra gli $(n - 1) (n - 3) \dotsm 1$ matching perfetti
 su $V$.
 
 
@@ -511,44 +513,44 @@ su $V$.
 	considerato, il rapporto è maggiorato da $\frac{k/2}{n/2} = \frac{k}{n}$.
 	Otteniamo
 	\[
-		\Pr[\Gamma_M(S) \subseteq S \cup T] \le \bigg(\frac{k}{n}\bigg)^{k/6}.
+		\Pr[\Gamma_M(S) \subseteq S \cup T] \le \biggl(\frac{k}{n}\biggr)^{k/6}.
 	\]
 	Passando all'intero grafo $G$, poiché i $d$ matching $M_1, \dots, M_d$ sono
 	estratti in modo indipendente, l'evento $\Gamma(S) \subseteq S \cup T$ si
 	realizza con probabilità
 	\[
 		\Pr[\Gamma(S) \subseteq S \cup T]
-			= \big(\Pr[\Gamma_M(S) \subseteq S \cup T]\big)^d
-			\le \bigg(\frac{k}{n}\bigg)^{\frac{dk}{6}}.
+			= \bigl(\Pr[\Gamma_M(S) \subseteq S \cup T]\bigr)^d
+			\le \biggl(\frac{k}{n}\biggr)^{\frac{dk}{6}}.
 	\]
 
 	Applichiamo l'union bound su tutte le possibili scelte di $S$ e $T$ per
 	maggiorare la probabilità che \emph{esistano} $S$ e $T$ che violano la
 	proprietà di espansione.
 	Ci sarà utile la disuguaglianza
-	$\binom{n}{m} \le \big(\frac{en}{m}\big)^m$.
+	$\binom{n}{m} \le \bigl(\frac{en}{m}\bigr)^m$.
 	Per un fissato $k = |S|$, il numero di possibili coppie $(S, T)$ è al più:
 	\[
 		\binom{n}{k} \binom{n}{\lfloor k/6 \rfloor}
-		\le \Big(\frac{en}{k}\Big)^k \bigg(\frac{6en}{k}\bigg)^{k/6}
-		\le e^k (6e)^{k/6} \Big(\frac{n}{k}\Big)^{\frac{7k}{6}}.
+		\le \Bigl(\frac{en}{k}\Bigr)^k \biggl(\frac{6en}{k}\biggr)^{k/6}
+		\le e^k (6e)^{k/6} \Bigl(\frac{n}{k}\Bigr)^{\frac{7k}{6}}.
 	\]
 	Definendo la costante $C := e (6e)^{1/6} \approx 4.33$, la probabilità che
 	esista una coppia $(S, T)$ per cui l'espansione fallisce è maggiorata da:
 	\[
-		\Pr\big[\exists S, T : |S|=k, |T| \le k/6, \Gamma(S) \subseteq S \cup T\big]
-		\le C^k \Big(\frac{n}{k}\Big)^{\frac{7k}{6}}
-			\Big(\frac{k}{n}\Big)^{\frac{dk}{6}}
-		= \bigg[ C \Big(\frac{k}{n}\Big)^{\frac{d - 7}{6}} \bigg]^k.
+		\Pr\bigl[\exists S, T : |S|=k, |T| \le k/6, \Gamma(S) \subseteq S \cup T\bigr]
+		\le C^k \Bigl(\frac{n}{k}\Bigr)^{\frac{7k}{6}}
+			\Bigl(\frac{k}{n}\Bigr)^{\frac{dk}{6}}
+		= \bigg[ C \Bigl(\frac{k}{n}\Bigr)^{\frac{d - 7}{6}} \bigg]^k.
 	\]
 	Sostituendo $d = 25$, la base della potenza diventa $C (k/n)^3$.
 	Notiamo che, per $k = 1$, la proprietà di espansione è banalmente
 	verificata. Sommiamo dunque le probabilità di fallimento per
 	$2 \le k \le n/2$ e maggioriamo con le nostre stime.
-	Detta $f(k) := \big[ C (k/n)^3 \big]^k$ la funzione che maggiora i singoli
+	Detta $f(k) := [ C (k/n)^3 ]^k$ la funzione che maggiora i singoli
 	addendi, il nostro obiettivo è dimostrare
 	\[
-		\sum_{k = 2}^{n / 2} f(k) = O\Big(\frac{1}{n^5}\Big).
+		\sum_{k = 2}^{n / 2} f(k) = O\Bigl(\frac{1}{n^5}\Bigr).
 	\]
 
 	È immediato verificare che la funzione $f$ è ($\log$-)convessa, dunque assume

@@ -106,8 +106,7 @@ assegnamento delle variabili di $\varphi$. Dunque $\val(\varphi) = 1$ se
 $\varphi$ è soddisfacibile e $\val(\varphi) < 1$ altrimenti. Definiamo invece
 il \emph{gap} di $\varphi$ come $1 - \val(\varphi)$.
 
-Siamo ora pronti per enunciare la versione di inapprossimabilità del
-Teorema PCP.
+Siamo pronti per enunciare la versione di inapprossimabilità del Teorema PCP.
 
 \begin{theorem}[Teorema PCP -- versione di inapprossimabilità] \label{thm:pcpapprox}
 	Esistono costanti $q \in \N$ e $\rho \in (0, 1)$ tali che, per ogni
@@ -191,7 +190,7 @@ computabile efficientemente.
 	\centering
 	\small
 	\renewcommand{\arraystretch}{1.35}
-	\begin{tabular}{p{6.0cm} c p{6.5cm}}
+	\begin{tabular}{p{5.5cm} c p{7.0cm}}
 		\hline
 		\rule{0pt}{1.5em}\textbf{Protocolli PCP} & & \textbf{Inapprossimabilità di $\CSP$} \\[0.4em]
 		\hline
@@ -284,13 +283,9 @@ Ci sono pessime notizie.
 
 	\begin{definition}
 		Chiamiamo l'informazione $\langle r, \pi(i_1) \ldots \pi(i_q) \rangle$
-		uno \emph{scenario accettato} se:
-		\begin{itemize}
-			\item con stringa casuale $r$, il verificatore legge i bit in
-				posizioni $i_1, \ldots, i_q$ e
-			\item se il verificatore vi legge i valori $\pi(i_1) \ldots \pi(i_q)$,
-				allora accetta.
-		\end{itemize}
+		uno \emph{scenario accettato} se, con stringa casuale $r$, il
+		verificatore legge i bit in posizioni $i_1, \ldots, i_q$ e, se questi
+		valgono $\pi(i_1) \ldots \pi(i_q)$, il verificatore accetta.
 	\end{definition}
 
 	Osserviamo che ci sono $2^{c \log n} 2^q = O(n^c)$ possibili scenari e, per
@@ -316,25 +311,25 @@ Ci sono pessime notizie.
 		V \text{ accetta } \pi \text{ con stringa casuale } r \} \bigr|.
 	\]
 
-	\begin{itemize}
-		\item ($\ge$) Data una qualunque dimostrazione $\pi$, l'insieme degli
-			scenari accettati
-			$\{\langle r, \pi|_r \rangle : V \text{ accetta } \pi \text{ con } r\}$
-			(dove $\pi|_r$ denota la restrizione di $\pi$ alle $q$ posizioni
-			interrogate con stringa casuale $r$) forma una cricca in $G_x$,
-			in quanto tutti gli scenari provengono da una stessa dimostrazione
-			$\pi$ e sono quindi compatibili.
-			La cardinalità di questa cricca è pari al numero di stringhe casuali per
-			cui $V$ accetta $\pi$.
-		 \item ($\le$) Viceversa, sia $K \subseteq V(G_x)$ una cricca in $G_x$.
-			Poiché i vertici di $K$ sono a due a due compatibili, questi
-			definiscono un'unica dimostrazione parziale $\tilde{\pi}_K$
-			definita sulle posizioni interrogate in uno degli scenari in $K$.
-			Estendiamo $\tilde{\pi}_K$ a una qualunque dimostrazione completa
-			$\pi_K$. Il verificatore, allora, accetta $\pi_K$ su tutte le
-			$|K|$ stringhe casuali associate ai vertici di $K$, proprio in
-			virtù del fatto che i vertici di $G_x$ sono scenari accettati.
-	\end{itemize}
+	Mostriamo che il primo membro è maggiore o uguale del secondo.
+	Data una qualunque dimostrazione $\pi$, l'insieme degli
+	scenari accettati
+	$\{\langle r, \pi|_r \rangle : V \text{ accetta } \pi \text{ con } r\}$
+	(dove con $\pi|_r$ indichiamo la restrizione di $\pi$ alle $q$ posizioni
+	interrogate con stringa casuale $r$) forma una cricca in $G_x$,
+	in quanto tutti gli scenari provengono da una stessa dimostrazione
+	$\pi$ e sono quindi compatibili.
+	La cardinalità di questa cricca è pari al numero di stringhe casuali per
+	cui $V$ accetta $\pi$.
+	
+	Per il viceversa, sia $K \subseteq V(G_x)$ una cricca in $G_x$.
+	Poiché i vertici di $K$ sono a due a due compatibili, questi
+	definiscono un'unica dimostrazione parziale $\tilde{\pi}_K$
+	definita sulle posizioni interrogate in uno degli scenari in $K$.
+	Estendiamo $\tilde{\pi}_K$ a una qualunque dimostrazione completa
+	$\pi_K$. Il verificatore, allora, accetta $\pi_K$ su tutte le
+	$|K|$ stringhe casuali associate ai vertici di $K$, proprio in
+	virtù del fatto che i vertici di $G_x$ sono scenari accettati.
 
 	Dalla caratterizzazione di $\omega(G_x)$ segue la proprietà desiderata:
 	\begin{itemize}
@@ -352,7 +347,7 @@ Ci sono pessime notizie.
 	\begin{itemize}
 		\item se $x \in L$, allora $|K| \ge \bar\varepsilon \omega(G_x)
 			= \bar\varepsilon n^c$;
-		\item se $x \notin L$, $|K| \le \omega(G_x) < \bar\varepsilon n^c$.
+		\item se $x \notin L$, allora $|K| \le \omega(G_x) < \bar\varepsilon n^c$.
 	\end{itemize}
 	Controllando se $|K| \ge \bar\varepsilon n^c$, potremmo quindi decidere in tempo
 	polinomiale l'appartenenza a $L$, da cui $\P = \NP$.
