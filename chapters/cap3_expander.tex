@@ -8,9 +8,9 @@ Questo è l'unico capitolo in cui non presentiamo tutte le dimostrazioni dei
 risultati che esulano da un tipico programma triennale di matematica o
 informatica, per le quali rimandiamo per esempio a \cite{ABbook}.
 Rimandiamo invece a \cite{Tre16, HLW06} per una trattazione più ampia.
-L'unico fatto che nel Capitolo~\ref{chap:pcpproof} useremo come scatola nera è
-l'esistenza di un algoritmo che, per ogni $n$, costruisce un expander di $n$
-nodi in tempo polinomiale in $n$.
+L'unico fatto che nel Capitolo~\ref{chap:pcpproof} useremo come
+\emph{black box} è l'esistenza di un algoritmo che, per ogni $n$, costruisce
+un expander di $n$ nodi in tempo polinomiale in $n$.
 
 \section{Grafi e autovalori}
 
@@ -82,7 +82,7 @@ più che del singolo grafo.
 \begin{definition}[Famiglie di expander]
 	Una famiglia di grafi $\{G_n\}_{n \in \N}$ si dice \emph{famiglia di
 	$(d, \lambda)$-expander} se esistono costanti $d \in \N$ e $\lambda < 1$
-	tali che, per ogni $n$, il grafo $G_n$ è un $(n, d, \lambda)$-expander.
+	tali che, per ogni $n$, il grafo $G_n$ sia un $(n, d, \lambda)$-expander.
 \end{definition}
 
 Il seguente teorema garantisce che esistono famiglie di expander computabili
@@ -100,7 +100,7 @@ particolarmente rilevante in informatica teorica.
 Nella Sezione~\ref{sec:randomexpansion}, tuttavia, descriveremo e analizzeremo
 un algoritmo probabilistico per produrre expander arbitrariamente grandi.
 
-\section{Un expander si comporta come un grafo casuale}
+\section{Passeggiate aleatorie e pseudo-casualità}
 
 In questa sezione ci occupiamo di alcune delle proprietà pseudo-casuali degli
 expander, le quali ci convincono della bontà della scelta di $\lambda(G)$ come
@@ -110,7 +110,7 @@ su un expander converge molto velocemente alla distribuzione uniforme.
 
 \begin{theorem} \label{thm:expander-conv}
 	Sia $G$ un $(n, \lambda)$-expander e $\pp$ una distribuzione di probabilità
-	sui nodi di $G$. Allora
+	sui nodi di $G$. Vale
 	\[
 		\norm{A^\ell \pp - \one} \le \lambda^\ell.
 	\]
@@ -120,7 +120,7 @@ In particolare, il Teorema~\ref{thm:expander-conv} implica che l'estremo di una
 passeggiata aleatoria di $\ell$ passi su un expander è distribuito quasi
 uniformemente già per $\ell = O(\log n)$.
 Avremmo potuto definire equivalentemente gli expander come i grafi per cui
-vale la conclusione del Teorema~\ref{thm:expander-conv}\footnote{A priori non
+vale la conclusione del Teorema~\ref{thm:expander-conv}\footnote{Ma a priori non
 è ovvio, poiché il vettore $\pp$ deve essere una distribuzione. Lasciamo la
 dimostrazione come esercizio per il lettore.}.
 
@@ -173,7 +173,7 @@ per $k$ nodi veramente casuali.
 	L'obiettivo ora è maggiorare la norma matriciale di $B A$ con la quantità
 	$(1 - \lambda)\sqrt{\beta} + \lambda$, per cui sarà utile il seguente
 	\begin{lemma}
-		Sia $A$ come sopra. Allora
+		Una matrice $A$ come sopra si scompone come
 		\[
 			A = (1 - \lambda) J + \lambda C,
 		\]
@@ -325,7 +325,7 @@ dimostrazione del Teorema~\ref{thm:pcp}.
 
 \begin{lemma} \label{thm:ESbarS}
 	Sia $G = (V, E)$ un $(n, d, \lambda)$-expander e $S \subseteq V$ un
-	sottoinsieme dei vertici. Allora
+	sottoinsieme dei vertici. Vale
 	\[
 		\lvert E(S, \bar{S}) \rvert \ge (1 - \lambda)\frac{d}{n}|S||\bar{S}|,
 	\]
@@ -380,7 +380,8 @@ in un grafo casuale.
 
 Nella scorsa sezione abbiamo osservato che, se il parametro $\lambda(G)$ di un
 grafo $d$-regolare dista da $1$ di almeno una costante indipendente dalla
-dimensione del grafo, allora questo somiglia a un grafo casuale.
+dimensione del grafo, allora questo somiglia per certi aspetti a un grafo
+casuale.
 Per completezza, qui ci occupiamo del viceversa, cioè mostriamo che un grafo
 generato tramite un opportuno processo probabilistico è, con alta probabilità,
 un expander.
@@ -397,7 +398,7 @@ conclusione simile a quella del Lemma~\ref{thm:ESbarS}.
 \begin{definition}
 	Fissato $\rho > 0$, chiamiamo \emph{$(n, d, \rho)$-expander combinatorio}
 	un grafo di $n$ nodi, regolare di grado $d$ e tale per cui, per ogni
-	sottoinsieme $S$ di al più $n / 2$ nodi, vale
+	sottoinsieme $S$ di al più $n / 2$ nodi, valga
 	\[
 		\lvert E(S, \bar S) \rvert \ge \rho d \lvert S \rvert.
 	\]
@@ -458,8 +459,7 @@ su $V$.
 	$|T| \le |S|/6$ tale che $\Gamma(S) \setminus S \subseteq T$, ovvero tale per cui
 	$\Gamma(S) \subseteq S \cup T$.
 	Mostreremo che, per ogni $T$ fissato, ciò è molto improbabile, poi
-	concluderemo con un union bound\footnote{Cioè applicando la subadditività
-	della probabilità.} sulle possibili scelte di $S$ e $T$.
+	concluderemo con un union bound sulle possibili scelte di $S$ e $T$.
 	
 	Fissiamo allora un sottoinsieme $S$ di cardinalità $|S| = k \le n/2$ e un
 	sottoinsieme $T \subseteq \bar S$ di cardinalità al più $k/6$ (senza perdita
@@ -525,7 +525,7 @@ su $V$.
 	\]
 
 	Applichiamo l'union bound su tutte le possibili scelte di $S$ e $T$ per
-	maggiorare la probabilità che \emph{esistano} $S$ e $T$ che violano la
+	maggiorare la probabilità che \emph{esistano} $S$ e $T$ che violino la
 	proprietà di espansione.
 	Ci sarà utile la disuguaglianza
 	$\binom{n}{m} \le \bigl(\frac{en}{m}\bigr)^m$.
@@ -536,7 +536,7 @@ su $V$.
 		\le e^k (6e)^{k/6} \Bigl(\frac{n}{k}\Bigr)^{\frac{7k}{6}}.
 	\]
 	Definendo la costante $C := e (6e)^{1/6} \approx 4.33$, la probabilità che
-	esista una coppia $(S, T)$ per cui l'espansione fallisce è maggiorata da:
+	esista una coppia $(S, T)$ per cui l'espansione fallisca è maggiorata da:
 	\[
 		\Pr\bigl[\exists S, T : |S|=k, |T| \le k/6, \Gamma(S) \subseteq S \cup T\bigr]
 		\le C^k \Bigl(\frac{n}{k}\Bigr)^{\frac{7k}{6}}

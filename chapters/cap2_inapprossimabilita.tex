@@ -23,7 +23,7 @@ Se il problema di decisione associato a un problema di ottimizzazione
 è $\NP$-completo\footnote{O, più in generale, non si può risolvere
 efficientemente a meno che $\P = \NP$.}, allora calcolare la soluzione ottima
 in tempo polinomiale è impossibile, a meno che $\P = \NP$.
-È naturale chiedersi se esistono algoritmi efficienti in grado di
+È naturale chiedersi se esistano algoritmi efficienti in grado di
 trovare una soluzione abbastanza buona, entro un certo fattore dall'ottimo.
 
 \begin{definition}
@@ -41,7 +41,7 @@ Il seguente è un buon tentativo di algoritmo di approssimazione:
 delle variabili''. Ogni clausola è soddisfatta con probabilità almeno $\frac12$,
 quindi, per linearità del valore atteso, ci aspettiamo che almeno metà delle
 clausole siano soddisfatte.
-Sorvoliamo un momento sul fatto che l'algoritmo è
+Sorvoliamo un momento sul fatto che l'algoritmo sia
 probabilistico\footnote{È infatti molto facile derandomizzarlo,
 cioè ottenerne una controparte deterministica.}.
 Un assegnamento che soddisfa metà delle clausole soddisfa, a maggior
@@ -52,7 +52,7 @@ in cui ogni clausola ha esattamente tre letterali distinti, con lo
 stesso ragionamento si ottiene una $\frac78$-approssimazione.
 Gli algoritmi di approssimazione, ovviamente, possono essere anche molto più
 sofisticati di così, si veda per esempio \cite{WS11}.
-È quindi naturale chiedersi se esistono approssimazioni migliori per
+È quindi naturale chiedersi se esistano approssimazioni migliori per
 \texttt{MAX-SAT} e \texttt{MAX-3SAT}, magari arbitrariamente buone, come nel
 caso di altri problemi.
 
@@ -86,19 +86,19 @@ generalizza naturalmente \texttt{3SAT} e i problemi di colorazione di grafi.
 	Fissati un'arietà $k$ e un alfabeto $\Sigma$, definiamo $k\CSP_\Sigma$ il
 	seguente problema computazionale. Data una collezione
 	$((C_j, R_j))_{j \in [m]}$ di $k$-uple $C_j$ di variabili associate a
-	relazioni $R_j \subseteq \Sigma^k$, determinare se esiste in $\Sigma^n$ un
-	assegnamento delle variabili che soddisfa \emph{tutti} i vincoli, cioè tale
-	che per ogni $k$-upla $C_j$ di variabili il corrispondente assegnamento
-	appartiene a $R_j$.
+	relazioni $R_j \subseteq \Sigma^k$ dette \emph{vincoli}, determinare se
+	esiste in $\Sigma^n$ un assegnamento delle variabili che soddisfa
+	\emph{tutti} i vincoli, cioè tale che per ogni $k$-upla $C_j$ di variabili
+	il corrispondente assegnamento appartiene a $R_j$.
 	Indicheremo con $k\CSP_W$ il problema $k\CSP_{[W]}$.
 \end{definition}
 
 Secondo la notazione appena introdotta, \texttt{3COL}
-corrisponde alla restrizione di $2\CSP_3$ alle istanze i cui vincoli sono
-espressi da $R_{\text{3col}} = \{(1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)\}$.
-Ogni variabile corrisponde a un nodo e assume un valore in $\{1, 2, 3\}$ e per
-ogni coppia di nodi adiacenti si impone la relazione binaria ``$a \neq b$'' tra
-le corrispondenti variabili.
+corrisponde alla restrizione di $2\CSP_3$ alle istanze i cui vincoli sono tutti
+$R_{\text{3col}} = \{(1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)\}$.
+Ogni variabile corrisponde a un nodo e assume un valore in $\{1, 2, 3\}$; per
+ogni coppia di nodi adiacenti si impone tra le corrispondenti variabili la
+relazione binaria ``$a \neq b$'', rappresentata da $R_{\text{3col}}$.
 
 Data un'istanza $\varphi$ di $\CSP$, definiamo il suo \emph{valore}
 $\val(\varphi)$ come la massima frazione di vincoli soddisfacibili da un
@@ -148,18 +148,19 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 	Costruiamo l'istanza $\varphi = f(x)$ di $q\CSP_2$ nel modo seguente.
 	Le variabili di $\varphi$ corrispondono alle posizioni della dimostrazione
 	$\pi$.
-	Per ogni stringa casuale $r \in \{0, 1\}^{c \log n}$, si pone un vincolo
-	$V_{x,r}$ soddisfatto se e soltanto se $V$ accetta $\pi$ con input $x$ e
-	stringa casuale $r$.
+	Per ogni stringa $R \in \{0, 1\}^{c \log n}$, si pone un vincolo $V_{x,R}$
+	soddisfatto se e soltanto se $V$ accetta $\pi$ con input $x$ e stringa
+	casuale $R$.
 	
 	Restringiamo $\varphi$ alle sole variabili che appaiono in uno dei vincoli
-	e, poiché ogni $V_{x, r}$ dipende da al più $q$ variabili, otteniamo
+	e, poiché ogni $V_{x, R}$ dipende da al più $q$ variabili, otteniamo
 	un'istanza di taglia polinomiale e computabile con un numero polinomiale di
 	simulazioni di verifica.
 
 	Assegnamenti delle variabili di $\varphi$ corrispondono a certificati
 	$\pi$, quindi il valore di $\varphi$ corrisponde esattamente alla massima
-	probabilità che un certificato sia accettato.
+	probabilità che un certificato sia accettato (si veda la
+	Tabella~\ref{tab:due-punti-di-vista-pcp}).
 	Le proprietà di completezza e robustezza del Teorema~\ref{thm:pcp} si
 	traducono allora nelle proprietà di robustezza e completezza per il Teorema
 	\ref{thm:pcpapprox} con $\rho = \frac12$.
@@ -203,7 +204,7 @@ computabile efficientemente.
 			Numero di variabili ($n$) \\
 		Numero di posizioni lette ($q$) & $\longleftrightarrow$ &
 			Arietà dei vincoli ($q$) \\
-		Numero di bit casuali ($r$) & $\longleftrightarrow$ &
+		Numero di bit casuali ($|R|$) & $\longleftrightarrow$ &
 			Logaritmo del numero di vincoli ($\log m$) \\
 		Parametro di robustezza ($1/2$) & $\longleftrightarrow$ &
 			Massimo valore $\val(\varphi)$ di istanze negative \\
@@ -277,14 +278,14 @@ Ci sono pessime notizie.
 	frazione $\frac12$ delle volte.
 
 	Dato input $x \in \{0, 1\}^n$, il verificatore legge una stringa casuale
-	$r \in \{0, 1\}^{c \log n}$ e $q$ posizioni di una dimostrazione $\pi$.
+	$R \in \{0, 1\}^{c \log n}$ e $q$ posizioni di una dimostrazione $\pi$.
 	Fissato l'input, il verificatore accetta o rifiuta esclusivamente sulla
 	base della stringa casuale e dei pezzi di dimostrazione che legge.
 	Ciò giustifica la seguente
 
 	\begin{definition}
-		Chiamiamo l'informazione $\langle r, \pi(i_1) \ldots \pi(i_q) \rangle$
-		uno \emph{scenario accettato} se, con stringa casuale $r$, il
+		Chiamiamo l'informazione $\langle R; \pi(i_1) \ldots \pi(i_q) \rangle$
+		uno \emph{scenario accettato} se, con stringa casuale $R$, il
 		verificatore legge i bit in posizioni $i_1, \ldots, i_q$ e, se questi
 		valgono $\pi(i_1) \ldots \pi(i_q)$, il verificatore accetta.
 	\end{definition}
@@ -293,11 +294,11 @@ Ci sono pessime notizie.
 	ognuno di essi, si verifica efficientemente se lo scenario è accettato.
 	A partire dall'istanza $x$, costruiamo il grafo $G_x$ come segue.
 	Gli scenari accettati costituiscono i vertici di $G_x$.
-	Due distinti scenari accettati $\langle r_1, \alpha \rangle$ e
-	$\langle r_2, \beta \rangle$ sono collegati da un arco in $G_x$ se e
+	Due distinti scenari accettati $\langle R_1; \alpha \rangle$ e
+	$\langle R_2; \beta \rangle$ sono collegati da un arco in $G_x$ se e
 	soltanto se sono \emph{compatibili}, ossia se non discordano su nessun bit
 	della dimostrazione. In altre parole, se $V$ interroga una stessa posizione
-	con stringa casuale $r_1$ e con stringa casuale $r_2$, allora $\alpha$ e
+	con stringa casuale $R_1$ e con stringa casuale $R_2$, allora $\alpha$ e
 	$\beta$ vi assegnano lo stesso valore.
 	Equivalentemente, due scenari accettati sono collegati da un arco se
 	potenzialmente fanno riferimento a uno stesso certificato.
@@ -308,16 +309,16 @@ Ci sono pessime notizie.
 	Mostriamo ora che la dimensione della cricca massima in $G_x$ è legata alla
 	probabilità di accettazione del processo di verifica. Vale infatti
 	\[
-		\omega(G_x) = \max_\pi \bigl| \{ r \in \{0, 1\}^{c \log n} :
-		V \text{ accetta } \pi \text{ con stringa casuale } r \} \bigr|.
+		\omega(G_x) = \max_\pi \bigl| \{ R \in \{0, 1\}^{c \log n} :
+		V \text{ accetta } \pi \text{ con stringa casuale } R \} \bigr|.
 	\]
 
 	Mostriamo che il primo membro è maggiore o uguale del secondo.
 	Data una qualunque dimostrazione $\pi$, l'insieme degli
 	scenari accettati
-	$\{\langle r, \pi|_r \rangle : V \text{ accetta } \pi \text{ con } r\}$
-	(dove con $\pi|_r$ indichiamo la restrizione di $\pi$ alle $q$ posizioni
-	interrogate con stringa casuale $r$) forma una cricca in $G_x$,
+	$\{\langle R; \pi|_R \rangle : V \text{ accetta } \pi \text{ con } R\}$
+	(dove con $\pi|_R$ indichiamo la restrizione di $\pi$ alle $q$ posizioni
+	interrogate con stringa casuale $R$) forma una cricca in $G_x$,
 	in quanto tutti gli scenari provengono da una stessa dimostrazione
 	$\pi$ e sono quindi compatibili.
 	La cardinalità di questa cricca è pari al numero di stringhe casuali per
@@ -325,8 +326,8 @@ Ci sono pessime notizie.
 	
 	Per il viceversa, sia $K \subseteq V(G_x)$ una cricca in $G_x$.
 	Poiché i vertici di $K$ sono a due a due compatibili, questi
-	definiscono un'unica dimostrazione parziale $\tilde{\pi}_K$
-	definita sulle posizioni interrogate in uno degli scenari in $K$.
+	determinano univocamente una dimostrazione parziale $\tilde{\pi}_K$
+	definita sulle posizioni interrogate in almeno uno degli scenari in $K$.
 	Estendiamo $\tilde{\pi}_K$ a una qualunque dimostrazione completa
 	$\pi_K$. Il verificatore, allora, accetta $\pi_K$ su tutte le
 	$|K|$ stringhe casuali associate ai vertici di $K$, proprio in
@@ -440,12 +441,12 @@ gruppo di problemi.
 	a meno che $\P = \NP$.
 \end{proof}
 
-È bene sapere che l'$\varepsilon_1$ della nostra dimostrazione è ben lontano
-dal miglior risultato di inapprossimabilità possibile. Nel 1997
-Håstad dimostrò, grazie a un raffinamento del Teorema PCP \cite{Has01}, che per
-ogni $\varepsilon > 0$ non esistono $(\frac78 + \varepsilon)$-approssimazioni
-efficienti di \texttt{MAX-E3SAT} (e quindi di \texttt{MAX-3SAT}), a meno che
-$\P = \NP$.
+È bene sapere che il valore di $\varepsilon_1$ prodotto dalla dimostrazione
+appena descritta è ben lontano dal miglior risultato di inapprossimabilità
+possibile. Nel 1997 Håstad dimostrò, grazie a un raffinamento del Teorema PCP
+\cite{Has01}, che per ogni $\varepsilon > 0$ non esistono
+$(\frac78 + \varepsilon)$-approssimazioni efficienti di \texttt{MAX-E3SAT} (e
+quindi di \texttt{MAX-3SAT}), a meno che $\P = \NP$.
 La semplice approssimazione di \texttt{MAX-E3SAT} presentata nella prima
 sezione era dunque l'algoritmo ottimo: non si può fare meglio di una
 soluzione completamente casuale, a meno che $\P = \NP$.

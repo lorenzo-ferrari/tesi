@@ -2,8 +2,8 @@
 
 In questo capitolo introduciamo le classi di problemi $\P$ ed $\NP$,
 protagoniste di uno dei problemi del millennio \cite{Cook06}.
-In seguito ci interessiamo alla verifica probabilistica di dimostrazioni
-e formalizziamo questo processo tramite le classi $\PCP$.
+In seguito descriviamo la verifica probabilistica di dimostrazioni,
+formalizzata tramite le classi $\PCP$.
 Enunciamo infine il Teorema PCP, risultato sorprendente e ormai fondamentale in
 informatica teorica, nonché principe di questa tesi; in questo capitolo
 presentiamo la dimostrazione di una versione più debole, detta
@@ -11,16 +11,18 @@ Teorema PCP esponenziale.
 
 \section{Classi \texorpdfstring{$\P$ ed $\NP$}{P ed NP}}
 
-La teoria della complessità si interessa di quanto difficili sono i problemi.
-Una misura di difficoltà è data dal minimo tempo necessario a un calcolatore
+La teoria della complessità studia quanto i problemi siano difficili da
+risolvere. Una misura naturale di difficoltà è data dal minimo tempo necessario
+a un calcolatore
 per risolvere istanze del dato problema. In questo lavoro ci concentriamo
 principalmente su problemi di decisione, cioè problemi la cui risposta è
 ``sì'' o ``no'', VERO o FALSO, $1$ o $0$.
 Tipicamente le istanze di un fissato problema si codificano come stringhe binarie,
 il che permette di identificare il problema di decisione con il linguaggio
-$L \subseteq \{0, 1\}^*$ delle istanze la cui risposta è ``sì''.
-Risolvere il problema equivale\footnote{Posto che la codifica sia naturale,
-cioè ragionevole e non artificialmente patologica.} quindi a decidere
+$L \subseteq \{0, 1\}^*$ delle istanze la cui risposta è ``sì''\footnote{Con
+$\{0, 1\}^*$ si indica l'insieme delle stringhe binarie finite.}.
+Risolvere il problema equivale\footnote{Posto che la codifica delle istanze sia
+naturale, cioè ragionevole e non artificialmente patologica.} quindi a decidere
 l'appartenenza ad $L$.
 
 Definiamo la classe dei problemi che è possibile risolvere
@@ -56,9 +58,10 @@ arco connetta nodi di colori distinti. Grafi con questa proprietà si dicono
 	\end{figure}
 
 La $2$-colorabilità di grafi si può decidere in tempo lineare nella dimensione
-del grafo, dunque $\texttt{2COL} \in \P$.
+del grafo\footnote{Come esercizio, il lettore può guardare la figura e pensare
+al perché.}, dunque $\texttt{2COL} \in \P$.
 
-Estendiamo leggermente il problema e chiediamoci ora se un grafo è
+Estendiamo leggermente il problema e chiediamoci ora se un grafo sia
 3-colorabile: chiamiamo questo problema \texttt{3COL}.
 La situazione cambia drasticamente: in questo caso non conosciamo algoritmi
 efficienti e si congettura che non ne esistano. Se infatti esistesse un
@@ -85,7 +88,7 @@ dimostrazione di ``$x \in L$''.
 Dalle definizioni segue $\P \subseteq \NP$: per ogni problema in $\P$ esiste
 un verificatore $V$ che semplicemente ignora il certificato.
 Il problema del millennio ``$\P$ contro $\NP$'' \cite{Cook06} chiede se questo
-contenimento è stretto.
+contenimento sia stretto.
 Secondo l'opinione di gran lunga più condivisa, $\P$ è diverso da $\NP$:
 verificare una dimostrazione è facile, trovarla è un altro paio di maniche.
 Il problema è tuttavia aperto.
@@ -260,7 +263,12 @@ la parte principale della dimostrazione al Capitolo~\ref{chap:pcpproof}.
 Presentiamo qui la dimostrazione di una versione debole del
 Teorema~\ref{thm:pcp}. Anche in questo caso il verificatore legge un numero
 costante di bit, tuttavia la dimostrazione ha dimensione esponenziale nella
-dimensione dell'input e il verificatore utilizza $\mathrm{poly}(n)$ bit casuali.
+dimensione dell'input e il verificatore utilizza un numero polinomiale di bit
+casuali.
+
+Per indicare funzioni di $n$ a crescita polinomiale useremo talvolta la
+notazione $\mathrm{poly}(n)$, intenzionalmente senza enfasi sul tipo di crescita
+polinomiale.
 
 \begin{theorem}[PCP esponenziale per $\NP$ \cite{ALMSS98}] \label{thm:exppcp}
 	\[
@@ -320,25 +328,30 @@ che la linearità valga per una coppia di vettori scelti a caso.
 \end{definition}
 
 \begin{theorem}[Test di linearità \cite{BCHKS96}] \label{thm:lintest}
-	Sia $f\colon \F_2^n \to \F_2$ una funzione tale che
+	Siano $\rho > \frac12$ un numero reale e $f\colon \F_2^n \to \F_2$ una
+	funzione. Se vale
 	\[
 		\Pr_{\xx, \yy}
-		[f(\xx + \yy) = f(\xx) + f(\yy)] \ge \rho
+		[f(\xx + \yy) = f(\xx) + f(\yy)] \ge \rho,
 	\]
-	per $\rho > \frac12$. Allora $f$ è $\rho$-vicina a una funzione lineare.
+	allora $f$ è $\rho$-vicina a una funzione lineare.
 \end{theorem}
 
-Il Teorema~\ref{thm:lintest} garantisce che ripetere $O(1)$ volte il test di
-linearità è sufficiente per rifiutare con alta probabilità qualunque funzione
-(per esempio) non $0.99$-vicina a una funzione lineare. Se infatti $f$ non
+La contronominale del Teorema~\ref{thm:lintest} garantisce che ripetere $O(1)$
+volte il test di linearità è sufficiente per rifiutare con alta probabilità
+qualunque funzione (per esempio) non $0.99$-vicina a una funzione lineare.
+Se infatti $f$ non
 è $0.99$-vicina a una funzione lineare e il test viene ripetuto cento volte,
 questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 
 \begin{proof}[Dimostrazione del Teorema~\ref{thm:lintest}]
 	Richiamiamo qualche nozione di analisi di Fourier discreta su
 	$(\Z/2\Z)^n$.
-	Identifichiamo $\F_2^n$ con l'ipercubo $\{\pm 1\}^n$ e definiamo per
-	$\alpha \subseteq [n]$ la funzione $\chi_\alpha\colon \{\pm 1\}^n \to \{\pm 1\}$
+	Identifichiamo $\F_2$ con $\{\pm 1\}$ e $\F_2^n$ con l'ipercubo
+	$\{\pm 1\}^n$, cosicché si possa interpretare la funzione in ipotesi come
+	$f\colon \{\pm 1\}^n \to \{\pm 1\}$.
+	Definiamo per $\alpha \subseteq [n]$ la funzione
+	$\chi_\alpha\colon \{\pm 1\}^n \to \{\pm 1\}$
 	come $\chi_\alpha(\xx) := \prod_{i \in \alpha} x_i$.
 	La somma $\xx + \yy$ su $\F_2^n$ si legge come il prodotto
 	puntuale $\xx \odot \yy$ sull'ipercubo e, poiché vale
@@ -352,20 +365,26 @@ questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 	\emph{base di Fourier}.
 	Ogni $f$ come in ipotesi si scompone quindi come
 	\[
-		f = \sum_{\alpha \subseteq [n]} \hat{f}_\alpha \chi_\alpha.
+		f = \sum_{\alpha \subseteq [n]} \hat{f}_\alpha \chi_\alpha
 	\]
+	con $\hat{f}_\alpha = \E_{\xx}[f(\xx) \chi_\alpha (\xx)]$.
 	Chiamiamo gli $\hat{f}_\alpha$ \emph{coefficienti di Fourier} e i
 	$\chi_\alpha$ \emph{caratteri}.
 
-	Scriviamo l'ipotesi in termini di valore atteso. Poiché $f$ assume solo
-	i valori $\pm 1$, vale
-	$\E[f(\xx \odot \yy)f(\xx)f(\yy)] =
-	2 \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)] - 1$.
-	Sia allora $\rho = \frac12 + \varepsilon$, l'ipotesi diventa
+	Traduciamo le proprietà di linearità di $f$ nello stesso linguaggio del
+	prodotto scalare. Poiché $f$ assume solo i valori $\pm 1$, vale
+	\begin{align*}
+		\E[f(\xx \odot \yy)f(\xx)f(\yy)] &=
+			\Pr[f(\xx \odot \yy) = f(\xx) f(\yy)]
+				- \Pr[f(\xx \odot \yy) \neq f(\xx) f(\yy)] \\
+			&= 2 \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)] - 1.
+	\end{align*}
+	Quindi, fissato $\varepsilon = \rho - \frac12$, l'ipotesi
+	$\Pr[f(\xx + \yy) = f(\xx) + \f(\yy)] \ge \rho$ si legge come
 	$\E[f(\xx \odot \yy)f(\xx)f(\yy)] \ge 2 \varepsilon$.
-	Mostreremo che esiste un coefficiente di Fourier sufficientemente
-	grande e $f$ coincide con il corrispondente carattere su almeno una frazione
-	$\frac12 + \varepsilon$ degli input.
+ 	Mostreremo che almeno uno dei coefficienti di Fourier di una tale $f$ è
+	abbastanza grande e $f$ coincide con il corrispondente carattere su
+	almeno una frazione $\frac12 + \varepsilon$ degli input.
 
 	È sufficiente scrivere $f$ in base di Fourier e semplificare il valore atteso
 	per ortonormalità e linearità dei caratteri:
@@ -387,35 +406,38 @@ questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 			\delta_{\alpha \beta} \delta_{\alpha \gamma} \\
 		&= \sum_{\alpha} \hat{f}_\alpha^3.
 	\end{align*}
-	L'ipotesi si traduce in $2 \varepsilon \le \sum_{\alpha} \hat{f}_\alpha^3
-	\le (\max_\alpha \hat{f}_\alpha) \sum_{\alpha} \hat{f}_\alpha^2 =
-	\max_\alpha \hat{f}_\alpha$ poiché $\langle f, f \rangle = 1$ e la
-	base di Fourier è ortonormale\footnote{L'identità
-	$\langle f, f \rangle = \sum_\alpha \hat{f}_\alpha^2$ si chiama identità di
-	Parseval.}.
+	L'ipotesi diventa $2 \varepsilon \le \sum_{\alpha} \hat{f}_\alpha^3$, da
+	cui segue $2 \varepsilon \le (\max_\alpha \hat{f}_\alpha)
+	\sum_{\alpha} \hat{f}_\alpha^2 = \max_\alpha \hat{f}_\alpha$, poiché
+	$\langle f, f \rangle = 1$ e la	base di Fourier è
+	ortonormale\footnote{L'identità $\langle f, f \rangle = \sum_\alpha
+	\hat{f}_\alpha^2$ si chiama identità di	Parseval.}.
 
-	Se $\hat{f}_\alpha \ge 2 \varepsilon$, allora
-	$\E_{\xx}[f(\xx) \chi_\alpha (\xx)] \ge 2 \varepsilon$, da cui
-	$\Pr_{\xx}[f(\xx) = \chi_\alpha (\xx)] \ge \frac12 + \varepsilon = \rho$.
+	Da $\hat{f}_\alpha \ge 2 \varepsilon$, ovvero da
+	$\E_{\xx}[f(\xx) \chi_\alpha (\xx)] \ge 2 \varepsilon$, si ottiene
+	$\Pr_{\xx}[f(\xx) = \chi_\alpha (\xx)] \ge \frac12 + \varepsilon = \rho$ e
+	quindi $f$ è $\rho$-vicina a una funzione lineare.
 \end{proof}
 
 Introduciamo l'ultimo strumento necessario per la dimostrazione del Teorema PCP
 esponenziale. Supponiamo una funzione $f\colon \F_2^n \to \F_2$ sia
 $(1 - \delta)$-vicina a una funzione lineare $\tilde{f}$ per $\delta < \frac14$.
 Dato un qualunque $\xx \in \F_2^n$, vorremmo ottenere con alta probabilità il
-valore di $\tilde{f}(\xx)$.
+valore di $\tilde{f}(\xx)$ dalla sola conoscenza dei valori di $f$.
 Se $\xx$ è uno dei pochi input su cui $f$ differisce da
 $\tilde{f}$, non è sufficiente restituire semplicemente $f(\xx)$.
 Tuttavia possiamo ottenere il valore di
 $\tilde{f}(\xx)$ con probabilità maggiore di $\frac12$ semplicemente
-chiedendo due valori di $f$, dopodiché sarà sufficiente ripetere $O(1)$ volte
-indipendenti ed effettuare un voto di maggioranza.
+sommando i valori di $f$ su due appropriati input aleatori che sommano a $\xx$,
+dopodiché è sufficiente ripetere il procedimento $O(1)$ volte indipendenti
+ed effettuare un ``voto di maggioranza''.
 
-Scelto $\xx' \in \F_2^n$ uniformemente a caso, il tentativo per il
-valore di $\tilde{f}(\xx)$ è $f(\xx') + f(\xx - \xx')$. Poiché sia $\xx'$ che
+In particolare, scelto $\xx' \in \F_2^n$ uniformemente a caso, il tentativo per
+il valore di $\tilde{f}(\xx)$ è $f(\xx') + f(\xx - \xx')$. Poiché sia $\xx'$ che
 $\xx - \xx'$ sono distribuiti uniformemente, gli eventi
 ``$f(\xx') = \tilde{f}(\xx')$'' e ``$f(\xx - \xx') = \tilde{f}(\xx - \xx')$''
-accadono entrambi con probabilità almeno $1 - \delta$. Per union bound e
+accadono entrambi con probabilità almeno $1 - \delta$. Per union
+bound\footnote{Cioè applicando la subadditività della probabilità.} e
 linearità di $\tilde{f}$, restituiamo il valore corretto per $\tilde{f}(\xx)$
 con probabilità almeno $1 - 2 \delta > \frac12$.
 Chiamiamo questo metodo per ottenere $\tilde{f}(\xx)$ ``decodifica locale''
@@ -460,7 +482,7 @@ Il verificatore esegue (diciamo) dieci volte indipendentemente il seguente test:
 $f(\rr)f(\rr') \neq g(\rr \otimes \rr')$, rifiuta il certificato''.
 Verifichiamo innanzitutto che un valido certificato passa sempre il test.
 Questo equivale ad assicurarsi che per tutte le coppie di
-vettori $\rr, \rr' \in \F_2^n$ vale
+vettori $\rr, \rr' \in \F_2^n$ valga
 $\langle \uu, \rr \rangle \langle \uu, \rr' \rangle =
 \langle \uu \otimes \uu, \rr \otimes \rr' \rangle$, che si verifica per
 passaggi algebrici:

@@ -116,7 +116,7 @@ $f = h \circ g_{4, q_0}$, come in Tabella~\ref{tab:pcp-composition}.
 Per dimostrare il Lemma~\ref{thm:gap-amplification} di amplificazione del gap
 esibiamo una trasformazione $g$ che mappa istanze di $q\CSP_2$ a istanze di
 $2\CSP_W$ con $W$ sufficientemente grande e tale che la minima frazione di
-vincoli violati aumenta.
+vincoli violati aumenti.
 
 Se fossero consentiti un aumento polinomiale nella taglia dell'istanza
 e un arietà maggiore di $2$ basterebbe, per un qualche intero $k$, trasformare
@@ -482,7 +482,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	$\E[V^2] = O(\varepsilon \sqrt{t})$.
 
 	\begin{lemma} \label{thm:momento-secondo}
-		Sia $V$ come sopra. Allora
+		Sia $V$ come sopra. Vale
 		\[
 			\E[V^2] \le 100 \varepsilon \delta \sqrt{t}.
 		\]
@@ -513,14 +513,14 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 
 		\begin{lemma} \label{thm:Din06Prop6.5}
 			Siano $i < j$ due indici e $F \subseteq E$ un sottoinsieme degli archi.
-			Allora, con la notazione sopra,
+			Con la notazione sopra vale
 			\[
 				\E[I_i I_j] \le \frac{|F|}{|E|} \left( \frac{|F|}{|E|} +
 					\lambda^{j - i - 1} \right).
 			\]
 		\end{lemma}
 		\begin{proof}
-			Per ogni $i$ vale $\Pr[I_i = 1] = \frac{|F|}{|E|}$.
+			Per ogni $i$ si ha $\Pr[I_i = 1] = \frac{|F|}{|E|}$.
 			Allora,
 			\[
 				\E[I_i I_j] = \Pr[I_i I_j = 1] = \Pr[I_i = 1]\Pr[I_j = 1 \mid I_i = 1]
@@ -690,7 +690,7 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 	istanze $\varphi$ di $2\CSP_W$ con grafo soggiacente $d'$-regolare per
 	$d' \le d$ a istanze $\psi$ di $2\CSP_W$ il cui grafo soggiacente è un
 	expander $4d$-regolare e tale che almeno metà degli archi uscenti da ogni
-	nodo sono cappi. Vale inoltre
+	nodo siano cappi. Vale inoltre
 	\[
 		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi)
 			\le 1 - \varepsilon / (10 d).
