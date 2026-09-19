@@ -308,7 +308,7 @@ dimostrazione del Teorema~\ref{thm:pcp}.
 	\le \frac{d}{2 | F |}$ da cui, applicando la disuguaglianza di Cauchy-Schwarz
 	e la definizione variazionale di $\lambda$, otteniamo
 	\[
-		\big\langle \yy, A^i \xx^\perp \big\rangle
+		\bigl\langle \yy, A^i \xx^\perp \bigr\rangle
 		\le \norm{\yy} \cdot \norm{A^i \xx^\perp}
 		\le \frac{2 |F|}{d} \norm{\xx} \cdot \lambda^i \norm{\xx}
 		\le \lambda^i.
@@ -317,8 +317,8 @@ dimostrazione del Teorema~\ref{thm:pcp}.
 	In conclusione,
 	\[
 		\langle \yy, A^i \xx \rangle
-		= \big\langle \yy, A^i \xx^\parallel \big\rangle
-		+ \big\langle \yy, A^i \xx^\perp \big\rangle
+		= \bigl\langle \yy, A^i \xx^\parallel \bigr\rangle
+		+ \bigl\langle \yy, A^i \xx^\perp \bigr\rangle
 		\le \frac{2 \lvert F \rvert}{n d} + \lambda^i.
 	\]
 \end{proof}
@@ -337,23 +337,24 @@ dimostrazione del Teorema~\ref{thm:pcp}.
 	costante.
 	Detta $A$ la matrice di adiacenza rinormalizzata, siano $\bm{1}_S$ e
 	$\bm{1}_{\bar{S}}$ i vettori indicatori di $S$ e del suo complementare.
-	Siano anche $\bm{1}_S^\parallel = \frac{|S|}{n} \bm{1}$ e
+	Siano anche $\bm{1}_S^\parallel = |S| \one$ e
 	$\bm{1}_S^\perp = \bm{1}_S - \bm{1}_S^\parallel$ le componenti
-	di $\bm{1}_S$ parallela e perpendicolare a $\bm{1}$.
+	di $\bm{1}_S$ parallela e perpendicolare a $\bm{1}$, che ricordiamo è
+	definito come il vettore costante~$\frac1{n}$.
 	Vale
 	\begin{align*}
 		\frac{1}{d} \lvert E(S, \bar S) \rvert
 			&= \langle \bm{1}_S, A \bm{1}_{\bar S} \rangle \\
-		&= \langle \bm{1}_S, A (\bm{1} - \bm{1}_{\bar S}) \rangle \\
-		&= \langle \bm{1}_S, \bm{1} \rangle
+		&= \langle \bm{1}_S, A (n \one - \bm{1}_S) \rangle \\
+		&= \langle \bm{1}_S, n \one \rangle
 			- \langle \bm{1}_S, A \bm{1}_S \rangle \\
-		&= |S| - \big\langle \bm{1}_S^\parallel + \bm{1}_S^\perp,
-			A (\bm{1}_S^\parallel + \bm{1}_S^\perp ) \big\rangle \\
-		&= |S| - \big\langle \bm{1}_S^\parallel, \bm{1}_S^\parallel \big\rangle
-			- \big\langle \bm{1}_S^\perp, A \bm{1}_S^\perp \big\rangle
-			- 2 \big\langle \bm{1}_S^\parallel, \bm{1}_S^\perp \big\rangle \\
-		&\ge |S| - \big\langle \bm{1}_S^\parallel, \bm{1}_S^\parallel \big\rangle
-			- \lambda \big\langle \bm{1}_S^\perp, \bm{1}_S^\perp \big\rangle \\
+		&= |S| - \bigl\langle \bm{1}_S^\parallel + \bm{1}_S^\perp,
+			A (\bm{1}_S^\parallel + \bm{1}_S^\perp ) \bigr\rangle \\
+		&= |S| - \bigl\langle \bm{1}_S^\parallel, \bm{1}_S^\parallel \bigr\rangle
+			- \bigl\langle \bm{1}_S^\perp, A \bm{1}_S^\perp \bigr\rangle
+			- 2 \bigl\langle \bm{1}_S^\parallel, \bm{1}_S^\perp \bigr\rangle \\
+		&\ge |S| - \bigl\langle \bm{1}_S^\parallel, \bm{1}_S^\parallel \bigr\rangle
+			- \lambda \bigl\langle \bm{1}_S^\perp, \bm{1}_S^\perp \bigr\rangle \\
 		&= |S| - \frac{|S|^2}{n} - \lambda\biggl(|S| - \frac{|S|^2}{n}\biggr) \\
 		&= (1 - \lambda)\frac{|S|}{n}(n - |S|) = (1 - \lambda) \frac1{n} |S| |\bar S|.
 	\end{align*}
@@ -378,7 +379,7 @@ in un grafo casuale.
 \section{Un grafo casuale è con alta probabilità un expander} \label{sec:randomexpansion}
 
 Nella scorsa sezione abbiamo osservato che, se il parametro $\lambda(G)$ di un
-grafo $d$-regolare è distante da $1$ almeno una costante indipendente dalla
+grafo $d$-regolare dista da $1$ di almeno una costante indipendente dalla
 dimensione del grafo, allora questo somiglia a un grafo casuale.
 Per completezza, qui ci occupiamo del viceversa, cioè mostriamo che un grafo
 generato tramite un opportuno processo probabilistico è, con alta probabilità,
@@ -565,7 +566,7 @@ su $V$.
 
 \subsection{Costruzioni esplicite}
 
-Sebbene un grafo estratto a caso è con alta probabilità un expander,
+Sebbene un grafo estratto a caso sia con alta probabilità un expander,
 costruire \emph{deterministicamente} famiglie di expander è un problema
 tutt'altro che banale.
 Tipicamente, ci si procura innanzitutto una famiglia di grafi

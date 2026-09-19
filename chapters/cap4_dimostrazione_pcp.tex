@@ -21,8 +21,8 @@ le quali soddisferanno proprietà desiderabili.
 	\emph{CL-trasformazione}\footnote{Per \emph{Complete Linear-blowup}.} da
 	istanze di $A$ a istanze di $B$ se è computabile in tempo polinomiale e,
 	per ogni istanza $\varphi$ di $A$, l'istanza $f(\varphi)$ è soddisfacibile
-	se e solo se lo è $\varphi$ e ha taglia lineare nella taglia di	$\varphi$,
-	cioè un numero di vincoli lineare nel numero di vincoli	di $\varphi$.
+	se e solo se lo è $\varphi$ e ha taglia lineare nella taglia di $\varphi$,
+	cioè un numero di vincoli lineare nel numero di vincoli di $\varphi$.
 \end{definition}
 
 Saranno particolarmente utili le CL-trasformazioni che permettono di
@@ -179,7 +179,7 @@ la strategia descritta a inizio capitolo funzioni.
 	soddisfa le seguenti tre proprietà:
 	\begin{enumerate}[label=(\roman*)]
 		\item l'arietà di $\varphi$ è $2$, cioè $q = 2$;
-		\item il grafo soggiacente $G_\varphi$ è un	$(d, \lambda)$-expander per
+		\item il grafo soggiacente $G_\varphi$ è un $(d, \lambda)$-expander per
 			una costante $d$ e $\lambda = 0.9$;
 		\item metà degli archi uscenti da ogni nodo di $G_\varphi$ sono cappi.
 	\end{enumerate}
@@ -233,7 +233,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 
 	I vincoli dell'istanza $\varphi^t$ saranno i seguenti.
 	A ogni percorso $p = \langle v_1, \ldots, v_{2t + 2} \rangle$ di lunghezza
-	$(2 t + 1)$ in $G_\varphi$,	corrisponde un vincolo $C_p$ di $\varphi^t$,
+	$(2 t + 1)$ in $G_\varphi$, corrisponde un vincolo $C_p$ di $\varphi^t$,
 	dipendente dai valori di $y_{v_1}$ e $y_{v_{2t + 2}}$.
 	Il vincolo $C_p$ restituisce FALSO se e soltanto se esiste un $j \in [2t + 1]$
 	tale che:
@@ -243,7 +243,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			$v_{2t+2}$;
 		\item detti $w$ il valore che $y_{v_1}$ attribuisce a $u_{v_j}$ e $w'$
 			il valore che $y_{v_{2 t + 2}}$ attribuisce a $u_{v_{j + 1}}$, la
-			coppia $(w, w')$ viola il vincolo in $\varphi$ che connette	$v_j$ a
+			coppia $(w, w')$ viola il vincolo in $\varphi$ che connette $v_j$ a
 			$v_{j + 1}$ in $p$.
 	\end{enumerate}
 
@@ -283,7 +283,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	vincoli violati dall'assegnamento di maggioranza.
 
 	Useremo questo insieme per mostrare che l'assegnamento $\yy$ viola
-	almeno una frazione	$\Omega(\sqrt{t} \varepsilon)$ dei vincoli di $\varphi^t$.
+	almeno una frazione $\Omega(\sqrt{t} \varepsilon)$ dei vincoli di $\varphi^t$.
 
 	\subsubsection{Analisi}
 	Il resto della dimostrazione avviene nello spazio di probabilità uniforme
@@ -322,7 +322,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	\begin{proof}[Dimostrazione]
 		L'intuizione dietro al lemma è che, poiché metà degli archi di
 		$G_\varphi$ sono cappi, una passeggiata aleatoria di lunghezza
-		$t \pm \delta \sqrt{t}$	è statisticamente molto simile a una passeggiata
+		$t \pm \delta \sqrt{t}$ è statisticamente molto simile a una passeggiata
 		aleatoria di lunghezza $t$.
 
 		Formalmente, il lemma è dimostrato cambiando punto di vista sul modo in
@@ -356,7 +356,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			aleatorie $S_t$ e $S_{t'}$ sono a distanza statistica al più $\delta$.
 			In altre parole,
 			\[
-				\frac12 \sum_{m}{ \bigl| \Pr[S_t = m] - \Pr[S_{t'} = m]	\bigr| }
+				\frac12 \sum_{m}{ \bigl| \Pr[S_t = m] - \Pr[S_{t'} = m] \bigr| }
 				\le \delta.
 			\]
 		\end{lemma}
@@ -442,7 +442,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			concorda}]} \\
 			&\le \sum_m { \Pr[S_{t + \delta \sqrt{t}} = m] \Pr[\text{il vero
 			$m$-estremo concorda}]} + \delta \\
-			&= \Pr[\text{il $t + \delta \sqrt{t}$-estremo concorda}] + \delta.
+			&= \Pr[\text{il $(t + \delta \sqrt{t})$-estremo concorda}] + \delta.
 		\end{align*}
 
 		Poiché $\delta \le \frac1{10 W}$, concludiamo con
@@ -453,7 +453,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 	\end{proof}
 
 	Sia allora $V$ la variabile aleatoria che conta quanti tra i
-	$2 \delta \sqrt{t} + 1$	archi centrali considerati sono consistenti e in
+	$2 \delta \sqrt{t} + 1$ archi centrali considerati sono consistenti e in
 	$F$. Il nostro obiettivo è dimostrare $\Pr[V > 0] \ge \varepsilon'$.
 
 	Il lemma appena dimostrato implica, per linearità del valore atteso,
@@ -637,7 +637,7 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 \begin{proof}
 	Fissiamo una famiglia esplicita $\{G_k\}_{k \in \mathbb{N}}$ di expander
 	$d$-regolari.
-	A ogni variabile $u_i$ di $\varphi$	che appare in esattamente $k$ vincoli
+	A ogni variabile $u_i$ di $\varphi$ che appare in esattamente $k$ vincoli
 	corrisponde una nube di $k$ variabili $y_i^1, \dots, y_i^k$ in $\psi$.
 	Le occorrenze di $u_i$ nei vincoli che lo coinvolgono si sostituiscono con
 	opportuni $y_i^j$, in modo tale che ogni $y_i^j$ appaia in esattamente uno
@@ -669,7 +669,7 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 	maggioranza è molto popolare, abbastanza degli $\varepsilon m$ vincoli
 	violati da $\uu$ sono violati anche da $\yy$.
 	Sia allora $t_i$ il numero di variabili $y_i^j$ in \emph{disaccordo} con
-	l'assegnamento di maggioranza. Vale	$0 \le t_i \le k(1 - \frac1{W})$.
+	l'assegnamento di maggioranza. Vale $0 \le t_i \le k(1 - \frac1{W})$.
 	
 	Se $\sum_{i=1}^n t_i \ge \frac{\varepsilon}{2} m$, allora abbastanza vincoli
 	di uguaglianza sono violati per le proprietà di mescolamento degli expander.
@@ -892,11 +892,11 @@ Per concludere, manca solo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 	verifica del Teorema~\ref{thm:exppcp}.
 	La stringa $\pi_3$ si interpreta dunque come coppia di funzioni
 	$f\colon \F_2^\ell \to \F_2$ e $g\colon \F_2^{\ell^2} \to \F_2$, che nel caso
-	di una dimostrazione valida corrispondono alle codifiche di	Walsh-Hadamard
+	di una dimostrazione valida corrispondono alle codifiche di Walsh-Hadamard
 	$\WH(\ww)$ e $\WH(\ww \otimes \ww)$ per un valido assegnamento $\ww$.
 
 	Per ogni input $\bm{u_1 u_2}$ accettato dal circuito $C$, una valida
-	dimostrazione è data da	$\pi_1 = \WH(\bm{u_1})$,
+	dimostrazione è data da $\pi_1 = \WH(\bm{u_1})$,
 	$\pi_2 = \WH(\bm{u_2})$ e le codifiche relative al vettore
 	$\ww \in \{0, 1\}^\ell$ che rappresenta i valori degli $\ell$ nodi del
 	circuito quando questo ha input $\bm{u_1 u_2}$.

@@ -210,13 +210,13 @@ Formalizziamo innanzitutto il processo di verifica per poterne parlare in modo p
 			\Pr[V \text{ accetta}] \le \frac12.
 		\]
 	\end{itemize}
-	Indichiamo con $\PCP(r(n), b(n))$ la classe	$\PCP[O(r(n)), O(b(n))]$, i cui
+	Indichiamo con $\PCP(r(n), b(n))$ la classe $\PCP[O(r(n)), O(b(n))]$, i cui
 	limiti sulle risorse sono intesi a meno di fattori costanti. Questa
 	definizione è indipendente dalla costante di robustezza $\frac12$. Se
 	infatti avessimo definito le classi $\PCP$ con costante di robustezza
 	$c \in (0, 1)$, sarebbe bastato ripetere il processo di verifica $k$ volte
 	indipendenti per ottenere probabilità di errore limitata da $c^k$, piccolo a
-	piacere; il fattore $k$ nelle risorse viene assorbito dagli O grande e
+	piacere; il fattore $k$ nelle risorse viene assorbito dagli $O$ grande e
 	la classe $\PCP(r(n), b(n))$ rimane invariata.
 \end{definition}
 
@@ -454,7 +454,7 @@ valore di $\tilde{f}(\xx)$ ottenuto tramite decodifica locale di $f$.
 Il Passo 1 permette di assumere nei passi successivi che il certificato non
 già rifiutato codifichi davvero due funzioni lineari.
 
-\emph{Passo 2.} % capire se preferisco "indipendenti"
+\emph{Passo 2.}
 Il verificatore esegue (diciamo) dieci volte indipendentemente il seguente test:
 ``scegli due vettori $\rr, \rr' \in \F_2^n$ uniformemente a caso. Se
 $f(\rr)f(\rr') \neq g(\rr \otimes \rr')$, rifiuta il certificato''.
@@ -505,4 +505,4 @@ $\frac12$.
 Anche tenendo conto degli improbabili errori legati alle decodifiche locali,
 il test accetta certificati non validi con probabilità minore di $0.6$.
 È sufficiente ripetere il test $O(1)$ volte per ottenere probabilità di
-successo alta a piacere e il Teorema $\ref{thm:exppcp}$ è dimostrato. \hfill $\qed$
+successo alta a piacere e il Teorema~\ref{thm:exppcp} è dimostrato. \hfill $\qed$
