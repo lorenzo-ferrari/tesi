@@ -162,7 +162,7 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 	probabilità che un certificato sia accettato (si veda la
 	Tabella~\ref{tab:due-punti-di-vista-pcp}).
 	Le proprietà di completezza e robustezza del Teorema~\ref{thm:pcp} si
-	traducono allora nelle proprietà di robustezza e completezza per il Teorema
+	traducono allora nelle proprietà di completezza e robustezza per il Teorema
 	\ref{thm:pcpapprox} con $\rho = \frac12$.
 
 	$(\impliedby)$
@@ -172,11 +172,16 @@ quest'ultima formulazione per dimostrare il Teorema PCP.
 	nell'istanza $f(x)$ di $q\CSP_2$.
 	Dimostrazioni di ``$x \in L$'' corrispondono a validi
 	assegnamenti per $f(x)$. Per verificare una dimostrazione, il verificatore
-	sceglie un vincolo uniformemente a caso impiegando $O(\log n)$ bit casuali,
-	dopodiché legge le $q$ variabili da cui dipende il vincolo e accetta se e
-	soltanto se questo è soddisfatto.
+	sceglie un vincolo uniformemente a caso (o quasi\footnote{Se il numero di
+	vincoli non è una potenza di $2$, è impossibile estrarne uno uniformemente a
+	caso utilizzando come fonte di aleatorietà bit casuali. Tuttavia ci si può
+	avvicinare arbitrariamente alla distribuzione uniforme, dunque
+	questa impossibilità non costituisce un problema.}) impiegando $O(\log n)$
+	bit casuali, dopodiché legge le $q$ variabili da cui dipende il vincolo e
+	accetta se e soltanto se questo è soddisfatto.
 	In virtù del Teorema~\ref{thm:pcpapprox}, questo sistema di verifica
-	soddisfa la proprietà di completezza e ha robustezza $\rho$.
+	soddisfa la proprietà di completezza e ha
+	robustezza $\rho$ (o arbitrariamente vicina ad esso).
 	È sufficiente ripetere la verifica $O(1)$ volte per ottenere robustezza
 	$\frac12$ e dimostrare quindi il Teorema~\ref{thm:pcp}.
 \end{proof}
@@ -381,7 +386,7 @@ gruppo di problemi.
 
 \begin{theorem} \label{thm:max-3sat}
 	Esiste un $\varepsilon_1 < 1$ tale che non esiste una
-	$\varepsilon_1$-approssimazione di \texttt{MAX-3SAT}, a meno che
+	$\varepsilon_1$-approssimazione efficiente di \texttt{MAX-3SAT}, a meno che
 	$\P = \NP$.
 \end{theorem}
 

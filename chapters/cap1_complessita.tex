@@ -380,7 +380,7 @@ questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
 			&= 2 \Pr[f(\xx \odot \yy) = f(\xx) f(\yy)] - 1.
 	\end{align*}
 	Quindi, fissato $\varepsilon = \rho - \frac12$, l'ipotesi
-	$\Pr[f(\xx + \yy) = f(\xx) + \f(\yy)] \ge \rho$ si legge come
+	$\Pr[f(\xx + \yy) = f(\xx) + f(\yy)] \ge \rho$ si legge come
 	$\E[f(\xx \odot \yy)f(\xx)f(\yy)] \ge 2 \varepsilon$.
  	Mostreremo che almeno uno dei coefficienti di Fourier di una tale $f$ è
 	abbastanza grande e $f$ coincide con il corrispondente carattere su
@@ -434,9 +434,9 @@ ed effettuare un ``voto di maggioranza''.
 
 In particolare, scelto $\xx' \in \F_2^n$ uniformemente a caso, il tentativo per
 il valore di $\tilde{f}(\xx)$ è $f(\xx') + f(\xx - \xx')$. Poiché sia $\xx'$ che
-$\xx - \xx'$ sono distribuiti uniformemente, gli eventi
+$\xx - \xx'$ sono distribuiti uniformemente, ciascuno degli eventi
 ``$f(\xx') = \tilde{f}(\xx')$'' e ``$f(\xx - \xx') = \tilde{f}(\xx - \xx')$''
-accadono entrambi con probabilità almeno $1 - \delta$. Per union
+accade con probabilità almeno $1 - \delta$. Per union
 bound\footnote{Cioè applicando la subadditività della probabilità.} e
 linearità di $\tilde{f}$, restituiamo il valore corretto per $\tilde{f}(\xx)$
 con probabilità almeno $1 - 2 \delta > \frac12$.
