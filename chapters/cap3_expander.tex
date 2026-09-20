@@ -100,7 +100,7 @@ particolarmente rilevante in informatica teorica.
 Nella Sezione~\ref{sec:randomexpansion}, tuttavia, descriveremo e analizzeremo
 un algoritmo probabilistico per produrre expander arbitrariamente grandi.
 
-\section{Passeggiate aleatorie e pseudo-casualità}
+\section{Proprietà pseudo-casuali degli expander}
 
 In questa sezione ci occupiamo di alcune delle proprietà pseudo-casuali degli
 expander, le quali ci convincono della bontà della scelta di $\lambda(G)$ come
@@ -217,8 +217,8 @@ Ci si chiede se utilizzare ogni volta nuovi bit casuali per ognuna delle $k$
 esecuzioni sia davvero necessario e se non sia invece possibile dare in pasto
 all'algoritmo probabilistico $k$ stringhe di bit \emph{pseudo-casuali}, cioè
 correlate, ma sostanzialmente indistinguibili da stringhe casuali agli occhi
-dell'algoritmo\footnote{Citando Avi Wigderson, \emph{Randomness is in the eye of
-the beholder}.}.
+dell'algoritmo\footnote{Come insegna Avi Wigderson, \emph{Randomness is in the
+eye of the beholder}.}.
 
 Un modo per produrre stringhe pseudo-casuali è il seguente. Per qualche coppia
 di costanti $d$ e $\lambda$, costruiamo un $(d, \lambda)$-expander i cui nodi
@@ -235,10 +235,10 @@ $c \log n + k \log d = O(\log n + k)$ bit veramente casuali.
 Ponendo $k = \log n$ si ottiene una probabilità di errore che decade
 polinomialmente in $n$ utilizzando comunque $O(\log n)$ bit casuali, solo un
 multiplo costante del numero di bit casuali per una singola esecuzione!
-Enfatizziamo il fatto che una probabilità di errore che decade polinomialmente
-in $n$ è meglio di una probabilità di errore piccola a piacere ma pur sempre
-costante. Sottolineiamo anche che questo miglioramento si ottiene senza sapere
-nulla del funzionamento interno dell'algoritmo.
+Enfatizziamo che una probabilità di errore che decade polinomialmente in $n$ è
+meglio di una probabilità di errore piccola a piacere, ma pur sempre costante.
+Sottolineiamo inoltre che questo miglioramento si ottiene senza sapere nulla del
+funzionamento interno dell'algoritmo.
 
 L'idea si applica anche alla verifica probabilistica di certificati PCP.
 Vista attraverso la riduzione del Teorema~\ref{thm:max-clique}, la minore
@@ -258,9 +258,9 @@ per \texttt{MAX-CLIQUE}.
 	con parametro di robustezza $1 / 2$ e che, su input
 	$x \in \{0, 1\}^n$, utilizza $c \log n$ bit casuali e legge $q$ bit del
 	certificato.
-	Ripetiamo la verifica $O(\log n)$ volte riciclando la casualità tra le
-	esecuzioni per ottenere un verificatore che usa $c' \log n$ bit casuali,
-	legge $q' \log n$ bit del certificato e sbaglia al più una frazione
+	Ripetiamo la verifica $O(\log n)$ volte riciclando l'aleatorietà tra le
+	esecuzioni per ottenere un verificatore che utilizza $c' \log n$ bit
+	casuali, legge $q' \log n$ bit del certificato e sbaglia al più una frazione
 	$1 / n$ delle volte.
 
 	Poiché il numero di bit casuali e bit del certificato letti
@@ -297,7 +297,7 @@ dimostrazione del Teorema~\ref{thm:pcp}.
 	{2 |F|}$, e $y_v$ la probabilità che un arco incidente a $v$ sia in $F$, cioè
 	$\yy = \frac{2 |F|}{d} \xx$.
 	Scomponiamo $\xx = \xx^\parallel + \xx^\perp$ con
-	$\xx^\parallel := \frac1n \one$. Vale per definizione
+	$\xx^\parallel := \one$. Vale per definizione
 	\[
 		p = \sum_{v \in V}{ y_v (A^i \xx)_v }
 		  = \langle \yy, A^i \xx \rangle.
@@ -380,8 +380,7 @@ in un grafo casuale.
 
 Nella scorsa sezione abbiamo osservato che, se il parametro $\lambda(G)$ di un
 grafo $d$-regolare dista da $1$ di almeno una costante indipendente dalla
-dimensione del grafo, allora questo somiglia per certi aspetti a un grafo
-casuale.
+dimensione del grafo, questo somiglia per certi aspetti a un grafo casuale.
 Per completezza, qui ci occupiamo del viceversa, cioè mostriamo che un grafo
 generato tramite un opportuno processo probabilistico è, con alta probabilità,
 un expander.
@@ -478,7 +477,7 @@ su $V$.
 	necessariamente appartenere all'insieme $S \cup T$.
 	
 	Consideriamo l'$i$-esima iterazione per $1 \le i \le k/2$ e condizioniamo le
-	probabilità supponendo che, nei passi precedenti, siano stati scelti
+	probabilità supponendo che nei passi precedenti siano stati scelti
 	esclusivamente nodi in $S \cup T$.
 	Prima della $i$-esima iterazione sono stati accoppiati esattamente
 	$2(i - 1)$ vertici, tutti appartenenti a $S \cup T$.
@@ -497,10 +496,11 @@ su $V$.
 	condizione valga per ciascuna delle prime $k/2$ iterazioni, da cui,
 	moltiplicando le rispettive probabilità condizionate, otteniamo
 	\[
-		\Pr[\Gamma_M(S) \subseteq S \cup T] \le \prod_{i=1}^{k/2} \frac{\frac{7}{6}k - 2i + 1}{n - 2i + 1}.
+		\Pr[\Gamma_M(S) \subseteq S \cup T] \le
+			\prod_{i=1}^{k/2} \frac{\frac{7}{6}k - 2i + 1}{n - 2i + 1}.
 	\]
 	Maggioriamo questo prodotto considerando i soli termini con
-	$k / 3 \le i < k / 2$. Per $i < k / 3$ il numeratore soddisfa
+	$k / 3 < i \le k / 2$. Per $i > k / 3$ il numeratore soddisfa
 	\[
 		\frac{7}{6}k - 2i + 1 \le \frac{7}{6}k - \frac{2}{3}k = \frac{k}{2}.
 	\]
@@ -546,9 +546,9 @@ su $V$.
 	Sostituendo $d = 25$, la base della potenza diventa $C (k/n)^3$.
 	Notiamo che, per $k = 1$, la proprietà di espansione è banalmente
 	verificata. Sommiamo dunque le probabilità di fallimento per
-	$2 \le k \le n/2$ e maggioriamo con le nostre stime.
+	$2 \le k \le n/2$ e maggioriamo con le stime sopra.
 	Detta $f(k) := [ C (k/n)^3 ]^k$ la funzione che maggiora i singoli
-	addendi, il nostro obiettivo è dimostrare
+	addendi, l'obiettivo è dimostrare
 	\[
 		\sum_{k = 2}^{n / 2} f(k) = O\Bigl(\frac{1}{n^5}\Bigr).
 	\]
