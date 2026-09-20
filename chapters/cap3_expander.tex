@@ -150,11 +150,11 @@ del grafo.
 
 Notiamo che, se $\lambda < 1$, la base $(1 - \lambda) \sqrt{\beta} + \lambda$ è
 essa stessa minore di $1$, dunque la probabilità che i nodi $X_1, \dots, X_k$
-appartengano tutti a $B$ decade esponenzialmente con $k$, così come succede
+appartengano tutti a $B$ decade esponenzialmente in $k$, così come succede
 per $k$ nodi veramente casuali.
 
-\begin{proof}
-	Esprimiamo algebricamente la probabilità alla sinistra dell'uguale.
+\begin{proof}[Dimostrazione del Teorema~\ref{thm:expander-walk}]
+	Esprimiamo algebricamente la probabilità a sinistra della disuguaglianza.
 	Con un abuso di notazione, indichiamo con $B$ la proiezione $\R^n \to \R^n$
 	sulle coordinate in $B \subseteq V$. La probabilità sulla sinistra si
 	scrive allora come $\lvert (B A)^{k - 1} B \one \rvert_1$, dove
@@ -167,7 +167,7 @@ per $k$ nodi veramente casuali.
 			\lvert (B A)^{k - 1} B \one \rvert_1 \\
 		&\le \sqrt{n} \norm{(B A)^{k - 1} B \one} \\
 		&\le \sqrt{n} \norm{(B A)^{k - 1}} \norm{B \one} \\
-		&= \sqrt{n} \norm{(B A)^{k - 1}} \frac{\sqrt{\beta}}{\sqrt{n}} \\
+		&\le \sqrt{n} \norm{(B A)^{k - 1}} \frac{\sqrt{\beta}}{\sqrt{n}} \\
 		&\le \norm{B A}^{k - 1}.
 	\end{align*}
 	L'obiettivo ora è maggiorare la norma matriciale di $B A$ con la quantità
@@ -192,7 +192,7 @@ per $k$ nodi veramente casuali.
 	\end{proof}
 
 	È sufficiente scrivere la matrice $A$ come nella tesi del lemma appena
-	dimostrato, notare $\norm{B J} = \sqrt{\beta}$ e concludere per
+	dimostrato, notare $\norm{B J} \le \sqrt{\beta}$ e concludere per
 	subadditività della norma:
 	\begin{align*}
 		\norm{B A} &= \big\lVert B \bigl( (1 - \lambda) J
@@ -231,7 +231,7 @@ In questo caso l'insieme $B$ nelle ipotesi del Teorema~\ref{thm:expander-walk}
 corrisponde alle $\beta n^c$ stringhe casuali per cui l'algoritmo probabilistico
 sbaglia. In virtù del teorema, la probabilità di errore decade comunque
 esponenzialmente in $k$, ma si utilizzano solamente
-$c \log n + k \log d = O(\log n + k)$ bit veramente casuali.
+$c \log n + (k - 1) \log d = O(\log n + k)$ bit veramente casuali.
 Ponendo $k = \log n$ si ottiene una probabilità di errore che decade
 polinomialmente in $n$ utilizzando comunque $O(\log n)$ bit casuali, solo un
 multiplo costante del numero di bit casuali per una singola esecuzione!
@@ -260,8 +260,8 @@ per \texttt{MAX-CLIQUE}.
 	certificato.
 	Ripetiamo la verifica $O(\log n)$ volte riciclando l'aleatorietà tra le
 	esecuzioni per ottenere un verificatore che utilizza $c' \log n$ bit
-	casuali, legge $q' \log n$ bit del certificato e sbaglia al più una frazione
-	$1 / n$ delle volte.
+	casuali, legge $q' \log n$ bit del certificato e sbaglia strettamente meno
+	di una frazione $1 / n$ delle volte.
 
 	Poiché il numero di bit casuali e bit del certificato letti
 	durante la verifica è ancora logaritmico, è possibile costruire il
@@ -411,8 +411,8 @@ richiede un po' più di lavoro. Rimandiamo per esempio al Capitolo 21 di
 \cite{ABbook}.
 
 Siamo pronti per descrivere un processo casuale che, con alta probabilità,
-produce un expander combinatorio, quindi un expander. Riportiamo la costruzione
-e (grossomodo) la dimostrazione contenute nelle lezioni di Trevisan~\cite{Tre16}.
+produce un expander combinatorio. Riportiamo la costruzione e (grossomodo) la
+dimostrazione contenute nelle lezioni di Trevisan~\cite{Tre16}.
 
 Supponiamo per semplicità $n$ pari e, per $d \in \N$, consideriamo un grafo
 $d$-regolare generato dal seguente processo.
