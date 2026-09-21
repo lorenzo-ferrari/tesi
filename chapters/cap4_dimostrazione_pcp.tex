@@ -7,7 +7,7 @@ Ci concentriamo nello specifico sulla dimostrazione di Dinur \cite{Din06}, in
 cui il ruolo degli expander è cruciale. La nostra è una rielaborazione della
 dimostrazione contenuta nel libro di Arora e Barak \cite{ABbook}.
 
-\section{Struttura di dimostrazione}
+\section{Struttura della dimostrazione}
 
 Mostreremo che, per un opportuno $q_0 \ge 3$, esiste una trasformazione
 efficiente da istanze di $q_0\CSP_2$ ad altre istanze di $q_0\CSP_2$ che
@@ -33,9 +33,8 @@ l'implicazione
 	\val(\varphi) \le 1 - \varepsilon \implies
 	\val(f(\varphi)) \le 1 - \alpha \varepsilon
 \]
-per ogni $\varepsilon < \varepsilon_0$. Notiamo che le classi delle
-CL-trasformazioni e delle CL-trasformazioni che controllano il gap sono entrambe
-chiuse per composizione.
+per ogni $\varepsilon < \varepsilon_0$. Notiamo che sia le CL-trasformazioni
+che le CL-trasformazioni che controllano il gap sono chiuse per composizione.
 
 Siamo pronti per enunciare il lemma a cui dedicheremo il resto del capitolo e
 mostrare perché il Teorema PCP segue.
@@ -79,9 +78,9 @@ di due trasformazioni la cui esistenza è garantita dai seguenti lemmi.
 \end{lemma}
 
 \begin{lemma}[Riduzione dell'alfabeto] \label{thm:alphabet-reduction}
-	Esiste una costante $q_0$ e una CL-trasformazione $h$ da istanze $\varphi$ di
-	$2\CSP$ su un qualunque alfabeto a istanze $\psi = h(\varphi)$ di
-	$q_0 \CSP_2$ che soddisfa
+	Esistono una costante $q_0$ e una CL-trasformazione $h$ da istanze $\varphi$
+	di $2\CSP$ su un qualunque (fissato) alfabeto a istanze $\psi = h(\varphi)$
+	di $q_0 \CSP_2$ che soddisfa
 	\[
 		\val(\varphi) \le 1 - \varepsilon \implies \val(\psi) \le 1 - \varepsilon / 2.
 	\]
@@ -177,7 +176,7 @@ affinché la strategia descritta a inizio capitolo funzioni.
 \begin{definition}[Istanza amplificabile] \label{def:istanza-amplificabile}
 	Diciamo che un'istanza $\varphi$ di $q \CSP_W$ è \emph{amplificabile} se
 	soddisfa le seguenti tre proprietà:
-	\begin{enumerate}[label=(\roman*)]
+	\begin{enumerate}
 		\item l'arietà di $\varphi$ è $2$, cioè $q = 2$;
 		\item il grafo soggiacente $G_\varphi$ è un $(d, \lambda)$-expander per
 			una costante $d$ e $\lambda = 0.9$;
@@ -195,7 +194,7 @@ amplificabili.
 \begin{lemma}[Potenza di un'istanza] \label{thm:powering}
 	Esiste un algoritmo efficiente che, data un'istanza amplificabile $\varphi$ e un
 	intero $t$, produce un'istanza $\varphi^t$ di $2\CSP$ tale che:
-	\begin{enumerate}
+	\begin{enumerate}[label=(\roman*)]
 		\item l'istanza $\varphi^t$ è un'istanza di $2\CSP_{W'}$ con alfabeto
 			di cardinalità $W' \le W^{d^{3 t}}$, dove $d$ è il grado del grafo
 			soggiacente a $\varphi$ e $W$ è la cardinalità dell'alfabeto di $\varphi$;
@@ -218,9 +217,8 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 
 	La formula $\varphi^t$ avrà lo stesso numero di variabili di $\varphi$.
 	I valori delle nuove variabili $\yy = y_1, \ldots, y_n$
-	saranno in un alfabeto di taglia $W' = W^{d^3 t}$ corrispondente all'insieme
-	delle $d^{3 t}$-uple di valori nell'alfabeto originale $[W]$.
-
+	saranno in un alfabeto di taglia $W' = W^{d^{3 t}}$ corrispondente
+	all'insieme delle $d^{3 t}$-uple di valori nell'alfabeto originale $[W]$.
 	Pensiamo al valore di $y_i$ come a un'opinione riguardo ai valori delle
 	variabili originali a distanza al più $t + \sqrt{t} + 1$ da $u_i$ in
 	$G_\varphi$.
@@ -314,7 +312,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 		Per ogni arco $e$ di $G_\varphi$ e indice
 		$j \in \{ t - \delta \sqrt{t}, \ldots, t + \delta \sqrt{t} \}$ vale
 		\[
-			\Pr[\text{il $(j + 1)$-esimo arco sul cammino è consistente} \mid
+			\Pr[\text{il $(j + 1)$-esimo arco è consistente} \mid
 				e \text{ è il $(j + 1)$-esimo arco}] \ge \frac1{2 W^2}.
 		\]
 	\end{lemma}
@@ -348,9 +346,8 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 		Poiché metà degli archi uscenti da ogni nodo di $G_\varphi$ sono cappi,
 		possiamo pensare a una passeggiata aleatoria di $\ell$ passi in $G_\varphi$
 		come a una passeggiata di $S_\ell\sim\B(\ell, \frac12)$ passi in $G_\varphi$
-		privato dei cappi.
-
-		Vale il seguente
+		privato di tali cappi.
+		Vale inoltre il seguente
 		\begin{lemma}
 			Per ogni $t, t' \ge 1$ con $|t - t'| \le \delta \sqrt{t}$, le variabili
 			aleatorie $S_t$ e $S_{t'}$ sono a distanza statistica al più $\delta$.
@@ -380,13 +377,13 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			$\Pr[S_n = m]$ è crescente in $m$ per $m \le M$ e decrescente
 			per $m > M$.
 			Possiamo riscrivere la \eqref{eq:sdist} eliminando i valori assoluti:
-			\[
-				d(S_n, S_{n + 1}) =
+			\begin{align*}
+				d(S_n, S_{n + 1}) &=
 				\frac14 \sum_{m = 0}^{M}
-					\bigl(\Pr[S_n = m] - \Pr[S_n = m - 1]\bigr) +
-				\frac14 \sum_{m = M + 1}^{n + 1}
+					\bigl(\Pr[S_n = m] - \Pr[S_n = m - 1]\bigr) \\
+				&\quad + \frac14 \sum_{m = M + 1}^{n + 1}
 					\bigl(\Pr[S_n = m - 1] - \Pr[S_n = m]\bigr).
-			\]
+			\end{align*}
 			Entrambe le somme si telescopizzano e valgono $\Pr[S_n = M]$, quindi la
 			distanza statistica vale esattamente
 			$d(S_n, S_{n + 1}) = \frac12 \Pr[S_n = M]$.
@@ -437,15 +434,16 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 		\begin{align*}
 			\frac1W &\le \Pr[\text{il $t$-estremo concorda}] \\
 			&= \sum_m {\Pr[S_t = m]\Pr[\text{il vero $m$-estremo concorda}]} \\
-			&= \sum_m {\bigl( \Pr[S_{t + \delta \sqrt{t}} = m] + \Pr[S_t = m]
-			- \Pr[S_{t + \delta \sqrt{t}} = m] \bigr) \Pr[\text{il vero $m$-estremo
-			concorda}]} \\
+			&= \sum_m \Pr[S_{t + \delta \sqrt{t}} = m] \Pr[\text{il vero
+				$m$-estremo concorda}] \\
+			&\quad + \sum_m \bigl(\Pr[S_t = m] - \Pr[S_{t + \delta \sqrt{t}} = m]
+				\bigr) \Pr[\text{il vero $m$-estremo concorda}] \\
 			&\le \sum_m { \Pr[S_{t + \delta \sqrt{t}} = m] \Pr[\text{il vero
 			$m$-estremo concorda}]} + \delta \\
 			&= \Pr[\text{il $(t + \delta \sqrt{t})$-estremo concorda}] + \delta.
 		\end{align*}
 
-		Poiché $\delta \le \frac1{10 W}$, concludiamo con
+		Poiché $\delta \le \frac1{5 W}$, concludiamo con
 		\[
 			\left( \frac1W - \delta \right) 
 			\left( \frac1W - \delta \right) \ge \frac1{2W^2}.
@@ -528,7 +526,7 @@ ciò è sufficiente per dimostrare il Lemma~\ref{thm:gap-amplification}.
 			\]
 			Se $i = 1$, per il Lemma~\ref{thm:Din06Prop2.5} si ha
 			\[
-				\Pr_{\bm{e}}[I_j = 1 \mid I_1 = 1]
+				\Pr[I_j = 1 \mid I_1 = 1]
 				\le \frac{|F|}{|E|} + \lambda^{j - 2},
 			\]
 			poiché la distribuzione del primo vertice $v_1$ condizionata a
@@ -635,8 +633,9 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 	\]
 \end{lemma}
 \begin{proof}
-	Fissiamo una famiglia esplicita $\{G_k\}_{k \in \mathbb{N}}$ di expander
-	$d$-regolari.
+	Per il Teorema~\ref{thm:explicitexpander} esistono una costante $d$ e una
+	famiglia esplicita $\{G_k\}_{k \in \mathbb{N}}$ di $(d, \lambda)$-expander
+	per $\lambda = 0.9$.
 	A ogni variabile $u_i$ di $\varphi$ che appare in esattamente $k$ vincoli
 	corrisponde una nube di $k$ variabili $y_i^1, \dots, y_i^k$ in $\psi$.
 	Le occorrenze di $u_i$ nei vincoli che lo coinvolgono si sostituiscono con
@@ -650,7 +649,6 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 		\caption{Dal grafo soggiacente a $\varphi$ al grafo soggiacente a $\psi$.}
 		\label{fig:d-regular-instance}
 	\end{figure}
-
 
 	Il grafo soggiacente a $\psi$ è per costruzione $(d + 1)$-regolare.
 	Chiaramente, se $\varphi$ è soddisfacibile, anche $\psi$ lo è.
@@ -686,7 +684,8 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 \end{proof}
 
 \begin{lemma}
-	Esistono una costante $d$ arbitrariamente grande e una CL-trasformazione da
+	Esistono una costante $d$ arbitrariamente grande e una
+	CL-tra\-sfor\-ma\-zio\-ne da
 	istanze $\varphi$ di $2\CSP_W$ con grafo soggiacente $d'$-regolare per
 	$d' \le d$ a istanze $\psi$ di $2\CSP_W$ il cui grafo soggiacente è un
 	expander $4d$-regolare e tale che almeno metà degli archi uscenti da ogni
@@ -697,18 +696,19 @@ L'esistenza di queste tre trasformazioni è garantita dai lemmi che seguono.
 	\]
 \end{lemma}
 \begin{proof}
-	Per il Teorema~\ref{thm:explicitexpander} esiste una costante $d$ e
-	una famiglia esplicita di $(0.1, d)$-expander $\{G_n\}_{n \in \mathbb{N}}$.
+	Fissiamo una famiglia esplicita di $(d, 0.1)$-expander
+	$\{G_n\}_{n \in \mathbb{N}}$. Ripetendo ogni arco dei $G_n$ uno stesso
+	numero di volte, la matrice di adiacenza rinormalizzata rimane inalterata,
+	quindi non è un problema supporre $d$ grande a piacere.
 
-	Siano allora $\varphi$ un'istanza di $2\CSP_W$ come da ipotesi e $n$ il
-	numero di variabili. A meno di aggiungere cappi banalmente soddisfatti  al
+	Siano $\varphi$ un'istanza di $2\CSP_W$ come da ipotesi e $n$ il
+	numero di variabili. A meno di aggiungere cappi banalmente soddisfatti al
 	grafo soggiacente a $\varphi$, possiamo supporre questo sia $d$-regolare.
 	Questa operazione riduce il gap al più di un fattore $d$.
 	Per ogni arco in $G_n$ poniamo un vincolo banale tra le corrispondenti
 	variabili di $\varphi$. Infine aggiungiamo a ogni variabile altri $2d$ cappi
 	banali. Il grafo risultante $G_\psi$ è dunque $4d$-regolare e l'aggiunta dei
 	vincoli banali riduce ulteriormente il gap al più di un fattore quattro.
-
 	Ricordiamo che per ogni grafo regolare $H$ vale $\lambda(H) \le 1$.
 	Dalla subadditività del modulo del secondo autovalore segue allora
 	\[
@@ -797,7 +797,7 @@ possibile eseguire la verifica leggendo $O(1)$ bit.
 	\begin{enumerate}
 		\item date $\bm{u_1}, \bm{u_2} \in \{0, 1\}^k$ tali che $\bm{u_1 u_2}$
 			è un input accettato dal circuito, esiste una stringa
-			$\pi_3 \in \{0, 1\}^{\mathrm{poly}(\ell)}$ tale che $V$ accetta
+			$\pi_3 \in \{0, 1\}^{2^{\mathrm{poly}(\ell)}}$ tale che $V$ accetta
 			certamente il certificato $\WH(\bm{u_1}) \WH(\bm{u_2}) \pi_3$;
 		\item per ogni tripla di stringhe binarie $\pi_1, \pi_2, \pi_3$ con
 			$\pi_1, \pi_2 \in \{0, 1\}^{2^k}$, se $V$ accetta $\pi_1 \pi_2 \pi_3$ con
@@ -806,8 +806,8 @@ possibile eseguire la verifica leggendo $O(1)$ bit.
 			$\bm{u_1}, \bm{u_2} \in \{0, 1\}^k$ tali che $\bm{u_1 u_2}$ è
 			un input accettato dal circuito;
 		\item il verificatore $V$ impiega tempo $\mathrm{poly}(\ell)$, usa
-			$\mathrm{poly}(\ell)$ bit random e legge solo $O(1)$ bit del certificato
-			fornito.
+			$\mathrm{poly}(\ell)$ bit casuali e legge solo $O(1)$ bit del
+			certificato fornito.
 	\end{enumerate}
 \end{corollary}
 
@@ -835,7 +835,7 @@ la riduzione dell'alfabeto.
 	\emph{indipendente} da $W$.
 
 	L'istanza finale $\psi$ è data dall'unione dei vincoli
-	$\cup_{s = 1}^{m} \mathcal{C}_s$.
+	$\bigcup_{s = 1}^{m} \mathcal{C}_s$.
 	In virtù del punto 1. del Corollario~\ref{thm:pcpprox}, ogni assegnamento
 	valido per l'istanza originale $\varphi$ si solleva a un assegnamento valido
 	per la nuova istanza $\psi$. Dunque se la prima era soddisfacibile, lo è
@@ -869,9 +869,10 @@ Per concludere, manca solo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 	come nella dimostrazione del Teorema~\ref{thm:exppcp}.
 
 	Dato un circuito $C$ con $2 k$ input e di taglia $\ell$, la corrispondente
-	istanza di \texttt{QUADEQ} avrà come variabili i nodi del circuito e
-	un'equazione a esprimere ogni porta logica, come in
-	Figura~\ref{fig:porte-logiche-quadeq}.
+	istanza di \texttt{QUADEQ} avrà come variabili i nodi del circuito,
+	un'equazione a esprimere ogni porta logica come in
+	Figura~\ref{fig:porte-logiche-quadeq} e un'ultima equazione per imporre la
+	variabile corrispondente al bit di output del circuito uguale a $1$.
 
 	\begin{figure}[htbp]
 		\centering
@@ -879,7 +880,8 @@ Per concludere, manca solo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 		\caption{Porte logiche ed equazioni quadratiche equivalenti su $\F_2$.}
 		\label{fig:porte-logiche-quadeq}
 	\end{figure}
-	Inoltre, poiché le variabili $\ww = (w_1, \dots, w_\ell) \in \{0, 1\}^\ell$
+
+	Poiché le variabili $\ww = (w_1, \dots, w_\ell) \in \{0, 1\}^\ell$
 	dell'istanza corrispondono ai valori assunti dai nodi del circuito, i primi
 	$2 k$ bit di ogni soluzione ammissibile costituiscono un input
 	$\bm{u_1 u_2} \in \{0, 1\}^{2 k}$ accettato dal circuito.
@@ -890,7 +892,7 @@ Per concludere, manca solo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 	Interpretiamo $\pi_1$ e $\pi_2$ come funzioni $\F_2^k \to \F_2$, mentre
 	$\pi_3$ corrisponde esattamente alla dimostrazione prevista dal sistema di
 	verifica del Teorema~\ref{thm:exppcp}.
-	La stringa $\pi_3$ si interpreta dunque come coppia di funzioni
+	La stringa $\pi_3$ codifica dunque una coppia di funzioni
 	$f\colon \F_2^\ell \to \F_2$ e $g\colon \F_2^{\ell^2} \to \F_2$, che nel caso
 	di una dimostrazione valida corrispondono alle codifiche di Walsh-Hadamard
 	$\WH(\ww)$ e $\WH(\ww \otimes \ww)$ per un valido assegnamento $\ww$.
@@ -901,16 +903,18 @@ Per concludere, manca solo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 	$\ww \in \{0, 1\}^\ell$ che rappresenta i valori degli $\ell$ nodi del
 	circuito quando questo ha input $\bm{u_1 u_2}$.
 
-	Il processo di verifica è il seguente.
-	Il verificatore $V$ esegue innanzitutto un test di linearità su $\pi_1$,
-	$\pi_2$, $f$ e $g$. Se superato, con alta probabilità tali funzioni sono
-	$0.99$-vicine a funzioni lineari $\tilde{\pi}_1 = \WH(\bm{u_1})$,
+	Il processo di verifica è il seguente, in buona parte già descritto nel
+	Capitolo~\ref{chap:complessita}.
+	Innanzitutto, il verificatore $V$ esegue su $\pi_1$, $\pi_2$, $f$ e $g$
+	i test descritti nella dimostrazione del Teorema~\ref{thm:exppcp}.
+	Se superati, con alta probabilità tali funzioni sono $0.99$-vicine a
+	funzioni lineari $\tilde{\pi}_1 = \WH(\bm{u_1})$,
 	$\tilde{\pi}_2 = \WH(\bm{u_2})$, $\tilde{f} = \WH(\ww)$ e
-	$\tilde{g} = \WH(\ww \otimes \ww)$.
-	Il verificatore controlla poi che $\pi_3$ codifichi un valido assegnamento
-	per l'istanza di \texttt{QUADEQ} equivalente al circuito, come già visto
-	nella dimostrazione del Teorema~\ref{thm:exppcp}.
-	Se le verifiche sono superate, rimane solo da assicurarsi che i primi $2 k$
+	$\tilde{g} = \WH(\ww \otimes \ww)$, con $\tilde{f}$ e $\tilde{g}$ che
+	codificano un valido assegnamento per l'istanza di \texttt{QUADEQ}
+	equivalente al circuito.
+
+	Rimane solo da assicurarsi che i primi $2 k$
 	bit di $\ww$ coincidano con $\bm{u_1 u_2}$, vale a dire
 	$(w_1, \dots, w_{2 k}) = \bm{u_1 u_2}$.
 	Dal Capitolo~\ref{chap:complessita} sappiamo che per distinguere con
@@ -918,8 +922,9 @@ Per concludere, manca solo la dimostrazione del Corollario~\ref{thm:pcpprox}.
 	scalari con un terzo vettore casuale.
 	Il verificatore sceglie dunque uniformemente a caso due vettori
 	$\bm{r_1}, \bm{r_2} \in \{0, 1\}^k$ e verifica che
-	$f(\bm{r_1 r_2 0}) = \pi_1 (\bm{r_1}) + \pi_2 (\bm{r_2})$, dove con $\bm{0}$
-	indichiamo la stringa di lunghezza $\ell - 2 k$ nulla in tutte le posizioni.
+	$\tilde{f}(\bm{r_1 r_2 0}) = \tilde{\pi}_1 (\bm{r_1})
+	+ \tilde{\pi}_2 (\bm{r_2})$, dove con $\bm{0}$ indichiamo la stringa di
+	lunghezza $\ell - 2 k$ nulla in tutte le posizioni.
 	Le parti sinistra e destra dell'uguale valgono rispettivamente
 	$\langle (w_1, \dots, w_{2 k}), \bm{r_1 r_2} \rangle$ e
 	$\langle \bm{u_1 u_2}, \bm{r_1 r_2} \rangle$, dunque la verifica è quella

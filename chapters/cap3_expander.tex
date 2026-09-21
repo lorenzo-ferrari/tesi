@@ -1,7 +1,7 @@
 \chapter{Grafi expander} \label{chap:expander}
 
 In questo capitolo introduciamo i grafi expander e le loro proprietà
-pseudo-casuali. L'argomento è estremamente vasto, noi ne copriamo poco più di
+pseudocasuali. L'argomento è estremamente vasto, noi ne copriamo poco più di
 quanto basta per il Teorema PCP e per migliorare il risultato di
 inapprossimabilità di \texttt{MAX-CLIQUE}.
 Questo è l'unico capitolo in cui non presentiamo tutte le dimostrazioni dei
@@ -85,8 +85,8 @@ più che del singolo grafo.
 	tali che, per ogni $n$, il grafo $G_n$ sia un $(n, d, \lambda)$-expander.
 \end{definition}
 
-Il seguente teorema garantisce che esistono famiglie di expander computabili
-efficientemente.
+Il seguente teorema garantisce che esistono famiglie \emph{esplicite} di
+expander, cioè famiglie di expander computabili efficientemente.
 
 \begin{theorem} \label{thm:explicitexpander}
 	Per ogni $\lambda \in (0, 1)$ esistono $d \in \N$ e un algoritmo che, su input
@@ -100,11 +100,11 @@ particolarmente rilevante in informatica teorica.
 Nella Sezione~\ref{sec:randomexpansion}, tuttavia, descriveremo e analizzeremo
 un algoritmo probabilistico per produrre expander arbitrariamente grandi.
 
-\section{Proprietà pseudo-casuali degli expander}
+\section{Proprietà pseudocasuali degli expander}
 
-In questa sezione ci occupiamo di alcune delle proprietà pseudo-casuali degli
+In questa sezione ci occupiamo di alcune delle proprietà pseudocasuali degli
 expander, le quali ci convincono della bontà della scelta di $\lambda(G)$ come
-misura del comportamento pseudo-casuale del grafo.
+misura del comportamento pseudocasuale del grafo.
 Il primo tra questi risultati mostra che l'estremo di una passeggiata aleatoria
 su un expander converge molto velocemente alla distribuzione uniforme.
 
@@ -215,12 +215,12 @@ Un tale processo di decisione utilizza $k \cdot c \log n = O(k \log n)$ bit
 casuali e restituisce la risposta sbagliata con probabilità limitata da $1/2^k$.
 Ci si chiede se utilizzare ogni volta nuovi bit casuali per ognuna delle $k$
 esecuzioni sia davvero necessario e se non sia invece possibile dare in pasto
-all'algoritmo probabilistico $k$ stringhe di bit \emph{pseudo-casuali}, cioè
+all'algoritmo probabilistico $k$ stringhe di bit \emph{pseudocasuali}, cioè
 correlate, ma sostanzialmente indistinguibili da stringhe casuali agli occhi
 dell'algoritmo\footnote{Come insegna Avi Wigderson, \emph{Randomness is in the
 eye of the beholder}.}.
 
-Un modo per produrre stringhe pseudo-casuali è il seguente. Per qualche coppia
+Un modo per produrre stringhe pseudocasuali è il seguente. Per qualche coppia
 di costanti $d$ e $\lambda$, costruiamo un $(d, \lambda)$-expander i cui nodi
 sono indicizzati dalle $2^{c \log n} = n^c$ stringhe casuali di $c \log n$ bit.
 La prima stringa $X_1$ è scelta veramente a caso, cioè con distribuzione
@@ -246,9 +246,9 @@ probabilità di errore si traduce in un migliore risultato di inapprossimabilit�
 per \texttt{MAX-CLIQUE}.
 
 \begin{corollary} \label{thm:maxclique-inapprox-nc}
-	Esiste una costante $\alpha > 0$ tale che non esiste una
-	$\frac1{{|V|}^\alpha}$-approssimazione polinomiale di \texttt{MAX-CLIQUE}, a
-	meno che $\P = \NP$.
+	Sia $G = (V, E)$ il grafo in input. Esiste una costante $\alpha > 0$ tale
+	che non esiste una $\frac1{{|V|}^\alpha}$-approssimazione polinomiale di
+	\texttt{MAX-CLIQUE}, a meno che $\P = \NP$.
 \end{corollary}
 
 \begin{proof}
@@ -260,8 +260,8 @@ per \texttt{MAX-CLIQUE}.
 	certificato.
 	Ripetiamo la verifica $O(\log n)$ volte riciclando l'aleatorietà tra le
 	esecuzioni per ottenere un verificatore che utilizza $c' \log n$ bit
-	casuali, legge $q' \log n$ bit del certificato e sbaglia strettamente meno
-	di una frazione $1 / n$ delle volte.
+	casuali, legge $q' \log n$ bit del certificato e sbaglia con probabilità
+	minore di $1 / n$.
 
 	Poiché il numero di bit casuali e bit del certificato letti
 	durante la verifica è ancora logaritmico, è possibile costruire il
@@ -389,7 +389,7 @@ Come sarà evidente nel corso della sezione, le stime saranno molto lasche per
 semplificare al massimo la presentazione.
 
 Prima di percorrere questa strada è conveniente avere in mente una terza
-caratterizzazione di expander. Ancora una volta, una proprietà pseudo-casuale
+caratterizzazione di expander. Ancora una volta, una proprietà pseudocasuale
 che segue dalla definizione algebrica di expander si rivela, in realtà, una
 caratterizzazione equivalente: un expander è un grafo per cui vale una
 conclusione simile a quella del Lemma~\ref{thm:ESbarS}.
@@ -597,6 +597,6 @@ da loro introdotto.
 Si parte da un expander di taglia costante (che, abbiamo dimostrato, esiste) e
 si costruiscono iterativamente grafi sempre più grandi applicando opportuni
 prodotti tra grafi con la proprietà che, se i fattori sono expander abbastanza
-buoni, allora il grafo risultato è un expander abbastanza buono.
+buoni, allora il grafo risultante è un expander abbastanza buono.
 La sfida è mantenere simultaneamente grado costante e parametro $\lambda(G)$
 uniformemente limitato al crescere del numero dei vertici.

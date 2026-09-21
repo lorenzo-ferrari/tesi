@@ -5,9 +5,8 @@ protagoniste di un problema del millennio \cite{Cook06}.
 In seguito descriviamo la verifica probabilistica di dimostrazioni,
 formalizzata tramite le classi $\PCP$.
 Enunciamo infine il Teorema PCP, risultato sorprendente e ormai fondamentale in
-informatica teorica, nonché principe di questa tesi; in questo capitolo
-presentiamo la dimostrazione di una versione più debole, detta
-Teorema PCP esponenziale.
+informatica teorica, nonché principe di questa tesi; qui presentiamo la
+dimostrazione di una versione più debole, detta Teorema PCP esponenziale.
 
 \section{Classi \texorpdfstring{$\P$ ed $\NP$}{P ed NP}}
 
@@ -140,7 +139,7 @@ Chiamiamo questo problema $\mathtt{QUADEQ}$.
 	\begin{align*}
 		u_1 u_2 + u_3 u_4 + u_5^2 &= 1\\
 		u_1 u_3 + u_2 u_5 &= 0 \\
-		u_2 u_4 + u_3 u_5 + u_1 u_5 &= 1 \\
+		u_2 u_4 + u_3 u_5 + u_1 u_5 &= 1
 	\end{align*}
 	Se ogni variabile vale $1$ tutte le equazioni sono soddisfatte,
 	quindi questo sistema è soddisfacibile.
@@ -183,7 +182,7 @@ successo con alta probabilità.
 Formalizziamo innanzitutto il processo di verifica per poterne parlare in modo preciso.
 
 \begin{definition}[Verificatore PCP]
-	Siano $r, b: \N \to \N$ due funzioni. Un \emph{verificatore $(r(n), b(n))$-limitato}
+	Siano $r, b\colon \N \to \N$ due funzioni. Un \emph{verificatore $(r(n), b(n))$-limitato}
 	$V$ per un linguaggio $L \subseteq \{0,1\}^*$ è un algoritmo probabilistico
 	efficiente che ha accesso a un oracolo di dimostrazione $\pi \in \{0, 1\}^*$.
 	Data un'istanza in input $x \in \{0,1\}^n$:
@@ -198,7 +197,7 @@ Formalizziamo innanzitutto il processo di verifica per poterne parlare in modo p
 \end{definition}
 
 \begin{definition}[Classi $\PCP$]
-	Siano $r, b: \N \to \N$ due funzioni. Un linguaggio $L \subseteq \{0,1\}^*$
+	Siano $r, b\colon \N \to \N$ due funzioni. Un linguaggio $L \subseteq \{0,1\}^*$
 	appartiene alla classe $\PCP[r(n), b(n)]$ se esiste un verificatore
 	$(r(n), b(n))$-limitato $V$ tale che, per ogni $x \in \{0,1\}^n$:
 	\begin{itemize}
@@ -340,9 +339,9 @@ che la linearità valga per una coppia di vettori scelti a caso.
 La contronominale del Teorema~\ref{thm:lintest} garantisce che ripetere $O(1)$
 volte il test di linearità è sufficiente per rifiutare con alta probabilità
 qualunque funzione (per esempio) non $0.99$-vicina a una funzione lineare.
-Se infatti $f$ non
-è $0.99$-vicina a una funzione lineare e il test viene ripetuto cento volte,
-questo ha successo con probabilità almeno $1 - 0.99^{100} \approx 63\%$.
+Se infatti $f$ non è $0.99$-vicina a una funzione lineare e il test viene
+ripetuto cento volte, questo rifiuta $f$ con probabilità almeno
+$1 - 0.99^{100} \approx 63\%$.
 
 \begin{proof}[Dimostrazione del Teorema~\ref{thm:lintest}]
 	Richiamiamo qualche nozione di analisi di Fourier discreta su
@@ -513,12 +512,12 @@ $O(1)$ valori di $g$. Ancora una volta sfruttiamo il fatto che, con
 probabilità $\frac12$, si possono distinguere due vettori distinti semplicemente
 confrontandone il prodotto scalare con un terzo vettore scelto a caso.
 Per linearità, il test si può effettuare leggendo un solo valore di $g$.
-Nello specifico, sia $\ss \in \F_2^m$ uniformemente random e $S \subseteq [m]$
+Nello specifico, sia $\ss \in \F_2^m$ uniformemente casuale e $S \subseteq [m]$
 il sottoinsieme dei $k$ per cui la $k$-esima coordinata di $\ss$ è $1$.
 Possiamo calcolare $\langle A(\uu \otimes \uu), \ss \rangle$ come un singolo
 valore di $g$ dato da
 \[
-	\sum_{k \in S} g(\zz^{(k)}) = g\Bigr(\sum_{k \in S} \zz^{(k)}\Bigl).
+	\sum_{k \in S} g(\zz^{(k)}) = g\Bigl(\sum_{k \in S} \zz^{(k)}\Bigr).
 \]
 Confrontiamo questo valore con $\langle \bb, \ss \rangle$: se $\uu$ non risolve
 il sistema in input, il certificato è rifiutato con probabilità almeno
