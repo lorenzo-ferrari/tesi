@@ -32,6 +32,13 @@ heightrounded,
 \usepackage{amsthm}
 \usepackage{thmtools}
 \usepackage{thm-restate}
+\makeatletter
+\@ifundefined{newcounteralias}{}{%
+  \renewcommand\thmt@autorefsetup{%
+    \@xa\def\csname\thmt@envname autorefname\@xa\endcsname\@xa{\thmt@thmname}%
+  }%
+}
+\makeatother
 \usepackage{mathtools}
 
 \counterwithin{figure}{section}
